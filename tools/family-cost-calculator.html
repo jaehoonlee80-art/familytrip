@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>가족여행 경비 계산기 — 항공·숙소·식비·활동비 총예산 자동 계산</title>
+<meta name="description" content="제주·오키나와·도쿄 가족여행 경비를 항공/숙소/식비/교통/활동비로 나눠 계산하는 무료 도구. 인원과 일수만 입력하면 총예산과 1인당 비용이 바로 나옵니다.">
+<link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/tools/family-cost-calculator.html">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
+a{color:#2563eb;text-decoration:none}
+header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+header .logo{font-weight:800;font-size:20px;color:#0f766e}
+nav a{margin-left:18px;font-size:14px;color:#555}
+main{max-width:760px;margin:0 auto;padding:40px 20px}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
+h1{font-size:32px;line-height:1.3;margin-bottom:16px}
+h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
+h3{font-size:17px;margin:24px 0 8px}
+p{margin-bottom:14px}
+ul,ol{margin:0 0 14px 22px}
+img{max-width:100%;border-radius:10px}
+.meta{color:#888;font-size:13px;margin-bottom:24px}
+.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
+.cta h3{color:#fff;margin-top:0}
+.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
+.ad-slot{border:1px dashed #d1d5db;border-radius:10px;padding:40px;text-align:center;color:#9ca3af;margin:32px 0;font-size:13px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+.card .body{padding:14px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{font-size:13px;color:#777;margin:0}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
+.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
+.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
+.live-meta{font-size:13px;color:#777;margin-bottom:20px}
+.live-meta li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/familytrip/">온 가족 여행 연구소</a>
+  <nav>
+    <a href="/familytrip/guides.html">여행 가이드</a>
+    <a href="/familytrip/itineraries.html">코스별 일정</a>
+    <a href="/familytrip/checklists.html">준비물</a>
+    <a href="/familytrip/live.html">실시간 카메라</a>
+    <a href="/familytrip/tools.html">여행 도구</a>
+  </nav>
+</header>
+<main><div class="meta">여행 도구 · 2026-11-20</div><h1>가족여행 경비 계산기 — 항공·숙소·식비·활동비 총예산 자동 계산</h1><h1>가족여행 경비 계산기</h1>
+<p>인원과 일수, 여행지를 입력하면 <strong>항공·숙소·식비·교통·활동비</strong>를 자동으로 나눠 총예산을 계산합니다. 아래 숫자를 바꾸면 결과가 바로 업데이트됩니다.</p>
+<div class="calc-box">
+<div class="calc-grid">
+<label>여행지
+<select id="cDest">
+<option value="jeju">제주도 (국내)</option>
+<option value="okinawa">오키나와 (나하)</option>
+<option value="fukuoka">후쿠오카</option>
+<option value="tokyo">도쿄</option>
+<option value="osaka">오사카</option>
+<option value="custom">직접 입력</option>
+</select></label>
+<label>여행 일수 <input type="number" id="cDays" value="3" min="1" max="30"></label>
+<label>성인 <input type="number" id="cAdults" value="2" min="1" max="10"></label>
+<label>어린이 <input type="number" id="cKids" value="1" min="0" max="10"></label>
+</div>
+<div class="calc-grid">
+<label>항공권 총액 (왕복, 전체 인원) <input type="number" id="cFlight" value="600000"></label>
+<label>호텔 1박 요금 <input type="number" id="cHotel" value="150000"></label>
+<label>식비/일/가족 <input type="number" id="cFood" value="80000"></label>
+<label>교통·입장료/일/가족 <input type="number" id="cAct" value="50000"></label>
+<label>렌터카/일 (선택, 0이면 미포함) <input type="number" id="cCar" value="0"></label>
+<label>쇼핑·예비비 비율 % <input type="number" id="cBuffer" value="10" min="0" max="50"></label>
+</div>
+<button onclick="calcBudget()" style="background:#0f766e;color:#fff;border:0;padding:12px 28px;border-radius:8px;font-weight:700;cursor:pointer;font-size:15px">예산 계산하기</button>
+<div id="cResult" style="margin-top:20px"></div>
+</div>
+
+<h2>결과 보는 법</h2>
+<ul>
+<li><strong>총예산</strong>: 항공 + 숙소(일수-1박 기준) + 식비 + 활동비 + 렌터카 + 예비비</li>
+<li><strong>1인당 비용</strong>: 가족 총액 ÷ (성인 + 어린이 0.7명 환산)</li>
+<li>지역별 기본값은 일반적인 가족여행 시세 기준이며, 실제 가격은 항공 특가·성수기·숙소 등급에 따라 크게 달라집니다</li>
+</ul>
+<h2>예산 줄이는 팁</h2>
+<ol>
+<li><strong>항공</strong>: 화~목 출발, 2~3개월 전 예약이 유리합니다</li>
+<li><strong>숙소</strong>: 에어비앤비/펜션은 4인 이상 가족에게 호텔보다 30~50% 저렴한 경우가 많습니다</li>
+<li><strong>식비</strong>: 조식 포함 숙소 + 점심 현지식 + 저녁 배달/간단식 조합이 효율적입니다</li>
+<li><strong>활동</strong>: 미리 온라인 예매(클룩·비아토어)하면 현장가 대비 10~20% 절약됩니다</li>
+</ol>
+<div class="cta"><h3>실제 가격 비교하기</h3>
+<div class="cta-grid">
+<a href="https://www.booking.com/index.html?aid=">호텔 최저가 비교</a>
+<a href="https://www.klook.com/">클룩 투어/티켓</a>
+<a href="https://www.airalo.com/">eSIM 미리 구매</a>
+</div></div>
+
+<script>
+const PRESET={
+ jeju:{flight:600000,hotel:150000,food:80000,act:50000,car:0},
+ okinawa:{flight:900000,hotel:180000,food:90000,act:60000,car:0},
+ fukuoka:{flight:350000,hotel:120000,food:70000,act:40000,car:0},
+ tokyo:{flight:500000,hotel:160000,food:100000,act:60000,car:0},
+ osaka:{flight:450000,hotel:140000,food:90000,act:50000,car:0},
+ custom:{flight:600000,hotel:150000,food:80000,act:50000,car:0}
+};
+document.getElementById('cDest').addEventListener('change',function(){
+ const p=PRESET[this.value];if(!p)return;
+ cFlight.value=p.flight;cHotel.value=p.hotel;cFood.value=p.food;cAct.value=p.act;cCar.value=p.car;
+ calcBudget();
+});
+function calcBudget(){
+ const days=+cDays.value||1,ad=+cAdults.value||1,kids=+cKids.value||0;
+ const flight=+cFlight.value||0,hotel=+cHotel.value||0,food=+cFood.value||0,
+       act=+cAct.value||0,car=+cCar.value||0,buf=(+cBuffer.value||0)/100;
+ const nights=Math.max(0,days-1);
+ const base=flight+hotel*nights+food*days+act*days+car*days;
+ const total=Math.round(base*(1+buf));
+ const per=Math.round(total/(ad+kids*0.7));
+ const dest=document.getElementById('cDest');
+ document.getElementById('cResult').innerHTML=
+  '<div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:20px">'+
+  '<div style="font-size:14px;color:#0f766e;font-weight:700">'+dest.options[dest.selectedIndex].text+' · '+days+'일 · 성인'+ad+'·아동'+kids+'</div>'+
+  '<div style="font-size:34px;font-weight:800;color:#0f766e;margin:8px 0">₩'+total.toLocaleString()+'</div>'+
+  '<div style="font-size:14px;color:#555">1인당 약 ₩'+per.toLocaleString()+' (아동 0.7인 환산)</div>'+
+  '<table style="width:100%;font-size:13px;margin-top:14px;border-collapse:collapse">'+
+  '<tr><td style="padding:4px 0;color:#666">항공권</td><td style="text-align:right">₩'+flight.toLocaleString()+'</td></tr>'+
+  '<tr><td style="padding:4px 0;color:#666">숙소 '+nights+'박</td><td style="text-align:right">₩'+(hotel*nights).toLocaleString()+'</td></tr>'+
+  '<tr><td style="padding:4px 0;color:#666">식비 '+days+'일</td><td style="text-align:right">₩'+(food*days).toLocaleString()+'</td></tr>'+
+  '<tr><td style="padding:4px 0;color:#666">교통·입장료</td><td style="text-align:right">₩'+(act*days).toLocaleString()+'</td></tr>'+
+  (car?'<tr><td style="padding:4px 0;color:#666">렌터카</td><td style="text-align:right">₩'+(car*days).toLocaleString()+'</td></tr>':'')+
+  '<tr><td style="padding:4px 0;color:#666">예비비 '+(+cBuffer.value)+'%</td><td style="text-align:right">₩'+Math.round(base*buf).toLocaleString()+'</td></tr>'+
+  '</table></div>';
+}
+calcBudget();
+</script></main>
+<footer>
+  온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
+  이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.
+</footer>
+</body>
+</html>
