@@ -1,0 +1,26 @@
+# 온 가족 여행 연구소 (Family Trip Lab)
+
+> 가족과 함께하는 여행 정보 사이트. 가족여행 가이드, 코스별 일정, 준비물 체크리스트, 일본·제주 실시간 라이브 카메라를 제공합니다.
+
+## 사이트 정보
+- 언어: 한국어 (ko)
+- 주제: 가족여행, 일본여행, 제주도여행, 실시간 카메라/날씨
+- 수익 모델: 제휴 링크(호텔·투어·eSIM·렌터카·보험) — 예약 시 수수료 발생 가능
+
+## 주요 페이지
+- 홈: https://jaehoonlee80-art.github.io/familytrip/
+- 여행 가이드: https://jaehoonlee80-art.github.io/familytrip/guides.html
+- 코스별 일정: https://jaehoonlee80-art.github.io/familytrip/itineraries.html
+- 준비물: https://jaehoonlee80-art.github.io/familytrip/checklists.html
+- 실시간 카메라: https://jaehoonlee80-art.github.io/familytrip/live.html
+
+## 실시간 카메라
+- 오키나와 라이브 카메라: https://jaehoonlee80-art.github.io/familytrip/live/okinawa-live.html
+  - 美ら海水族館 黒潮の海大水槽, 琉球新報 국제통, QAB 나하공항 등 공식 YouTube 라이브 임베드
+- 제주도 실시간 CCTV: https://jaehoonlee80-art.github.io/familytrip/live/jeju-cctv.html
+  - 제주공항·성산일출봉·중문해수욕장·서귀포항 등 지자체 공공 CCTV 40여 곳 링크 + 펀제주 YouTube 라이브 임베드
+  - 영상 제공: 제주특별자치도·제주시·서귀포시 재난안전대책본부, 한국공항공사 (펀제주 무료 공개 중계)
+
+## 참고
+- 카메라 영상의 저작권은 각 운영 기관(수족관·방송사·지자체·공항공사)에 있습니다.
+- 라이브 방송은 운영사 사정으로 일시 중단될 수 있습니다.
