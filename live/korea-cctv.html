@@ -61,63 +61,32 @@ img{max-width:100%;border-radius:10px}
 <h3><a href="/familytrip/live/jeju-cctv.html">제주도 공공 CCTV 월 — 40개 카메라</a></h3>
 <p>이 사이트에서 유일하게 <strong>페이지 안에서 바로 재생·자동 갱신</strong>되는 화면입니다. 제주공항·성산일출봉·중문해수욕장·한라산 등 40개 카메라가 지역별로 정리되어 있고, 화면을 누르면 실시간 영상으로 이어집니다.</p>
 <h2>교통 CCTV — 도로 실시간 영상</h2>
-<p>도로 위 상황을 직접 눈으로 확인할 수 있는 공식 교통정보센터입니다. 사고·정체·기상 악화 시 실시간 영상이 가장 먼저 갱신되는 소스입니다.</p>
-<table>
-<thead>
-<tr>
-<th>센터</th>
-<th>범위</th>
-<th>특징</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://www.its.go.kr">국가교통정보센터</a></td>
-<td>고속도로·국도 전국</td>
-<td>국토교통부 운영. 전국 고속도로 CCTV 화상자료 제공</td>
-</tr>
-<tr>
-<td><a href="https://www.utic.go.kr">UTIC 도시교통정보센터</a></td>
-<td>전국 도시 도로</td>
-<td>경찰청·한국도로교통공단. 여러 지자체 카메라 통합 지도</td>
-</tr>
-<tr>
-<td><a href="https://topis.seoul.go.kr">서울 TOPIS</a></td>
-<td>서울 시내 도로</td>
-<td>서울시 교통정보시스템. 시내 CCTV·소통정보</td>
-</tr>
-<tr>
-<td><a href="https://gits.gg.go.kr">경기도교통정보센터</a></td>
-<td>경기도 도로</td>
-<td>도로·교통 CCTV 실시간</td>
-</tr>
-<tr>
-<td><a href="https://www.fitic.go.kr">인천교통정보센터</a></td>
-<td>인천 도로</td>
-<td>시내 주요 교차로 CCTV 영상</td>
-</tr>
-<tr>
-<td><a href="https://www.bisco.or.kr">부산교통정보센터</a></td>
-<td>부산 도로</td>
-<td>부산광역시 교통정보서비스</td>
-</tr>
-<tr>
-<td><a href="https://car.daegu.go.kr">대구교통종합정보</a></td>
-<td>대구 도로</td>
-<td>구별 CCTV 목록·팝업 재생, 소통정보 지도</td>
-</tr>
-<tr>
-<td><a href="https://its.ulsan.kr">울산교통관리센터</a></td>
-<td>울산 도로</td>
-<td>실시간 CCTV 동영상·돌발정보</td>
-</tr>
-<tr>
-<td><a href="https://daejeon.go.kr/drh/DrhContentsHtmlView.do?menuSeq=1497">대전 교통정보</a></td>
-<td>대전 도로</td>
-<td>대전교통정보센터 바로가기 페이지</td>
-</tr>
-</tbody>
-</table>
+<p>도로 위 상황을 직접 눈으로 확인할 수 있는 공식 교통정보센터입니다. 각 센터의 CCTV 화면을 <strong>이 페이지 안에 그대로 임베드</strong>했습니다 — 팝업 없이 스크롤만 하면 바로 보입니다. (일부 센터는 보안 정책상 외부 임베드를 막아 링크로만 제공됩니다.)</p>
+<h3>서울 TOPIS — 서울 시내 도로</h3>
+<div class="portal-frame" data-src="https://topis.seoul.go.kr/map/openCctvMap.do"></div>
+
+<h3>UTIC 도시교통정보센터 — 전국 도시 도로</h3>
+<div class="portal-frame" data-src="https://www.utic.go.kr/map/map.do?menu=cctv"></div>
+
+<h3>경기도교통정보센터 — 경기도 도로 (대표: 인천공항영업소 실시간 영상)</h3>
+<div class="portal-frame" data-src="https://gits.gg.go.kr/web/popup/webCctvPopup.do?cctvId=5026"></div>
+<p style="font-size:13px;color:#777">※ 위는 센터의 영상 재생 화면을 그대로 임베드한 것입니다. 다른 지점은 <a href="https://gits.gg.go.kr" target="_blank" rel="noopener">경기도교통정보센터</a>에서 선택하세요.</p>
+
+<h3>인천교통정보센터 — 인천 도로</h3>
+<div class="portal-frame" data-src="https://www.fitic.go.kr/gis/gisPage.do?preParam=cctv"></div>
+
+<h3>대구교통종합정보 — 대구 도로</h3>
+<div class="portal-frame" data-src="https://car.daegu.go.kr/"></div>
+
+<h3>울산교통관리센터 — 울산 도로</h3>
+<div class="portal-frame" data-src="https://its.ulsan.kr/traffic/cctv.do"></div>
+
+<h3>대전교통정보센터 — 대전 도로</h3>
+<div class="portal-frame" data-src="https://traffic.daejeon.go.kr/"></div>
+
+<h3>국가교통정보센터·부산교통정보센터</h3>
+<p>이 두 센터는 외부 사이트 임베드를 보안상 차단합니다. 새 창으로 공식 사이트에서 확인하세요: <a href="https://www.its.go.kr/map/cctv" target="_blank" rel="noopener">국가교통정보센터 CCTV</a> (전국 고속도로·국도), <a href="https://www.bisco.or.kr" target="_blank" rel="noopener">부산교통정보센터</a>.</p>
+
 <p><strong>활용 팁:</strong> 출발 전 목적지 방향 고속도로 CCTV를 확인하면 우회 여부를 10분 안에 판단할 수 있습니다. 도심 이동은 각 시도 교통정보센터의 소통정보(색상 지도)와 CCTV를 함께 보면 정확도가 올라갑니다.</p>
 <h2>재난·기상 CCTV — 안전 감시 영상</h2>
 <p>태풍·호우·폭설·산불 시기에 현장 상황을 보여주는 재난 감시 카메라입니다.</p>
@@ -310,6 +279,12 @@ fetch('port-cams.json').then(r=>r.json()).then(cams=>{
  document.querySelectorAll('.port-img').forEach(i=>io.observe(i));
  setInterval(()=>{seen.forEach(id=>{const im=document.querySelector('.port-img[data-id="'+id+'"]');if(im)im.src='cams/'+id+'.jpg?t='+Date.now();});},60000);
 }).catch(()=>{pw.innerHTML='<p style="color:#999">항만 카메라 목록을 불러오지 못했습니다.</p>';});
+</script>
+<style>.portal-frame{width:100%;height:480px;border:1px solid #ddd;border-radius:10px;background:#f3f4f6;margin:8px 0 20px}.portal-frame iframe{width:100%;height:100%;border:0;border-radius:10px}</style>
+<script>
+// 포털 iframe lazy-load (무거운 지도 앱이 한꺼번에 안 열리게)
+const pio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const d=e.target,s=d.dataset.src;if(!d.querySelector('iframe')){const f=document.createElement('iframe');f.src=s;f.loading='lazy';f.setAttribute('allow','autoplay');d.appendChild(f);}pio.unobserve(d);}});},{rootMargin:'200px'});
+document.querySelectorAll('.portal-frame').forEach(d=>pio.observe(d));
 </script></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
