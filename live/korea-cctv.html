@@ -174,6 +174,43 @@ img{max-width:100%;border-radius:10px}
 <li><strong>태안해안</strong>: 학암포</li>
 </ul>
 <p><strong>활용 팁:</strong> 등산 전날 밤과 당일 새벽 두 번 확인하면 구름·안개·강설 여부를 비교할 수 있습니다. 영상은 3~5분 간격 갱신 방식입니다.</p>
+<h2>항만·공항·철도 시설 CCTV</h2>
+<h3>인천항 진입도로·컨테이너터미널 — 13개 지점 자동 갱신</h3>
+<p>인천항만공사가 공개하는 진입도로·터미널 CCTV입니다. 5분마다 프레임이 갱신됩니다. 원본: <a href="https://scon.icpa.or.kr/mobile/cctv/list.do?searchEtc1=cctv">인천항만공사 스마트CCTV</a></p>
+<div class="live-grid" id="wall-port"></div>
+
+<h3>공항·항만·철도 — 공식 현황</h3>
+<table>
+<thead>
+<tr>
+<th>시설</th>
+<th>CCTV 상황</th>
+<th>확인 방법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>인천공항·김포공항 활주로</td>
+<td>공항 내부 CCTV 비공개. 주변 도로는 교통정보센터</td>
+<td><a href="https://gits.gg.go.kr">인천공항고속도로·공항영업소 CCTV</a> (경기도 ITS), <a href="https://its.gimpo.go.kr/cctv.view">김포시 교통정보센터</a></td>
+</tr>
+<tr>
+<td>인천항만공사</td>
+<td>진입도로 13개 지점 공개 (위 스냅샷)</td>
+<td>위 실시간 화면</td>
+</tr>
+<tr>
+<td>부산항·여수항·울산항·목포항 등</td>
+<td>국립해양조사원 해무 CCTV가 방송사에 제공 중. 일반 공개는 스틸컷 API(무료 키 필요)</td>
+<td><a href="https://www.data.go.kr/data/15142499/openapi.do">공공데이터포털 해무 CCTV API</a>, <a href="https://sea.eumplus.kr/cctv">물때와 바다날씨 항구 영상 모음</a></td>
+</tr>
+<tr>
+<td>철도 역·차량</td>
+<td>코레일 시설 CCTV는 비공개</td>
+<td>역 주변 도로는 각 시도 교통정보센터에서 확인</td>
+</tr>
+</tbody>
+</table>
 <h2>기타 공개 영상 소스</h2>
 <table>
 <thead>
@@ -262,6 +299,17 @@ fetch('kbs-cams.json').then(r=>r.json()).then(cams=>{
   }).catch(()=>{off.style.display='flex';off.textContent='로드 실패';});
  }
 }).catch(()=>{wall.innerHTML='<p style="color:#999">카메라 목록을 불러오지 못했습니다. <a href="https://d.kbs.co.kr">KBS 재난포털</a>에서 확인하세요.</p>';});
+</script>
+<script>
+// 인천항 스냅샷 그리드
+const pw=document.getElementById('wall-port');
+fetch('port-cams.json').then(r=>r.json()).then(cams=>{
+ pw.innerHTML=cams.map(c=>'<div class="card" style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="port-img" data-id="'+c.id+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div></div>').join('');
+ const seen=new Set();
+ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){seen.add(e.target.dataset.id);e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io.unobserve(e.target);}});},{rootMargin:'200px'});
+ document.querySelectorAll('.port-img').forEach(i=>io.observe(i));
+ setInterval(()=>{seen.forEach(id=>{const im=document.querySelector('.port-img[data-id="'+id+'"]');if(im)im.src='cams/'+id+'.jpg?t='+Date.now();});},60000);
+}).catch(()=>{pw.innerHTML='<p style="color:#999">항만 카메라 목록을 불러오지 못했습니다.</p>';});
 </script></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>

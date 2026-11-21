@@ -1,0 +1,15 @@
+[
+ {"id": "icpa9",  "name": "인천항 사거리", "stream": "camera9",  "host": "210.204.12.176"},
+ {"id": "icpa5",  "name": "서해사거리 축항대로", "stream": "camera5",  "host": "210.204.12.176"},
+ {"id": "icpa6",  "name": "서해사거리 E1 방향", "stream": "camera6",  "host": "210.204.12.176"},
+ {"id": "icpa7",  "name": "E1사거리 롯데아울렛 방향", "stream": "camera7",  "host": "210.204.12.176"},
+ {"id": "icpa8",  "name": "E1사거리 E1 터미널 방향", "stream": "camera8",  "host": "210.204.12.176"},
+ {"id": "icpa10", "name": "ICT 게이트 (인천컨테이너터미널)", "stream": "camera10", "host": "210.204.12.176"},
+ {"id": "icpa12", "name": "ICT 입구 (인천컨테이너터미널)", "stream": "camera12", "host": "210.204.12.176"},
+ {"id": "icpa13", "name": "ICT 입구 삼거리", "stream": "camera13", "host": "210.204.12.176"},
+ {"id": "icpa4",  "name": "축항대로 CJ대한통운 방향", "stream": "camera4", "host": "210.204.12.176"},
+ {"id": "icpa3",  "name": "축항대로 서해사거리 방향", "stream": "camera3",  "host": "210.204.12.176"},
+ {"id": "icpa14", "name": "국제여객부두", "stream": "camera14", "host": "210.204.12.176"},
+ {"id": "icpa11", "name": "HJIT 진입 (한진인천컨테이너터미널)", "stream": "camera11", "host": "210.204.12.176"},
+ {"id": "icpa2",  "name": "SNCT 진입 (선광신컨테이너터미널)", "stream": "camera2",  "host": "210.204.12.176"}
+]
