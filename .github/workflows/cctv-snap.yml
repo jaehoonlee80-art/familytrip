@@ -21,11 +21,13 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Capture CCTV frames
         run: python3 .github/scripts/cctv_snap.py
+      - name: Refresh KBS cam tokens
+        run: python3 .github/scripts/kbs_cams.py
       - name: Commit updated snapshots
         run: |
           git config user.name "cctv-snap[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add live/cams
+          git add live/cams live/kbs-cams.json
           if git diff --cached --quiet; then
             echo "no changes"
           else

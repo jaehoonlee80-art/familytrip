@@ -148,6 +148,11 @@ img{max-width:100%;border-radius:10px}
 </tbody>
 </table>
 <p><strong>활용 팁:</strong> 태풍 접근 시 KBS 재난포털과 지자체 CCTV를 교차 확인하면 파도·침수·산사태 위험을 현장 영상으로 직접 판단할 수 있습니다. 재난문자·기상특보와 함께 보면 의사결정이 빠릅니다.</p>
+<h2>KBS 재난포털 현장 CCTV — 페이지에서 바로 재생</h2>
+<p>전국 약 45개 재난 감시 지점의 <strong>실시간 영상</strong>을 아래에서 바로 볼 수 있습니다. 카드가 화면에 들어오면 자동으로 재생되며(음소거), 탭하면 소리와 함께 재생됩니다. 송출은 KBS 재난포털 공식 스트림을 프록시로 중계합니다.</p>
+<div class="live-grid" id="kbs-wall"></div>
+<p style="color:#888;font-size:13px">※ 카메라별 송출 상태는 방송사 사정에 따라 달라질 수 있습니다. 재생이 안 되면 <a href="https://d.kbs.co.kr" target="_blank" rel="noopener">KBS 재난포털 원본</a>에서 확인하세요.</p>
+
 <h2>국립공원 실시간 영상 — 산행 전 필수 확인</h2>
 <p><a href="https://www.knps.or.kr">국립공원공단 실시간영상</a>에서는 전국 22개 국립공원 주요 지점 약 18개 카메라의 영상을 무료로 제공합니다. 산불 감시·탐방객 안전 목적이며, 기상 악화 시 송출이 중단될 수 있습니다.</p>
 <ul>
@@ -231,6 +236,32 @@ img{max-width:100%;border-radius:10px}
     {"@type": "ListItem", "position": 6, "name": "국립공원 실시간영상", "url": "https://www.knps.or.kr"}
   ]
 }
+</script>
+
+<style>.live-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:12px 0 24px}.kbs-card{position:relative;background:#000;border-radius:10px;overflow:hidden}.kbs-card .ph{position:relative;padding-top:56.25%;cursor:pointer}.kbs-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.kbs-card .lbl{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px}.kbs-card .off{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:13px;text-align:center;padding:10px}</style>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js"></script>
+<script>
+const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev/?url=';
+const wall=document.getElementById('kbs-wall');
+fetch('kbs-cams.json').then(r=>r.json()).then(cams=>{
+ wall.innerHTML=cams.map(c=>'<div class="kbs-card" data-api="'+c.api+'"><div class="ph"><video muted playsinline autoplay></video><div class="off">재생 실패 — 원본 링크</div><span class="lbl">'+c.name+' · '+c.region+'</span></div></div>').join('');
+ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){start(e.target);io.unobserve(e.target);}})},{rootMargin:'200px'});
+ document.querySelectorAll('.kbs-card').forEach(d=>io.observe(d));
+ function start(card){
+  const v=card.querySelector('video'),off=card.querySelector('.off');
+  card.querySelector('.ph').addEventListener('click',()=>{v.muted=!v.muted;});
+  fetch(PROXY+encodeURIComponent(card.dataset.api)).then(r=>r.text()).then(pl=>{
+   const url=(pl||'').trim();
+   if(!url||!url.includes('.m3u8')){off.style.display='flex';off.innerHTML='스트림 없음 — <a href="https://d.kbs.co.kr" style="color:#8fd3ff">원본</a>';return;}
+   const src=PROXY+encodeURIComponent(url);
+   if(v.canPlayType('application/vnd.apple.mpegurl')){v.src=src;}
+   else if(window.Hls&&Hls.isSupported()){
+    const h=new Hls({maxBufferLength:8});h.loadSource(src);h.attachMedia(v);
+    h.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal){off.style.display='flex';off.textContent='재생 실패 — 원본 링크 이용';}});
+   }else{off.style.display='flex';off.textContent='이 브라우저는 HLS 미지원';}
+  }).catch(()=>{off.style.display='flex';off.textContent='로드 실패';});
+ }
+}).catch(()=>{wall.innerHTML='<p style="color:#999">카메라 목록을 불러오지 못했습니다. <a href="https://d.kbs.co.kr">KBS 재난포털</a>에서 확인하세요.</p>';});
 </script></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
