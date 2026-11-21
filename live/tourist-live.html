@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>실시간 관광명소 CCTV — 전국 명소 100곳 라이브 화면</title>
+<meta name="description" content="광화문광장·경복궁·해운대·성산일출봉 등 전국 관광명소 100곳의 가장 가까운 공공 CCTV 실시간 영상을 이 페이지에서 바로 재생합니다.">
+<link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/tourist-live.html">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
+a{color:#2563eb;text-decoration:none}
+header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+header .logo{font-weight:800;font-size:20px;color:#0f766e}
+nav a{margin-left:18px;font-size:14px;color:#555}
+main{max-width:760px;margin:0 auto;padding:40px 20px}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
+h1{font-size:32px;line-height:1.3;margin-bottom:16px}
+h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
+h3{font-size:17px;margin:24px 0 8px}
+p{margin-bottom:14px}
+ul,ol{margin:0 0 14px 22px}
+img{max-width:100%;border-radius:10px}
+.meta{color:#888;font-size:13px;margin-bottom:24px}
+.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
+.cta h3{color:#fff;margin-top:0}
+.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
+.ad-slot{border:1px dashed #d1d5db;border-radius:10px;padding:40px;text-align:center;color:#9ca3af;margin:32px 0;font-size:13px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+.card .body{padding:14px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{font-size:13px;color:#777;margin:0}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
+.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
+.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
+.live-meta{font-size:13px;color:#777;margin-bottom:20px}
+.live-meta li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/familytrip/">온 가족 여행 연구소</a>
+  <nav>
+    <a href="/familytrip/guides.html">여행 가이드</a>
+    <a href="/familytrip/itineraries.html">코스별 일정</a>
+    <a href="/familytrip/checklists.html">준비물</a>
+    <a href="/familytrip/live.html">실시간 카메라</a>
+    <a href="/familytrip/live/korea-cctv.html">전국 CCTV</a>
+    <a href="/familytrip/tools.html">여행 도구</a>
+  </nav>
+</header>
+<main><div class="meta">실시간 카메라 · 2026-11-21</div><h1>실시간 관광명소 CCTV — 전국 명소 100곳 라이브 화면</h1><p>전국 <strong>관광명소 100곳</strong>의 가장 가까운 공공 CCTV 실시간 영상을 이 페이지에서 바로 볼 수 있습니다. 광화문광장, 경복궁, 해운대, 성산일출봉처럼 명소 바로 옆 도로의 공식 카메라를 자동으로 찾아 연결했습니다. 화면이 보일 때 영상이 재생됩니다(음소거, 탭하면 소리).</p>
+<div class="wx" data-lat="37.5665" data-lon="126.9780" data-label="서울"></div>
+<p><input id="tq" type="search" placeholder="명소·지역 검색 (예: 광화문, 경복궁, 해운대, 제주)" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px"></p>
+<div id="spot-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
+<p style="color:#888;font-size:13px">※ 명소 전용 카메라가 없는 곳은 가장 가까운 공공 도로 CCTV를 연결했습니다. 카메라 위치와 명소 사이 거리를 함께 표시합니다.</p>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js"></script>
+<script>
+const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev';
+const CAMS=[];
+function dist(a,b,c,d){const R=6371,dl=(c-a)*Math.PI/180,dn=(d-b)*Math.PI/180,h=Math.sin(dl/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
+function nearest(spot){let best=null,bd=1e9;for(const c of CAMS){const d=dist(spot.lat,spot.lng,c.lat,c.lng);if(d<bd){bd=d;best=c;}}return{cam:best,d:bd};}
+function mediaHtml(spot){
+ const {cam,d}=nearest(spot);
+ if(!cam||d>3.0)return '<div style="position:relative;padding-top:56.25%;background:#1f2937;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:12px;text-align:center;padding:12px">전용 카메라 없음</div>';
+ if(cam.snap)return '<div style="position:relative;padding-top:56.25%;background:#111"><img class="ts-img" data-id="'+cam.snap+'" loading="lazy" alt="'+spot.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>';
+ return '<div style="position:relative;padding-top:56.25%;background:#111"><video muted playsinline autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video><div class="ts-off" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:12px">송출 준비 중…</div></div>';
+}
+function infoHtml(spot){
+ const {cam,d}=nearest(spot);
+ if(!cam||d>3.0)return '<div style="padding:8px 12px;font-size:11px;color:#888">지역 CCTV 페이지에서 확인</div>';
+ return '<div style="padding:8px 12px;font-size:11px;color:#666">📷 '+cam.name+' · '+cam.src+' · '+d.toFixed(1)+'km</div>';
+}
+function srcTag(spot){
+ const {cam,d}=nearest(spot);
+ if(!cam||d>3.0)return '';
+ return '<span style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;padding:2px 7px;border-radius:8px">'+cam.src+' LIVE</span>';
+}
+let cards=[];
+function build(){
+ const w=document.getElementById('spot-wall');
+ let last='',html='';
+ spotsData.forEach(s=>{
+  const region=s.region.split(' ')[0];
+  if(region!==last){html+='<div class="ts-hdr" style="grid-column:1/-1;background:#eef2f7;font-weight:700;padding:8px 10px;border-radius:8px;font-size:14px">'+region+'</div>';last=region;}
+  html+='<div class="ts-card" data-q="'+(s.name+s.region).toLowerCase()+'" style="background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden">'
+   +'<div style="padding:10px 12px 6px"><b style="font-size:14px">'+s.name+'</b><div style="font-size:12px;color:#888">'+s.region+'</div></div>'
+   +'<div style="position:relative">'+srcTag(s)+mediaHtml(s)+'</div>'
+   +infoHtml(s)+'</div>';
+ });
+ w.innerHTML=html;
+ cards=Array.from(w.querySelectorAll('.ts-card'));
+ bind();
+}
+async function startCard(card){
+ const spot=spotsData[cards.indexOf(card)];
+ const {cam,d}=nearest(spot);
+ if(!cam||d>3.0)return;
+ if(cam.snap){
+  const img=card.querySelector('.ts-img');if(!img)return;
+  const load=()=>{img.src='cams/'+cam.snap+'.jpg?t='+Date.now();};
+  load();setInterval(load,300000);return;
+ }
+ const v=card.querySelector('video');if(!v)return;
+ card.querySelector('video').parentElement.addEventListener('click',()=>{v.muted=!v.muted;});
+ try{
+  let url;
+  if(cam.url)url=cam.url;
+  else{const r=await fetch(PROXY+'/gits?hls='+cam.gits);const j=await r.json();if(!j.url)throw 0;url=j.url;}
+  if(v.canPlayType('application/vnd.apple.mpegurl'))v.src=url;
+  else if(window.Hls&&Hls.isSupported()){const h=new Hls({maxBufferLength:6});h.loadSource(url);h.attachMedia(v);h.on(Hls.Events.ERROR,(e,dd)=>{if(dd.fatal)card.querySelector('.ts-off').style.display='flex';});}
+ }catch(e){const o=card.querySelector('.ts-off');if(o)o.style.display='flex';}
+}
+function bind(){
+ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){startCard(e.target);io.unobserve(e.target);}})},{rootMargin:'250px'});
+ cards.forEach(d=>io.observe(d));
+ const io2=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!e.target.dataset.ld){e.target.dataset.ld=1;e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io2.unobserve(e.target);}})},{rootMargin:'200px'});
+ document.querySelectorAll('.ts-img').forEach(i=>io2.observe(i));
+}
+let spotsData=[];
+Promise.all([
+ fetch('seoul-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>CAMS.push({name:c.name,lat:c.lat,lng:c.lng,url:c.url,src:'서울'}))),
+ fetch('ulsan-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>CAMS.push({name:c.area+' '+c.name,lat:c.lat,lng:c.lng,url:c.url,src:'울산'}))),
+ fetch('daegu-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>CAMS.push({name:c.name,lat:c.lat,lng:c.lng,url:c.url,src:'대구'}))),
+ fetch('gits-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>CAMS.push({name:c.name,lat:c.lat,lng:c.lng,gits:c.id,src:'경기'}))),
+ fetch('fitic-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>CAMS.push({name:c.name,lat:c.lat,lng:c.lng,snap:c.id,src:'인천'}))),
+ fetch('tourist-spots.json').then(r=>r.json()).then(a=>{spotsData=a;})
+]).then(build).catch(()=>{document.getElementById('spot-wall').innerHTML='<p style="color:#999">데이터를 불러오지 못했습니다.</p>';});
+document.getElementById('tq').addEventListener('input',e=>{
+ const q=e.target.value.trim().toLowerCase();
+ cards.forEach(s=>{s.style.display=(!q||s.dataset.q.includes(q))?'':'none';});
+ document.querySelectorAll('.ts-hdr').forEach(h=>{h.style.display='';});
+});
+</script>
+<script src="weather.js"></script></main>
+<footer>
+  온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
+  이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.
+</footer>
+</body>
+</html>
