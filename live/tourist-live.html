@@ -62,21 +62,28 @@ img{max-width:100%;border-radius:10px}
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js"></script>
 <script>
 const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev';
-const CAMS=[];
+const CAMS=[];const GIGA=[];
+function gigaNear(spot){let best=null,bd=1e9;for(const c of GIGA){const d=dist(spot.lat,spot.lng,c.lat,c.lng);if(d<bd){bd=d;best=c;}}return bd<=1.5?{cam:best,d:bd}:null;}
 function dist(a,b,c,d){const R=6371,dl=(c-a)*Math.PI/180,dn=(d-b)*Math.PI/180,h=Math.sin(dl/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
 function nearest(spot){let best=null,bd=1e9;for(const c of CAMS){const d=dist(spot.lat,spot.lng,c.lat,c.lng);if(d<bd){bd=d;best=c;}}return{cam:best,d:bd};}
 function mediaHtml(spot){
+ const g=gigaNear(spot);
+ if(g)return '<div class="giga-ph" data-yt="'+g.cam.yt+'" style="position:relative;padding-top:56.25%;background:#111;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:12px">'+g.cam.name+' 전용 카메라 — 화면에 보이면 재생</div>';
  const {cam,d}=nearest(spot);
  if(!cam||d>3.0)return '<div style="position:relative;padding-top:56.25%;background:#1f2937;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:12px;text-align:center;padding:12px">전용 카메라 없음</div>';
  if(cam.snap)return '<div style="position:relative;padding-top:56.25%;background:#111"><img class="ts-img" data-id="'+cam.snap+'" loading="lazy" alt="'+spot.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>';
  return '<div style="position:relative;padding-top:56.25%;background:#111"><video muted playsinline autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video><div class="ts-off" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:12px">송출 준비 중…</div></div>';
 }
 function infoHtml(spot){
+ const g=gigaNear(spot);
+ if(g)return '<div style="padding:8px 12px;font-size:11px;color:#0f766e">🎥 관광지 전용 카메라 · GiGAeyes Live TV · '+g.d.toFixed(1)+'km</div>';
  const {cam,d}=nearest(spot);
  if(!cam||d>3.0)return '<div style="padding:8px 12px;font-size:11px;color:#888">지역 CCTV 페이지에서 확인</div>';
  return '<div style="padding:8px 12px;font-size:11px;color:#666">📷 '+cam.name+' · '+cam.src+' · '+d.toFixed(1)+'km</div>';
 }
 function srcTag(spot){
+ const g=gigaNear(spot);
+ if(g)return '<span style="position:absolute;top:8px;left:8px;background:rgba(15,118,110,.85);color:#fff;font-size:10px;padding:2px 7px;border-radius:8px">전용 카메라 LIVE</span>';
  const {cam,d}=nearest(spot);
  if(!cam||d>3.0)return '';
  return '<span style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;padding:2px 7px;border-radius:8px">'+cam.src+' LIVE</span>';
@@ -119,6 +126,8 @@ async function startCard(card){
 function bind(){
  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){startCard(e.target);io.unobserve(e.target);}})},{rootMargin:'250px'});
  cards.forEach(d=>io.observe(d));
+ const gio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const d=e.target,yt=d.dataset.yt;if(yt&&!d.querySelector('iframe')){const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+yt+'?autoplay=1&mute=1&playsinline=1';f.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';f.allow='autoplay';f.loading='lazy';d.appendChild(f);d.style.display='block';}gio.unobserve(d);}})},{rootMargin:'250px'});
+ document.querySelectorAll('.giga-ph').forEach(d=>gio.observe(d));
  const io2=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!e.target.dataset.ld){e.target.dataset.ld=1;e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io2.unobserve(e.target);}})},{rootMargin:'200px'});
  document.querySelectorAll('.ts-img').forEach(i=>io2.observe(i));
 }
@@ -129,6 +138,7 @@ Promise.all([
  fetch('daegu-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>CAMS.push({name:c.name,lat:c.lat,lng:c.lng,url:c.url,src:'대구'}))),
  fetch('gits-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>CAMS.push({name:c.name,lat:c.lat,lng:c.lng,gits:c.id,src:'경기'}))),
  fetch('fitic-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>CAMS.push({name:c.name,lat:c.lat,lng:c.lng,snap:c.id,src:'인천'}))),
+ fetch('giga-cams.json').then(r=>r.json()).then(a=>{GIGA.push(...a);}),
  fetch('tourist-spots.json').then(r=>r.json()).then(a=>{spotsData=a;})
 ]).then(build).catch(()=>{document.getElementById('spot-wall').innerHTML='<p style="color:#999">데이터를 불러오지 못했습니다.</p>';});
 document.getElementById('tq').addEventListener('input',e=>{
