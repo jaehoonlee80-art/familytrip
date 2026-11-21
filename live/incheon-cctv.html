@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>인천 실시간 CCTV — 송도·공항·항만 61개</title>
+<meta name="description" content="인천교통정보센터 도시도로 CCTV 48개 지점 + 인천항만공사 항만 CCTV 13개 지점을 페이지에서 바로 확인. 송도·청라·영종·인천공항 주변 실시간 영상.">
+<link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/incheon-cctv.html">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
+a{color:#2563eb;text-decoration:none}
+header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+header .logo{font-weight:800;font-size:20px;color:#0f766e}
+nav a{margin-left:18px;font-size:14px;color:#555}
+main{max-width:760px;margin:0 auto;padding:40px 20px}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
+h1{font-size:32px;line-height:1.3;margin-bottom:16px}
+h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
+h3{font-size:17px;margin:24px 0 8px}
+p{margin-bottom:14px}
+ul,ol{margin:0 0 14px 22px}
+img{max-width:100%;border-radius:10px}
+.meta{color:#888;font-size:13px;margin-bottom:24px}
+.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
+.cta h3{color:#fff;margin-top:0}
+.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
+.ad-slot{border:1px dashed #d1d5db;border-radius:10px;padding:40px;text-align:center;color:#9ca3af;margin:32px 0;font-size:13px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+.card .body{padding:14px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{font-size:13px;color:#777;margin:0}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
+.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
+.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
+.live-meta{font-size:13px;color:#777;margin-bottom:20px}
+.live-meta li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/familytrip/">온 가족 여행 연구소</a>
+  <nav>
+    <a href="/familytrip/guides.html">여행 가이드</a>
+    <a href="/familytrip/itineraries.html">코스별 일정</a>
+    <a href="/familytrip/checklists.html">준비물</a>
+    <a href="/familytrip/live.html">실시간 카메라</a>
+    <a href="/familytrip/live/korea-cctv.html">전국 CCTV</a>
+    <a href="/familytrip/tools.html">여행 도구</a>
+  </nav>
+</header>
+<main><div class="meta">실시간 카메라 · 2026-11-21</div><h1>인천 실시간 CCTV — 송도·공항·항만 61개</h1><p>인천 <strong>61개 지점</strong>의 실시간 영상을 이 페이지에서 바로 볼 수 있습니다. 송도·청라·영종도·검단 등 신도시와 인천공항·인천항 주변을 포함합니다. 도시도로 48개 지점은 5분마다 자동 갱신되는 화면, 항만 13개 지점은 공식 스냅샷입니다.</p>
+<div class="wx" data-lat="37.4563" data-lon="126.7052" data-label="인천"></div>
+
+<h2>인천 도시도로 CCTV — 48개 지점 (5분 갱신)</h2>
+<div class="live-grid" id="fitic-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px"></div>
+<p style="color:#888;font-size:13px">※ 인천교통정보센터 공식 스트림 캡처입니다. 원본이 http 전용이라 5분 간격 스냅샷으로 제공됩니다.</p>
+
+<h2>인천항 진입도로·컨테이너터미널 — 13개 지점 (5분 갱신)</h2>
+<div class="live-grid" id="port-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px"></div>
+
+<h2>활용 팁</h2>
+<ul>
+<li><strong>송도·청라</strong>: 신도시 드라이브 코스의 교차로와 해안도로를 확인하세요.</li>
+<li><strong>인천공항</strong>: 영종도 접근도로와 공항영업소 주변 교통을 실시간으로 볼 수 있습니다(경기도 ITS 인천공항영업소는 별도 페이지 참조).</li>
+<li><strong>인천항</strong>: 국제여객부두·터미널 진입 상황은 크루즈·페리 이용 전 확인에 유용합니다.</li>
+</ul>
+<script>
+const BASE='/familytrip/';
+function snapWall(elId,jsonUrl){
+ const w=document.getElementById(elId);if(!w)return;
+ fetch(jsonUrl).then(r=>r.json()).then(cams=>{
+  w.innerHTML=cams.map(c=>'<div style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="sn-img" data-id="'+c.id+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div></div>').join('');
+  const seen=new Set();
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){seen.add(e.target.dataset.id);e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io.unobserve(e.target);}});},{rootMargin:'200px'});
+  document.querySelectorAll('#'+elId+' .sn-img').forEach(i=>io.observe(i));
+  setInterval(()=>{seen.forEach(id=>{const im=document.querySelector('#'+elId+' .sn-img[data-id="'+id+'"]');if(im)im.src='cams/'+id+'.jpg?t='+Date.now();});},300000);
+ }).catch(()=>{w.innerHTML='<p style="color:#999">목록을 불러오지 못했습니다.</p>';});
+}
+snapWall('fitic-wall','fitic-cams.json');
+snapWall('port-wall','port-cams.json');
+</script>
+<script src="weather.js"></script></main>
+<footer>
+  온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
+  이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.
+</footer>
+</body>
+</html>

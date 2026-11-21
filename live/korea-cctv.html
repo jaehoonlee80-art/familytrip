@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>대한민국 실시간 CCTV 전국 모음 — 도로·재난·국립공원 공식 송출</title>
-<meta name="description" content="전국 공공 CCTV 실시간 영상을 볼 수 있는 공식 사이트 모음. 고속도로·도시 도로 교통 CCTV, 재난 감시 CCTV, 국립공원 실시간 영상을 한 페이지에서 바로 찾아보세요.">
+<title>대한민국 실시간 CCTV 허브 — 전국 공식 카메라 한곳에서</title>
+<meta name="description" content="제주·서울·경기·인천·울산·대구·국립공원·재난·항만의 실시간 CCTV를 페이지에서 바로 재생합니다. 전국 공식 송출 통합 허브.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/korea-cctv.html">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -53,77 +53,71 @@ img{max-width:100%;border-radius:10px}
     <a href="/familytrip/tools.html">여행 도구</a>
   </nav>
 </header>
-<main><div class="meta">실시간 카메라 · 2026-11-21</div><h1>대한민국 실시간 CCTV 전국 모음 — 도로·재난·국립공원 공식 송출</h1><p>전국에 설치된 공공 CCTV 실시간 영상을 제공하는 <strong>공식 사이트만</strong> 모았습니다. 집계 사이트의 설명을 옮기지 않고 각 기관이 직접 운영하는 원본 포털로 연결합니다. 영상 시청 자체는 무료이며 대부분 로그인 없이 볼 수 있습니다.</p>
-<blockquote>
-<p>참고: 생활방범용 CCTV 영상은 개인정보보호법상 공개되지 않습니다. 아래 링크는 교통·재난·안전 감시 등 <strong>공개가 허용된 공공 목적의 영상</strong>만 다룹니다.</p>
-</blockquote>
-<h2>바로 볼 수 있는 실시간 화면</h2>
-<h3><a href="/familytrip/live/jeju-cctv.html">제주도 공공 CCTV 월 — 40개 카메라</a></h3>
-<p>이 사이트에서 유일하게 <strong>페이지 안에서 바로 재생·자동 갱신</strong>되는 화면입니다. 제주공항·성산일출봉·중문해수욕장·한라산 등 40개 카메라가 지역별로 정리되어 있고, 화면을 누르면 실시간 영상으로 이어집니다.</p>
-<h2>교통 CCTV — 도로 실시간 영상</h2>
-<p>도로 위 상황을 직접 눈으로 확인할 수 있는 공식 교통정보센터입니다. 각 센터의 CCTV 화면을 <strong>이 페이지 안에 그대로 임베드</strong>했습니다 — 팝업 없이 스크롤만 하면 바로 보입니다. (일부 센터는 보안 정책상 외부 임베드를 막아 링크로만 제공됩니다.)</p>
-<h3>서울 TOPIS — 서울 시내 도로</h3>
-<div class="portal-frame" data-src="https://topis.seoul.go.kr/map/openCctvMap.do"></div>
+<main><div class="meta">실시간 카메라 · 2026-11-21</div><h1>대한민국 실시간 CCTV 허브 — 전국 공식 카메라 한곳에서</h1><p>대한민국 <strong>전국 공공 CCTV</strong>를 이 페이지 한곳에서 바로 볼 수 있습니다. 지역별 라이브 영상·자동갱신 화면을 모두 모았으며, 외부 사이트로 이동하지 않고 여기서 바로 재생됩니다.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:12px 0 20px">
+<div class="wx" data-lat="37.5665" data-lon="126.9780" data-label="서울"></div>
+<div class="wx" data-lat="33.4996" data-lon="126.5312" data-label="제주"></div>
+</div>
 
-<h3>UTIC 도시교통정보센터 — 전국 도시 도로</h3>
-<div class="portal-frame" data-src="https://www.utic.go.kr/map/map.do?menu=cctv"></div>
-
-<h3>경기도교통정보센터 — 경기도 도로 (대표: 인천공항영업소 실시간 영상)</h3>
-<div class="portal-frame" data-src="https://gits.gg.go.kr/web/popup/webCctvPopup.do?cctvId=5026"></div>
-<p style="font-size:13px;color:#777">※ 위는 센터의 영상 재생 화면을 그대로 임베드한 것입니다. 다른 지점은 <a href="https://gits.gg.go.kr" target="_blank" rel="noopener">경기도교통정보센터</a>에서 선택하세요.</p>
-
-<h3>인천교통정보센터 — 인천 도로</h3>
-<div class="portal-frame" data-src="https://www.fitic.go.kr/gis/gisPage.do?preParam=cctv"></div>
-
-<h3>대구교통종합정보 — 대구 도로</h3>
-<div class="portal-frame" data-src="https://car.daegu.go.kr/"></div>
-
-<h3>울산교통관리센터 — 울산 도로</h3>
-<div class="portal-frame" data-src="https://its.ulsan.kr/traffic/cctv.do"></div>
-
-<h3>대전교통정보센터 — 대전 도로</h3>
-<div class="portal-frame" data-src="https://traffic.daejeon.go.kr/"></div>
-
-<h3>국가교통정보센터·부산교통정보센터</h3>
-<p>이 두 센터는 외부 사이트 임베드를 보안상 차단합니다. 새 창으로 공식 사이트에서 확인하세요: <a href="https://www.its.go.kr/map/cctv" target="_blank" rel="noopener">국가교통정보센터 CCTV</a> (전국 고속도로·국도), <a href="https://www.bisco.or.kr" target="_blank" rel="noopener">부산교통정보센터</a>.</p>
-
-<p><strong>활용 팁:</strong> 출발 전 목적지 방향 고속도로 CCTV를 확인하면 우회 여부를 10분 안에 판단할 수 있습니다. 도심 이동은 각 시도 교통정보센터의 소통정보(색상 지도)와 CCTV를 함께 보면 정확도가 올라갑니다.</p>
-<h2>재난·기상 CCTV — 안전 감시 영상</h2>
-<p>태풍·호우·폭설·산불 시기에 현장 상황을 보여주는 재난 감시 카메라입니다.</p>
+<h2>지역별 라이브 CCTV — 클릭하면 해당 지역 페이지로</h2>
 <table>
 <thead>
 <tr>
-<th>소스</th>
-<th>범위</th>
-<th>특징</th>
+<th>지역</th>
+<th>규모</th>
+<th>재생 방식</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://d.kbs.co.kr">KBS 재난포털 — 이 시각 현장 CCTV</a></td>
-<td>전국 약 45개 지역</td>
-<td>하천·해안·도심 재난 감시 지점, 고화질 영상</td>
+<td><a href="seoul-cctv.html">서울</a></td>
+<td>113개 지점</td>
+<td>실시간 HLS</td>
 </tr>
 <tr>
-<td><a href="https://www.safekorea.go.kr">국민안전24</a></td>
-<td>전국</td>
-<td>행정안전부 통합 재난안전정보 포털</td>
+<td><a href="gyeonggi-cctv.html">경기도</a></td>
+<td>72개 지점</td>
+<td>실시간 HLS</td>
 </tr>
 <tr>
-<td>지자체 재난안전대책본부</td>
-<td>시·도별</td>
-<td>각 시도/시/군/구 포털의 '안전CCTV' 메뉴 (예: 제주 bangjae.jeju.go.kr)</td>
+<td><a href="incheon-cctv.html">인천</a></td>
+<td>61개 지점</td>
+<td>스냅샷 자동갱신</td>
+</tr>
+<tr>
+<td><a href="ulsan-cctv.html">울산</a></td>
+<td>232개 지점</td>
+<td>실시간 HLS</td>
+</tr>
+<tr>
+<td><a href="daegu-cctv.html">대구</a></td>
+<td>186개 지점</td>
+<td>실시간 HLS</td>
+</tr>
+<tr>
+<td><a href="airport-port-cctv.html">공항·항만</a></td>
+<td>공항+항만</td>
+<td>실시간+스냅샷</td>
+</tr>
+<tr>
+<td><a href="jeju-cctv.html">제주도</a></td>
+<td>40개 카메라</td>
+<td>스냅샷+YouTube 라이브</td>
+</tr>
+<tr>
+<td><a href="korea-attractions.html">전국 명소</a></td>
+<td>122개 명소</td>
+<td>연결된 카메라 바로 보기</td>
 </tr>
 </tbody>
 </table>
-<p><strong>활용 팁:</strong> 태풍 접근 시 KBS 재난포털과 지자체 CCTV를 교차 확인하면 파도·침수·산사태 위험을 현장 영상으로 직접 판단할 수 있습니다. 재난문자·기상특보와 함께 보면 의사결정이 빠릅니다.</p>
-<h2>KBS 재난포털 현장 CCTV — 페이지에서 바로 재생</h2>
-<p>전국 약 45개 재난 감시 지점의 <strong>실시간 영상</strong>을 아래에서 바로 볼 수 있습니다. 카드가 화면에 들어오면 자동으로 재생되며(음소거), 탭하면 소리와 함께 재생됩니다. 송출은 KBS 재난포털 공식 스트림을 프록시로 중계합니다.</p>
-<div class="live-grid" id="kbs-wall"></div>
-<p style="color:#888;font-size:13px">※ 카메라별 송출 상태는 방송사 사정에 따라 달라질 수 있습니다. 재생이 안 되면 <a href="https://d.kbs.co.kr" target="_blank" rel="noopener">KBS 재난포털 원본</a>에서 확인하세요.</p>
+<h2>재난포털 현장 CCTV — 전국 45개 지점 실시간 재생</h2>
+<p>전국 하천·해안·도심 재난 감시 지점의 <strong>실시간 영상</strong>을 아래에서 바로 볼 수 있습니다. 카드가 화면에 들어오면 자동으로 재생되며(음소거), 탭하면 소리와 함께 재생됩니다.</p>
+<div class="live-grid" id="kbs-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px"></div>
+<p style="color:#888;font-size:13px">※ 카메라별 송출 상태는 방송사 사정에 따라 달라질 수 있습니다. 재생이 안 되면 잠시 후 다시 확인하세요.</p>
 
 <h2>국립공원 실시간 영상 — 산행 전 필수 확인</h2>
-<p><a href="https://www.knps.or.kr">국립공원공단 실시간영상</a>에서는 전국 22개 국립공원 주요 지점 약 18개 카메라의 영상을 무료로 제공합니다. 산불 감시·탐방객 안전 목적이며, 기상 악화 시 송출이 중단될 수 있습니다.</p>
+<p>전국 국립공원 주요 지점의 영상을 아래에서 바로 볼 수 있습니다. 산불 감시·탐방객 안전 목적이며, 기상 악화 시 송출이 중단될 수 있습니다.</p>
 <ul>
 <li><strong>북한산</strong>: 백운대, 도봉</li>
 <li><strong>설악산</strong>: 대청봉(점검 중), 울산바위</li>
@@ -142,150 +136,132 @@ img{max-width:100%;border-radius:10px}
 <li><strong>다도해해상</strong>: 지리청송해변</li>
 <li><strong>태안해안</strong>: 학암포</li>
 </ul>
-<p><strong>활용 팁:</strong> 등산 전날 밤과 당일 새벽 두 번 확인하면 구름·안개·강설 여부를 비교할 수 있습니다. 영상은 3~5분 간격 갱신 방식입니다.</p>
-<h2>항만·공항·철도 시설 CCTV</h2>
-<h3>인천항 진입도로·컨테이너터미널 — 13개 지점 자동 갱신</h3>
-<p>인천항만공사가 공개하는 진입도로·터미널 CCTV입니다. 5분마다 프레임이 갱신됩니다. 원본: <a href="https://scon.icpa.or.kr/mobile/cctv/list.do?searchEtc1=cctv">인천항만공사 스마트CCTV</a></p>
-<div class="live-grid" id="wall-port"></div>
+<div class="live-grid" id="wall-knps" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px"></div>
 
-<h3>공항·항만·철도 — 공식 현황</h3>
+<p><strong>활용 팁:</strong> 등산 전날 밤과 당일 새벽 두 번 확인하면 구름·안개·강설 여부를 비교할 수 있습니다. 영상은 3~5분 간격 갱신 방식입니다.</p>
+<h2>옹진군 서해 섬·선착장 CCTV — 42대 (5분 갱신)</h2>
+<p>백령도·연평도·덕적도 등 서해 섬 선착장과 항만의 재난 감시 카메라입니다. 태풍·파고 접근 시 현장 상황을 직접 확인할 수 있습니다.</p>
+<div class="live-grid" id="wall-yj" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px"></div>
+
+<h2>인천항 진입도로·컨테이너터미널 — 13개 지점 (5분 갱신)</h2>
+<p>인천항만공사가 공개하는 진입도로·터미널 CCTV입니다. 국제여객부두·터미널 진입 상황을 실시간으로 확인할 수 있습니다.</p>
+<div class="live-grid" id="wall-port" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px"></div>
+
+<h2>공항·항만·철도 — 공식 현황</h2>
 <table>
 <thead>
 <tr>
 <th>시설</th>
 <th>CCTV 상황</th>
-<th>확인 방법</th>
+<th>이 사이트에서의 확인 방법</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>인천공항·김포공항 활주로</td>
-<td>공항 내부 CCTV 비공개. 주변 도로는 교통정보센터</td>
-<td><a href="https://gits.gg.go.kr">인천공항고속도로·공항영업소 CCTV</a> (경기도 ITS), <a href="https://its.gimpo.go.kr/cctv.view">김포시 교통정보센터</a></td>
+<td>인천공항</td>
+<td>활주로 내부 비공개, 주변 도로 공개</td>
+<td><a href="airport-port-cctv.html">공항·항만 페이지</a>의 인천공항영업소 라이브 영상</td>
 </tr>
 <tr>
-<td>인천항만공사</td>
-<td>진입도로 13개 지점 공개 (위 스냅샷)</td>
-<td>위 실시간 화면</td>
+<td>김포공항</td>
+<td>주변 도로는 경기도 ITS 공개</td>
+<td><a href="gyeonggi-cctv.html">경기도 CCTV 페이지</a></td>
 </tr>
 <tr>
-<td>부산항·여수항·울산항·목포항 등</td>
-<td>국립해양조사원 해무 CCTV가 방송사에 제공 중. 일반 공개는 스틸컷 API(무료 키 필요)</td>
-<td><a href="https://www.data.go.kr/data/15142499/openapi.do">공공데이터포털 해무 CCTV API</a>, <a href="https://sea.eumplus.kr/cctv">물때와 바다날씨 항구 영상 모음</a></td>
+<td>인천항</td>
+<td>진입도로 13개 지점 공개</td>
+<td>위 인천항 스냅샷 + <a href="airport-port-cctv.html">공항·항만 페이지</a></td>
+</tr>
+<tr>
+<td>부산항·여수항·울산항 등</td>
+<td>해무 CCTV는 방송사 제공용, 일반 공개 제한</td>
+<td>공공데이터포털 스틸컷 API(무료 키)로 수집 가능</td>
 </tr>
 <tr>
 <td>철도 역·차량</td>
-<td>코레일 시설 CCTV는 비공개</td>
-<td>역 주변 도로는 각 시도 교통정보센터에서 확인</td>
+<td>코레일 시설 CCTV 비공개</td>
+<td>역 주변 도로는 각 지역 CCTV 페이지에서 확인</td>
 </tr>
 </tbody>
 </table>
-<h2>기타 공개 영상 소스</h2>
+<h2>기타 공개 영상 소스 현황</h2>
 <table>
 <thead>
 <tr>
 <th>소스</th>
 <th>내용</th>
+<th>이 사이트 제공 방식</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://safecity.busan.go.kr">부산 안전ON</a></td>
+<td>부산 안전ON</td>
 <td>부산 하천·침수 감시</td>
+<td>외부 포털 (임베드 불가)</td>
 </tr>
 <tr>
-<td><a href="https://www.yslcc.go.kr">영산강홍수통제소</a></td>
-<td>전국 하천 수위 지점 동영상 (홍수기 유용)</td>
+<td>영산강홍수통제소</td>
+<td>전국 하천 수위 지점 동영상</td>
+<td>외부 포털</td>
 </tr>
 <tr>
-<td><a href="https://www.jeju.go.kr/tool/halla/cctv.html">한라산국립공원 CCTV</a></td>
+<td>한라산국립공원</td>
 <td>백록담·윗세오름 등 5개 지점</td>
-</tr>
-<tr>
-<td><a href="http://218.148.169.193/">옹진군 재난CCTV</a></td>
-<td>백령도·연평도·덕적도 등 섬 선착장 약 90대 (http 전용)</td>
+<td><a href="jeju-cctv.html">제주 CCTV 페이지</a>에서 송출 상태 확인</td>
 </tr>
 </tbody>
 </table>
 <h2>자주 묻는 질문</h2>
 <h3>전국 CCTV 영상을 한 곳에서 볼 수 있나요?</h3>
-<p>공식 통합 포털은 없습니다. 교통 CCTV는 지역별 교통정보센터로, 재난 CCTV는 KBS 재난포털과 지자체 본부로, 국립공원은 공단 누리집으로 나뉘어 있습니다. 이 페이지가 그 진입점을 모은 허브입니다.</p>
+<p>이 페이지와 지역별 하위 페이지(서울·경기·인천·울산·대구·공항항만·제주)에서 전국 주요 공공 CCTV를 바로 볼 수 있습니다. 공식 통합 포털은 없지만 이 사이트가 그 역할을 합니다.</p>
 <h3>영상이 안 나오는 이유는?</h3>
 <p>카메라 점검, 기상 악화(낙뢰·강풍·폭설), 통신 두절로 일시 중단될 수 있습니다. 공공 CCTV는 24시간 연속 송출을 보장하지 않습니다.</p>
-<h3>제주도 CCTV는 왜 바로 재생되나요?</h3>
-<p>제주 페이지는 지자체 공개 HLS 스트림을 Cloudflare 프록시로 중계해 페이지 안에서 재생합니다. 다른 지역 포털은 각 기관 사이트로 연결하는 방식입니다.</p>
 <h3>생활방범 CCTV도 볼 수 있나요?</h3>
 <p>아니요. 개인정보보호법상 생활방범 목적의 영상은 공개되지 않으며, 이 페이지의 소스는 교통·재난·안전 등 공개 목적의 영상만 포함합니다.</p>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {"@type": "Question", "name": "전국 CCTV 영상을 한 곳에서 볼 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "공식 통합 포털은 없으며, 교통·재난·국립공원별 공식 사이트로 나뉘어 있습니다. 이 페이지가 진입점을 모은 허브입니다."}},
-    {"@type": "Question", "name": "영상이 안 나오는 이유는?", "acceptedAnswer": {"@type": "Answer", "text": "카메라 점검, 기상 악화, 통신 두절로 일시 중단될 수 있습니다."}},
-    {"@type": "Question", "name": "생활방범 CCTV도 볼 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "아니요. 개인정보보호법상 생활방범 목적 영상은 공개되지 않습니다."}}
-  ]
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "대한민국 실시간 CCTV 공식 소스",
-  "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "제주도 공공 CCTV 40카메라", "url": "https://jaehoonlee80-art.github.io/familytrip/live/jeju-cctv.html"},
-    {"@type": "ListItem", "position": 2, "name": "국가교통정보센터", "url": "https://www.its.go.kr"},
-    {"@type": "ListItem", "position": 3, "name": "UTIC 도시교통정보센터", "url": "https://www.utic.go.kr"},
-    {"@type": "ListItem", "position": 4, "name": "서울 TOPIS", "url": "https://topis.seoul.go.kr"},
-    {"@type": "ListItem", "position": 5, "name": "KBS 재난포털 현장 CCTV", "url": "https://d.kbs.co.kr"},
-    {"@type": "ListItem", "position": 6, "name": "국립공원 실시간영상", "url": "https://www.knps.or.kr"}
-  ]
-}
-</script>
-
-<style>.live-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:12px 0 24px}.kbs-card{position:relative;background:#000;border-radius:10px;overflow:hidden}.kbs-card .ph{position:relative;padding-top:56.25%;cursor:pointer}.kbs-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.kbs-card .lbl{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px}.kbs-card .off{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:13px;text-align:center;padding:10px}</style>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js"></script>
+<script src="wall.js"></script>
 <script>
-const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev/?url=';
-const wall=document.getElementById('kbs-wall');
+const KNPS=[["gangbuk","백운대·북한산"],["sobak","연화봉·소백산"],["cctv11","두로령·오대산"],["cctv17","상원사·치악산"],["cctv6","천제단·태백산"],["cctv16","천황봉·계룡산"],["cctv15","장불재·무등산"],["cctv23","108단풍길·내장산"],["cctv10","설천봉·덕유산"],["cctv18","죽막·변산반도"],["cctv9","기암·주왕산"],["cctv5","각산·한려해상"],["cctv12","지리청송·다도해"],["cctv21","학암포·태안해안"],["jiri","천왕봉·지리산"],["cctv7","장터목·지리산"]].map(([page,name])=>({page,name}));
+const kg=document.getElementById('wall-knps');
+if(kg)kg.innerHTML=KNPS.map(c=>'<div style="position:relative;background:#111;border-radius:10px;overflow:hidden"><div class="knps-ph" data-src="https://m.knps.or.kr/live/'+c.page+'.do" style="position:relative;padding-top:56.25%;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:13px">'+c.name+' — 화면에 보이면 자동 재생</div><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div>').join('');
+const kio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const d=e.target,s=d.dataset.src;if(!d.querySelector('iframe')){const f=document.createElement('iframe');f.src=s;f.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';f.loading='lazy';f.allow='autoplay';d.appendChild(f);const p=d.querySelector('.knps-ph');if(p)p.style.display='none';}kio.unobserve(d);}});},{rootMargin:'300px'});
+document.querySelectorAll('.knps-ph').forEach(d=>kio.observe(d));
+function snapWall(elId,jsonUrl){
+ const w=document.getElementById(elId);if(!w)return;
+ fetch(jsonUrl).then(r=>r.json()).then(cams=>{
+  w.innerHTML=cams.map(c=>'<div style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="sn-img" data-id="'+c.id+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+(c.area?c.area+' · ':'')+c.name+'</span></div></div>').join('');
+  const seen=new Set();
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){seen.add(e.target.dataset.id);e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io.unobserve(e.target);}});},{rootMargin:'200px'});
+  document.querySelectorAll('#'+elId+' .sn-img').forEach(i=>io.observe(i));
+  setInterval(()=>{seen.forEach(id=>{const im=document.querySelector('#'+elId+' .sn-img[data-id="'+id+'"]');if(im)im.src='cams/'+id+'.jpg?t='+Date.now();});},300000);
+ }).catch(()=>{w.innerHTML='<p style="color:#999">목록을 불러오지 못했습니다.</p>';});
+}
+snapWall('wall-yj','cams.json');
+snapWall('wall-port','port-cams.json');
+</script>
+<script>
+// 재난포털(전국 45개) 실시간 HLS 월
 fetch('kbs-cams.json').then(r=>r.json()).then(cams=>{
- wall.innerHTML=cams.map(c=>'<div class="kbs-card" data-api="'+c.api+'"><div class="ph"><video muted playsinline autoplay></video><div class="off">재생 실패 — 원본 링크</div><span class="lbl">'+c.name+' · '+c.region+'</span></div></div>').join('');
+ const wall=document.getElementById('kbs-wall');
+ wall.innerHTML=cams.map(c=>'<div class="kbs-card" data-api="'+c.api+'"><div class="ph" style="position:relative;padding-top:56.25%;cursor:pointer"><video muted playsinline autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video><div class="off" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:12px;text-align:center;padding:8px">송출 준비 중…</div><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+' · '+c.region+'</span></div></div>').join('');
  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){start(e.target);io.unobserve(e.target);}})},{rootMargin:'200px'});
  document.querySelectorAll('.kbs-card').forEach(d=>io.observe(d));
+ const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev/?url=';
  function start(card){
   const v=card.querySelector('video'),off=card.querySelector('.off');
   card.querySelector('.ph').addEventListener('click',()=>{v.muted=!v.muted;});
   fetch(PROXY+encodeURIComponent(card.dataset.api)).then(r=>r.text()).then(pl=>{
    const url=(pl||'').trim();
-   if(!url||!url.includes('.m3u8')){off.style.display='flex';off.innerHTML='스트림 없음 — <a href="https://d.kbs.co.kr" style="color:#8fd3ff">원본</a>';return;}
+   if(!url||!url.includes('.m3u8')){off.style.display='flex';off.textContent='일시 송출 중단';return;}
    const src=PROXY+encodeURIComponent(url);
    if(v.canPlayType('application/vnd.apple.mpegurl')){v.src=src;}
-   else if(window.Hls&&Hls.isSupported()){
-    const h=new Hls({maxBufferLength:8});h.loadSource(src);h.attachMedia(v);
-    h.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal){off.style.display='flex';off.textContent='재생 실패 — 원본 링크 이용';}});
-   }else{off.style.display='flex';off.textContent='이 브라우저는 HLS 미지원';}
+   else if(window.Hls&&Hls.isSupported()){const h=new Hls({maxBufferLength:8});h.loadSource(src);h.attachMedia(v);h.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal)off.style.display='flex';});}
+   else{off.style.display='flex';off.textContent='미지원 브라우저';}
   }).catch(()=>{off.style.display='flex';off.textContent='로드 실패';});
  }
-}).catch(()=>{wall.innerHTML='<p style="color:#999">카메라 목록을 불러오지 못했습니다. <a href="https://d.kbs.co.kr">KBS 재난포털</a>에서 확인하세요.</p>';});
+}).catch(()=>{});
 </script>
-<script>
-// 인천항 스냅샷 그리드
-const pw=document.getElementById('wall-port');
-fetch('port-cams.json').then(r=>r.json()).then(cams=>{
- pw.innerHTML=cams.map(c=>'<div class="card" style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="port-img" data-id="'+c.id+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div></div>').join('');
- const seen=new Set();
- const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){seen.add(e.target.dataset.id);e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io.unobserve(e.target);}});},{rootMargin:'200px'});
- document.querySelectorAll('.port-img').forEach(i=>io.observe(i));
- setInterval(()=>{seen.forEach(id=>{const im=document.querySelector('.port-img[data-id="'+id+'"]');if(im)im.src='cams/'+id+'.jpg?t='+Date.now();});},60000);
-}).catch(()=>{pw.innerHTML='<p style="color:#999">항만 카메라 목록을 불러오지 못했습니다.</p>';});
-</script>
-<style>.portal-frame{width:100%;height:480px;border:1px solid #ddd;border-radius:10px;background:#f3f4f6;margin:8px 0 20px}.portal-frame iframe{width:100%;height:100%;border:0;border-radius:10px}</style>
-<script>
-// 포털 iframe lazy-load (무거운 지도 앱이 한꺼번에 안 열리게)
-const pio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const d=e.target,s=d.dataset.src;if(!d.querySelector('iframe')){const f=document.createElement('iframe');f.src=s;f.loading='lazy';f.setAttribute('allow','autoplay');d.appendChild(f);}pio.unobserve(d);}});},{rootMargin:'200px'});
-document.querySelectorAll('.portal-frame').forEach(d=>pio.observe(d));
-</script></main>
+<script src="weather.js"></script></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
   이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.

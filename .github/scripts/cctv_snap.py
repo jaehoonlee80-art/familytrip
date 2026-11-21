@@ -9,6 +9,7 @@ OUT_DIR = os.path.join(ROOT, 'live', 'cams')
 SOURCES = [
     (os.path.join(ROOT, 'live', 'cams.json'), 'http://218.148.169.193:1935/live', 'playlist.m3u8', '{id}.stream'),
     (os.path.join(ROOT, 'live', 'port-cams.json'), 'http://{host}:1935/live', 'plylist.m3u8', '{stream}.stream'),
+    (os.path.join(ROOT, 'live', 'fitic-cams.json'), 'http://{host}:1935/cctv', 'playlist.m3u8', '{stream}.stream'),
 ]
 UA = {'User-Agent': 'familytrip-cctv-snap/1.0'}
 

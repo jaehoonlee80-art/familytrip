@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>공항·항만 실시간 CCTV — 인천공항·인천항 라이브</title>
+<meta name="description" content="인천공항영업소·인천항 터미널·국제여객부두 등 공항과 항만의 실시간 영상을 한곳에서 확인합니다.">
+<link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/airport-port-cctv.html">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
+a{color:#2563eb;text-decoration:none}
+header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+header .logo{font-weight:800;font-size:20px;color:#0f766e}
+nav a{margin-left:18px;font-size:14px;color:#555}
+main{max-width:760px;margin:0 auto;padding:40px 20px}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
+h1{font-size:32px;line-height:1.3;margin-bottom:16px}
+h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
+h3{font-size:17px;margin:24px 0 8px}
+p{margin-bottom:14px}
+ul,ol{margin:0 0 14px 22px}
+img{max-width:100%;border-radius:10px}
+.meta{color:#888;font-size:13px;margin-bottom:24px}
+.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
+.cta h3{color:#fff;margin-top:0}
+.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
+.ad-slot{border:1px dashed #d1d5db;border-radius:10px;padding:40px;text-align:center;color:#9ca3af;margin:32px 0;font-size:13px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+.card .body{padding:14px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{font-size:13px;color:#777;margin:0}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
+.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
+.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
+.live-meta{font-size:13px;color:#777;margin-bottom:20px}
+.live-meta li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/familytrip/">온 가족 여행 연구소</a>
+  <nav>
+    <a href="/familytrip/guides.html">여행 가이드</a>
+    <a href="/familytrip/itineraries.html">코스별 일정</a>
+    <a href="/familytrip/checklists.html">준비물</a>
+    <a href="/familytrip/live.html">실시간 카메라</a>
+    <a href="/familytrip/live/korea-cctv.html">전국 CCTV</a>
+    <a href="/familytrip/tools.html">여행 도구</a>
+  </nav>
+</header>
+<main><div class="meta">실시간 카메라 · 2026-11-21</div><h1>공항·항만 실시간 CCTV — 인천공항·인천항 라이브</h1><p>공항과 항만의 실시간 영상을 한곳에서 확인할 수 있는 페이지입니다. 인천공항영업소 도로 영상, 인천항 진입도로·컨테이너터미널 13개 지점, 국제여객부두를 포함합니다.</p>
+<div class="wx" data-lat="37.4602" data-lon="126.4407" data-label="인천공항"></div>
+
+<h2>인천공항영업소 — 공항고속도로·영종도 접근로 (실시간 영상)</h2>
+<div class="live-grid" id="gits-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px"></div>
+<p style="color:#888;font-size:13px">※ 경기도 ITS 공식 스트림입니다. 공항 활주로 내부는 보안상 비공개이며, 이 화면은 공항고속도로·영업소 주변 도로입니다.</p>
+
+<h2>인천항 진입도로·컨테이너터미널 — 13개 지점 (5분 갱신)</h2>
+<div class="live-grid" id="port-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px"></div>
+
+<h2>공항·항만별 안내</h2>
+
+<table>
+<thead>
+<tr>
+<th>시설</th>
+<th>실시간 확인 방법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>인천공항</td>
+<td>위 인천공항영업소 라이브 영상 + <a href="gyeonggi-cctv.html">경기도 CCTV 페이지</a>의 공항 주변 지점</td>
+</tr>
+<tr>
+<td>김포공항</td>
+<td>경기도 ITS 김포 지역 지점 (<a href="gyeonggi-cctv.html">경기도 CCTV 페이지</a>)</td>
+</tr>
+<tr>
+<td>김해공항</td>
+<td>부산교통정보센터 도로 영상 (부산 시내 교통 포털에서 확인)</td>
+</tr>
+<tr>
+<td>인천항</td>
+<td>위 13개 지점 스냅샷 — 국제여객부두·터미널 진입 상황</td>
+</tr>
+<tr>
+<td>부산항·여수항·울산항 등</td>
+<td>국립해양조사원 해무 CCTV — 방송사 제공용으로 일반 공개 제한, 공공데이터포털 스틸컷 API 활용 가능</td>
+</tr>
+</tbody>
+</table>
+<h2>활용 팁</h2>
+<ul>
+<li><strong>출국 전</strong>: 인천공항영업소 영상으로 공항고속도로 정체 여부를 10분 안에 판단할 수 있습니다.</li>
+<li><strong>크루즈·페리</strong>: 인천항 국제여객부두 화면으로 탑승 전 혼잡도를 확인하세요.</li>
+<li><strong>날씨 연동</strong>: 위 날씨 위젯에서 강풍·안개 여부를 함께 보면 항공·해상 운항 영향 예측에 도움됩니다.</li>
+</ul>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js"></script>
+<script src="wall.js"></script>
+<script>
+renderHlsWall('gits-wall',[{"id":"5026","name":"인천공항영업소","lat":37.56970978,"lng":126.6666184}]);
+const BASE='/familytrip/';
+fetch(BASE+'live/port-cams.json').then(r=>r.json()).then(cams=>{
+ const w=document.getElementById('port-wall');
+ w.innerHTML=cams.map(c=>'<div style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="sn-img" data-id="'+c.id+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div></div>').join('');
+ const seen=new Set();
+ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){seen.add(e.target.dataset.id);e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io.unobserve(e.target);}});},{rootMargin:'200px'});
+ document.querySelectorAll('#port-wall .sn-img').forEach(i=>io.observe(i));
+ setInterval(()=>{seen.forEach(id=>{const im=document.querySelector('#port-wall .sn-img[data-id="'+id+'"]');if(im)im.src='cams/'+id+'.jpg?t='+Date.now();});},300000);
+});
+</script>
+<script src="weather.js"></script></main>
+<footer>
+  온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
+  이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.
+</footer>
+</body>
+</html>

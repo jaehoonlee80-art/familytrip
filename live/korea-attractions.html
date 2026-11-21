@@ -69,6 +69,7 @@ img{max-width:100%;border-radius:10px}
 <li><strong>국립공원</strong>: 실제 WebRTC 라이브 스트림 — 카드가 화면에 보일 때 자동 재생됩니다. 데이터 사용량이 크니 Wi-Fi 권장.</li>
 <li><strong>옹진군</strong>: 5분마다 GitHub Actions가 실제 CCTV 프레임을 캡처해 자동 갱신합니다.</li>
 </ul>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:12px 0 8px"><div class="wx" data-lat="37.5665" data-lon="126.9780" data-label="서울"></div><div class="wx" data-lat="33.4996" data-lon="126.5312" data-label="제주"></div></div>
 <h2>전국 관광명소 100선 — CCTV 연결 현황</h2>
 <p><input id="q" type="search" placeholder="명소·지역 검색 (예: 제주, 해수욕장, 성)" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px"></p>
 <div id="attr-table"></div>
@@ -84,17 +85,18 @@ img{max-width:100%;border-radius:10px}
 
 <h3>기타 항만·해양 CCTV</h3>
 <ul>
-<li><strong>부산항·여수항·울산항·목포항 등</strong>: 국립해양조사원 해무 CCTV — <a href="https://sea.eumplus.kr/cctv" target="_blank" rel="noopener">항구별 영상 모음</a> 또는 <a href="https://www.data.go.kr/data/15142499/openapi.do" target="_blank" rel="noopener">공공데이터포털 API</a></li>
-<li><strong>인천항만공사 원본</strong>: <a href="https://scon.icpa.or.kr/mobile/cctv/list.do?searchEtc1=cctv" target="_blank" rel="noopener">스마트CCTV 페이지</a></li>
+<li><strong>부산항·여수항·울산항·목포항 등</strong>: 국립해양조사원 해무 CCTV는 방송사 제공용이라 일반 공개가 제한됩니다. 공공데이터포털의 해무 CCTV 스틸컷 API(무료 키 발급)로 수집 가능합니다.</li>
+<li><strong>인천항</strong>: 이 페이지 상단의 인천항 13개 지점 스냅샷이 공식 공개 영상입니다.</li>
 </ul>
 <h2>자주 묻는 질문</h2>
 
 <h3>명소마다 CCTV가 있나요?</h3>
-<p>아니요. 공공 CCTV는 재난·교통·안전 목적이라 관광명소 전용 카메라는 많지 않습니다. 현재 확인된 송출은 제주 공공 CCTV, 국립공원 19개 지점, 옹진군 서해 섬 42대, KBS 재난포털 약 45개 지점입니다. 나머지 명소는 각 시도 교통정보센터의 도로 CCTV로 간접 확인 가능합니다.</p>
+<p>아니요. 공공 CCTV는 재난·교통·안전 목적이라 관광명소 전용 카메라는 많지 않습니다. 현재 확인된 송출은 제주 공공 CCTV, 국립공원 19개 지점, 옹진군 서해 섬 42대, 재난포털 약 45개 지점입니다. 나머지 명소는 각 시도 교통정보센터의 도로 CCTV로 간접 확인 가능합니다.</p>
 <h3>화면이 자동으로 갱신되나요?</h3>
 <p>제주(60초)·옹진군(5분)은 스냅샷 자동 갱신, 국립공원은 실제 라이브 스트림입니다. 송출이 끊긴 카메라는 회색 화면이나 "점검 중"으로 표시됩니다.</p>
 <h3>송출이 없는 명소는 어떻게 확인하나요?</h3>
-<p><a href="korea-cctv.html">전국 CCTV 허브</a>에서 해당 지역의 교통·재난 포털로 이동하세요. KBS 재난포털은 해안·하천 중심으로 전국 45개 지점을 커버합니다.</p>
+<p><a href="korea-cctv.html">전국 CCTV 허브</a>에서 해당 지역의 CCTV 페이지에서 바로 볼 수 있습니다. 재난포털은 해안·하천 중심으로 전국 45개 지점을 커버합니다.</p>
+<script src="weather.js"></script>
 <script>
 const JEJU=[
  ["seongsan","성산일출봉"],["seopjikoji","섭지코지"],["jungmun","중문해수욕장·관광단지"],
@@ -304,7 +306,7 @@ function camBtn(k){
  if(!k)return '<span style="color:#999;font-size:12px">전용 카메라 없음</span>';
  if(k.startsWith('j:')){const s=k.slice(2);return '<a href="#v-j-'+s+'">제주 화면 보기</a>';}
  if(k.startsWith('k:')){const p=k.slice(2);return '<a href="#v-k-'+p+'">공원 LIVE 보기</a>';}
- if(k==='halla')return '<a href="https://www.jeju.go.kr/tool/halla/cctv.html" target="_blank" rel="noopener">한라산 공식 포털</a>';
+ if(k==='halla')return '<span style="color:#999;font-size:12px">송출 점검 중</span>';
  return '';
 }
 const tbl=document.getElementById('attr-table');
@@ -330,9 +332,9 @@ document.querySelectorAll('.knps-card').forEach(d=>d.id='v-k-'+d.dataset.src.spl
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"명소마다 CCTV가 있나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 공공 CCTV는 재난·교통·안전 목적이라 관광명소 전용 카메라는 많지 않습니다. 제주 공공 CCTV, 국립공원 19개 지점, 옹진군 서해 섬 42대, KBS 재난포털 약 45개 지점이 확인된 송출입니다."}},
+{"@type":"Question","name":"명소마다 CCTV가 있나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 공공 CCTV는 재난·교통·안전 목적이라 관광명소 전용 카메라는 많지 않습니다. 제주 공공 CCTV, 국립공원 19개 지점, 옹진군 서해 섬 42대, 재난포털 약 45개 지점이 확인된 송출입니다."}},
 {"@type":"Question","name":"화면이 자동으로 갱신되나요?","acceptedAnswer":{"@type":"Answer","text":"제주(60초)·옹진군(5분)은 스냅샷 자동 갱신, 국립공원은 실제 라이브 스트림입니다."}},
-{"@type":"Question","name":"송출이 없는 명소는 어떻게 확인하나요?","acceptedAnswer":{"@type":"Answer","text":"전국 CCTV 허브에서 해당 지역의 교통·재난 포털로 이동하면 됩니다."}}]}
+{"@type":"Question","name":"송출이 없는 명소는 어떻게 확인하나요?","acceptedAnswer":{"@type":"Answer","text":"서울·경기·인천·울산·대구·제주 등 지역별 CCTV 페이지에서 해당 지역의 교통·재난 카메라를 바로 볼 수 있습니다."}}]}
 </script></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
