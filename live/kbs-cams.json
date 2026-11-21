@@ -3,270 +3,270 @@
   "id": "109242",
   "name": "서울 용산 남산송신소",
   "region": "서울 남산",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/109242/aWPRPZH8eUlcfzG+gwhcS1dqApVD50q4C41EPpqCdmxnZe7T+AJOWLIqpnhYu4Ve!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/109242/aWPRPZH8eUlcfzG+gwhcS1dqApVD50q4C41EPpqCdmwVXxhDFVdeUA8RZTaJJ8Vt!hls"
  },
  {
   "id": "9951",
   "name": "전주 KBS전주방송총국",
   "region": "전북 전주 효자동3가",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9951/2lVSzYxn2H0Soxxi38bidYwoi5ti6qlMVjuiyZmP+cRm/xFArRqxSwmFot3vamF/!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9951/2lVSzYxn2H0Soxxi38bidYwoi5ti6qlMVjuiyZmP+cQ4c5Bp86YslrDjELB+Z150!hls"
  },
  {
   "id": "9952",
   "name": "강릉 강릉방송총국",
   "region": "강원 강릉 용강동",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9952/k7nuPu4DQar1dReT7uJPhgM0FZXxG0VQm7KHGmhFzILFzlsJFRug5m2p1FmTjNqk!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9952/k7nuPu4DQar1dReT7uJPhgM0FZXxG0VQm7KHGmhFzIIQ13MkrECoe79d2gVr1xPp!hls"
  },
  {
   "id": "9954",
   "name": "제주 제주방송총국",
   "region": "제주 도남동 일대",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9954/YWmlQCa7bds9/I0uMSav0ob9sMbmQE98U0HmBvTakXUhX8B6Mr8fwIPksrMTnJmu!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9954/YWmlQCa7bds9/I0uMSav0ob9sMbmQE98U0HmBvTakXUye7ZOFFzrRTZ2IaDmU2Zj!hls"
  },
  {
   "id": "9955",
   "name": "울산 총국",
   "region": "울산 남구 달동 일대",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9955/mLOUu63iKB8T+eJ1T7FxgzvCaaTQ2RrMZg9x+lcofNm1lgUy+5AqO3w9fA7VnqB8!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9955/mLOUu63iKB8T+eJ1T7FxgzvCaaTQ2RrMZg9x+lcofNkRfIcEjJqa4n7ULz8tVTYF!hls"
  },
  {
   "id": "9956",
   "name": "파주 감악산",
   "region": "경기 파주 감악산 일대",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9956/WpMtqkAFduUaXGdpsI+/sKrO015JwqLegnz9LxSJSRRvRJysMOGIH8dFjUWbacjG!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9956/WpMtqkAFduUaXGdpsI+/sKrO015JwqLegnz9LxSJSRTqohY95WAc2eoH+LSlcD4z!hls"
  },
  {
   "id": "9957",
   "name": "독도",
   "region": "독도",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9957/FJi4h6R9KpMhbwF0QWl4dAgC48WyStO3eOPvnjkkJl/LI8aeK8nPBNA1qGqOfT7w!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9957/FJi4h6R9KpMhbwF0QWl4dAgC48WyStO3eOPvnjkkJl/k+B247Tf0wfVEmAZpGTgC!hls"
  },
  {
   "id": "9958",
   "name": "연평도",
   "region": "인천 옹진 연평도",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9958/JeZyL1wWfGqNc9ZxMik/JHgI46TYcA9If1PfrezvBK4jiLeFf8xAyf20OHuZKOXc!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9958/JeZyL1wWfGqNc9ZxMik/JHgI46TYcA9If1PfrezvBK5D3gpbglwaX2iX2gSyVnuU!hls"
  },
  {
   "id": "9959",
   "name": "한강",
   "region": "서울 용산 한강",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9959/amF8JeF05QxN2ho9Uy8kDKlE/c/diQ6mfP6xY89kNBgd3ltHuKX05QFeM77/dN7q!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9959/amF8JeF05QxN2ho9Uy8kDKlE/c/diQ6mfP6xY89kNBiBjt3yZyTxmMJLem1LZbMe!hls"
  },
  {
   "id": "9961",
   "name": "여의도",
   "region": "서울 영등포 여의도",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9961/7r1gAps9s9j0iCSAEloDBAAK29XreFaQppWCNIojojKqrK01eQacvsrZkhq2LlGR!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9961/7r1gAps9s9j0iCSAEloDBAAK29XreFaQppWCNIojojJR3x8MkGC5tpVB+Hujf1c1!hls"
  },
  {
   "id": "9962",
   "name": "서울광장",
   "region": "서울 중구 서울광장",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9962/ltcQPRDdfr2s3VqoNOICEkAnIpR9FEkhy3gHV2ilYAHcZTyCXTTKNQWvIthODXWA!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9962/ltcQPRDdfr2s3VqoNOICEkAnIpR9FEkhy3gHV2ilYAGccT4Wy9O7fsPuneh6ZUO7!hls"
  },
  {
   "id": "9965",
   "name": "서울 마포구 성산교",
   "region": "서울 마포 성산교(홍제천)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9965/XjGDys9SF2HA+8S4rWNauIQLXuzG18NaGaaYgpDbn9Ebou26vYUzSvjSy35Jil2R!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9965/XjGDys9SF2HA+8S4rWNauIQLXuzG18NaGaaYgpDbn9GkJfvh00UPkzz9u1UChs6M!hls"
  },
  {
   "id": "9966",
   "name": "서울 노원구 중랑천",
   "region": "서울 노원 월계동(중랑천)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9966/x3NaZZMguOoHuhlCksxZlFUj9vzCrKUYe+GUhPJtE37sS8DgB0YrrpOOR2NX0AkB!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9966/x3NaZZMguOoHuhlCksxZlFUj9vzCrKUYe+GUhPJtE36pnwz9TC91d0rEKyNGqFz2!hls"
  },
  {
   "id": "9967",
   "name": "부산 동래구 세병교(온천천)",
   "region": "부산 동래 세병교(온천천)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9967/DnCGlOowlznXUlp3D6MFQg/1Ecq9GIgO6NK7+CehkCrzVuv++oESyG/0SoWu/yqk!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9967/DnCGlOowlznXUlp3D6MFQg/1Ecq9GIgO6NK7+CehkCr3HsX7qwoKW/lTgP+cPTJp!hls"
  },
  {
   "id": "9968",
   "name": "청주 무심천",
   "region": "충북 청주 사직동(무심천)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9968/76bdOdmpH+1NliIDgdVzG7WYZWYCusIRQXczyv/6WK0VXBXVHmrIjU8GZi/nXpVl!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9968/76bdOdmpH+1NliIDgdVzG7WYZWYCusIRQXczyv/6WK21oAPcfUjaxXtEtGjOhJ7B!hls"
  },
  {
   "id": "9969",
   "name": "대구 동구 신천",
   "region": "대구 동구 신천동(신천)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9969/tInHd0urqKnnyVCbs9GpuBcegrAn5F8ku7OjULeiT/dLR57b6Sf3PQTABTh2ow1m!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9969/tInHd0urqKnnyVCbs9GpuBcegrAn5F8ku7OjULeiT/cAn9vfUyfu4VprnOW25JC4!hls"
  },
  {
   "id": "9970",
   "name": "대전 유성구 갑천",
   "region": "대전 유성 구성동(갑천)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9970/QqmUzIRiqHRRtp7qQwX5hc8cpdWVPEbR18+u8fakcBNc4+W6BBcoaRiMCHobz598!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9970/QqmUzIRiqHRRtp7qQwX5hc8cpdWVPEbR18+u8fakcBPJvnm2bORlf3Bjk0dIkSqX!hls"
  },
  {
   "id": "9971",
   "name": "남원 뱀사골(지리산)",
   "region": "전북 남원 뱀사골(지리산)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9971/35/7y/z6ITNmIzXQV60bK4CSYtZIyguVtRNQ+a5chiFyS0vjdorOHfOLKLidK5gS!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9971/35/7y/z6ITNmIzXQV60bK4CSYtZIyguVtRNQ+a5chiH8Z7OLML6JkDULLzxpLAEY!hls"
  },
  {
   "id": "9972",
   "name": "가평 가평2교(북한강)",
   "region": "경기 가평 가평2교(북한강)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9972/bSPCGoiQv1VqppJ1FKIXirfy+cBCy/XglXoEvGHaWlzZp2kP59XVhGmRfnLM5L8V!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9972/bSPCGoiQv1VqppJ1FKIXirfy+cBCy/XglXoEvGHaWlwU7FE3pDg/y5ITNXEjwSsP!hls"
  },
  {
   "id": "9973",
   "name": "서울 서초구 양재천",
   "region": "서울 서초 양재동(양재천)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9973/u7afD55IdFAGVH6WRPBwAECtYArEaxcJT38aG8dVoa/L2vQXLmUzL1m32Vygv0RB!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9973/u7afD55IdFAGVH6WRPBwAECtYArEaxcJT38aG8dVoa+XOqEkRkc4V0HMYRZWEKVC!hls"
  },
  {
   "id": "9974",
   "name": "구리 왕숙천",
   "region": "경기 구리 수택동(왕숙천)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9974/27D8bCIsJQ7BCIgAjCoyltYEjdvhL14anugGazZwWpfR4waHxx649mbPyHvIbpdN!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9974/27D8bCIsJQ7BCIgAjCoyltYEjdvhL14anugGazZwWpd9PUMpGswDpNevGU+Yimk3!hls"
  },
  {
   "id": "9975",
   "name": "단양 도담삼봉",
   "region": "충북 단양 도담삼봉",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9975/fxetFcBGEK4LmMezgUZw3B8JwmHKP0E0Y9Bl2fwWCP02lmXo7q08NER6g6CAO6Dp!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9975/fxetFcBGEK4LmMezgUZw3B8JwmHKP0E0Y9Bl2fwWCP3lIguB4RjWqwKU52ktU1EY!hls"
  },
  {
   "id": "9976",
   "name": "공주 금강교 (금강)",
   "region": "충남 공주 금강교(금강)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9976/wgXMfV6woZJqaoWhYYXXdd6+A1Q+efgWpcvFlmbF7o7glWyc+nhYGCheA8Oy7OQp!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9976/wgXMfV6woZJqaoWhYYXXdd6+A1Q+efgWpcvFlmbF7o78xL47ZMNx2J/D0d5Dz1+c!hls"
  },
  {
   "id": "9977",
   "name": "밀양 삼랑진(낙동강)",
   "region": "경남 밀양 삼랑진(낙동강)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9977/eI6FELNWNQtBO8fT3h/L/loQ2NudHX3LD4FerrIFiXJStR5kAym130PXi26jI38w!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9977/eI6FELNWNQtBO8fT3h/L/loQ2NudHX3LD4FerrIFiXJbVZN08QzEIR4ZRrPs3gYB!hls"
  },
  {
   "id": "9978",
   "name": "나주 나주대교(영산강)",
   "region": "전남광주 나주 나주대교(영산강)",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9978/jBPKl2jUqNMCDW4tD9PJ9Z6c+mcn5kD4z13qRe6GATK+43DP07mTapyMZCn1JbHK!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9978/jBPKl2jUqNMCDW4tD9PJ9Z6c+mcn5kD4z13qRe6GATKrANudpv0Bq5RIzfzd8jHK!hls"
  },
  {
   "id": "9979",
   "name": "군산 비응항",
   "region": "전북 군산 비응항",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9979/261v3kiQrPrys7T/MDeAgrgsgjDfMoTl1hcfqqWMuMtUMats89nxQn1nNy8DA5e2!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9979/261v3kiQrPrys7T/MDeAgrgsgjDfMoTl1hcfqqWMuMtPBOmqnhsq73fYa5AADNZj!hls"
  },
  {
   "id": "9980",
   "name": "태안 신진항",
   "region": "충남 태안 근흥면 신진항",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9980/yCXglttnl164ak0H3iqoxi9YrMuGmn9StIHNUR8tRqUETxTPDSdANdZjqv4stiic!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9980/yCXglttnl164ak0H3iqoxi9YrMuGmn9StIHNUR8tRqWQvSxP9DVlAEvQMJ7XEzVf!hls"
  },
  {
   "id": "9981",
   "name": "인천 연안부두",
   "region": "인천 제물포 연안부두",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9981/uvo6de584CZc/y05jRO0xhJTXoJ0Ghni8XlF3LErBVJatVUpsqcdfmfxa475Kl5s!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9981/uvo6de584CZc/y05jRO0xhJTXoJ0Ghni8XlF3LErBVJQv5jYPdahV1J5cU3WQhr2!hls"
  },
  {
   "id": "9982",
   "name": "마라도",
   "region": "제주 서귀포 마라도",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9982/3g+xKpOqzILwoDIqpPIo0Dd9I86wE2T9vOxEhtsEAL4RyuKsQn0lwQxDCOnCqnHL!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9982/3g+xKpOqzILwoDIqpPIo0Dd9I86wE2T9vOxEhtsEAL5g/qszOowlG19ZzxWqLZf4!hls"
  },
  {
   "id": "9983",
   "name": "가거도",
   "region": "전남광주 신안 가거도",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9983/xoFY03KKLNegesV7un80oAjpLjtvZiJewT8b3gSSY+GV+itz5xyHWA6W+4vAJX+9!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9983/xoFY03KKLNegesV7un80oAjpLjtvZiJewT8b3gSSY+HuUX5Owa3kNTpPTVEk4kR9!hls"
  },
  {
   "id": "9984",
   "name": "완도 완도항",
   "region": "전남광주 완도 완도항",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9984/p9L7Vhs8cf5d9Q8r9WrjzmLkbRiJtvy3BS9190vLRKAOQN/tpDRkeSL41ABXRNby!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9984/p9L7Vhs8cf5d9Q8r9WrjzmLkbRiJtvy3BS9190vLRKAOvwPFVoQc/78GUwnSliJe!hls"
  },
  {
   "id": "9985",
   "name": "창원 마산연안여객선터미널",
   "region": "경남 창원 마산항",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9985/wHb2h4YXKE6gDkD+kcaOuwlJ/kzXBqZPGRMFZTzteEOCsWvLJ9sF6k8NfgJsiaFn!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9985/wHb2h4YXKE6gDkD+kcaOuwlJ/kzXBqZPGRMFZTzteENzeHIG0o84HLOXWKfVnIdE!hls"
  },
  {
   "id": "9986",
   "name": "속초 등대전망대",
   "region": "강원 속초 등대전망대",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9986//hNid5quLTnQGPwM5DSXvxBfc1Ujw5VdXiKyLJR8bqUUZZD7pHYeVRj8lBIloIgs!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9986//hNid5quLTnQGPwM5DSXvxBfc1Ujw5VdXiKyLJR8bqUn6Vc/qAKHNQTXKaeBSNTM!hls"
  },
  {
   "id": "9987",
   "name": "울릉 저동항",
   "region": "경북 울릉 저동항",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9987/7taZSzen65HA4eif9jbA5o7H1+MCrMBicAm0pDAwFxktPADaQ81+c0LzstHZogX5!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9987/7taZSzen65HA4eif9jbA5o7H1+MCrMBicAm0pDAwFxm8RsJ23IeEnk5oKVJXMaNJ!hls"
  },
  {
   "id": "9988",
   "name": "포항 두호동",
   "region": "경북 포항 두호동 해안로",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9988/0NjF8GgqllXtwSFoDwF+dRWqApD5VT4khjLshEQvlSHBYlm5Y2jYgluz2hAt0v+c!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9988/0NjF8GgqllXtwSFoDwF+dRWqApD5VT4khjLshEQvlSGe5r8PEF5V1AOiEYi2Setl!hls"
  },
  {
   "id": "9989",
   "name": "평창 대관령",
   "region": "강원 평창 대관령",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9989/YxIUn2DN3IaecFE+9RZMtomO241dyjQzfnFBZdoXb4CvDtngfLsKfHMBJw2mLayj!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9989/YxIUn2DN3IaecFE+9RZMtomO241dyjQzfnFBZdoXb4C3YtVJfUxbYc6BRne/BUaD!hls"
  },
  {
   "id": "9990",
   "name": "서울 서초구 서초대로",
   "region": "서울 서초 서초대로",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9990/vG6FhNsxLk7rLDPGEv0bePAjuOYWYG3NQ94y34ugCLKqZlDXUqg1RGqWR8Ks7gK/!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9990/vG6FhNsxLk7rLDPGEv0bePAjuOYWYG3NQ94y34ugCLJIEy8Mxlyrjmn0w73/N67P!hls"
  },
  {
   "id": "9991",
   "name": "부산 수영만",
   "region": "부산 수영 민락항 앞",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9991/5elHaCSSQYDpEXwQxT9RcByzlSzkxbPx52PZGNwq8h1dNcDOAwp3YcwqvuqD1HBH!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9991/5elHaCSSQYDpEXwQxT9RcByzlSzkxbPx52PZGNwq8h3WC4QBAkfBLI+rdaOmFlLx!hls"
  },
  {
   "id": "9992",
   "name": "목포 북항",
   "region": "전남광주 목포 죽교동 북항",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9992/VyvFsUMGQEQ0ivD18P3vmWUIkVcOIcXbZeeThi/Ts72xcGoScrHBOqZ93eOcdjKf!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9992/VyvFsUMGQEQ0ivD18P3vmWUIkVcOIcXbZeeThi/Ts72jvWwLTVfWW962bJYetViE!hls"
  },
  {
   "id": "9993",
   "name": "여수 거문도",
   "region": "전남광주 여수 거문도",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9993/ol4GRernNNknsM8NyDAl0K+wYlEZhJlht/5ruIfc5vSlnmToxD0B0rOZqwBi3XlJ!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9993/ol4GRernNNknsM8NyDAl0K+wYlEZhJlht/5ruIfc5vTB5Q+c3wlzxdzxG6MIZ4vI!hls"
  },
  {
   "id": "9994",
   "name": "여수 오동도",
   "region": "전남광주 여수 오동도 앞",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9994/Zr31Kn0KYxoqaiRZQEHXWShwdVWwS6dQDsFTV4TdjmmC17glL0CWGM+2CX4CTqHg!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9994/Zr31Kn0KYxoqaiRZQEHXWShwdVWwS6dQDsFTV4Tdjmm8a575bQqh74ZpaservPlC!hls"
  },
  {
   "id": "9995",
   "name": "강릉 주문진방파제",
   "region": "강원 강릉 주문진방파제",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9995/I35QtFK1clDAqe5NhoP047wra3xJJlhynsYjKtlo11LWGh3TNZOrCahuRZa7adft!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9995/I35QtFK1clDAqe5NhoP047wra3xJJlhynsYjKtlo11K1fWAxHvOeJHUqpVcVCm2q!hls"
  },
  {
   "id": "9996",
   "name": "서울 강남구 대치역사거리",
   "region": "서울 강남 대치역사거리",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9996/GEuhQI215edRva7iBPQwB2n137X3XqlysDarHYqNGqSMmwbn25dC2Pctto7qyjnH!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9996/GEuhQI215edRva7iBPQwB2n137X3XqlysDarHYqNGqTMiqDP6alXs3a2c/2Zo/jP!hls"
  },
  {
   "id": "9998",
   "name": "서울 반포한강시민공원",
   "region": "서울 서초 반포한강공원",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9998/X1ZjRgGjFWjj1RCx9hUhBybJlu1TghHs3VpjIl8MZmrL4mykC425HNmKin4cDwaS!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9998/X1ZjRgGjFWjj1RCx9hUhBybJlu1TghHs3VpjIl8MZmqaR6WdpYETfFGamUpTn8eu!hls"
  },
  {
   "id": "9999",
   "name": "서울 강남구 강남대로",
   "region": "서울 강남 강남대로",
-  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9999/Wh4UOZeXxaxqN2B+VK2TYAZjrzPVx0Xrmyznq2jvQ3u04ttDSw9at2DPVOzGSoH6!hls"
+  "api": "https://kbsapi.loomex.net/v1/api/cctvRequest/9999/Wh4UOZeXxaxqN2B+VK2TYAZjrzPVx0Xrmyznq2jvQ3uxeNeNS+C2DgkBOq+bubLI!hls"
  }
 ]
