@@ -32,7 +32,7 @@ function renderHlsWall(elId,cams){
  document.querySelectorAll('#'+elId+' .cam-card').forEach(d=>io.observe(d));
  async function startCam(card){
   const v=card.querySelector('video'),off=card.querySelector('.cam-off');
-  card.querySelector('div').addEventListener('click',()=>{v.muted=!v.muted;},{once:false});
+  // 카드 클릭 확대는 lightbox.js가 처리
   try{
    const url=await resolveStream(card);
    const h=playHls(v,url);
