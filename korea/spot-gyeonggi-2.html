@@ -55,12 +55,28 @@ img{max-width:100%;border-radius:10px}
   </nav>
 </header>
 <main><div class="meta">한국 여행 · 2026-11-24</div><h1>경기 과천시 관광지 2곳</h1><p>경기 <strong>과천시</strong> 지역 관광지 <strong>2곳</strong>입니다.</p>
+<p><input id="sp-q" type="search" placeholder="과천시 관광지 검색 (예: 궁궐, 공원, 시장)" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:15px"></p>
+<p id="sp-empty" style="display:none;color:#888">검색 결과가 없습니다.</p>
+<script>
+(function(){
+const q=document.getElementById('sp-q');
+function filt(){
+ const v=q.value.trim().toLowerCase();let vis=0;
+ document.querySelectorAll('.spot-card').forEach(c=>{
+  const on=!v||c.dataset.name.includes(v);c.style.display=on?'':'none';if(on)vis++;
+ });
+ document.getElementById('sp-empty').style.display=vis?'none':'block';
+}
+q.addEventListener('input',filt);
+})();
+</script>
+
 <h2>📷 과천시 지역 사진 — 포토코리아</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin:14px 0"><figure style="margin:0"><img src="https://tong.visitkorea.or.kr/cms2/website/18/1807418.jpg" loading="lazy" alt="서울경마공원" style="width:100%;height:130px;object-fit:cover;border-radius:8px" title="서울경마공원 · 경기도 과천 · 한국관광공사 김지호"><figcaption style="font-size:11px;color:#888;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">서울경마공원 <span style="color:#bbb">· 한국관광공사 김지호</span></figcaption></figure><figure style="margin:0"><img src="https://tong.visitkorea.or.kr/cms2/website/63/1807463.jpg" loading="lazy" alt="서울대공원_과천" style="width:100%;height:130px;object-fit:cover;border-radius:8px" title="서울대공원_과천 · 경기도 과천 · 한국관광공사 김지호"><figcaption style="font-size:11px;color:#888;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">서울대공원_과천 <span style="color:#bbb">· 한국관광공사 김지호</span></figcaption></figure><figure style="margin:0"><img src="https://tong.visitkorea.or.kr/cms2/website/44/1808044.jpg" loading="lazy" alt="국립과천과학관" style="width:100%;height:130px;object-fit:cover;border-radius:8px" title="국립과천과학관 · 경기도 과천 · 한국관광공사 김지호"><figcaption style="font-size:11px;color:#888;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">국립과천과학관 <span style="color:#bbb">· 한국관광공사 김지호</span></figcaption></figure><figure style="margin:0"><img src="https://tong.visitkorea.or.kr/cms2/website/12/2909112.jpg" loading="lazy" alt="관악산의 석양" style="width:100%;height:130px;object-fit:cover;border-radius:8px" title="관악산의 석양 · 경기도 과천시 · 박정아"><figcaption style="font-size:11px;color:#888;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">관악산의 석양 <span style="color:#bbb">· 박정아</span></figcaption></figure><figure style="margin:0"><img src="https://tong.visitkorea.or.kr/cms2/website/15/3539215.jpg" loading="lazy" alt="서울대공원" style="width:100%;height:130px;object-fit:cover;border-radius:8px" title="서울대공원 · 경기도 과천시 막계동 · 김지연"><figcaption style="font-size:11px;color:#888;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">서울대공원 <span style="color:#bbb">· 김지연</span></figcaption></figure></div>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:20px 0">
-<a class="card" href="attr-2363553.html" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/89/2363489_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">갱매폭포</h3><p style="font-size:12px;color:#888;margin:0">자연관광 · 경기도 과천시 막계동</p></div></a>
-<a class="card" href="attr-128580.html" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/98/3534998_image2_1.JPG" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">과천향교</h3><p style="font-size:12px;color:#888;margin:0">유적지 · 경기도 과천시 자하동길 18 (중앙동)</p></div></a>
+<a class="card spot-card" href="attr-2363553.html" data-name="갱매폭포 경기도 과천시 막계동 자연관광" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/89/2363489_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">갱매폭포</h3><p style="font-size:12px;color:#888;margin:0">자연관광 · 경기도 과천시 막계동</p></div></a>
+<a class="card spot-card" href="attr-128580.html" data-name="과천향교 경기도 과천시 자하동길 18 (중앙동) 유적지" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/98/3534998_image2_1.JPG" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">과천향교</h3><p style="font-size:12px;color:#888;margin:0">유적지 · 경기도 과천시 자하동길 18 (중앙동)</p></div></a>
 </div>
 
 <p><a href="area-gyeonggi.html">← 경기 전체 시군구</a> · <a href="regions.html">전국 지역</a></p></main>

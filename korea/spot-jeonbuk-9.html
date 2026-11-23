@@ -55,15 +55,31 @@ img{max-width:100%;border-radius:10px}
   </nav>
 </header>
 <main><div class="meta">한국 여행 · 2026-11-24</div><h1>전북 장수군 관광지 6곳</h1><p>전북 <strong>장수군</strong> 지역 관광지 <strong>6곳</strong>입니다.</p>
+<p><input id="sp-q" type="search" placeholder="장수군 관광지 검색 (예: 궁궐, 공원, 시장)" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:15px"></p>
+<p id="sp-empty" style="display:none;color:#888">검색 결과가 없습니다.</p>
+<script>
+(function(){
+const q=document.getElementById('sp-q');
+function filt(){
+ const v=q.value.trim().toLowerCase();let vis=0;
+ document.querySelectorAll('.spot-card').forEach(c=>{
+  const on=!v||c.dataset.name.includes(v);c.style.display=on?'':'none';if(on)vis++;
+ });
+ document.getElementById('sp-empty').style.display=vis?'none':'block';
+}
+q.addEventListener('input',filt);
+})();
+</script>
+
 <h2>📷 장수군 지역 사진 — 포토코리아</h2>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:20px 0">
-<a class="card" href="attr-1624748.html" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/38/3583638_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">금강</h3><p style="font-size:12px;color:#888;margin:0">자연관광 · 전북특별자치도 장수군 천천면 오리골길</p></div></a>
-<a class="card" href="attr-1624140.html" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/25/3570325_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">봉황대(장수)</h3><p style="font-size:12px;color:#888;margin:0">역사관광 · 전북특별자치도 장수군 천천면 봉황대길 2</p></div></a>
-<a class="card" href="attr-606203.html" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/23/3557423_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">장수 논개생가마을</h3><p style="font-size:12px;color:#888;margin:0">종교 · 전북특별자치도 장수군 장계면 논개생가길 21-5</p></div></a>
-<a class="card" href="attr-126404.html" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/08/3377708_image2_1.JPG" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">장수향교</h3><p style="font-size:12px;color:#888;margin:0">유적지 · 전북특별자치도 장수군 장수읍 향교길 31-14</p></div></a>
-<a class="card" href="attr-1624802.html" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/53/3539753_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">정인승유허비</h3><p style="font-size:12px;color:#888;margin:0">전망 · 전북특별자치도 장수군 계북면 양악길 119</p></div></a>
-<a class="card" href="attr-127122.html" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/67/3539367_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">죽림정사</h3><p style="font-size:12px;color:#888;margin:0">유적지 · 전북특별자치도 장수군 죽림2길 31 죽림정사</p></div></a>
+<a class="card spot-card" href="attr-1624748.html" data-name="금강 전북특별자치도 장수군 천천면 오리골길 자연관광" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/38/3583638_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">금강</h3><p style="font-size:12px;color:#888;margin:0">자연관광 · 전북특별자치도 장수군 천천면 오리골길</p></div></a>
+<a class="card spot-card" href="attr-1624140.html" data-name="봉황대(장수) 전북특별자치도 장수군 천천면 봉황대길 2 역사관광" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/25/3570325_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">봉황대(장수)</h3><p style="font-size:12px;color:#888;margin:0">역사관광 · 전북특별자치도 장수군 천천면 봉황대길 2</p></div></a>
+<a class="card spot-card" href="attr-606203.html" data-name="장수 논개생가마을 전북특별자치도 장수군 장계면 논개생가길 21-5 종교" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/23/3557423_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">장수 논개생가마을</h3><p style="font-size:12px;color:#888;margin:0">종교 · 전북특별자치도 장수군 장계면 논개생가길 21-5</p></div></a>
+<a class="card spot-card" href="attr-126404.html" data-name="장수향교 전북특별자치도 장수군 장수읍 향교길 31-14 유적지" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/08/3377708_image2_1.JPG" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">장수향교</h3><p style="font-size:12px;color:#888;margin:0">유적지 · 전북특별자치도 장수군 장수읍 향교길 31-14</p></div></a>
+<a class="card spot-card" href="attr-1624802.html" data-name="정인승유허비 전북특별자치도 장수군 계북면 양악길 119 전망" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/53/3539753_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">정인승유허비</h3><p style="font-size:12px;color:#888;margin:0">전망 · 전북특별자치도 장수군 계북면 양악길 119</p></div></a>
+<a class="card spot-card" href="attr-127122.html" data-name="죽림정사 전북특별자치도 장수군 죽림2길 31 죽림정사 유적지" style="display:block;padding:0;overflow:hidden"><img src="https://tong.visitkorea.or.kr/cms/resource/67/3539367_image2_1.jpg" loading="lazy" style="width:100%;height:130px;object-fit:cover" onerror="this.remove()"><div class="body" style="padding:12px"><h3 style="font-size:15px;margin:0 0 4px">죽림정사</h3><p style="font-size:12px;color:#888;margin:0">유적지 · 전북특별자치도 장수군 죽림2길 31 죽림정사</p></div></a>
 </div>
 
 <p><a href="area-jeonbuk.html">← 전북 전체 시군구</a> · <a href="regions.html">전국 지역</a></p></main>
