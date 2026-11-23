@@ -8,6 +8,8 @@ function ensure(){
  overlay=document.createElement('div');
  overlay.id='cctv-lb';
  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:none;align-items:center;justify-content:center;cursor:zoom-out';
+ if(window.__lbCss)return;window.__lbCss=true;
+ var st=document.createElement('style');st.textContent='.live-grid video,.live-grid img,.live-grid iframe,.knps-ph{cursor:zoom-in}';document.head.appendChild(st);
  overlay.innerHTML='<div style="position:relative;max-width:96vw;max-height:92vh;width:100%;display:flex;flex-direction:column;align-items:center">'
   +'<div id="clb-bar" style="color:#fff;font-size:14px;margin-bottom:8px;display:flex;gap:10px;align-items:center"><span id="clb-t"></span><button id="clb-mute" style="display:none;background:#fff;border:0;border-radius:8px;padding:4px 10px;font-size:12px;cursor:pointer">🔇 소리 켜기</button><button id="clb-x" style="background:#fff;border:0;border-radius:8px;padding:4px 12px;font-size:14px;cursor:pointer">✕ 닫기</button></div>'
   +'<div id="clb-body" style="width:100%;display:flex;align-items:center;justify-content:center"></div></div>';
@@ -73,21 +75,25 @@ document.addEventListener('click',function(e){
   var nm=(card&&card.querySelector('span'))?card.querySelector('span').textContent:'';
   openImg(t,nm);return;
  }
- // 스냅샷 이미지
- if(t.tagName==='IMG'&&(t.classList.contains('cam-img')||t.classList.contains('sn-img')||t.classList.contains('yj-img')||t.classList.contains('port-img'))){
+ // 스냅샷 이미지 (cam 카드 그리드 내부 이미지는 클래스 무관하게 처리)
+ if(t.tagName==='IMG'&&(t.classList.contains('cam-img')||t.classList.contains('sn-img')||t.classList.contains('yj-img')||t.classList.contains('port-img')||t.closest('.live-grid'))){
   var card2=t.closest('.card')||t.closest('div[style*="padding-top"]')||t.parentElement;
-  var nm2=(card2&&card2.querySelector('span'))?card2.querySelector('span').textContent:'';
+  var nm2=(card2&&card2.querySelector('span'))?card2.querySelector('span').textContent:(t.alt||'실시간 캡처');
   openImg(t,nm2);return;
  }
  // HLS 비디오 카드
- if(t.tagName==='VIDEO'&&t.closest('.cam-card')){
-  var c=t.closest('.cam-card');
-  var nm3=(c.querySelector('span'))?c.querySelector('span').textContent:'';
+ if(t.tagName==='VIDEO'&&(t.closest('.cam-card')||t.closest('.kbs-card')||t.closest('[data-api]')||t.closest('.live-grid'))){
+  var c=t.closest('.cam-card')||t.closest('.kbs-card')||t.closest('[data-api]')||t.closest('.live-grid');
+  var nm3=(c.querySelector('span'))?c.querySelector('span').textContent:'실시간 CCTV';
   openVideo(t,nm3);return;
  }
  // 라이브 iframe
- if(t.tagName==='IFRAME'&&(t.closest('.live-embed')||t.closest('.knps-card')||t.closest('.portal-frame'))){
+ if(t.tagName==='IFRAME'&&(t.closest('.live-embed')||t.closest('.knps-card')||t.closest('.portal-frame')||t.closest('.knps-ph')||t.closest('.live-grid'))){
   openFrame(t,'실시간 라이브');return;
+ }
+ // KNPS 등 플레이스홀더 클릭 → 내부 iframe 확대
+ if(t.closest&&t.closest('.knps-ph')&&t.closest('.knps-ph').querySelector('iframe')){
+  openFrame(t.closest('.knps-ph').querySelector('iframe'),'실시간 라이브');return;
  }
 },true);
 })();
