@@ -86,13 +86,13 @@ function render(){
  const list=RS.filter(r=>(!s||r.s===s)&&(!c||r.cat===c)&&(!q||(r.n+r.a).includes(q)));
  document.getElementById('rcount').textContent=list.length+'곳';
  document.getElementById('rgrid').innerHTML=list.slice(0,300).map(r=>
-  '<div class="card"><div class="body">'
+  '<a class="card" href="rst-'+r.id+'.html" style="display:block"><div class="body">'
   +(r.img?'<img src="'+esc(r.img)+'" loading="lazy" style="width:100%;height:130px;object-fit:cover;border-radius:8px;margin-bottom:8px" onerror="this.style.display=\'none\'">':'')
   +'<h3 style="font-size:15px;margin:0 0 4px">'+esc(r.n)+' <span class="badge">'+esc(r.s)+'</span></h3>'
   +'<p style="font-size:12px;color:#888;margin:2px 0">'+esc(r.cat)+(r.tel?' · '+esc(r.tel):'')+'</p>'
   +'<p style="font-size:12px;color:#555;margin:4px 0">📍 '+esc(r.a)+'</p>'
-  +'<p style="font-size:12px;margin:4px 0 0"><a href="https://www.google.com/maps/search/?api=1&query='+r.lat+'%2C'+r.lon+'" target="_blank" rel="noopener">지도에서 보기 ↗</a></p>'
-  +'</div></div>').join('')+(list.length>300?'<p style="grid-column:1/-1;color:#888;font-size:13px">검색 조건을 좁혀주세요 ('+list.length+'곳 중 300곳 표시).</p>':'');
+  +'<p style="font-size:12px;color:#0f766e;margin:4px 0 0">클릭하면 상세 정보·사진·가는 법 →</p>'
+  +'</div></a>').join('')+(list.length>300?'<p style="grid-column:1/-1;color:#888;font-size:13px">검색 조건을 좁혀주세요 ('+list.length+'곳 중 300곳 표시).</p>':'');
  drawMap(list);
 }
 function drawMap(list){
@@ -102,7 +102,7 @@ function drawMap(list){
  marks.forEach(m=>map.removeLayer(m));marks=[];
  const show=list.slice(0,500);
  show.forEach(r=>{const m=L.circleMarker([r.lat,r.lon],{radius:4,color:'#dc2626',weight:1,fillColor:'#dc2626',fillOpacity:.5}).addTo(map);
-  m.bindPopup('<b>'+esc(r.n)+'</b><br>'+esc(r.cat)+' · '+esc(r.s));marks.push(m);});
+  m.bindPopup('<b>'+esc(r.n)+'</b><br>'+esc(r.cat)+' · '+esc(r.s)+'<br><a href="rst-'+r.id+'.html">상세 정보 →</a>');marks.push(m);});
  if(show.length===1)map.setView([show[0].lat,show[0].lon],13);
  else if(show.length>1){const b=L.latLngBounds(show.map(r=>[r.lat,r.lon]));if(b.isValid())map.fitBounds(b.pad(0.05));}
 }
