@@ -6,6 +6,7 @@ const ICON={'맑음':'☀️','대체로 맑음':'🌤️','구름 조금':'⛅'
 function icon(w){return ICON[w]||'🌦️';}
 function wd(iso){const d=new Date(iso+'T00:00:00');return (d.getMonth()+1)+'/'+d.getDate()+'('+['일','월','화','수','목','금','토'][d.getDay()]+')';}
 async function mount(el){
+ if(el.dataset.wxDone)return;el.dataset.wxDone='1';
  const lat=el.dataset.lat,lon=el.dataset.lon,label=el.dataset.label||'';
  el.innerHTML='<div style="padding:14px;color:#999;font-size:13px">'+label+' 날씨 불러오는 중…</div>';
  try{
