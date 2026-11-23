@@ -27,7 +27,6 @@ img{max-width:100%;border-radius:10px}
 .cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
 .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
-.ad-slot{border:1px dashed #d1d5db;border-radius:10px;padding:40px;text-align:center;color:#9ca3af;margin:32px 0;font-size:13px}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
 .card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
 .card .body{padding:14px}
@@ -60,6 +59,15 @@ img{max-width:100%;border-radius:10px}
 <div id="spot-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
 <p style="color:#888;font-size:13px">※ 명소 전용 카메라가 없는 곳은 가장 가까운 공공 도로 CCTV를 연결했습니다. 카메라 위치와 명소 사이 거리를 함께 표시합니다.</p>
 
+<div id="ts-lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;padding:16px">
+ <div style="width:min(1150px,96vw)">
+  <div style="display:flex;justify-content:space-between;align-items:center;color:#fff;padding:0 4px 10px">
+   <b id="ts-lb-t" style="font-size:15px"></b>
+   <button id="ts-lb-x" style="background:#fff;border:0;border-radius:8px;padding:6px 14px;font-size:16px;cursor:pointer">✕ 닫기</button>
+  </div>
+  <div id="ts-lb-b" style="position:relative;padding-top:56.25%;background:#000;border-radius:12px;overflow:hidden"></div>
+ </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js"></script>
 <script>
 const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev';
@@ -98,7 +106,7 @@ function build(){
   if(region!==last){html+='<div class="ts-hdr" style="grid-column:1/-1;background:#eef2f7;font-weight:700;padding:8px 10px;border-radius:8px;font-size:14px">'+region+'</div>';last=region;}
   html+='<div class="ts-card" data-q="'+(s.name+s.region).toLowerCase()+'" style="background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden">'
    +'<div style="padding:10px 12px 6px"><b style="font-size:14px">'+s.name+'</b><div style="font-size:12px;color:#888">'+s.region+'</div></div>'
-   +'<div style="position:relative">'+srcTag(s)+mediaHtml(s)+'</div>'
+   +'<div class="ts-media" style="position:relative;cursor:zoom-in">'+srcTag(s)+mediaHtml(s)+'</div>'
    +infoHtml(s)+'</div>';
  });
  w.innerHTML=html;
@@ -115,16 +123,18 @@ async function startCard(card){
   load();setInterval(load,300000);return;
  }
  const v=card.querySelector('video');if(!v)return;
- card.querySelector('video').parentElement.addEventListener('click',()=>{v.muted=!v.muted;});
+ card._v=v;
  try{
   let url;
   if(cam.url)url=cam.url;
   else{const r=await fetch(PROXY+'/gits?hls='+cam.gits);const j=await r.json();if(!j.url)throw 0;url=j.url;}
+  card._url=url;
   if(v.canPlayType('application/vnd.apple.mpegurl'))v.src=url;
   else if(window.Hls&&Hls.isSupported()){const h=new Hls({maxBufferLength:6});h.loadSource(url);h.attachMedia(v);h.on(Hls.Events.ERROR,(e,dd)=>{if(dd.fatal)card.querySelector('.ts-off').style.display='flex';});}
  }catch(e){const o=card.querySelector('.ts-off');if(o)o.style.display='flex';}
 }
 function bind(){
+ document.querySelectorAll('.ts-media').forEach(m=>{m.onclick=()=>{const card=m.closest('.ts-card');if(card)openLB(card);};});
  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){startCard(e.target);io.unobserve(e.target);}})},{rootMargin:'250px'});
  cards.forEach(d=>io.observe(d));
  const gio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const d=e.target,yt=d.dataset.yt;if(yt&&!d.querySelector('iframe')){const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+yt+'?autoplay=1&mute=1&playsinline=1';f.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';f.allow='autoplay';f.loading='lazy';d.appendChild(f);d.style.display='block';}gio.unobserve(d);}})},{rootMargin:'250px'});
@@ -132,6 +142,38 @@ function bind(){
  const io2=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!e.target.dataset.ld){e.target.dataset.ld=1;e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io2.unobserve(e.target);}})},{rootMargin:'200px'});
  document.querySelectorAll('.ts-img').forEach(i=>io2.observe(i));
 }
+let lbTimer=null;
+async function openLB(card){
+ const spot=spotsData[cards.indexOf(card)];if(!spot)return;
+ const g=gigaNear(spot);const {cam,d}=nearest(spot);
+ const lb=document.getElementById('ts-lb'),body=document.getElementById('ts-lb-b'),tt=document.getElementById('ts-lb-t');
+ tt.textContent=spot.name+' — '+spot.region+(g?' · '+g.cam.name+' 전용 카메라 LIVE':(cam&&d<=3.0?' · '+cam.name+' · '+d.toFixed(1)+'km':''));
+ body.innerHTML='';clearInterval(lbTimer);lbTimer=null;
+ if(g){
+  body.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+g.cam.yt+'?autoplay=1&rel=0" allow="autoplay;fullscreen" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe>';
+ }else if(cam&&cam.snap&&d<=3.0){
+  body.innerHTML='<img id="lbimg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" alt="'+spot.name+'">';
+  const im=document.getElementById('lbimg');
+  const load=()=>{im.src='cams/'+cam.snap+'.jpg?t='+Date.now();};
+  load();lbTimer=setInterval(load,300000);
+ }else if(cam&&d<=3.0){
+  body.innerHTML='<video id="lbvid" controls autoplay playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000"></video><div id="lboff" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:#fff;font-size:14px">송출 준비 중…</div>';
+  const v=document.getElementById('lbvid');
+  try{
+   let url=card._url;
+   if(!url){if(cam.url)url=cam.url;else{const r=await fetch(PROXY+'/gits?hls='+cam.gits);const j=await r.json();if(!j.url)throw 0;url=j.url;}}
+   if(v.canPlayType('application/vnd.apple.mpegurl'))v.src=url;
+   else if(window.Hls&&Hls.isSupported()){const h=new Hls({maxBufferLength:10});h.loadSource(url);h.attachMedia(v);h.on(Hls.Events.ERROR,(e,dd)=>{if(dd.fatal)document.getElementById('lboff').style.display='flex';});}
+  }catch(e){document.getElementById('lboff').style.display='flex';}
+ }else{
+  body.innerHTML='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:14px">이 명소의 실시간 카메라를 찾지 못했습니다</div>';
+ }
+ lb.style.display='flex';
+}
+function closeLB(){document.getElementById('ts-lb').style.display='none';document.getElementById('ts-lb-b').innerHTML='';clearInterval(lbTimer);lbTimer=null;}
+document.getElementById('ts-lb-x').onclick=closeLB;
+document.getElementById('ts-lb').onclick=e=>{if(e.target.id==='ts-lb')closeLB();};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
 let spotsData=[];
 Promise.all([
  fetch('seoul-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>CAMS.push({name:c.name,lat:c.lat,lng:c.lng,url:c.url,src:'서울'}))),
