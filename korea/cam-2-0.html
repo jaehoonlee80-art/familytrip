@@ -68,6 +68,27 @@ img{max-width:100%;border-radius:10px}
 setInterval(()=>{const i=document.getElementById('bimg');if(i)i.src='../live/cams/beach-2-0.jpg?t='+Date.now();},300000);
 </script>
 
+<p style="margin:12px 0">
+<button id="saveBtn" style="border:1px solid #d1d5db;background:#fff;border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer">☆ 저장한 카메라에 추가</button>
+<a href="../korea/saved.html" style="margin-left:10px;font-size:14px">⭐ 저장한 카메라 모아보기 →</a>
+</p>
+<script>
+(function(){
+const SKEY='kr_saved_cams';
+const rec={id:'beach-2-0',name:'구조라 해변',region:'경상남도 남해군',sido:'경상남도',page:'korea/cam-2-0.html',snap:'live/cams/beach-2-0.jpg'};
+let a=[];try{a=JSON.parse(localStorage.getItem(SKEY)||'[]')}catch(e){}
+const btn=document.getElementById('saveBtn');
+function paint(){const on=a.some(x=>x.id===rec.id);btn.textContent=on?'★ 저장됨 — 클릭하면 해제':'☆ 저장한 카메라에 추가';btn.style.borderColor=on?'#f59e0b':'#d1d5db';btn.style.color=on?'#b45309':'#555';}
+paint();
+btn.onclick=function(){
+ let a=[];try{a=JSON.parse(localStorage.getItem(SKEY)||'[]')}catch(e){}
+ const i=a.findIndex(x=>x.id===rec.id);
+ if(i>=0)a.splice(i,1);else a.push(rec);
+ localStorage.setItem(SKEY,JSON.stringify(a));paint();
+};
+})();
+</script>
+
 <h2>기본 정보</h2>
 <table>
 <thead>

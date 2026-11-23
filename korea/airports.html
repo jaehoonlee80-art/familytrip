@@ -339,6 +339,40 @@ img{max-width:100%;border-radius:10px}
 <li><strong>교통카드</strong>: T-money면 전국 지하철·버스·택시 결제 가능 — 공항 편의점에서 충전</li>
 <li><strong>실시간 상황</strong>: 출발 전 <a href="../live/korea-cctv.html">전국 CCTV</a>나 <a href="../live/airport-port-cctv.html">공항·항만 CCTV</a>로 교통 상황 확인</li>
 </ul>
+<h2>📍 공항 주변 관광지·맛집 (실데이터)</h2>
+<p>한국관광공사 TourAPI로 수집한 전국 관광지·음식점 데이터를 바탕으로, 각 공항 <strong>반경 15km 이내</strong>의 실제 관광지와 맛집을 정리했습니다. 도착 직후나 출발 전 짧게 들르기 좋은 곳을 골라보세요.</p>
+<p>
+<select id="ap-sel" style="padding:8px;border:1px solid #ddd;border-radius:8px;font-size:14px"></select>
+<span id="ap-info" style="font-size:13px;color:#888;margin-left:8px"></span>
+</p>
+<div id="ap-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:16px 0"></div>
+
+<script src="airport-pois.js"></script>
+<script>
+(function(){
+const sel=document.getElementById('ap-sel'),wall=document.getElementById('ap-wall'),info=document.getElementById('ap-info');
+const codes=Object.keys(AIRPORT_POIS);
+codes.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=AIRPORT_POIS[c].name+' ('+c+')';sel.appendChild(o);});
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function paint(){
+ const d=AIRPORT_POIS[sel.value];if(!d)return;
+ const sights=d.near.filter(x=>x.kind==='관광지'),foods=d.near.filter(x=>x.kind==='맛집');
+ info.textContent='반경 15km 내 관광지 '+sights.length+'곳 · 맛집 '+foods.length+'곳';
+ const card=x=>'<div class="card" style="padding:0;overflow:hidden">'
+  +(x.img?'<img src="'+x.img.replace('http://','https://')+'" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;background:#eee" onerror="this.style.display=\'none\'">':'')
+  +'<div class="body" style="padding:12px">'
+  +'<span style="font-size:11px;background:#eef2ff;color:#3730a3;padding:2px 8px;border-radius:8px">'+x.kind+' · '+x.dist+'km</span>'
+  +'<h3 style="margin:8px 0 4px;font-size:15px">'+esc(x.title)+'</h3>'
+  +'<p style="font-size:12px;color:#777;margin:0 0 6px">'+esc(x.addr)+'</p>'
+  +(x.home?'<a href="'+x.home+'" target="_blank" rel="noopener" style="font-size:12px">공식 홈페이지 ↗</a> · ':'')
+  +'<a href="https://www.google.com/maps/search/?api=1&query='+x.lat+','+x.lon+'" target="_blank" rel="noopener" style="font-size:12px">지도 →</a></div></div>';
+ wall.innerHTML='<div style="grid-column:1/-1"><h3 style="margin:8px 0">🏛️ 주변 관광지</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px">'+(sights.map(card).join('')||'<p style="color:#888;font-size:13px">반경 15km 내 관광지 데이터가 적습니다.</p>')+'</div></div>'
+  +'<div style="grid-column:1/-1"><h3 style="margin:8px 0">🍜 주변 맛집</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px">'+(foods.map(card).join('')||'<p style="color:#888;font-size:13px">반경 15km 내 맛집 데이터가 적습니다.</p>')+'</div></div>';
+}
+sel.onchange=paint;paint();
+})();
+</script>
+
 <h2>함께 보기</h2>
 <ul>
 <li><a href="transport.html">한국 여행 교통 허브</a> — KTX·국내선·지하철 상세</li>
