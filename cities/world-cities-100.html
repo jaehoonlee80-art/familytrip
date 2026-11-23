@@ -56,10 +56,16 @@ img{max-width:100%;border-radius:10px}
 <main><div class="meta">세계 도시 · 2026-01-01</div><h1>세계 인기 도시 100곳 완벽 가이드 — 나라별 여행 정보 총정리</h1><h1>세계 인기 도시 100곳 — 지도에서 찾기</h1>
 <p>전 세계인이 가장 많이 방문하는 국가의 대표 도시 <strong>100곳</strong>을 선정했습니다. 아래 지도에서 도시를 클릭하면 해당 도시의 상세 가이드(최적 시기·명소·먹거리·교통·예산·실시간 날씨)로 바로 이동합니다.</p>
 <div id="citymap" style="height:560px;border-radius:14px;border:1px solid #ddd;margin:16px 0"></div>
-<p style="font-size:13px;color:#888">마커 색상: 유럽(파랑) · 아시아(빨강) · 아메리카(초록) · 오세아니아/기타(보라). 검색창으로 도시·나라를 바로 찾을 수 있습니다.</p>
+<p style="font-size:13px;color:#888">마커 색상: 유럽(파랑) · 아시아(빨강) · 아메리카(초록) · 오세아니아/기타(보라). 지도를 확대(줌 5 이상)하면 각 도시 이름이 지도 위에 표시됩니다. 검색창으로 도시·나라를 바로 찾을 수 있습니다.</p>
 <p><input id="cmapq" type="search" placeholder="도시·나라 검색 (예: 파리, 도쿄, 케이프타운)" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin-bottom:14px"></p>
 <div id="clist" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px"></div>
 
+<style>
+.citytip{background:#fff;border:1px solid #cbd5e1;border-radius:6px;padding:1px 6px;font-size:11px;font-weight:600;color:#0f172a;box-shadow:0 1px 3px rgba(0,0,0,.15);white-space:nowrap}
+.citytip::before{display:none}
+.contlbl{background:transparent;border:none;font-size:15px;font-weight:800;color:#334155;text-shadow:0 0 4px #fff,0 0 4px #fff,0 0 6px #fff;letter-spacing:1px}
+.contlbl::before{display:none}
+</style>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></p>
 <script>
@@ -71,12 +77,21 @@ function contOf(c){const a=['프랑스','영국','이탈리아','스페인','독
 const map=L.map('citymap').setView([20,0],2);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
 const bounds=[];
+// 대륙 지역 라벨
+[['유럽',52,15],['아시아',35,105],['아메리카',15,-90],['오세아니아·아프리카·중동',-20,130]].forEach(r=>{
+ L.tooltip({permanent:true,direction:'center',className:'contlbl'}).setLatLng([r[1],r[2]]).setContent(r[0]).addTo(map);
+});
+const markers=[];
 CITIES.forEach(c=>{
  const col=COLORS[contOf(c)];
- const mk=L.circleMarker([c.lat,c.lon],{radius:7,color:'#fff',weight:1.5,fillColor:col,fillOpacity:.9}).addTo(map);
+ const mk=L.circleMarker([c.lat,c.lon],{radius:8,color:'#fff',weight:2,fillColor:col,fillOpacity:.95}).addTo(map);
+ mk.bindTooltip('<b>'+c.n+'</b> · '+c.co,{permanent:false,direction:'top',offset:[0,-8],className:'citytip'});
  mk.bindPopup('<b>'+c.n+'</b> '+c.en+'<br>'+c.co+' · 최적 '+c.best+'<br><a href="'+c.u+'">상세 가이드 →</a>');
- bounds.push([c.lat,c.lon]);
+ markers.push(mk);bounds.push([c.lat,c.lon]);
 });
+// 줌 5 이상에서 도시 이름 상시 표시
+function syncLabels(){const show=map.getZoom()>=5;markers.forEach(m=>{const t=m.getTooltip();if(!t)return;if(show){if(!m._tipOpen){m.openTooltip();m._tipOpen=true;}}else if(m._tipOpen){m.closeTooltip();m._tipOpen=false;}});}
+map.on('zoomend',syncLabels);syncLabels();
 map.fitBounds(bounds,{padding:[30,30]});
 // 리스트+검색
 const cl=document.getElementById('clist');
