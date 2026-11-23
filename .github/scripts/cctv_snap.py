@@ -12,6 +12,9 @@ SOURCES = [
     (os.path.join(ROOT, 'live', 'fitic-cams.json'), 'http://{host}:1935/cctv', 'playlist.m3u8', '{stream}.stream'),
 ]
 UA = {'User-Agent': 'familytrip-cctv-snap/1.0'}
+# 해변 카메라: http JPEG 직접 다운로드 (ffmpeg 불필요)
+BEACH_JSON = os.path.join(ROOT, 'live', 'beach-cams.json')
+BEACH_URL = 'http://220.95.232.18/camera/{code}_{cam}.jpg'
 
 def fetch(url, timeout=15):
     req = urllib.request.Request(url, headers=UA)
@@ -50,6 +53,18 @@ def snap(cam, base_t, list_t, path_t):
     except Exception as e:
         return cid, f'err:{type(e).__name__}'
 
+def snap_jpg(cam):
+    cid = cam['id']
+    try:
+        data = fetch(BEACH_URL.format(**cam), timeout=20)
+        if len(data) < 3000 or not data[:2] == b'\xff\xd8':
+            return cid, 'bad-img'
+        with open(os.path.join(OUT_DIR, f'{cid}.jpg'), 'wb') as f:
+            f.write(data)
+        return cid, 'ok'
+    except Exception as e:
+        return cid, f'err:{type(e).__name__}'
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     jobs = []
@@ -58,8 +73,12 @@ def main():
             continue
         for cam in json.load(open(path, encoding='utf-8')):
             jobs.append((cam, base, lst, pt))
+    jpg_jobs = []
+    if os.path.exists(BEACH_JSON):
+        jpg_jobs = json.load(open(BEACH_JSON, encoding='utf-8'))
     with ThreadPoolExecutor(max_workers=8) as ex:
         results = list(ex.map(lambda j: snap(*j), jobs))
+        results += list(ex.map(snap_jpg, jpg_jobs))
     ok = sum(1 for _, s in results if s == 'ok')
     print(f'snapshots: {ok}/{len(jobs)} ok')
     for cid, s in results:

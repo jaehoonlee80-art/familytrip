@@ -27,7 +27,7 @@ jobs:
         run: |
           git config user.name "cctv-snap[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add live/cams live/kbs-cams.json
+          git add live/cams live/kbs-cams.json live/beach-cams.json
           if git diff --cached --quiet; then
             echo "no changes"
           else
