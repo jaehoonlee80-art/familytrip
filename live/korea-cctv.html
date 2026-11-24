@@ -119,8 +119,8 @@ img{max-width:100%;border-radius:10px}
 </table>
 <h3>🗺️ 지역 지도 — 마커를 누르면 해당 지역 페이지로 이동</h3>
 <div id="cctv-region-map" style="height:420px;border-radius:12px;margin:10px 0 20px"></div>
-<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></p>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous"></p>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
 <script>
 (function(){
 var REGIONS=[
@@ -254,7 +254,7 @@ REGIONS.forEach(function(r){
 <p>카메라 점검, 기상 악화(낙뢰·강풍·폭설), 통신 두절로 일시 중단될 수 있습니다. 공공 CCTV는 24시간 연속 송출을 보장하지 않습니다.</p>
 <h3>생활방범 CCTV도 볼 수 있나요?</h3>
 <p>아니요. 개인정보보호법상 생활방범 목적의 영상은 공개되지 않으며, 이 페이지의 소스는 교통·재난·안전 등 공개 목적의 영상만 포함합니다.</p>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js" integrity="sha384-R2JqybiEexSXz60H6Zz28MdsqWWnMQlP+NDb7nIhDHWxx6sM7Otw7OWCq9EBCPsz" crossorigin="anonymous"></script>
 <script src="wall.js"></script>
 <script>
 const KNPS=[["gangbuk","백운대·북한산"],["sobak","연화봉·소백산"],["cctv11","두로령·오대산"],["cctv17","상원사·치악산"],["cctv6","천제단·태백산"],["cctv16","천황봉·계룡산"],["cctv15","장불재·무등산"],["cctv23","108단풍길·내장산"],["cctv10","설천봉·덕유산"],["cctv18","죽막·변산반도"],["cctv9","기암·주왕산"],["cctv5","각산·한려해상"],["cctv12","지리청송·다도해"],["cctv21","학암포·태안해안"],["jiri","천왕봉·지리산"],["cctv7","장터목·지리산"]].map(([page,name])=>({page,name}));
