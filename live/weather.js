@@ -41,7 +41,7 @@ async function mount(el){
      const mx=b.maxs.length?(b.maxs.reduce((a,v)=>a+v,0)/b.maxs.length).toFixed(1):'—';
      const ys=Object.keys(b.ym);
      const pr=ys.length?(ys.reduce((a,k)=>a+b.ym[k],0)/ys.length).toFixed(0):'—';
-     cells+=`<div style="text-align:center;padding:8px 4px;border-left:1px solid #eee;min-width:64px"><div style="font-size:12px;color:#888;margin-bottom:3px">${m}월</div><div style="font-size:13px;font-weight:700;color:#dc2626;line-height:1.3">최고 ${mx}°</div><div style="font-size:13px;font-weight:700;color:#2563eb;line-height:1.3">최저 ${mn}°</div><div style="font-size:11px;color:#3b82f6;margin-top:3px">🌧 ${pr}mm</div></div>`;
+     cells+=`<div style="text-align:center;padding:8px 4px;border-left:1px solid #eee;min-width:64px"><div style="font-size:12px;color:#888;margin-bottom:3px">${m}월</div><div style="font-size:14px;font-weight:700;color:#dc2626;line-height:1.4">${mx}°</div><div style="font-size:14px;font-weight:700;color:#2563eb;line-height:1.4">${mn}°</div><div style="font-size:11px;color:#3b82f6;margin-top:3px">🌧 ${pr}mm</div></div>`;
     });
     monthlyTable=`<div style="margin-top:14px"><div style="font-size:13px;color:#2563eb;font-weight:700;margin-bottom:6px">📅 월별 평균 기후 (2021~2023 평균) — 최저~최고 기온 · 월 강수량</div><div style="display:flex;overflow-x:auto;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc">${cells}</div></div>`;
    }
