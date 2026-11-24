@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>여행 코스 생성기 — 지역·인원·여행 스타일별 맞춤 일정</title>
+<meta name="description" content="여행 지역, 성인·소아 인원, 여행 스타일, 기간(1일/2-3일/4-5일/1주일)을 선택하면 일차별 관광 코스를 자동으로 만들어주는 무료 도구. 세계 100개 도시 데이터 기반.">
+<link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/tools/trip-planner.html">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
+a{color:#2563eb;text-decoration:none}
+header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+header .logo{font-weight:800;font-size:20px;color:#0f766e}
+nav a{margin-left:18px;font-size:14px;color:#555}
+main{max-width:760px;margin:0 auto;padding:40px 20px}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
+h1{font-size:32px;line-height:1.3;margin-bottom:16px}
+h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
+h3{font-size:17px;margin:24px 0 8px}
+p{margin-bottom:14px}
+ul,ol{margin:0 0 14px 22px}
+img{max-width:100%;border-radius:10px}
+.meta{color:#888;font-size:13px;margin-bottom:24px}
+.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
+.cta h3{color:#fff;margin-top:0}
+.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+.card .body{padding:14px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{font-size:13px;color:#777;margin:0}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
+.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
+.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
+.live-meta{font-size:13px;color:#777;margin-bottom:20px}
+.live-meta li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/familytrip/">온 가족 여행 연구소</a>
+  <nav>
+    <a href="/familytrip/guides.html">여행 가이드</a>
+    <a href="/familytrip/live.html">실시간 카메라</a>
+    <a href="/familytrip/live/korea-cctv.html">전국 CCTV</a>
+    <a href="/familytrip/cities.html">세계 도시 100</a>
+    <a href="/familytrip/korea.html">한국 여행</a>
+  </nav>
+</header>
+<main><div class="meta">여행 도구 · 2026-11-24</div><h1>여행 코스 생성기 — 지역·인원·여행 스타일별 맞춤 일정</h1><p>지역·인원·여행 스타일·기간을 선택하면 <strong>세계 100개 도시</strong>의 실제 명소 데이터를 바탕으로 일차별 코스를 자동 생성합니다. 아이 동반 여부와 스타일에 따라 하루 코스 밀도와 명소 우선순위가 달라집니다.</p>
+<div class="calc-box" style="background:#fff;border:1px solid #eee;border-radius:14px;padding:20px;margin:18px 0">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+<label style="font-size:13px;color:#555">여행 지역
+<select id="tp-city" style="width:100%;margin-top:6px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:15px"></select></label>
+<label style="font-size:13px;color:#555">성인
+<select id="tp-ad" style="width:100%;margin-top:6px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:15px">
+<option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
+<label style="font-size:13px;color:#555">소아(만 12세 이하)
+<select id="tp-kd" style="width:100%;margin-top:6px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:15px">
+<option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+<label style="font-size:13px;color:#555">여행 기간
+<select id="tp-days" style="width:100%;margin-top:6px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:15px">
+<option value="1">1일</option><option value="3" selected>2~3일</option><option value="5">4~5일</option><option value="7">1주일</option></select></label>
+<label style="font-size:13px;color:#555">여행 스타일
+<select id="tp-style" style="width:100%;margin-top:6px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:15px">
+<option value="family" selected>👨‍👩‍👧 가족·아이동반</option>
+<option value="culture">🏛️ 역사·문화</option>
+<option value="food">🍜 미식·로컬</option>
+<option value="relax">🏖️ 휴양·힐링</option>
+<option value="activity">🎢 액티비티</option></select></label>
+</div>
+<button id="tp-go" style="margin-top:16px;width:100%;padding:13px;border:0;border-radius:10px;background:#0f766e;color:#fff;font-size:16px;font-weight:700;cursor:pointer">코스 만들기</button>
+</div>
+
+<div id="tp-out"></div>
+
+<script src="trip-data.js"></script>
+<script>
+const KW={
+ family:['공원','박물관','해변','시장','수족관','동물원','정원','탑',' 전망대'],
+ culture:['박물관','궁','사원','교회','성','유적','미술관','대성당','기념관','박물관'],
+ food:['시장','거리','골목','먹자골목','포장마차'],
+ relax:['해변','공원','호수','정원','섬','리조트','온천','스파'],
+ activity:['타워','케이블카','스키','서핑','다리','놀이공원',' 전망','폭포','트레킹','하이킹']
+};
+const DSTYLE={
+ family:{per:2,note:'아이와 함께라 하루 2곳 중심으로 여유롭게 배치했습니다.'},
+ culture:{per:4,note:'역사·문화 명소 위주로 하루 코스를 빡빡하게 구성했습니다.'},
+ food:{per:3,note:'미식·시장 코스를 끼워 넣어 하루 3곳 + 먹거리 중심입니다.'},
+ relax:{per:2,note:'휴양 스타일 — 하루 2곳 + 여유 시간 배치입니다.'},
+ activity:{per:3,note:'액티비티·체험 명소를 우선 배치했습니다.'}
+};
+const sel=document.getElementById('tp-city');
+const conts=[...new Set(TRIP_CITIES.map(c=>c.ct))];
+conts.forEach(ct=>{
+ const g=document.createElement('optgroup');g.label=ct;
+ TRIP_CITIES.filter(c=>c.ct===ct).forEach(c=>{
+  const o=document.createElement('option');o.value=c.n;o.textContent=c.n+' ('+c.en+')';g.appendChild(o);});
+ sel.appendChild(g);});
+function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').replace(/-+/g,'-')}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function rank(sights,style,kids){
+ const kws=KW[style]||[];
+ return sights.map((s,i)=>{
+  let sc=0;const t=s[0]+(s[1]||'');
+  kws.forEach((k,j)=>{if(t.includes(k))sc+=10-j});
+  if(kids>0&&/어린이|체험|공원|박물관|수족관|동물원/.test(t))sc+=6;
+  return {s,i,sc};
+ }).sort((a,b)=>b.sc-a.sc||a.i-b.i).map(x=>x.s);
+}
+function go(){
+ const c=TRIP_CITIES.find(x=>x.n===sel.value);if(!c)return;
+ const A=+document.getElementById('tp-ad').value,K=+document.getElementById('tp-kd').value;
+ const days=+document.getElementById('tp-days').value,style=document.getElementById('tp-style').value;
+ const ds=DSTYLE[style];let per=ds.per;
+ if(A+K>=5)per=Math.max(2,per-1);
+ if(days===1)per=Math.min(per+1,5);
+ const sights=rank(c.s.slice(),style,K);
+ if(!sights.length){document.getElementById('tp-out').innerHTML='<p style="color:#888">이 도시의 명소 데이터가 부족합니다.</p>';return}
+ const need=days*per;
+ const cyc=[];for(let i=0;i<need;i++)cyc.push(sights[i%sights.length]);
+ const foods=c.f||[];
+ let html='<div style="margin-top:22px">'
+  +'<div style="background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:16px">'
+  +'<div style="font-size:20px;font-weight:800">'+esc(c.n)+' ('+esc(c.en)+') '+days+'일 코스</div>'
+  +'<div style="font-size:13px;opacity:.9;margin-top:4px">성인 '+A+'명'+(K?' · 소아 '+K+'명':'')+' · '+document.getElementById('tp-style').selectedOptions[0].textContent+' · '+ds.note+'</div></div>';
+ for(let d=0;d<days;d++){
+  const items=cyc.slice(d*per,(d+1)*per);
+  html+='<div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:16px 18px;margin-bottom:12px">'
+   +'<div style="font-size:15px;font-weight:800;color:#0f766e;margin-bottom:10px">DAY '+(d+1)+(days===1?' · 당일치기':'')+'</div>';
+  items.forEach((s,j)=>{
+   const slot=j===0?'☀️ 오전':(j===1?'🌤️ 오후':'🌆 오후 늦게');
+   html+='<div style="margin-bottom:10px"><b>'+slot+'</b> — '+esc(s[0])
+    +(s[1]?'<div style="font-size:12.5px;color:#777;margin:2px 0 0 18px">'+esc(s[1].slice(0,90))+(s[1].length>90?'…':'')+'</div>':'')+'</div>';});
+  const fi=(d*2)%Math.max(foods.length,1);
+  if(foods.length){
+   html+='<div style="border-top:1px dashed #eee;margin-top:6px;padding-top:8px;font-size:13px;color:#92400e">'
+    +'🍽️ 점심: '+esc(foods[fi][0])+'<br>🍷 저녁: '+esc(foods[(fi+1)%foods.length][0])+'</div>';}
+  html+='</div>';}
+ if(days>=4&&c.dt&&c.dt.length){
+  html+='<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 18px;font-size:13.5px;margin-bottom:12px">'
+   +'💡 '+days+'일 이상이면 당일치기로 <b>'+esc(c.dt[0].split('(')[0])+'</b>도 추천합니다 ('+esc(c.dt[0])+').</div>';}
+ if(c.tips&&c.tips.length){
+  html+='<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:14px 18px;font-size:13px;margin-bottom:12px">'
+   +'<b>📌 '+esc(c.n)+' 팁</b><ul style="margin:6px 0 0 18px">'+c.tips.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul></div>';}
+ html+='<div style="display:flex;gap:10px;flex-wrap:wrap">'
+  +'<a href="/familytrip/cities/'+slugify(c.en)+'.html" style="background:#0f766e;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px">도시 가이드 보기 →</a>'
+  +'<a href="/familytrip/tools/family-cost-calculator.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">경비 계산기 →</a>'
+  +'<a href="/familytrip/tools/packing-checklist.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">짐싸기 리스트 →</a></div></div>';
+ document.getElementById('tp-out').innerHTML=html;
+ document.getElementById('tp-out').scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('tp-go').onclick=go;
+</script></main>
+<footer>
+  온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
+  이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.
+</footer>
+<script src="/familytrip/live/lightbox.js"></script>
+<script src="/familytrip/live/weather.js"></script>
+</body>
+</html>
