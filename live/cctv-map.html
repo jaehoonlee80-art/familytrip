@@ -99,10 +99,10 @@ const SRC={
  giga:{page:'tourist-live.html',label:'GiGAeyes 라이브'},
  tourist:{page:'tourist-live.html',label:'관광명소'}
 };
-const CAMS=[];const SAVED=new Set(JSON.parse(localStorage.getItem('cctvSaved')||'[]'));
+const CAMS=[];let SAVED=new Set();try{SAVED=new Set(JSON.parse(localStorage.getItem('cctvSaved')||'[]'))}catch(e){}
 function regOf(c){return c.region||c.area||c.src||''}
 function push(src,type,name,lat,lng,extra){if(lat==null||lng==null)return;CAMS.push(Object.assign({src,type,name,lat,lng},extra||{}))}
-Promise.all([
+Promise.allSettled([
  fetch('seoul-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('seoul','traffic',c.name,c.lat,c.lng,{id:'seoul-'+c.id}))),
  fetch('gits-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('gits','traffic',c.name,c.lat,c.lng,{id:'gits-'+c.id,reg:(c.name.match(/^\[([^\]]+)\]/)||[])[1]||'경기'}))),
  fetch('ulsan-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('ulsan','traffic',(c.area?c.area+' ':'')+c.name,c.lat,c.lng,{id:'ulsan-'+c.id,reg:c.area}))),
@@ -110,15 +110,22 @@ Promise.all([
  fetch('fitic-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('fitic','traffic',c.name,c.lat,c.lng,{id:'fitic-'+c.id,reg:'인천'}))),
  fetch('giga-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('giga','tour',c.name,c.lat,c.lng,{id:'giga-'+c.yt,reg:c.region}))),
  fetch('tourist-spots.json').then(r=>r.json()).then(a=>a.forEach(c=>push('tourist','spot',c.name,c.lat,c.lng,{id:'spot-'+c.name,reg:c.region}))),
-]).then(()=>{
+]).then(()=>{ /* allSettled 대체: 개별 실패는 빈 배열로 처리됨 */
  const regs=[...new Set(CAMS.map(regOf).filter(Boolean))].sort();
  document.getElementById('mRegion').innerHTML='<option value="">전체</option>'+regs.map(r=>'<option>'+r+'</option>').join('');
  render();
 });
-const map=L.map('map').setView([36.5,127.8],7);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap © CARTO',maxZoom:19}).addTo(map);
-const cluster=L.markerClusterGroup({maxClusterRadius:50,spiderfyOnMaxZoom:true});
-map.addLayer(cluster);
+const mapOk=typeof L!=='undefined';
+let map=null,cluster=null;
+if(mapOk){
+ map=L.map('map').setView([36.5,127.8],7);
+ L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap © CARTO',maxZoom:19}).addTo(map);
+ cluster=L.markerClusterGroup({maxClusterRadius:50,spiderfyOnMaxZoom:true});
+ map.addLayer(cluster);
+}else{
+ document.getElementById('map').innerHTML='<div style="padding:40px;text-align:center;color:#888">지도를 불러오지 못했습니다. 아래 목록에서 카메라를 선택하세요.</div>';
+ document.getElementById('map').style.height='auto';
+}
 let markers=[];
 function iconFor(c){const t=TYPE[c.type];return L.divIcon({className:'',html:'<div style="width:14px;height:14px;border-radius:50%;background:'+t.c+';border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>',iconSize:[14,14],iconAnchor:[7,7]})}
 function popupHtml(c){
@@ -131,20 +138,30 @@ function popupHtml(c){
  '<button onclick="togSave(\''+c.id+'\',this)" style="border:1px solid #d1d5db;background:#fff;border-radius:6px;padding:4px 8px;font-size:12px;cursor:pointer">'+(saved?'★ 저장됨':'☆ 저장')+'</button></div>';
 }
 function render(){
- cluster.clearLayers();markers=[];
+ if(cluster)cluster.clearLayers();markers=[];
  const q=(document.getElementById('mSearch').value||'').trim().toLowerCase();
  const rg=document.getElementById('mRegion').value,ty=document.getElementById('mType').value;
  const onlySaved=document.getElementById('mSaved').checked;
- let n=0;
+ let n=0,list='';
  CAMS.forEach(c=>{
   if(ty&&c.type!==ty)return;
   if(rg&&regOf(c)!==rg)return;
   if(onlySaved&&!SAVED.has(c.id))return;
   if(q&&!(c.name+' '+regOf(c)).toLowerCase().includes(q))return;
-  const m=L.marker([c.lat,c.lng],{icon:iconFor(c)}).bindPopup(popupHtml(c));
-  cluster.addLayer(m);markers.push(m);n++;
+  n++;
+  if(mapOk){
+   const m=L.marker([c.lat,c.lng],{icon:iconFor(c)}).bindPopup(popupHtml(c));
+   cluster.addLayer(m);markers.push(m);
+  }else{
+   const t=TYPE[c.type],s=SRC[c.src]||{};
+   list+='<div style="padding:8px 4px;border-bottom:1px solid #eee;font-size:14px"><b>'+c.name+'</b> <span style="color:'+t.c+'">● '+t.label+'</span>'+(regOf(c)?' · '+regOf(c):'')+' — <a href="/familytrip/live/'+(s.page||'korea-cctv.html')+'">실시간 보기 →</a></div>';
+  }
  });
  document.getElementById('mStat').textContent='표시 중 '+n+'개 / 전체 '+CAMS.length+'개'+(SAVED.size?' · 저장 '+SAVED.size+'개':'');
+ if(!mapOk){
+  const mv=document.getElementById('map');
+  mv.innerHTML='<div style="padding:16px 20px;color:#888;font-size:13px">지도 라이브러리를 불러오지 못해 목록으로 표시합니다.</div>'+list;
+ }
 }
 window.togSave=function(id,btn){
  if(SAVED.has(id)){SAVED.delete(id);btn.textContent='☆ 저장';btn.style.background='#fff'}
