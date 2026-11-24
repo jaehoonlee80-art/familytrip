@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>가족여행 경비 계산기 — 항공·숙소·식비·활동비 총예산 자동 계산</title>
-<meta name="description" content="제주·오키나와·도쿄 가족여행 경비를 항공/숙소/식비/교통/활동비로 나눠 계산하는 무료 도구. 인원과 일수만 입력하면 총예산과 1인당 비용이 바로 나옵니다.">
+<title>가족여행 경비 계산기 — 지역·인원·일정·예산 범위로 총예산 자동 예측</title>
+<meta name="description" content="여행지·출발지·일정·인원·예산 범위(실속/균형/고급)만 고르면 항공·숙소·식비·활동비를 자동 추정. 출발일별 예상 비용과 패키지별 비교까지 한눈에.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/tools/family-cost-calculator.html">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -51,39 +51,86 @@ img{max-width:100%;border-radius:10px}
     <a href="/familytrip/korea.html">한국 여행</a>
   </nav>
 </header>
-<main><div class="meta">여행 도구 · 2026-11-20</div><h1>가족여행 경비 계산기 — 항공·숙소·식비·활동비 총예산 자동 계산</h1><p>인원과 일수, 여행지를 입력하면 <strong>항공·숙소·식비·교통·활동비</strong>를 자동으로 나눠 총예산을 계산합니다. 아래 숫자를 바꾸면 결과가 바로 업데이트됩니다.</p>
+<main><div class="meta">여행 도구 · 2026-11-20</div><h1>가족여행 경비 계산기 — 지역·인원·일정·예산 범위로 총예산 자동 예측</h1><p><strong>여행지 · 출발지 · 일정 · 인원 · 예산 범위</strong>만 선택하면 항공권·숙소·식비·교통·활동비를 자동으로 추정합니다. 출발일별 예상 비용과 실속/균형/고급 패키지 비교까지 한 화면에서 확인하세요.</p>
 <div class="calc-box">
+<h3 style="margin:0 0 12px">🧳 여행 정보</h3>
 <div class="calc-grid">
 <label>여행지
 <select id="cDest">
-<option value="jeju">제주도 (국내)</option>
+<optgroup label="국내">
+<option value="jeju">제주도</option>
+<option value="gangwon">강릉 · 속초</option>
+<option value="busan">부산 · 경주</option>
+</optgroup>
+<optgroup label="일본">
 <option value="okinawa">오키나와 (나하)</option>
 <option value="fukuoka">후쿠오카</option>
 <option value="tokyo">도쿄</option>
-<option value="osaka">오사카</option>
-<option value="custom">직접 입력</option>
+<option value="osaka">오사카 · 교토</option>
+</optgroup>
+<optgroup label="동남아">
+<option value="bangkok">방콕</option>
+<option value="danang">다낭</option>
+<option value="hoian">호이안</option>
+<option value="phuket">푸켓</option>
+<option value="singapore">싱가포르</option>
+<option value="kl">쿠알라룸푸르</option>
+<option value="hcmc">호치민</option>
+</optgroup>
+<optgroup label="기타">
+<option value="hawaii">하와이 (오아후)</option>
+<option value="guam">괌</option>
+<option value="saipan">사이판</option>
+</optgroup>
 </select></label>
-<label>여행 일수 <input type="number" id="cDays" value="3" min="1" max="30"></label>
-<label>성인 <input type="number" id="cAdults" value="2" min="1" max="10"></label>
-<label>어린이 <input type="number" id="cKids" value="1" min="0" max="10"></label>
+<label>출발지
+<select id="cFrom">
+<option value="1.0">서울 (인천·김포)</option>
+<option value="1.12">부산 (김해)</option>
+<option value="1.16">대구</option>
+<option value="1.2">광주 · 대전 · 기타 지방</option>
+</select></label>
+<label>일정
+<select id="cTrip">
+<option value="0-1">당일치기</option>
+<option value="1-2">1박 2일</option>
+<option value="2-3" selected>2박 3일</option>
+<option value="3-4">3박 4일</option>
+<option value="4-5">4박 5일</option>
+<option value="5-6">5박 6일</option>
+<option value="6-7">6박 7일</option>
+<option value="7-9">7박 9일</option>
+<option value="9-12">9박 12일</option>
+</select></label>
+<label>인원 — 성인
+<input type="number" id="cAdults" value="2" min="1" max="10"></label>
+<label>인원 — 어린이(만 12세 이하)
+<input type="number" id="cKids" value="0" min="0" max="10"></label>
+<label>예산 범위
+<select id="cBudget">
+<option value="budget">실속형 — 최소 비용</option>
+<option value="standard" selected>균형형 — 무난한 평균</option>
+<option value="luxury">고급형 — 프리미엄</option>
+</select></label>
 </div>
-<div class="calc-grid">
-<label>항공권 총액 (왕복, 전체 인원) <input type="number" id="cFlight" value="600000"></label>
-<label>호텔 1박 요금 <input type="number" id="cHotel" value="150000"></label>
-<label>식비/일/가족 <input type="number" id="cFood" value="80000"></label>
-<label>교통·입장료/일/가족 <input type="number" id="cAct" value="50000"></label>
-<label>렌터카/일 (선택, 0이면 미포함) <input type="number" id="cCar" value="0"></label>
-<label>쇼핑·예비비 비율 % <input type="number" id="cBuffer" value="10" min="0" max="50"></label>
+<button onclick="calcBudget()" style="background:#0f766e;color:#fff;border:0;padding:12px 28px;border-radius:8px;font-weight:700;cursor:pointer;font-size:15px">비용 계산하기</button>
 </div>
-<button onclick="calcBudget()" style="background:#0f766e;color:#fff;border:0;padding:12px 28px;border-radius:8px;font-weight:700;cursor:pointer;font-size:15px">예산 계산하기</button>
-<div id="cResult" style="margin-top:20px"></div>
-</div>
+
+<h2>📅 출발일별 예상 비용</h2>
+<p style="font-size:13px;color:#888">앞으로 30일 중 출발일을 고르면 그 날짜 기준으로 아래 패키지 가격이 다시 계산됩니다. 날짜를 누르면 선택됩니다.</p>
+<div id="dateStrip" style="display:flex;gap:8px;overflow-x:auto;padding:8px 2px 14px"></div>
+<p id="selDate" style="font-size:13px;color:#0f766e;font-weight:700;margin:0 0 8px"></p>
+
+<h2>💰 비용 리스트</h2>
+<p style="font-size:13px;color:#888">항공권·숙소·식비·교통·활동비가 포함된 총액입니다. 카드를 누르면 항목별 내역이 펼쳐집니다.</p>
+<div id="pkgList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px"></div>
 
 <h2>결과 보는 법</h2>
 <ul>
-<li><strong>총예산</strong>: 항공 + 숙소(일수-1박 기준) + 식비 + 활동비 + 렌터카 + 예비비</li>
-<li><strong>1인당 비용</strong>: 가족 총액 ÷ (성인 + 어린이 0.7명 환산)</li>
-<li>지역별 기본값은 일반적인 가족여행 시세 기준이며, 실제 가격은 항공 특가·성수기·숙소 등급에 따라 크게 달라집니다</li>
+<li><strong>총액</strong>은 선택한 인원 전체 기준, <strong>1인당</strong>은 성인 1명 기준 환산입니다(어린이 60% 가중)</li>
+<li><strong>실속형</strong>: LCC 항공 + 게스트하우스·펜션 + 현지식 중심 / <strong>균형형</strong>: 일반 항공 + 3~4성급 호텔 / <strong>고급형</strong>: FSC 직항 + 4~5성급 리조트</li>
+<li><strong>우선형</strong>은 해당 항목에 예산을 더 배분한 패키지입니다 (예: 항공우선형 = 좋은 좌석·직항, 숙소우선형 = 고급 호텔)</li>
+<li>출발일별 가격 차이는 항공권 시세 변동을 반영한 <strong>추정치</strong>입니다</li>
 </ul>
 <h2>예산 줄이는 팁</h2>
 <ol>
@@ -93,42 +140,130 @@ img{max-width:100%;border-radius:10px}
 <li><strong>활동</strong>: 미리 온라인 예매(클룩·비아토어)하면 현장가 대비 10~20% 절약됩니다</li>
 </ol>
 <script>
-const PRESET={
- jeju:{flight:600000,hotel:150000,food:80000,act:50000,car:0},
- okinawa:{flight:900000,hotel:180000,food:90000,act:60000,car:0},
- fukuoka:{flight:350000,hotel:120000,food:70000,act:40000,car:0},
- tokyo:{flight:500000,hotel:160000,food:100000,act:60000,car:0},
- osaka:{flight:450000,hotel:140000,food:90000,act:50000,car:0},
- custom:{flight:600000,hotel:150000,food:80000,act:50000,car:0}
+// 지역별 '균형형' 기준 시세 — [항공 왕복/인, 숙소 1박/실, 식비/일/인, 교통·활동/일/인, 렌트카/일]
+const RATE={
+ jeju:{n:'제주도',f:280000,h:130000,d:45000,a:30000,car:60000},
+ gangwon:{n:'강릉·속초',f:180000,h:110000,d:40000,a:25000,car:70000},
+ busan:{n:'부산·경주',f:120000,h:100000,d:40000,a:25000,car:60000},
+ okinawa:{n:'오키나와',f:550000,h:170000,d:55000,a:40000,car:90000},
+ fukuoka:{n:'후쿠오카',f:220000,h:110000,d:40000,a:25000,car:80000},
+ tokyo:{n:'도쿄',f:450000,h:150000,d:60000,a:35000,car:100000},
+ osaka:{n:'오사카·교토',f:400000,h:130000,d:55000,a:30000,car:90000},
+ bangkok:{n:'방콕',f:350000,h:90000,d:35000,a:25000,car:110000},
+ danang:{n:'다낭',f:300000,h:80000,d:30000,a:20000,car:80000},
+ hoian:{n:'호이안',f:300000,h:75000,d:28000,a:18000,car:70000},
+ phuket:{n:'푸켓',f:380000,h:95000,d:38000,a:30000,car:100000},
+ singapore:{n:'싱가포르',f:420000,h:140000,d:55000,a:35000,car:130000},
+ kl:{n:'쿠알라룸푸르',f:320000,h:85000,d:32000,a:22000,car:95000},
+ hcmc:{n:'호치민',f:330000,h:80000,d:30000,a:20000,car:75000},
+ hawaii:{n:'하와이',f:900000,h:200000,d:70000,a:50000,car:120000},
+ guam:{n:'괌',f:650000,h:120000,d:50000,a:35000,car:80000},
+ saipan:{n:'사이판',f:550000,h:100000,d:45000,a:30000,car:70000}
 };
-document.getElementById('cDest').addEventListener('change',function(){
- const p=PRESET[this.value];if(!p)return;
- cFlight.value=p.flight;cHotel.value=p.hotel;cFood.value=p.food;cAct.value=p.act;cCar.value=p.car;
- calcBudget();
-});
-function calcBudget(){
- const days=+cDays.value||1,ad=+cAdults.value||1,kids=+cKids.value||0;
- const flight=+cFlight.value||0,hotel=+cHotel.value||0,food=+cFood.value||0,
-       act=+cAct.value||0,car=+cCar.value||0,buf=(+cBuffer.value||0)/100;
- const nights=Math.max(0,days-1);
- const base=flight+hotel*nights+food*days+act*days+car*days;
- const total=Math.round(base*(1+buf));
- const per=Math.round(total/(ad+kids*0.7));
- const dest=document.getElementById('cDest');
- document.getElementById('cResult').innerHTML=
-  '<div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:20px">'+
-  '<div style="font-size:14px;color:#0f766e;font-weight:700">'+dest.options[dest.selectedIndex].text+' · '+days+'일 · 성인'+ad+'·아동'+kids+'</div>'+
-  '<div style="font-size:34px;font-weight:800;color:#0f766e;margin:8px 0">₩'+total.toLocaleString()+'</div>'+
-  '<div style="font-size:14px;color:#555">1인당 약 ₩'+per.toLocaleString()+' (아동 0.7인 환산)</div>'+
-  '<table style="width:100%;font-size:13px;margin-top:14px;border-collapse:collapse">'+
-  '<tr><td style="padding:4px 0;color:#666">항공권</td><td style="text-align:right">₩'+flight.toLocaleString()+'</td></tr>'+
-  '<tr><td style="padding:4px 0;color:#666">숙소 '+nights+'박</td><td style="text-align:right">₩'+(hotel*nights).toLocaleString()+'</td></tr>'+
-  '<tr><td style="padding:4px 0;color:#666">식비 '+days+'일</td><td style="text-align:right">₩'+(food*days).toLocaleString()+'</td></tr>'+
-  '<tr><td style="padding:4px 0;color:#666">교통·입장료</td><td style="text-align:right">₩'+(act*days).toLocaleString()+'</td></tr>'+
-  (car?'<tr><td style="padding:4px 0;color:#666">렌터카</td><td style="text-align:right">₩'+(car*days).toLocaleString()+'</td></tr>':'')+
-  '<tr><td style="padding:4px 0;color:#666">예비비 '+(+cBuffer.value)+'%</td><td style="text-align:right">₩'+Math.round(base*buf).toLocaleString()+'</td></tr>'+
-  '</table></div>';
+// 예산 범위별 항목 배율 [항공, 숙소, 식비+활동, 렌트카]
+const BUDGET={
+ budget:{air:0.85,hotel:0.75,daily:0.75,car:0.9},
+ standard:{air:1.0,hotel:1.0,daily:1.0,car:1.0},
+ luxury:{air:1.35,hotel:1.7,daily:1.35,car:1.2}
+};
+// 우선형 배율 — 해당 항목 ↑, 나머지 ↓
+const PRIO={
+ balanced:{air:1,hotel:1,daily:1,car:0},
+ air:{air:1.28,hotel:0.9,daily:0.9,car:0},
+ hotel:{air:0.9,hotel:1.4,daily:0.9,car:0},
+ car:{air:0.9,hotel:0.9,daily:0.9,car:1}
+};
+const PRIO_NAME={balanced:'균형형',air:'항공우선형',hotel:'숙소우선형',car:'이동우선형'};
+const TIER_NAME={budget:'실속형',standard:'균형형',luxury:'고급형'};
+
+let selDateOffset=13; // 기본: 2주 뒤
+function hashStr(s){let h=0;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0}return h}
+function fmtWon(n){return '₩'+Math.round(n).toLocaleString()}
+function fmtMan(n){return (n/10000).toFixed(1)+'만원'}
+
+function inputs(){
+ const tv=document.getElementById('cTrip').value.split('-');
+ return {
+  dest:document.getElementById('cDest').value,
+  from:+document.getElementById('cFrom').value,
+  nights:+tv[0], days:+tv[1],
+  ad:+cAdults.value||1, kids:+cKids.value||0,
+  bud:document.getElementById('cBudget').value
+ };
 }
+function units(ad,kids){return ad+kids*0.6}
+function roomsFor(persons){return Math.max(1,Math.ceil(persons/2))}
+
+function price(dateStr,inp,pkey,prioKey,dp){
+ const r=RATE[inp.dest],b=BUDGET[pkey],pr=PRIO[prioKey];
+ const u=units(inp.ad,inp.kids),persons=inp.ad+inp.kids;
+ const h=hashStr(inp.dest+dateStr+pkey+prioKey);
+ const dvar=0.88+(h%1000)/1000*0.3;      // 날짜별 0.88~1.18 변동
+ const air=Math.round(r.f*b.air*pr.air*inp.from*u*dvar);
+ const hotel=Math.round(r.h*b.hotel*pr.hotel*roomsFor(persons)*inp.nights);
+ const food=Math.round(r.d*b.daily*pr.daily*u*inp.days);
+ const act=Math.round(r.a*b.daily*pr.daily*u*inp.days);
+ const car=pr.car?Math.round(r.car*b.car*pr.car*inp.days):0;
+ const base=air+hotel+food+act+car;
+ return {air,hotel,food,act,car,total:Math.round(base*1.1),per:Math.round(base*1.1/(inp.ad+inp.kids*0.7))};
+}
+function bestTotal(dateStr,inp,dp){
+ let best=Infinity;
+ for(const b of ['budget','standard','luxury'])for(const p of ['balanced','air','hotel','car']){
+  best=Math.min(best,price(dateStr,inp,b,p,dp).total);
+ }
+ return best;
+}
+function renderDates(){
+ const strip=document.getElementById('dateStrip');strip.innerHTML='';
+ const inp=inputs(),today=new Date();
+ const bestI=Math.min(...Array.from({length:30},(_,i)=>bestTotal(dstr(i),inp)));
+ for(let i=0;i<30;i++){
+  const d=new Date(today);d.setDate(d.getDate()+i);
+  const ds=dstr(i),t=bestTotal(ds,inp);
+  const b=document.createElement('button');
+  b.style.cssText='flex:0 0 auto;min-width:86px;padding:8px 10px;border:1px solid '+(i===selDateOffset?'#0f766e':'#ddd')+';border-radius:10px;background:'+(i===selDateOffset?'#0f766e':'#fff')+';color:'+(i===selDateOffset?'#fff':'#333')+';cursor:pointer;font-size:12px;line-height:1.5';
+  b.innerHTML='<div>'+String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0')+'</div><div style="font-weight:700">'+fmtMan(t)+'</div>'+(t===bestI?'<div style="font-size:10px;color:'+(i===selDateOffset?'#d1fae5':'#059669')+'">최저가</div>':'');
+  b.onclick=()=>{selDateOffset=i;renderDates();calcBudget();};
+  strip.appendChild(b);
+ }
+}
+function dstr(i){const d=new Date();d.setDate(d.getDate()+i);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+
+function calcBudget(){
+ renderDates();
+ const inp=inputs(),ds=dstr(selDateOffset);
+ const d=new Date(ds);document.getElementById('selDate').textContent=
+  '📍 '+RATE[inp.dest].n+' · 출발 '+d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0')+
+  ' · '+inp.nights+'박 '+inp.days+'일 · 성인 '+inp.ad+(inp.kids?' · 어린이 '+inp.kids:'');
+ const list=document.getElementById('pkgList');list.innerHTML='';
+ const tiers=['budget','standard','luxury'];
+ let html='';
+ for(const t of tiers){
+  for(const p of ['balanced','air','hotel','car']){
+   const r=price(ds,inp,t,p);
+   const isBest=(t===inp.bud&&p==='balanced')||(r.total===Math.min(...tiers.flatMap(tt=>['balanced','air','hotel','car'].map(pp=>price(ds,inp,tt,pp).total))));
+   html+='<div class="card" style="padding:0;overflow:hidden;cursor:pointer;border:'+(isBest?'2px solid #0f766e':'1px solid #e9e5df')+'" onclick="this.querySelector(\'.det\').style.display=this.querySelector(\'.det\').style.display===\'none\'?\'block\':\'none\'">'
+    +'<div style="padding:14px">'
+    +'<div style="font-size:12px;color:#888">'+TIER_NAME[t]+' · '+PRIO_NAME[p]+(isBest?' · ⭐ 추천':'')+'</div>'
+    +'<div style="font-size:22px;font-weight:800;color:#0f766e;margin:4px 0">'+fmtMan(r.total)+'</div>'
+    +'<div style="font-size:12px;color:#555">'+fmtWon(r.total)+' ('+inp.ad+inp.kids+'인 기준)</div>'
+    +'<div style="font-size:12px;color:#999;margin-top:2px">성인 1인당 '+fmtWon(r.per)+'</div>'
+    +'<div class="det" style="display:none;margin-top:10px;font-size:12.5px;border-top:1px solid #eee;padding-top:8px">'
+    +'<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#666">항공권 왕복</span><b>'+fmtWon(r.air)+'</b></div>'
+    +'<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#666">숙소 '+roomsFor(inp.ad+inp.kids)+'실 × '+inp.nights+'박</span><b>'+fmtWon(r.hotel)+'</b></div>'
+    +'<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#666">식비 '+inp.days+'일</span><b>'+fmtWon(r.food)+'</b></div>'
+    +'<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#666">교통·입장·활동</span><b>'+fmtWon(r.act)+'</b></div>'
+    +(r.car?'<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#666">렌트카·차량</span><b>'+fmtWon(r.car)+'</b></div>':'')
+    +'<div style="display:flex;justify-content:space-between;padding:2px 0;border-top:1px dashed #ddd;margin-top:4px"><span style="color:#666">예비비 10% 포함</span><b>'+fmtWon(r.total)+'</b></div>'
+    +'<div style="font-size:11px;color:#999;margin-top:6px">※ 대략적 추정치 — 실제 가격은 예약 시기·항공 시세에 따라 달라집니다</div>'
+    +'</div></div></div>';
+  }
+ }
+ list.innerHTML=html;
+}
+['cDest','cFrom','cTrip','cBudget'].forEach(id=>document.getElementById(id).addEventListener('change',calcBudget));
+['cAdults','cKids'].forEach(id=>document.getElementById(id).addEventListener('input',calcBudget));
 calcBudget();
 </script></main>
 <footer>
