@@ -57,6 +57,9 @@ img{max-width:100%;border-radius:10px}
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
 <label style="font-size:13px;color:#555">여행 지역
 <select id="tp-city" style="width:100%;margin-top:6px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:15px"></select></label>
+<label style="font-size:13px;color:#555">직접 입력 <span style="font-size:11px;color:#999;font-weight:400">— 목록에 없는 지역 (예: 교토, 발리, 프라하)</span>
+<input id="tp-custom" placeholder="지역명 입력" list="tp-cty" style="width:100%;margin-top:6px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:15px">
+<datalist id="tp-cty"></datalist></label>
 <label style="font-size:13px;color:#555">성인
 <select id="tp-ad" style="width:100%;margin-top:6px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:15px">
 <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
@@ -102,8 +105,19 @@ conts.forEach(ct=>{
  TRIP_CITIES.filter(c=>c.ct===ct).forEach(c=>{
   const o=document.createElement('option');o.value=c.n;o.textContent=c.n+' ('+c.en+')';g.appendChild(o);});
  sel.appendChild(g);});
+const dl=document.getElementById('tp-cty');
+TRIP_CITIES.forEach(c=>{const o=document.createElement('option');o.value=c.n;dl.appendChild(o)});
+const KWE={
+ family:['park','museum','beach','market','zoo','garden','tower','aquarium','playground'],
+ culture:['museum','church','cathedral','castle','palace','temple','shrine','monument','gallery','heritage'],
+ food:['market','street','food','culinary','bazaar','night market'],
+ relax:['beach','park','lake','garden','island','spa','hot spring','resort','waterfall'],
+ activity:['tower','view','bridge','ski','surf','theme park','waterfall','trail','hike','cable']
+};
+const BADRX=/rebellion|incident|siege|battle|war\b|treaty|earthquake|plague|riot|massacre|coup|invasion|sack of|destruction|accident|disaster|flood|eruption|storm|crash|assassinat|scandal|election|protest|strike\b|census|population|demograph|geograph|economy of|history of|station|terminus|depot|airport|seaport|\bport\b|railway|railroad|metro|subway|tram|bus\b|highway|interchange|junction|district|neighborhood|quarter|ward\b|line\b|route\b/i;
+const GOODRX=/temple|shrine|castle|palace|museum|gallery|park\b|garden|tower|pagoda|church|cathedral|mosque|monument|memorial|historic|heritage|unesco|world heritage|landmark|market|bazaar|festival|bridge|viewpoint|observatory|library|theat|opera|arena|stadium|zoo|aquarium|botanical|onsen|hot spring|beach|island|lake|waterfall|canyon|cave|cliff|mountain|volcano|desert|forest\b|national park|ski|surf|theme park|amusement|fort|ruins|archaeolog|abbey|monastery|basilica|stupa|torii|sanctuary|former|oldest|largest|tallest|famous|iconic|masterpiece|architect/i;
 function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').replace(/-+/g,'-')}
-function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function rank(sights,style,kids){
  const kws=KW[style]||[];
  return sights.map((s,i)=>{
@@ -113,7 +127,7 @@ function rank(sights,style,kids){
   return {s,i,sc};
  }).sort((a,b)=>b.sc-a.sc||a.i-b.i).map(x=>x.s);
 }
-function go(){
+function goDB(){
  const c=TRIP_CITIES.find(x=>x.n===sel.value);if(!c)return;
  const A=+document.getElementById('tp-ad').value,K=+document.getElementById('tp-kd').value;
  const days=+document.getElementById('tp-days').value,style=document.getElementById('tp-style').value;
@@ -176,6 +190,144 @@ function go(){
   +'<a href="/familytrip/tools/packing-checklist.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">짐싸기 리스트 →</a></div></div>';
  document.getElementById('tp-out').innerHTML=html;
  document.getElementById('tp-out').scrollIntoView({behavior:'smooth'});
+}
+async function jget(u){const r=await fetch(u);if(!r.ok)throw new Error('http '+r.status);return r.json()}
+async function wikiOpS(lang,q){try{const d=await jget('https://'+lang+'.wikipedia.org/w/api.php?action=opensearch&search='+encodeURIComponent(q)+'&limit=1&namespace=0&format=json&origin=*');return(d[1]&&d[1][0])||null}catch(e){return null}}
+async function wikiSum(lang,title){try{const d=await jget('https://'+lang+'.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title.replace(/ /g,'_')));return{title:d.title||title,extract:(d.extract||'').trim(),url:(d.content_urls&&d.content_urls.desktop&&d.content_urls.desktop.page)||('https://'+lang+'.wikipedia.org/wiki/'+encodeURIComponent(title.replace(/ /g,'_')))}}catch(e){return null}}
+async function resolveCustom(q){
+ try{
+  let lat,lon,placeName,fullName,gn='';
+  try{
+   const nom=await jget('https://nominatim.openstreetmap.org/search?format=json&limit=5&accept-language=ko&q='+encodeURIComponent(q));
+   if(nom&&nom.length){const n0=nom[0];lat=+n0.lat;lon=+n0.lon;fullName=n0.display_name||'';placeName=fullName.split(',')[0].trim()||q;gn=n0.name||'';}
+  }catch(e){}
+  if(lat===undefined){
+   try{
+    const ph=await jget('https://photon.komoot.io/api/?limit=5&lang=ko&q='+encodeURIComponent(q));
+    const f=ph.features&&ph.features[0];
+    if(f&&f.geometry){const c=f.geometry.coordinates;lon=c[0];lat=c[1];const p=f.properties||{};gn=p.name||'';placeName=[p.name,p.city,p.country].filter(Boolean).join(', ')||q;fullName=placeName;}
+   }catch(e){}
+  }
+  if(lat===undefined)return{error:'「'+esc(q)+'」 위치를 찾지 못했습니다. 도시명이나 국가명을 더 구체적으로 입력해 주세요.'};
+  const g={name:gn,display_name:fullName};
+  let intro=null,t=null;
+  t=await wikiOpS('ko',q)||await wikiOpS('ko',placeName);
+  if(t)intro=await wikiSum('ko',t);
+  if(!intro){t=await wikiOpS('en',q)||await wikiOpS('en',placeName)||await wikiOpS('en',g.name||'');
+   if(t)intro=await wikiSum('en',t);}
+  let items=[];
+  try{
+   const gs=await jget('https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord='+encodeURIComponent(lat+'|'+lon)+'&gsradius=10000&gslimit=60&format=json&origin=*');
+   const pages=(gs.query&&gs.query.geosearch?gs.query.geosearch:[]).filter(p=>!/^(list of|portal:|template:|category:|index of)/i.test(p.title));
+   const ids=pages.slice(0,40).map(p=>p.pageid);
+   if(ids.length){
+    const ex=await jget('https://en.wikipedia.org/w/api.php?action=query&pageids='+ids.join('|')+'&prop=extracts|langlinks&exintro&explaintext&lllang=ko&format=json&origin=*');
+    const geoById={};pages.forEach(p=>geoById[p.pageid]=p);
+    const rows=ex&&ex.query&&ex.query.pages?Object.values(ex.query.pages).filter(p=>p.pageid!==-1&&p.extract).map(p=>{
+     const g2=geoById[p.pageid]||{};
+     const kl=(p.langlinks||[]).find(l=>l.lang==='ko');
+     return{title:p.title,ko:kl?kl['*']:'',extract:(p.extract||'').replace(/\s+/g,' ').trim(),dist:g2.dist||999999,lat:g2.lat,lon:g2.lon};
+    }):[];
+    const self=new Set([(g.name||'').toLowerCase(),placeName.toLowerCase(),q.toLowerCase()]);
+    const rowsAll=rows.sort((a,b)=>a.dist-b.dist).filter(r=>{
+     const t=r.title.toLowerCase();
+     if(self.has(t)||BADRX.test(r.title))return false;
+     return GOODRX.test(r.title)||GOODRX.test(r.extract.slice(0,400));
+    }).slice(0,30);
+    const kot=rowsAll.filter(r=>r.ko).map(r=>r.ko);
+    let komap={};
+    if(kot.length){
+     const ke=await jget('https://ko.wikipedia.org/w/api.php?action=query&titles='+encodeURIComponent(kot.join('|'))+'&prop=extracts&exintro&explaintext&redirects=1&format=json&origin=*');
+     if(ke&&ke.query&&ke.query.pages)Object.values(ke.query.pages).forEach(p=>{if(p.extract&&!p.missing)komap[p.title]=p.extract.replace(/\s+/g,' ').trim()});
+    }
+    items=rowsAll.map(r=>{
+     const kex=r.ko?komap[r.ko]:null,useKo=!!kex;
+     const name=useKo?r.ko:r.title;
+     return{name,desc:(useKo?kex:r.extract||'').slice(0,240),dist:r.dist,lat:r.lat,lon:r.lon,
+      url:useKo?'https://ko.wikipedia.org/wiki/'+encodeURIComponent(r.ko.replace(/ /g,'_')):'https://en.wikipedia.org/wiki/'+encodeURIComponent(r.title.replace(/ /g,'_')),
+      lang:useKo?'ko':'en'};
+    }).filter(r=>r.desc&&r.name&&r.name!==placeName);
+   }
+  }catch(e){}
+  return{lat,lon,placeName,fullName:g.display_name,intro,items};
+ }catch(e){return{error:'외부 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.'}}
+}
+function rankCustom(items,style){
+ const kw=KW[style]||[],kwe=KWE[style]||[];
+ return items.map((s,i)=>{
+  let sc=0;const t=(s.name+' '+s.desc).toLowerCase();
+  kw.forEach((k,j)=>{if(t.includes(k))sc+=10-j});
+  kwe.forEach((k,j)=>{if(t.includes(k))sc+=8-j});
+  sc-=Math.min(s.dist/3000,6);
+  return{s,i,sc};
+ }).sort((a,b)=>b.sc-a.sc||a.i-b.i).map(x=>x.s);
+}
+function renderCustom(r){
+ const A=+document.getElementById('tp-ad').value,K=+document.getElementById('tp-kd').value;
+ const days=+document.getElementById('tp-days').value,style=document.getElementById('tp-style').value;
+ const ds=DSTYLE[style];let per=ds.per;
+ if(A+K>=5)per=Math.max(2,per-1);
+ if(days===1)per=Math.min(per+1,5);
+ const sights=rankCustom(r.items.slice(),style);
+ const isKR=r.lat>33&&r.lat<39.5&&r.lon>124&&r.lon<132.5;
+ const gq=encodeURIComponent(r.placeName+' 여행 코스');
+ let html='<div style="margin-top:22px">'
+  +'<div style="background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:16px">'
+  +'<div style="font-size:20px;font-weight:800">'+esc(r.placeName)+' '+days+'일 코스 <span style="font-size:11px;font-weight:400;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:10px;vertical-align:middle">🌐 웹 데이터 기반</span></div>'
+  +'<div style="font-size:13px;opacity:.9;margin-top:4px">성인 '+A+'명'+(K?' · 소아 '+K+'명':'')+' · '+document.getElementById('tp-style').selectedOptions[0].textContent+' · '+ds.note+'</div>'
+  +'<div style="font-size:11.5px;opacity:.75;margin-top:6px">출처: OpenStreetMap · Wikipedia — 참고용 정보이며 상세 페이지가 아닌 실시간 검색 결과입니다.</div></div>';
+ if(r.intro&&r.intro.extract){
+  html+='<div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:16px 18px;margin-bottom:12px">'
+   +'<div style="font-size:14px;font-weight:800;color:#0f766e;margin-bottom:8px">📖 '+esc(r.intro.title||r.placeName)+'</div>'
+   +'<div style="font-size:13px;color:#444;line-height:1.7">'+esc(r.intro.extract).slice(0,600)+'</div>'
+   +(r.intro.url?'<a href="'+r.intro.url+'" target="_blank" rel="noopener" style="font-size:12.5px;color:#0f766e;font-weight:700;text-decoration:none">위키백과에서 더 보기 →</a>':'')
+   +'<div class="wx" data-lat="'+r.lat+'" data-lon="'+r.lon+'" data-label="'+esc(r.placeName)+'" style="margin-top:10px"></div></div>';}
+ else{
+  html+='<div class="wx" data-lat="'+r.lat+'" data-lon="'+r.lon+'" data-label="'+esc(r.placeName)+'" style="background:#fff;border:1px solid #eee;border-radius:12px;padding:16px 18px;margin-bottom:12px"></div>';}
+ if(!sights.length){
+  html+='<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 18px;font-size:13.5px;margin-bottom:12px">'
+   +'이 지역의 위키백과 기반 명소 데이터를 충분히 가져오지 못했습니다. 아래 링크로 직접 검색해 보세요.</div>';}
+ const need=days*per,cyc=[];
+ if(sights.length)for(let i=0;i<need;i++)cyc.push(sights[i%sights.length]);
+ for(let d=0;d<days;d++){
+  const items=cyc.slice(d*per,(d+1)*per);
+  html+='<div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:16px 18px;margin-bottom:12px">'
+   +'<div style="font-size:15px;font-weight:800;color:#0f766e;margin-bottom:10px">DAY '+(d+1)+(days===1?' · 당일치기':'')+'</div>';
+  items.forEach((s,j)=>{
+   const slot=j===0?'☀️ 오전':(j===1?'🌤️ 오후':'🌆 오후 늦게');
+   const q=encodeURIComponent(s.name+' '+r.placeName);
+   html+='<details style="margin-bottom:10px;border:1px solid #eee;border-radius:10px;padding:10px 14px;background:#fafafa">'
+    +'<summary style="cursor:pointer;font-size:14.5px;font-weight:700;list-style:none">'+slot+' — '+esc(s.name)+' <span style="font-size:11px;color:#888;font-weight:400">'+(s.dist<1000?'':(s.dist/1000).toFixed(1)+'km · ')+'▸ 클릭하면 상세 정보</span></summary>'
+    +'<div style="font-size:12.5px;color:#444;line-height:1.7;margin:8px 0 0 4px">'
+    +(s.desc?'<p style="margin:0 0 8px">'+esc(s.desc)+'</p>':'')
+    +'<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">'
+    +'<a href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener" style="font-size:12px;background:#e8f5e9;color:#166534;padding:4px 10px;border-radius:14px;text-decoration:none;font-weight:600">🗺️ Google 지도</a>'
+    +'<a href="'+s.url+'" target="_blank" rel="noopener" style="font-size:12px;background:#e8f5e9;color:#166534;padding:4px 10px;border-radius:14px;text-decoration:none;font-weight:600">📖 위키백과</a>'
+    +(isKR?'<a href="https://map.naver.com/v5/search/'+encodeURIComponent(s.name+' '+r.placeName)+'" target="_blank" rel="noopener" style="font-size:12px;background:#e8f5e9;color:#166534;padding:4px 10px;border-radius:14px;text-decoration:none;font-weight:600">네이버 지도</a>':'')
+    +'</div></div></details>';});
+  html+='</div>';}
+ html+='<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:14px 18px;font-size:13px;margin-bottom:12px">'
+  +'<b>📌 '+esc(r.placeName)+' 팁</b><ul style="margin:6px 0 0 18px">'
+  +'<li>위키백과·OpenStreetMap 기반 자동 생성 코스입니다 — 방문 전 구글맵에서 위치와 운영 여부를 확인하세요.</li>'
+  +'<li>날씨는 위 지역 좌표 기준 실시간 예보입니다.</li></ul></div>';
+ html+='<div style="display:flex;gap:10px;flex-wrap:wrap">'
+  +'<a href="https://www.google.com/search?q='+gq+'" target="_blank" rel="noopener" style="background:#0f766e;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px">🔍 구글에서 '+esc(r.placeName)+' 여행 정보 검색 →</a>'
+  +'<a href="/familytrip/tools/family-cost-calculator.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">경비 계산기 →</a>'
+  +'<a href="/familytrip/tools/packing-checklist.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">짐싸기 리스트 →</a></div></div>';
+ document.getElementById('tp-out').innerHTML=html;
+ document.querySelectorAll('#tp-out .wx').forEach(el=>{if(window.mountWx)window.mountWx(el)});
+ document.getElementById('tp-out').scrollIntoView({behavior:'smooth'});
+}
+async function go(){
+ const cq=(document.getElementById('tp-custom').value||'').trim();
+ if(cq){
+  const hit=TRIP_CITIES.find(x=>x.n===cq||x.en.toLowerCase()===cq.toLowerCase());
+  if(hit){sel.value=hit.n;goDB();return}
+  const r=await resolveCustom(cq);
+  if(r.error){document.getElementById('tp-out').innerHTML='<div style="margin-top:22px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:16px 18px;color:#991b1b;font-size:14px">'+r.error+'</div>';return}
+  renderCustom(r);return;
+ }
+ goDB();
 }
 document.getElementById('tp-go').onclick=go;
 </script></main>

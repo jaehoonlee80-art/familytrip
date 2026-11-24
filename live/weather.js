@@ -77,5 +77,6 @@ async function mount(el){
   </div>`;
  }catch(e){el.innerHTML='<div style="padding:10px;color:#999;font-size:12px">날씨를 불러오지 못했습니다.</div>';}
 }
+window.mountWx=mount;
 document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.wx').forEach(mount);});
 })();
