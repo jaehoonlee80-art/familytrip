@@ -137,6 +137,14 @@ function go(){
   items.forEach((s,j)=>{
    const slot=j===0?'☀️ 오전':(j===1?'🌤️ 오후':'🌆 오후 늦게');
    const q=encodeURIComponent(s[0]+' '+c.n);
+   let detUrl='';
+   if(s[2]&&/^\d+$/.test(s[2]))detUrl='/familytrip/korea/attr-'+s[2]+'.html';
+   else if(s[3])detUrl='/familytrip/places/'+s[3]+'.html';
+   if(detUrl){
+    html+='<a href="'+detUrl+'" style="display:block;margin-bottom:10px;border:1px solid #99e5d8;border-radius:10px;padding:12px 14px;background:#f0fdfa;text-decoration:none">'
+     +'<div style="font-size:14.5px;font-weight:700;color:#0f766e">'+slot+' — '+esc(s[0])+' <span style="font-size:11px;font-weight:400">▸ 상세 페이지로 이동 →</span></div>'
+     +(s[1]?'<div style="font-size:12.5px;color:#444;line-height:1.7;margin-top:6px">'+esc(s[1])+'</div>':'')
+     +'<div style="font-size:11.5px;color:#0f766e;font-weight:700;margin-top:8px">📋 소개·가는 법·운영시간·입장료·지도 보기 →</div></a>';return});
    let det='<div style="font-size:12.5px;color:#444;line-height:1.7;margin:8px 0 0 4px">';
    if(s[1])det+='<p style="margin:0 0 8px">'+esc(s[1])+'</p>';
    det+='<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">'
@@ -146,13 +154,7 @@ function go(){
        +'<a href="https://map.kakao.com/link/search/'+encodeURIComponent(s[0]+' '+c.n)+'" target="_blank" rel="noopener" style="font-size:12px;background:#e8f5e9;color:#166534;padding:4px 10px;border-radius:14px;text-decoration:none;font-weight:600">카카오맵</a>';
    }
    det+='</div>';
-   if(s[2]&&/^\d+$/.test(s[2])){
-    det+='<a href="/familytrip/korea/attr-'+s[2]+'.html" style="display:inline-block;font-size:12.5px;background:#0f766e;color:#fff;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:700;margin-bottom:6px">📋 입장료·운영시간·꼭 볼 것·가는 법 상세 →</a><br>';
-   }else if(s[3]){
-    det+='<a href="/familytrip/places/'+s[3]+'.html" style="display:inline-block;font-size:12.5px;background:#0f766e;color:#fff;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:700;margin-bottom:6px">📄 '+esc(s[0])+' 상세 페이지 — 소개·가는 법·운영 정보 →</a><br>';
-   }else{
-    det+='<a href="/familytrip/cities/'+cslug+'.html" style="font-size:12.5px;color:#0f766e;font-weight:700;text-decoration:none">도시 가이드에서 '+esc(s[0])+' 상세 보기 →</a><br>';
-   }
+   det+='<a href="/familytrip/cities/'+cslug+'.html" style="font-size:12.5px;color:#0f766e;font-weight:700;text-decoration:none">도시 가이드에서 '+esc(s[0])+' 상세 보기 →</a><br>';
    det+='</div>';
    html+='<details style="margin-bottom:10px;border:1px solid #eee;border-radius:10px;padding:10px 14px;background:#fafafa">'
     +'<summary style="cursor:pointer;font-size:14.5px;font-weight:700;list-style:none">'+slot+' — '+esc(s[0])+' <span style="font-size:11px;color:#0f766e;font-weight:400">▸ 클릭하면 상세 정보</span></summary>'+det+'</details>';});
