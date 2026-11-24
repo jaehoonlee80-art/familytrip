@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>대한민국 실시간 CCTV 허브 — 전국 공식 카메라 한곳에서</title>
+<title>대한민국 실시간 카메라</title>
 <meta name="description" content="제주·서울·경기·인천·울산·대구·국립공원·재난·항만의 실시간 CCTV를 페이지에서 바로 재생합니다. 전국 공식 송출 통합 허브.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/korea-cctv.html">
 <style>
@@ -52,7 +52,7 @@ img{max-width:100%;border-radius:10px}
     <a href="/familytrip/korea.html">한국 여행</a>
   </nav>
 </header>
-<main><div class="meta">실시간 카메라 · 2026-11-21</div><h1>대한민국 실시간 CCTV 허브 — 전국 공식 카메라 한곳에서</h1><p>대한민국 <strong>전국 공공 CCTV</strong>를 이 페이지 한곳에서 바로 볼 수 있습니다. 지역별 라이브 영상·자동갱신 화면을 모두 모았으며, 외부 사이트로 이동하지 않고 여기서 바로 재생됩니다.</p>
+<main><div class="meta">실시간 카메라 · 2026-11-21</div><h1>대한민국 실시간 카메라</h1><p>대한민국 <strong>전국 공공 CCTV</strong>를 이 페이지 한곳에서 바로 볼 수 있습니다. 지역별 라이브 영상·자동갱신 화면을 모두 모았으며, 외부 사이트로 이동하지 않고 여기서 바로 재생됩니다.</p>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:12px 0 20px">
 </div>
 
@@ -118,6 +118,33 @@ img{max-width:100%;border-radius:10px}
 </tr>
 </tbody>
 </table>
+<h3>🗺️ 지역 지도 — 마커를 누르면 해당 지역 페이지로 이동</h3>
+<div id="cctv-region-map" style="height:420px;border-radius:12px;margin:10px 0 20px"></div>
+<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></p>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+var REGIONS=[
+ [37.5665,126.9780,'서울','seoul-cctv.html','113개 지점 · 실시간 HLS'],
+ [37.2636,127.0286,'경기도','gyeonggi-cctv.html','72개 지점 · 실시간 HLS'],
+ [37.4563,126.7052,'인천','incheon-cctv.html','61개 지점 · 스냅샷 자동갱신'],
+ [35.5384,129.3114,'울산','ulsan-cctv.html','232개 지점 · 실시간 HLS'],
+ [35.8714,128.6014,'대구','daegu-cctv.html','186개 지점 · 실시간 HLS'],
+ [37.4602,126.4407,'공항·항만','airport-port-cctv.html','인천공항·항만 · 실시간+스냅샷'],
+ [33.4996,126.5312,'제주도','jeju-cctv.html','40개 카메라 · 스냅샷+YouTube'],
+ [37.5510,126.9882,'전국 명소','korea-attractions.html','122개 명소 · 카메라 연결'],
+ [37.4979,127.0276,'실시간 관광명소','tourist-live.html','명소 100곳 · 가까운 CCTV'],
+ [37.5665,126.9780,'전국 CCTV 지도','cctv-map.html','카메라 800+ · 위치 검색']
+];
+var map=L.map('cctv-region-map').setView([36.4,127.9],7);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+REGIONS.forEach(function(r){
+ L.marker(r.slice(0,2),{title:r[2]}).addTo(map).bindPopup(
+  '<b>'+r[2]+'</b><br>'+r[4]+'<br><a href="'+r[3]+'">해당 지역 페이지 →</a>');
+});
+})();
+</script>
+
 <h2>재난포털 현장 CCTV — 전국 45개 지점 실시간 재생</h2>
 <p>전국 하천·해안·도심 재난 감시 지점의 <strong>실시간 영상</strong>을 아래에서 바로 볼 수 있습니다. 카드가 화면에 들어오면 자동으로 재생되며(음소거), 탭하면 소리와 함께 재생됩니다.</p>
 <div class="live-grid" id="kbs-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px"></div>
