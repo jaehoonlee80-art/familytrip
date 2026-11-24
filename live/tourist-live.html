@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>실시간 관광명소 CCTV — 전국 명소 53곳 라이브 화면</title>
 <meta name="description" content="광화문광장·경복궁·해운대·성산일출봉 등 전국 관광명소 53곳의 가장 가까운 공공 CCTV 실시간 영상을 이 페이지에서 바로 재생합니다.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/tourist-live.html">
@@ -69,16 +70,18 @@ img{max-width:100%;border-radius:10px}
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js" integrity="sha384-R2JqybiEexSXz60H6Zz28MdsqWWnMQlP+NDb7nIhDHWxx6sM7Otw7OWCq9EBCPsz" crossorigin="anonymous"></script>
 <script>
 const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev';
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
 const CAMS=[];const GIGA=[];
 function gigaNear(spot){let best=null,bd=1e9;for(const c of GIGA){const d=dist(spot.lat,spot.lng,c.lat,c.lng);if(d<bd){bd=d;best=c;}}return bd<=1.5?{cam:best,d:bd}:null;}
 function dist(a,b,c,d){const R=6371,dl=(c-a)*Math.PI/180,dn=(d-b)*Math.PI/180,h=Math.sin(dl/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
 function nearest(spot){let best=null,bd=1e9;for(const c of CAMS){const d=dist(spot.lat,spot.lng,c.lat,c.lng);if(d<bd){bd=d;best=c;}}return{cam:best,d:bd};}
 function mediaHtml(spot){
  const g=gigaNear(spot);
- if(g)return '<div class="giga-ph" data-yt="'+g.cam.yt+'" style="position:relative;padding-top:56.25%;background:#111;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:12px">'+g.cam.name+' 전용 카메라 — 화면에 보이면 재생</div>';
+ if(g)return '<div class="giga-ph" data-yt="'+esc(g.cam.yt)+'" style="position:relative;padding-top:56.25%;background:#111;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:12px">'+esc(g.cam.name)+' 전용 카메라 — 화면에 보이면 재생</div>';
  const {cam,d}=nearest(spot);
  if(!cam||d>3.0)return '<div style="position:relative;padding-top:56.25%;background:#1f2937;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:12px;text-align:center;padding:12px">전용 카메라 없음</div>';
- if(cam.snap)return '<div style="position:relative;padding-top:56.25%;background:#111"><img class="ts-img" data-id="'+cam.snap+'" loading="lazy" alt="'+spot.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>';
+ if(cam.snap)return '<div style="position:relative;padding-top:56.25%;background:#111"><img class="ts-img" data-id="'+esc(cam.snap)+'" loading="lazy" alt="'+esc(spot.name)+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>';
  return '<div style="position:relative;padding-top:56.25%;background:#111"><video muted playsinline autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video><div class="ts-off" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:12px">송출 준비 중…</div></div>';
 }
 function infoHtml(spot){
@@ -86,24 +89,24 @@ function infoHtml(spot){
  if(g)return '<div style="padding:8px 12px;font-size:11px;color:#0f766e">🎥 관광지 전용 카메라 · GiGAeyes Live TV · '+g.d.toFixed(1)+'km</div>';
  const {cam,d}=nearest(spot);
  if(!cam||d>3.0)return '<div style="padding:8px 12px;font-size:11px;color:#888">지역 CCTV 페이지에서 확인</div>';
- return '<div style="padding:8px 12px;font-size:11px;color:#666">📷 '+cam.name+' · '+cam.src+' · '+d.toFixed(1)+'km</div>';
+ return '<div style="padding:8px 12px;font-size:11px;color:#666">📷 '+esc(cam.name)+' · '+esc(cam.src)+' · '+d.toFixed(1)+'km</div>';
 }
 function srcTag(spot){
  const g=gigaNear(spot);
  if(g)return '<span style="position:absolute;top:8px;left:8px;background:rgba(15,118,110,.85);color:#fff;font-size:10px;padding:2px 7px;border-radius:8px">전용 카메라 LIVE</span>';
  const {cam,d}=nearest(spot);
  if(!cam||d>3.0)return '';
- return '<span style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;padding:2px 7px;border-radius:8px">'+cam.src+' LIVE</span>';
+ return '<span style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;padding:2px 7px;border-radius:8px">'+esc(cam.src)+' LIVE</span>';
 }
 let cards=[];
 function build(){
  const w=document.getElementById('spot-wall');
  let last='',html='';
  spotsData.forEach(s=>{
-  const region=s.region.split(' ')[0];
+  const region=esc(s.region.split(' ')[0]);
   if(region!==last){html+='<div class="ts-hdr" style="grid-column:1/-1;background:#eef2f7;font-weight:700;padding:8px 10px;border-radius:8px;font-size:14px">'+region+'</div>';last=region;}
-  html+='<div class="ts-card" data-q="'+(s.name+s.region).toLowerCase()+'" style="background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden">'
-   +'<div style="padding:10px 12px 6px"><b style="font-size:14px">'+s.name+'</b><div style="font-size:12px;color:#888">'+s.region+'</div></div>'
+  html+='<div class="ts-card" data-q="'+esc((s.name+s.region).toLowerCase())+'" style="background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden">'
+   +'<div style="padding:10px 12px 6px"><b style="font-size:14px">'+esc(s.name)+'</b><div style="font-size:12px;color:#888">'+esc(s.region)+'</div></div>'
    +'<div class="ts-media" style="position:relative;cursor:zoom-in">'+srcTag(s)+mediaHtml(s)+'</div>'
    +infoHtml(s)+'</div>';
  });
@@ -150,7 +153,7 @@ async function openLB(card){
  if(g){
   body.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+g.cam.yt+'?autoplay=1&rel=0" allow="autoplay;fullscreen" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe>';
  }else if(cam&&cam.snap&&d<=3.0){
-  body.innerHTML='<img id="lbimg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" alt="'+spot.name+'">';
+  body.innerHTML='<img id="lbimg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" alt="'+esc(spot.name)+'">';
   const im=document.getElementById('lbimg');
   const load=()=>{im.src='cams/'+cam.snap+'.jpg?t='+Date.now();};
   load();lbTimer=setInterval(load,300000);

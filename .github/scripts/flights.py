@@ -3,7 +3,9 @@
 cron에서 15분마다 실행. serviceKey는 공공데이터포털 일반인증키."""
 import json, os, sys, time, urllib.request, urllib.parse, datetime
 
-KEY = 'dSIGXXagyLpyqKtS1x1vywHPjHMvwRXMMAO2nxs1CmPf5QZfZUZyDFVoVJyv1efPJa4VHn8BEOpbLsza2gd9fQ=='
+KEY = os.environ.get('DATA_GO_KR_KEY', '')
+if not KEY:
+    sys.exit('DATA_GO_KR_KEY 환경변수가 필요합니다 (GitHub Secrets)')
 BASE = 'https://apis.data.go.kr/B551178/flight-status/info'
 OUT = os.path.join(os.path.dirname(__file__), '..', '..', 'korea', 'flights.json')
 

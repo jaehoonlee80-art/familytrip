@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>전국 관광명소 100선 + 실시간 CCTV — 가기 전에 현장 확인</title>
 <meta name="description" content="전국 유명 관광명소 100곳과 각 명소의 실시간 CCTV 송출 여부를 정리했습니다. 제주·국립공원·옹진군 등 공공 카메라가 있는 곳은 페이지에서 바로 보고, 없는 곳은 공식 포털 링크를 제공합니다.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/korea-attractions.html">
@@ -116,20 +117,22 @@ const KNPS=[
  ["jiri","천왕봉·지리산(점검)"],["cctv7","장터목·지리산(점검)"]
 ].map(([page,name])=>({page,name}));
 const BASE='/familytrip/';
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
 const card=(inner)=>'<div class="card" style="position:relative;background:#000;border-radius:10px;overflow:hidden;min-height:120px">'+inner+'</div>';
 // 제주 스냅샷 그리드
 const jg=document.getElementById('wall-jeju');
 jg.innerHTML='<h3 style="grid-column:1/-1;margin:18px 0 4px">제주 공공 CCTV — 관광지 실시간 캡처 (60초 갱신)</h3>'+
- JEJU.map(c=>card('<a href="'+BASE+'live/jeju-cctv.html" style="display:block;position:relative;padding-top:56.25%"><img class="cam-img" data-slug="'+c.slug+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></a>')).join('');
+ JEJU.map(c=>card('<a href="'+BASE+'live/jeju-cctv.html" style="display:block;position:relative;padding-top:56.25%"><img class="cam-img" data-slug="'+esc(c.slug)+'" loading="lazy" alt="'+esc(c.name)+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+esc(c.name)+'</span></a>')).join('');
 // 국립공원 iframe 그리드 (lazy)
 const kg=document.getElementById('wall-knps');
 kg.innerHTML='<h3 style="grid-column:1/-1;margin:18px 0 4px">국립공원 실시간 라이브 — 산악·해안 명소</h3>'+
- KNPS.map(c=>'<div class="card knps-card" data-src="https://m.knps.or.kr/live/'+c.page+'.do" style="background:#111"><div class="knps-ph" style="position:relative;padding-top:56.25%;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:13px">'+c.name+' — 화면에 보이면 자동 재생</div><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div>').join('');
+ KNPS.map(c=>'<div class="card knps-card" data-src="https://m.knps.or.kr/live/'+esc(c.page)+'.do" style="background:#111"><div class="knps-ph" style="position:relative;padding-top:56.25%;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:13px">'+esc(c.name)+' — 화면에 보이면 자동 재생</div><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+esc(c.name)+'</span></div>').join('');
 // 옹진군 스냅샷 그리드 (cams.json 로드)
 const yg=document.getElementById('wall-yj');
 fetch(BASE+'live/cams.json').then(r=>r.json()).then(cams=>{
  yg.innerHTML='<h3 style="grid-column:1/-1;margin:18px 0 4px">옹진군 서해 섬·선착장 CCTV — 42대 (5분 갱신)</h3>'+
-  cams.map(c=>card('<div style="position:relative;padding-top:56.25%"><img class="yj-img" data-id="'+c.id+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div>')).join('');
+  cams.map(c=>card('<div style="position:relative;padding-top:56.25%"><img class="yj-img" data-id="'+esc(c.id)+'" loading="lazy" alt="'+esc(c.name)+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+esc(c.name)+'</span></div>')).join('');
  initYj();
 });
 // 제주 이미지 초기화 + 주기 갱신
@@ -153,7 +156,7 @@ setInterval(loadJeju,60000);setTimeout(loadJeju,500);
 const pw=document.getElementById('wall-port');
 if(pw){
  fetch(BASE+'live/port-cams.json').then(r=>r.json()).then(cams=>{
-  pw.innerHTML=cams.map(c=>'<div class="card" style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="port-img" data-id="'+c.id+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div></div>').join('');
+  pw.innerHTML=cams.map(c=>'<div class="card" style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="port-img" data-id="'+esc(c.id)+'" loading="lazy" alt="'+esc(c.name)+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+esc(c.name)+'</span></div></div>').join('');
   const seen=new Set();
   const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){seen.add(e.target.dataset.id);e.target.src=BASE+'live/cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io.unobserve(e.target);}});},{rootMargin:'200px'});
   document.querySelectorAll('.port-img').forEach(i=>io.observe(i));

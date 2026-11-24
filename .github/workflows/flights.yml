@@ -18,6 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Fetch flight status
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         run: python3 .github/scripts/flights.py
       - name: Commit updated flights
         run: |

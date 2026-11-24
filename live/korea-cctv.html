@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>대한민국 실시간 카메라</title>
 <meta name="description" content="제주·서울·경기·인천·울산·대구·국립공원·재난·항만의 실시간 CCTV를 페이지에서 바로 재생합니다. 전국 공식 송출 통합 허브.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/korea-cctv.html">
@@ -258,14 +259,15 @@ REGIONS.forEach(function(r){
 <script src="wall.js"></script>
 <script>
 const KNPS=[["gangbuk","백운대·북한산"],["sobak","연화봉·소백산"],["cctv11","두로령·오대산"],["cctv17","상원사·치악산"],["cctv6","천제단·태백산"],["cctv16","천황봉·계룡산"],["cctv15","장불재·무등산"],["cctv23","108단풍길·내장산"],["cctv10","설천봉·덕유산"],["cctv18","죽막·변산반도"],["cctv9","기암·주왕산"],["cctv5","각산·한려해상"],["cctv12","지리청송·다도해"],["cctv21","학암포·태안해안"],["jiri","천왕봉·지리산"],["cctv7","장터목·지리산"]].map(([page,name])=>({page,name}));
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 const kg=document.getElementById('wall-knps');
-if(kg)kg.innerHTML=KNPS.map(c=>'<div style="position:relative;background:#111;border-radius:10px;overflow:hidden"><div class="knps-ph" data-src="https://m.knps.or.kr/live/'+c.page+'.do" style="position:relative;padding-top:56.25%;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:13px">'+c.name+' — 화면에 보이면 자동 재생</div><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div>').join('');
+if(kg)kg.innerHTML=KNPS.map(c=>'<div style="position:relative;background:#111;border-radius:10px;overflow:hidden"><div class="knps-ph" data-src="https://m.knps.or.kr/live/'+esc(c.page)+'.do" style="position:relative;padding-top:56.25%;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:13px">'+esc(c.name)+' — 화면에 보이면 자동 재생</div><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+esc(c.name)+'</span></div>').join('');
 const kio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const d=e.target,s=d.dataset.src;if(!d.querySelector('iframe')){const f=document.createElement('iframe');f.src=s;f.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';f.loading='lazy';f.allow='autoplay';d.appendChild(f);const p=d.querySelector('.knps-ph');if(p)p.style.display='none';}kio.unobserve(d);}});},{rootMargin:'300px'});
 document.querySelectorAll('.knps-ph').forEach(d=>kio.observe(d));
 function snapWall(elId,jsonUrl){
  const w=document.getElementById(elId);if(!w)return;
  fetch(jsonUrl).then(r=>r.json()).then(cams=>{
-  w.innerHTML=cams.map(c=>'<div style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="sn-img" data-id="'+c.id+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+(c.area?c.area+' · ':'')+c.name+'</span></div></div>').join('');
+  w.innerHTML=cams.map(c=>'<div style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="sn-img" data-id="'+esc(c.id)+'" loading="lazy" alt="'+esc(c.name)+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+(c.area?esc(c.area)+' · ':'')+esc(c.name)+'</span></div></div>').join('');
   const seen=new Set();
   const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){seen.add(e.target.dataset.id);e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io.unobserve(e.target);}});},{rootMargin:'200px'});
   document.querySelectorAll('#'+elId+' .sn-img').forEach(i=>io.observe(i));
@@ -278,8 +280,9 @@ snapWall('wall-port','port-cams.json');
 <script>
 // 재난포털(전국 45개) 실시간 HLS 월
 fetch('kbs-cams.json').then(r=>r.json()).then(cams=>{
+ function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
  const wall=document.getElementById('kbs-wall');
- wall.innerHTML=cams.map(c=>'<div class="kbs-card" data-api="'+c.api+'"><div class="ph" style="position:relative;padding-top:56.25%;cursor:pointer"><video muted playsinline autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video><div class="off" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:12px;text-align:center;padding:8px">송출 준비 중…</div><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+' · '+c.region+'</span></div></div>').join('');
+ wall.innerHTML=cams.map(c=>'<div class="kbs-card" data-api="'+esc(c.api)+'"><div class="ph" style="position:relative;padding-top:56.25%;cursor:pointer"><video muted playsinline autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video><div class="off" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:12px;text-align:center;padding:8px">송출 준비 중…</div><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+esc(c.name)+' · '+esc(c.region)+'</span></div></div>').join('');
  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){start(e.target);io.unobserve(e.target);}})},{rootMargin:'200px'});
  document.querySelectorAll('.kbs-card').forEach(d=>io.observe(d));
  const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev/?url=';

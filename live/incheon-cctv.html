@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>인천 실시간 CCTV — 송도·공항·항만 61개</title>
 <meta name="description" content="인천교통정보센터 도시도로 CCTV 48개 지점 + 인천항만공사 항만 CCTV 13개 지점을 페이지에서 바로 확인. 송도·청라·영종·인천공항 주변 실시간 영상.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/incheon-cctv.html">
@@ -69,10 +70,12 @@ img{max-width:100%;border-radius:10px}
 </ul>
 <script>
 const BASE='/familytrip/';
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
 function snapWall(elId,jsonUrl){
  const w=document.getElementById(elId);if(!w)return;
  fetch(jsonUrl).then(r=>r.json()).then(cams=>{
-  w.innerHTML=cams.map(c=>'<div style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="sn-img" data-id="'+c.id+'" loading="lazy" alt="'+c.name+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+c.name+'</span></div></div>').join('');
+  w.innerHTML=cams.map(c=>'<div style="position:relative;background:#000;border-radius:10px;overflow:hidden"><div style="position:relative;padding-top:56.25%"><img class="sn-img" data-id="'+esc(c.id)+'" loading="lazy" alt="'+esc(c.name)+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+esc(c.name)+'</span></div></div>').join('');
   const seen=new Set();
   const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){seen.add(e.target.dataset.id);e.target.src='cams/'+e.target.dataset.id+'.jpg?t='+Date.now();io.unobserve(e.target);}});},{rootMargin:'200px'});
   document.querySelectorAll('#'+elId+' .sn-img').forEach(i=>io.observe(i));

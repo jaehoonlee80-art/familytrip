@@ -1,11 +1,12 @@
 // 공통 라이브 CCTV 월 렌더러 — hls.js CDN 필요
 // initHlsWall(elId, jsonUrl, mode): mode 'url'=cams[].url 직접, 'gits'=worker /gits?hls=id
 const CCTV_PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev';
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function cctvCard(c){
- return '<div class="cam-card" data-id="'+c.id+'"'+(c.url?' data-url="'+c.url+'"':' data-gits="'+c.id+'"')+' style="position:relative;background:#000;border-radius:10px;overflow:hidden">'
+ return '<div class="cam-card" data-id="'+esc(c.id)+'"'+(c.url?' data-url="'+esc(c.url)+'"':' data-gits="'+esc(c.id)+'"')+' style="position:relative;background:#000;border-radius:10px;overflow:hidden">'
  +'<div style="position:relative;padding-top:56.25%"><video muted playsinline autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>'
  +'<div class="cam-off" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:12px;text-align:center;padding:8px">송출 준비 중…</div>'
- +'<span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+(c.area?c.area+' · ':'')+c.name+'</span></div></div>';
+ +'<span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">'+(c.area?esc(c.area)+' · ':'')+esc(c.name)+'</span></div></div>';
 }
 async function resolveStream(card){
  if(card.dataset.url)return card.dataset.url;
