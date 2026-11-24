@@ -48,6 +48,7 @@ img{max-width:100%;border-radius:10px}
     <a href="/familytrip/live.html">실시간 카메라</a>
     <a href="/familytrip/live/korea-cctv.html">전국 CCTV</a>
     <a href="/familytrip/cities.html">세계 도시 100</a>
+    <a href="/familytrip/places.html">가볼만한 곳</a>
     <a href="/familytrip/korea.html">한국 여행</a>
   </nav>
 </header>
@@ -148,7 +149,7 @@ function go(){
    if(s[2]&&/^\d+$/.test(s[2])){
     det+='<a href="/familytrip/korea/attr-'+s[2]+'.html" style="display:inline-block;font-size:12.5px;background:#0f766e;color:#fff;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:700;margin-bottom:6px">📋 입장료·운영시간·꼭 볼 것·가는 법 상세 →</a><br>';
    }else if(s[3]){
-    det+='<a href="/familytrip/cities/'+s[3]+'.html" style="display:inline-block;font-size:12.5px;background:#0f766e;color:#fff;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:700;margin-bottom:6px">📄 '+esc(s[0])+' 상세 페이지 — 소개·가는 법·운영 정보 →</a><br>';
+    det+='<a href="/familytrip/places/'+s[3]+'.html" style="display:inline-block;font-size:12.5px;background:#0f766e;color:#fff;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:700;margin-bottom:6px">📄 '+esc(s[0])+' 상세 페이지 — 소개·가는 법·운영 정보 →</a><br>';
    }else{
     det+='<a href="/familytrip/cities/'+cslug+'.html" style="font-size:12.5px;color:#0f766e;font-weight:700;text-decoration:none">도시 가이드에서 '+esc(s[0])+' 상세 보기 →</a><br>';
    }
