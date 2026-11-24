@@ -52,25 +52,7 @@ img{max-width:100%;border-radius:10px}
     <a href="/familytrip/korea.html">한국 여행</a>
   </nav>
 </header>
-<main><div class="meta">실시간 카메라 · 2026-11-21</div><h1>전국 CCTV 지도 — 한국 공공 카메라 800+ 실시간 위치 검색</h1><p>전국 공공 카메라 <strong>800개 이상</strong>의 위치를 지도에서 바로 찾아보세요. 카메라를 누르면 종류와 실시간 영상 페이지로 연결됩니다.</p>
-<div class="calc-box">
-<div id="map" style="height:560px;border-radius:12px;z-index:0"></div>
-<div class="calc-grid" style="margin-top:12px">
-<label>지역 검색 <input id="mSearch" placeholder="예: 광화문, 해운대, 제주" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:8px"></label>
-<label>지역 필터 <select id="mRegion" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:8px"><option value="">전체</option></select></label>
-<label>유형 <select id="mType" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:8px">
-<option value="">전체 유형</option><option value="traffic">교통 CCTV</option><option value="tour">관광 전용 카메라</option><option value="spot">관광 명소</option></select></label>
-<label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="mSaved"> ⭐ 저장한 카메라만</label>
-</div>
-<div id="mStat" style="margin-top:10px;font-size:13px;color:#666"></div>
-</div>
-
-<h2>카메라 유형 설명</h2>
-<ul>
-<li><strong>교통 CCTV</strong> — 각 지자체 교통정보센터의 도로·교차로 카메라 (서울 TOPIS, 울산, 대구, 경기도 ITS, 인천 FITIC)</li>
-<li><strong>관광 전용 카메라</strong> — 명소 자체를 비추는 공식 라이브 (GiGAeyes 등)</li>
-<li><strong>관광 명소</strong> — CCTV가 근처에 있는 대표 관광지 (카드에서 가까운 카메라 자동 연결)</li>
-</ul>
+<main><div class="meta">실시간 카메라 · 2026-11-21</div><h1>전국 CCTV 지도 — 한국 공공 카메라 800+ 실시간 위치 검색</h1><p>전국 공공 카메라 <strong>800개 이상</strong>의 위치를 지역별 페이지에서 바로 찾아보세요. 카메라를 누르면 종류와 실시간 영상 페이지로 연결됩니다.</p>
 <div class="cta"><h3>지역별 전체 목록</h3>
 <div class="cta-grid">
 <a href="/familytrip/live/korea-cctv.html">전국 CCTV 허브</a>
@@ -78,100 +60,23 @@ img{max-width:100%;border-radius:10px}
 <a href="/familytrip/live/seoul-cctv.html">서울 113개</a>
 <a href="/familytrip/live/ulsan-cctv.html">울산 232개</a>
 <a href="/familytrip/live/daegu-cctv.html">대구 186개</a>
+<a href="/familytrip/live/gyeonggi-cctv.html">경기도 72개</a>
+<a href="/familytrip/live/incheon-cctv.html">인천 61개</a>
+<a href="/familytrip/live/jeju-cctv.html">제주도 40개</a>
+<a href="/familytrip/live/airport-port-cctv.html">공항·항만</a>
 </div></div>
 
-<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"></p>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-<script>
-const TYPE={
- traffic:{c:'#2563eb',label:'교통 CCTV'},
- tour:{c:'#dc2626',label:'관광 전용'},
- spot:{c:'#059669',label:'관광 명소'}
-};
-const SRC={
- seoul:{page:'seoul-cctv.html',label:'서울 TOPIS'},
- gits:{page:'gyeonggi-cctv.html',label:'경기도 ITS'},
- ulsan:{page:'ulsan-cctv.html',label:'울산 ITS'},
- daegu:{page:'daegu-cctv.html',label:'대구 ITS'},
- fitic:{page:'incheon-cctv.html',label:'인천 FITIC'},
- giga:{page:'tourist-live.html',label:'GiGAeyes 라이브'},
- tourist:{page:'tourist-live.html',label:'관광명소'}
-};
-const CAMS=[];let SAVED=new Set();try{SAVED=new Set(JSON.parse(localStorage.getItem('cctvSaved')||'[]'))}catch(e){}
-function regOf(c){return c.region||c.area||c.src||''}
-function push(src,type,name,lat,lng,extra){if(lat==null||lng==null)return;CAMS.push(Object.assign({src,type,name,lat,lng},extra||{}))}
-Promise.allSettled([
- fetch('seoul-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('seoul','traffic',c.name,c.lat,c.lng,{id:'seoul-'+c.id}))),
- fetch('gits-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('gits','traffic',c.name,c.lat,c.lng,{id:'gits-'+c.id,reg:(c.name.match(/^\[([^\]]+)\]/)||[])[1]||'경기'}))),
- fetch('ulsan-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('ulsan','traffic',(c.area?c.area+' ':'')+c.name,c.lat,c.lng,{id:'ulsan-'+c.id,reg:c.area}))),
- fetch('daegu-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('daegu','traffic',c.name,c.lat,c.lng,{id:'daegu-'+c.id}))),
- fetch('fitic-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('fitic','traffic',c.name,c.lat,c.lng,{id:'fitic-'+c.id,reg:'인천'}))),
- fetch('giga-cams.json').then(r=>r.json()).then(a=>a.forEach(c=>push('giga','tour',c.name,c.lat,c.lng,{id:'giga-'+c.yt,reg:c.region}))),
- fetch('tourist-spots.json').then(r=>r.json()).then(a=>a.forEach(c=>push('tourist','spot',c.name,c.lat,c.lng,{id:'spot-'+c.name,reg:c.region}))),
-]).then(()=>{ /* allSettled 대체: 개별 실패는 빈 배열로 처리됨 */
- const regs=[...new Set(CAMS.map(regOf).filter(Boolean))].sort();
- document.getElementById('mRegion').innerHTML='<option value="">전체</option>'+regs.map(r=>'<option>'+r+'</option>').join('');
- render();
-});
-const mapOk=typeof L!=='undefined';
-let map=null,cluster=null;
-if(mapOk){
- map=L.map('map').setView([36.5,127.8],7);
- L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap © CARTO',maxZoom:19}).addTo(map);
- cluster=L.markerClusterGroup({maxClusterRadius:50,spiderfyOnMaxZoom:true});
- map.addLayer(cluster);
-}else{
- document.getElementById('map').innerHTML='<div style="padding:40px;text-align:center;color:#888">지도를 불러오지 못했습니다. 아래 목록에서 카메라를 선택하세요.</div>';
- document.getElementById('map').style.height='auto';
-}
-let markers=[];
-function iconFor(c){const t=TYPE[c.type];return L.divIcon({className:'',html:'<div style="width:14px;height:14px;border-radius:50%;background:'+t.c+';border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>',iconSize:[14,14],iconAnchor:[7,7]})}
-function popupHtml(c){
- const t=TYPE[c.type],s=SRC[c.src]||{};
- const saved=SAVED.has(c.id);
- return '<div style="min-width:180px;font-size:13px">'+
- '<b>'+c.name+'</b><br><span style="color:'+t.c+'">● '+t.label+'</span>'+(regOf(c)?' · '+regOf(c):'')+'<br>'+
- '<span style="color:#666;font-size:11px">'+(s.label||'')+'</span><br>'+
- '<a href="/familytrip/live/'+(s.page||'korea-cctv.html')+'" style="display:inline-block;margin-top:6px;background:#0f766e;color:#fff;padding:4px 10px;border-radius:6px;text-decoration:none;font-size:12px">실시간 보기 →</a> '+
- '<button onclick="togSave(\''+c.id+'\',this)" style="border:1px solid #d1d5db;background:#fff;border-radius:6px;padding:4px 8px;font-size:12px;cursor:pointer">'+(saved?'★ 저장됨':'☆ 저장')+'</button></div>';
-}
-function render(){
- if(cluster)cluster.clearLayers();markers=[];
- const q=(document.getElementById('mSearch').value||'').trim().toLowerCase();
- const rg=document.getElementById('mRegion').value,ty=document.getElementById('mType').value;
- const onlySaved=document.getElementById('mSaved').checked;
- let n=0,list='';
- CAMS.forEach(c=>{
-  if(ty&&c.type!==ty)return;
-  if(rg&&regOf(c)!==rg)return;
-  if(onlySaved&&!SAVED.has(c.id))return;
-  if(q&&!(c.name+' '+regOf(c)).toLowerCase().includes(q))return;
-  n++;
-  if(mapOk){
-   const m=L.marker([c.lat,c.lng],{icon:iconFor(c)}).bindPopup(popupHtml(c));
-   cluster.addLayer(m);markers.push(m);
-  }else{
-   const t=TYPE[c.type],s=SRC[c.src]||{};
-   list+='<div style="padding:8px 4px;border-bottom:1px solid #eee;font-size:14px"><b>'+c.name+'</b> <span style="color:'+t.c+'">● '+t.label+'</span>'+(regOf(c)?' · '+regOf(c):'')+' — <a href="/familytrip/live/'+(s.page||'korea-cctv.html')+'">실시간 보기 →</a></div>';
-  }
- });
- document.getElementById('mStat').textContent='표시 중 '+n+'개 / 전체 '+CAMS.length+'개'+(SAVED.size?' · 저장 '+SAVED.size+'개':'');
- if(!mapOk){
-  const mv=document.getElementById('map');
-  mv.innerHTML='<div style="padding:16px 20px;color:#888;font-size:13px">지도 라이브러리를 불러오지 못해 목록으로 표시합니다.</div>'+list;
- }
-}
-window.togSave=function(id,btn){
- if(SAVED.has(id)){SAVED.delete(id);btn.textContent='☆ 저장';btn.style.background='#fff'}
- else{SAVED.add(id);btn.textContent='★ 저장됨';btn.style.background='#fef9c3'}
- localStorage.setItem('cctvSaved',JSON.stringify([...SAVED]));render();
-};
-['mSearch','mRegion','mType','mSaved'].forEach(id=>document.getElementById(id).addEventListener('input',render));
-document.getElementById('mSearch').addEventListener('keydown',e=>{if(e.key==='Enter')render()});
-</script></main>
+<h2>카메라 유형 설명</h2>
+<ul>
+<li><strong>교통 CCTV</strong> — 각 지자체 교통정보센터의 도로·교차로 카메라 (서울 TOPIS, 울산, 대구, 경기도 ITS, 인천 FITIC)</li>
+<li><strong>관광 전용 카메라</strong> — 명소 자체를 비추는 공식 라이브 (GiGAeyes 등)</li>
+<li><strong>관광 명소</strong> — CCTV가 근처에 있는 대표 관광지 (카드에서 가까운 카메라 자동 연결)</li>
+</ul>
+<h2>자주 묻는 질문</h2>
+<h3>전국 CCTV를 한 페이지에서 볼 수 있나요?</h3>
+<p><a href="korea-cctv.html">전국 CCTV 허브</a>에서 전국 주요 공공 카메라를 한곳에 모아 실시간으로 재생합니다. 지역별 상세는 위 목록의 각 페이지에서 확인하세요.</p>
+<h3>카메라를 저장할 수 있나요?</h3>
+<p>지역별 페이지의 카메라 카드에서 ☆ 저장을 누르면 브라우저에 저장되며, <a href="../korea/saved.html">저장한 카메라</a> 페이지에서 모아볼 수 있습니다.</p></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
   이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.

@@ -94,6 +94,7 @@ PTS.forEach(function(p){
  var m=L.circleMarker([p.la,p.lo],{radius:5,color:col,weight:1,fillColor:col,fillOpacity:.6}).addTo(grp);
  var url=p.w?("/familytrip/places/attr-"+p.k+".html"):("/familytrip/korea/attr-"+p.k+".html");
  m.bindPopup("<b>"+esc(p.n)+"</b><br>"+esc(p.c)+"<br><a href='"+url+"'>상세 페이지 →</a>");
+ m.on("click",function(){window.location.href=url;});
  m._q=(p.n+" "+p.c).toLowerCase(); mk.push(m);
 });
 map.on("zoomend",function(){grp.eachLayer(function(l){if(l instanceof L.CircleMarker)l.setRadius(map.getZoom()>8?6:4);});});
