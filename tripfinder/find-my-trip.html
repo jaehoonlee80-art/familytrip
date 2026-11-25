@@ -65,7 +65,7 @@ img{max-width:100%;border-radius:10px}
 <div><label style="font-size:12px;font-weight:700;color:#4b5563">총 예산 (만원)</label><input id="p-budget" type="number" min="50" max="5000" step="50" value="200" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box"></div>
 <div><label style="font-size:12px;font-weight:700;color:#4b5563">출발 월</label><select id="p-month" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px"></select></div>
 <div><label style="font-size:12px;font-weight:700;color:#4b5563">지역</label><select id="p-region" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
-<option value="">전체</option>
+<option value="">관계 없음</option>
 <option value="kr">국내</option>
 <option value="jp">일본</option>
 <option value="ea">동아시아 (대만·홍콩)</option>
@@ -75,7 +75,7 @@ img{max-width:100%;border-radius:10px}
 <option value="me">중동</option>
 </select></div>
 </div>
-<div style="font-size:12px;font-weight:800;color:#334155;margin-bottom:8px">👥 인원별 MBTI 선택 <span style="font-weight:400;color:#888">(영어 유형만 표시 · 모르면 아무거나 선택)</span></div>
+<div style="font-size:12px;font-weight:800;color:#334155;margin-bottom:8px">👥 인원별 MBTI·성별 선택 <span style="font-weight:400;color:#888">(영어 유형만 표시 · 성별·MBTI 모두 선택 안 해도 됩니다)</span></div>
 <div id="mbti-slots" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px"></div>
 <div style="margin-top:12px;font-size:12px;color:#888">💡 인원 수를 바꾸면 MBTI 선택 칸이 자동으로 늘어납니다. 추천 후 각 장소 카드의 <b>"이 장소로 코스 짜기"</b>를 누르면 일차별 일정이 나옵니다.</div>
 </div>
@@ -190,22 +190,28 @@ const SEASON_KO={spring:'봄',summer:'여름',autumn:'가을',winter:'겨울'};
 // ── UI: MBTI 슬롯 (인원 수만큼) ─────────────────────────────
 const slotsBox=document.getElementById('mbti-slots');
 const paxInput=document.getElementById('p-pax');
-let mbtiSel=[]; // [{code|null}]
+let mbtiSel=[]; // [{code:null, gender:null}]
+const GENDERS=[['','성별 선택 안 함'],['m','남성'],['f','여성'],['o','기타']];
 function renderSlots(){
  const n=Math.min(8,Math.max(1,+paxInput.value||1));
  paxInput.value=n;
- while(mbtiSel.length<n)mbtiSel.push(null);
+ while(mbtiSel.length<n)mbtiSel.push({code:null,gender:null});
  mbtiSel.length=n;
  slotsBox.innerHTML='';
  mbtiSel.forEach((v,i)=>{
   const w=document.createElement('div');
   w.innerHTML='<label style="font-size:11.5px;font-weight:700;color:#4b5563">'+(i+1)+'번째 여행자</label>'
-   +'<select class="mbti-sel" data-i="'+i+'" style="width:100%;margin-top:4px;padding:9px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">'
-   +'<option value="">선택 안 함</option>'+MBTI_TYPES.map(t=>'<option value="'+t.c+'"'+(v===t.c?' selected':'')+'>'+t.c+'</option>').join('')
-   +'</select>';
+   +'<div style="display:flex;gap:6px;margin-top:4px">'
+   +'<select class="mbti-sel" data-i="'+i+'" style="flex:1;padding:9px;border:1px solid #d1d5db;border-radius:8px;font-size:13.5px">'
+   +'<option value="">MBTI</option>'+MBTI_TYPES.map(t=>'<option value="'+t.c+'"'+(v.code===t.c?' selected':'')+'>'+t.c+'</option>').join('')
+   +'</select>'
+   +'<select class="gen-sel" data-i="'+i+'" style="width:84px;padding:9px;border:1px solid #d1d5db;border-radius:8px;font-size:13.5px">'
+   +GENDERS.map(([id,nm])=>'<option value="'+id+'"'+(v.gender===id?' selected':'')+'>'+nm+'</option>').join('')
+   +'</select></div>';
   slotsBox.appendChild(w);
  });
- slotsBox.querySelectorAll('.mbti-sel').forEach(s=>s.addEventListener('change',()=>{mbtiSel[+s.dataset.i]=s.value||null}));
+ slotsBox.querySelectorAll('.mbti-sel').forEach(s=>s.addEventListener('change',()=>{mbtiSel[+s.dataset.i].code=s.value||null}));
+ slotsBox.querySelectorAll('.gen-sel').forEach(s=>s.addEventListener('change',()=>{mbtiSel[+s.dataset.i].gender=s.value||null}));
 }
 paxInput.addEventListener('input',renderSlots);
 renderSlots();
@@ -225,12 +231,12 @@ function score(d){
  let sc=0,why=[];
  // MBTI 성향 부스트 — 인원별 성향을 합산 (다수 성향 가중)
  const dimCount={};
- mbtiSel.forEach(code=>{
-  const t=MBTI_TYPES.find(x=>x.c===code);if(!t)return;
+ mbtiSel.forEach(p=>{
+  const t=MBTI_TYPES.find(x=>x.c===p.code);if(!t)return;
   Object.keys(t.dims).forEach(k=>{dimCount[t.dims[k]]=(dimCount[t.dims[k]]||0)+1});
  });
  Object.keys(dimCount).forEach(dim=>{
-  const share=dimCount[dim]/Math.max(1,mbtiSel.filter(Boolean).length||1);
+  const share=dimCount[dim]/Math.max(1,mbtiSel.filter(p=>p.code).length||1);
   (DIM_BOOST[dim]||[]).forEach(tag=>{
    if(d.t.includes(tag)){sc+=1.5*share;why.push('MBTI 성향')}
   });
@@ -293,13 +299,24 @@ function render(){
  return picks;
 }
 function mbtiSummary(){
- const codes=mbtiSel.filter(Boolean);
+ const codes=mbtiSel.filter(p=>p.code).map(p=>p.code);
  return codes.length?codes.join(', '):'미선택';
+}
+function partySummary(){
+ const g={m:0,f:0,o:0};
+ mbtiSel.forEach(p=>{if(p.gender&&g[p.gender]!==undefined)g[p.gender]++});
+ const parts=[];
+ if(g.m)parts.push('남성 '+g.m+'명');
+ if(g.f)parts.push('여성 '+g.f+'명');
+ if(g.o)parts.push('기타 '+g.o+'명');
+ const rest=pax()-g.m-g.f-g.o;
+ if(rest>0)parts.push('미지정 '+rest+'명');
+ return parts.join(', ')||pax()+'명';
 }
 function buildPrompt(picks){
  const n=pax(),days=num('p-days')||4,bud=budgetTotal(),reg=document.getElementById('p-region');
  const regName=reg.options[reg.selectedIndex].text;
- let p='여행 조건: 인원='+n+'명(MBTI: '+mbtiSummary()+'), 기간='+days+'일, 총예산='+bud+'만원, 출발='+pm.value+'월, 지역='+regName+'.\n추천 후보 3곳:\n';
+ let p='여행 조건: 인원='+n+'명('+partySummary()+', MBTI: '+mbtiSummary()+'), 기간='+days+'일, 총예산='+bud+'만원, 출발='+pm.value+'월, 지역='+regName+'.\n추천 후보 3곳:\n';
  picks.forEach((r,i)=>{const d=r.d;p+='['+(i+1)+'안] '+d.n+' ('+d.c+(d.k?'·국내':'·해외')+') — '+d.d+'\n'});
  p+='위 3곳 각각에 대해 순서대로 "===여행지명===" 다음 줄부터 3~4문장으로: 1) 이 조합에 왜 맞는지, 2) 추천 코스·먹거리·동선 팁, 3) 주의할 점이나 시즌 팁. 각 안을 ===이름=== 으로 구분해서 출력하세요.';
  return p;
@@ -308,7 +325,7 @@ function coursePrompt(d){
  const n=pax(),days=num('p-days')||4;
  const reg=document.getElementById('p-region');
  return '여행지: '+d.n+' ('+d.c+(d.k?'·국내':'·해외')+') — '+d.d+'.\n'
-  +'인원: '+n+'명(MBTI: '+mbtiSummary()+'), 기간: '+days+'일, 출발 월: '+pm.value+'월, 총예산: '+budgetTotal()+'만원, 희망 지역: '+reg.options[reg.selectedIndex].text+'.\n'
+  +'인원: '+n+'명('+partySummary()+', MBTI: '+mbtiSummary()+'), 기간: '+days+'일, 출발 월: '+pm.value+'월, 총예산: '+budgetTotal()+'만원, 희망 지역: '+reg.options[reg.selectedIndex].text+'.\n'
   +'위 조건에 맞춰 '+d.n+'의 '+days+'일 여행코스를 일차별로 짜주세요. 형식: "1일차: ..." 형태로 각 일차당 3~5문장(아침/오후/저녁 동선 + 먹거리 + 이동팁, 인원 구성 고려). 마지막에 "💡 팁" 한 줄. 마크다운 없이 평문으로 출력하세요.';
 }
 async function aiCall(prompt){
