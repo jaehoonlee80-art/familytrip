@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>여행 D-day 계산기 — 출발일·여행지·준비 타임라인 자동 표시</title>
+<meta name="description" content="여행 출발일과 여행지를 입력하면 D-day를 계산하고, 항공권·숙소·짐싸기·여권 준비 등 지금 해야 할 준비 타임라인을 자동으로 보여줍니다.">
+<link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/tools/travel-dday.html">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
+a{color:#2563eb;text-decoration:none}
+header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+header .logo{font-weight:800;font-size:20px;color:#0f766e}
+nav a{margin-left:18px;font-size:14px;color:#555}
+main{max-width:760px;margin:0 auto;padding:40px 20px}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
+h1{font-size:32px;line-height:1.3;margin-bottom:16px}
+h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
+h3{font-size:17px;margin:24px 0 8px}
+p{margin-bottom:14px}
+ul,ol{margin:0 0 14px 22px}
+img{max-width:100%;border-radius:10px}
+.meta{color:#888;font-size:13px;margin-bottom:24px}
+.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
+.cta h3{color:#fff;margin-top:0}
+.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+.card .body{padding:14px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{font-size:13px;color:#777;margin:0}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
+.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
+.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
+.live-meta{font-size:13px;color:#777;margin-bottom:20px}
+.live-meta li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/familytrip/">온 가족 여행 연구소</a>
+  <nav>
+    <a href="/familytrip/guides.html">여행 가이드</a>
+    <a href="/familytrip/live.html">실시간 카메라</a>
+    <a href="/familytrip/cities.html">세계 도시 100</a>
+    <a href="/familytrip/places.html">가볼만한 곳</a>
+    <a href="/familytrip/korea.html">한국 여행</a>
+  </nav>
+</header>
+<main><div class="meta">여행 도구 · 2026-11-25</div><h1>여행 D-day 계산기 — 출발일·여행지·준비 타임라인 자동 표시</h1><p>출발일을 입력하면 <strong>지금 해야 할 준비</strong>를 타임라인으로 보여줍니다. 여행지도 함께 입력하면 해외여행 필수 서류 체크가 추가됩니다.</p>
+<div id="dd" style="background:#f8fafc;border:1px solid #e6e2d8;border-radius:14px;padding:22px;margin:16px 0">
+<style>
+#dd input[type=date],#dd select{padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:15px;background:#fff}
+#dd .dd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px}
+#dd .dd-big{font-size:56px;font-weight:800;color:#0f766e;text-align:center;line-height:1.1}
+#dd .dd-sub{font-size:12px;color:#888;text-align:center;margin-bottom:14px}
+#dd .tl-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #eee;font-size:13.5px}
+#dd .tl-item:last-child{border-bottom:none}
+#dd .tl-d{min-width:44px;font-weight:800;color:#0f766e;font-size:12.5px}
+#dd .tl-t{font-weight:700;min-width:90px;font-size:13px}
+#dd .tl-done{color:#16a34a}
+#dd .tl-now{background:#f0fdfa;border-radius:8px;padding:2px 6px}
+#dd .tl-wait{color:#9ca3af}
+#dd .tip{font-size:12px;color:#888;margin-top:12px;line-height:1.6}
+@media(max-width:560px){#dd .dd-big{font-size:42px}}
+</style>
+<div class="dd-grid">
+<label style="font-size:12px;font-weight:700;color:#4b5563">여행 출발일<input type="date" id="dd-date"></label>
+<label style="font-size:12px;font-weight:700;color:#4b5563">여행지<select id="dd-dest"><option value="kr">국내</option><option value="jp">일본</option><option value="eu">유럽</option><option value="sea">동남아</option><option value="etc">기타 해외</option></select></label>
+</div>
+<div id="dd-out"></div>
+</div>
+
+<script>
+const TL=[
+ {d:60,t:'여권·비자 확인',x:'해외여행 시 여권 잔여 6개월 이상, 비자 필요 국가 확인'},
+ {d:45,t:'여행자 보험',x:'해외여행 보험 가입 — 의료비·지연·분실 보장'},
+ {d:30,t:'항공권·숙소 확정',x:'항공권이 가장 저렴한 시기 — 2~3개월 전이 정석'},
+ {d:21,t:'투어·티켓 예약',x:'디즈니·유니버설·테마파크·인기 관광지 온라인 예매'},
+ {d:14,t:'예방접종·약 챙기기',x:'해외여행 시 A형 간염·장티푸스 등 예방접종 권장'},
+ {d:7,t:'eSIM·유심 준비',x:'공항 도착 즉시 데이터 사용 — 미리 구매'},
+ {d:7,t:'환전·카드 준비',x:'소액 현지화폐 + 해외결제 카드'},
+ {d:5,t:'짐싸기 시작',x:'[짐싸기 체크리스트](/familytrip/checklists/kids-packing-list.html) 참고'},
+ {d:3,t:'날씨 확인·우비 준비',x:'[실시간 날씨](/familytrip/tools/travel-weather.html)에서 목적지 날씨 확인'},
+ {d:1,t:'최종 점검',x:'여권·항공권·숙소 확인서·약·충전기·보조배터리'},
+ {d:0,t:'출발!',x:'공항 도착 3시간 전, 수하물 무게 확인'}
+];
+function render(){
+ const dv=document.getElementById('dd-date').value;
+ const dest=document.getElementById('dd-dest').value;
+ const out=document.getElementById('dd-out');
+ if(!dv){out.innerHTML='';return}
+ const today=new Date();today.setHours(0,0,0,0);
+ const dep=new Date(dv+'T00:00:00');
+ const diff=Math.round((dep-today)/864e5);
+ let head='';
+ if(diff<0)head='<div class="dd-big" style="color:#dc2626">여행 완료</div><div class="dd-sub">D+'+Math.abs(diff)+'일 경과</div>';
+ else if(diff===0)head='<div class="dd-big">D-DAY</div><div class="dd-sub">오늘 출발합니다!</div>';
+ else head='<div class="dd-big">D-'+diff+'</div><div class="dd-sub">'+dep.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'short'})+' 출발까지</div>';
+ const KR_EXTRA=dest!=='kr'?['<div class="tl-item"><span class="tl-d">D-60</span><span class="tl-t">입국 서류 준비</span><span>여권 잔여기간·입국카드·귀국 항공권 확인서</span></div>']:[];
+ const items=TL.concat(KR_EXTRA).sort((a,b)=>b.d-a.d);
+ let html=head+'<div style="margin-top:8px">';
+ items.forEach(it=>{
+  const stat=diff<it.d?'tl-done':(diff===it.d?'tl-now':'tl-wait');
+  const mark=diff<it.d?'✅':(diff===it.d?'🔴':'⬜');
+  html+='<div class="tl-item '+stat+'"><span class="tl-d">D-'+it.d+'</span><span class="tl-t">'+mark+' '+it.t+'</span><span style="color:#666;font-size:12.5px">'+it.x+'</span></div>';
+ });
+ html+='</div><div class="tip">💡 여권 잔여기간은 출발일 기준 6개월 이상이어야 합니다. 해외여행은 출발 3개월 전부터 준비를 시작하세요.</div>';
+ out.innerHTML=html;
+}
+document.getElementById('dd-date').valueAsDate=new Date(Date.now()+14*864e5);
+document.getElementById('dd-date').addEventListener('input',render);
+document.getElementById('dd-dest').addEventListener('change',render);
+render();
+</script></main>
+<footer>
+  온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
+  이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.
+</footer>
+<script src="/familytrip/live/lightbox.js"></script>
+<script src="/familytrip/live/weather.js"></script>
+</body>
+</html>

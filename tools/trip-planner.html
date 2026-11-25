@@ -120,6 +120,18 @@ const BADRX=/rebellion|incident|siege|battle|war\b|treaty|earthquake|plague|riot
 const GOODRX=/temple|shrine|castle|palace|museum|gallery|park\b|garden|tower|pagoda|church|cathedral|mosque|monument|memorial|historic|heritage|unesco|world heritage|landmark|market|bazaar|festival|bridge|viewpoint|observatory|library|theat|opera|arena|stadium|zoo|aquarium|botanical|onsen|hot spring|beach|island|lake|waterfall|canyon|cave|cliff|mountain|volcano|desert|forest\b|national park|ski|surf|theme park|amusement|fort|ruins|archaeolog|abbey|monastery|basilica|stupa|torii|sanctuary|former|oldest|largest|tallest|famous|iconic|masterpiece|architect/i;
 function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').replace(/-+/g,'-')}
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+const EN2DEST={'jeju island':'jeju','busan':'busan','naha':'okinawa','fukuoka':'fukuoka','tokyo':'tokyo','osaka':'osaka','kyoto':'osaka','singapore':'singapore','bangkok':'bangkok','kuala lumpur':'kl','ho chi minh city':'hcmc','da nang':'danang','honolulu':'hawaii'};
+const KO2DEST={jeju:'jeju','제주':'jeju',gangwon:'gangwon','강릉':'gangwon','속초':'gangwon',busan:'busan','부산':'busan','경주':'busan',okinawa:'okinawa','오키나와':'okinawa','나하':'okinawa',fukuoka:'fukuoka','후쿠오카':'fukuoka',tokyo:'tokyo','도쿄':'tokyo',osaka:'osaka','오사카':'osaka','교토':'osaka',bangkok:'bangkok','방콕':'bangkok',danang:'danang','다낭':'danang',hoian:'hoian','호이안':'hoian',phuket:'phuket','푸켓':'phuket',singapore:'singapore','싱가포르':'singapore',kl:'kl','쿠알라룸푸르':'kl','말레이시아':'kl',hcmc:'hcmc','호치민':'hcmc',hawaii:'hawaii','하와이':'hawaii',guam:'guam','괌':'guam',saipan:'saipan','사이판':'saipan'};
+const TRIPMAP={1:'0-1',3:'2-3',5:'4-5',7:'6-7'};
+function costUrl(names,days,A,K){
+ const s=(names||[]).filter(Boolean).join(' ').toLowerCase();
+ let dest=null;
+ for(const en in EN2DEST)if(s.includes(en)){dest=EN2DEST[en];break}
+ if(!dest)for(const kw in KO2DEST)if(s.includes(kw)){dest=KO2DEST[kw];break}
+ let u='/familytrip/tools/family-cost-calculator.html';
+ if(dest)u+='?dest='+dest+'&adults='+A+'&kids='+K+'&trip='+(TRIPMAP[days]||'2-3');
+ return u;
+}
 function rank(sights,style,kids){
  const kws=KW[style]||[];
  return sights.map((s,i)=>{
@@ -190,7 +202,7 @@ function goDB(){
  html+='<div style="display:flex;gap:10px;flex-wrap:wrap">'
   +'<a href="/familytrip/cities/'+slugify(c.en)+'.html" style="background:#0f766e;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px">도시 가이드 보기 →</a>'
   +'<a href="https://www.rome2rio.com/s/'+encodeURIComponent('서울')+'/'+encodeURIComponent(c.en)+'" target="_blank" rel="noopener" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">🚄 서울→'+esc(c.n)+' 교통편 검색 →</a>'
-  +'<a href="/familytrip/tools/family-cost-calculator.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">경비 계산기 →</a>'
+  +'<a href="'+costUrl([c.en,c.n],days,A,K)+'" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">경비 계산기 →</a>'
   +'<a href="/familytrip/tools/packing-checklist.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">짐싸기 리스트 →</a></div></div>';
  document.getElementById('tp-out').innerHTML=html;
  document.getElementById('tp-out').scrollIntoView({behavior:'smooth'});
@@ -529,7 +541,7 @@ async function renderCustom(r){
   +(isKR?'<a href="/familytrip/live/korea-cctv.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">📹 실시간 CCTV →</a>':'')
   +'<a href="https://www.rome2rio.com/s/'+encodeURIComponent('서울')+'/'+encodeURIComponent(r.fullName||r.placeName)+'" target="_blank" rel="noopener" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">🚄 서울→'+esc(r.placeName)+' 교통편 검색 →</a>'
   +'<a href="https://www.google.com/search?q='+gq+'" target="_blank" rel="noopener" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">🔍 구글 여행 정보 검색 →</a>'
-  +'<a href="/familytrip/tools/family-cost-calculator.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">경비 계산기 →</a>'
+  +'<a href="'+costUrl([r.placeName,r.fullName],days,A,K)+'" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">경비 계산기 →</a>'
   +'<a href="/familytrip/tools/packing-checklist.html" style="background:#fff;border:1px solid #d1d5db;padding:10px 18px;border-radius:8px;font-weight:700;color:#374151;text-decoration:none;font-size:14px">짐싸기 리스트 →</a></div></div>';
  document.getElementById('tp-out').innerHTML=html;
  document.querySelectorAll('#tp-out .wx').forEach(el=>{if(window.mountWx)window.mountWx(el)});

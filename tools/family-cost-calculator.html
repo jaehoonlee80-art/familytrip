@@ -290,7 +290,27 @@ function calcBudget(){
 }
 ['cDest','cFrom','cTrip','cBudget'].forEach(id=>document.getElementById(id).addEventListener('change',calcBudget));
 ['cAdults','cKids'].forEach(id=>document.getElementById(id).addEventListener('input',calcBudget));
-calcBudget();
+
+// URL 파라미터로 프리셋: ?dest=tokyo&from=1.0&trip=2-3&budget=standard&adults=2&kids=1&offset=10
+(function initFromURL(){
+ try{
+  const q=new URLSearchParams(location.search);
+  const sel={dest:'cDest',from:'cFrom',trip:'cTrip',budget:'cBudget'};
+  const num={adults:'cAdults',kids:'cKids'};
+  Object.entries(sel).forEach(([k,id])=>{
+   const v=q.get(k);if(!v)return;
+   const el=document.getElementById(id);
+   if([...el.options].some(o=>o.value===v))el.value=v;
+  });
+  Object.entries(num).forEach(([k,id])=>{
+   const v=parseInt(q.get(k),10);
+   if(!isNaN(v))document.getElementById(id).value=Math.max(0,Math.min(10,v));
+  });
+  const off=parseInt(q.get('offset'),10);
+  if(!isNaN(off)&&off>=0&&off<30)selDateOffset=off;
+ }catch(e){}
+ calcBudget();
+})();
 </script></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
