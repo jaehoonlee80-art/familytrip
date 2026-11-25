@@ -143,24 +143,77 @@ function render(){
   markers.push(mk);
  });
  if(list.length){map.fitBounds(L.latLngBounds(list.map(s=>[s.lat,s.lon])),{padding:[30,30]})}
- // 카드 출력 — 지역별 그룹
+ // 카드 출력 — 지역별 그룹, 각 카드는 클릭 시 사진+상세 정보 펼침
  const byRegion={};list.forEach(s=>{(byRegion[s.r]=byRegion[s.r]||[]).push(s)});
  let html='';
  Object.keys(byRegion).sort().forEach(rg2=>{
   const arr=byRegion[rg2];
   html+='<div style="margin-bottom:20px"><div style="font-size:16px;font-weight:800;color:#0f766e;margin-bottom:10px">📍 '+rg2+' <span style="font-size:12px;color:#888;font-weight:400">'+arr.length+'곳</span></div>'
-   +'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px">';
-  arr.forEach(s=>{
+   +'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px">';
+  arr.forEach((s,idx)=>{
    const col=FCOLORS[s.t]||'#0f766e';
-   html+='<div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:14px 16px">'
-    +'<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:6px"><div style="font-size:14.5px;font-weight:700">'+s.s+'</div><span style="font-size:10.5px;background:'+col+'22;color:'+col+';padding:3px 8px;border-radius:10px;font-weight:700;white-space:nowrap">'+s.t+'</span></div>'
-    +'<div style="font-size:12.5px;color:#555;line-height:1.6;margin-bottom:8px">'+s.d+'</div>'
-    +'<a href="https://www.google.com/maps/search/?api=1&query='+s.lat+','+s.lon+'" target="_blank" rel="noopener" style="font-size:12px;color:#0f766e;font-weight:700;text-decoration:none">🗺️ 지도에서 보기 →</a></div>';
+   const rid='pgd-'+rg2.replace(/\s/g,'')+'-'+idx;
+   html+='<details class="pg-card" data-spot="'+esc(s.s)+'|'+esc(rg2)+'" id="'+rid+'" style="background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden">'
+    +'<summary style="cursor:pointer;list-style:none;padding:14px 16px;display:block">'
+    +'<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:6px"><div style="font-size:14.5px;font-weight:700;padding-right:8px">'+s.s+'</div><span style="font-size:10.5px;background:'+col+'22;color:'+col+';padding:3px 8px;border-radius:10px;font-weight:700;white-space:nowrap;flex-shrink:0">'+s.t+'</span></div>'
+    +'<div style="font-size:12.5px;color:#555;line-height:1.6">'+s.d+'</div>'
+    +'<div style="font-size:11.5px;color:#0f766e;font-weight:700;margin-top:8px">▸ 클릭하면 사진·상세 정보·방문 팁 보기</div></summary>'
+    +'<div class="pg-body" style="border-top:1px solid #f0f0f0;padding:14px 16px"></div></details>';
   });
   html+='</div></div>';
  });
  document.getElementById('pg-out').innerHTML=html||'<div style="color:#888;padding:20px;text-align:center">조건에 맞는 촬영지가 없습니다.</div>';
+ bindCards();
 }
+// 위키백과에서 사진+소개글 가져오기 (ko 우선, en 백업)
+const wikiCache={};
+async function wikiInfo(name,region){
+ const key=name+'|'+region;
+ if(wikiCache[key])return wikiCache[key];
+ const queries=[name,name+' '+region];
+ for(const q of queries){
+  for(const lang of['ko','en']){
+   try{
+    const s=await(await fetch('https://'+lang+'.wikipedia.org/w/api.php?action=opensearch&search='+encodeURIComponent(q)+'&limit=1&namespace=0&format=json&origin=*')).json();
+    if(!s[1]||!s[1][0])continue;
+    const title=s[1][0];
+    const sum=await(await fetch('https://'+lang+'.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title.replace(/ /g,'_')))).json();
+    if(sum&&sum.extract){
+     const info={title:sum.title||title,extract:(sum.extract||'').slice(0,500),img:(sum.thumbnail&&sum.thumbnail.source)||'',url:(sum.content_urls&&sum.content_urls.desktop&&sum.content_urls.desktop.page)||''};
+     wikiCache[key]=info;return info;
+    }
+   }catch(e){}
+  }
+ }
+ wikiCache[key]=null;return null;
+}
+function bindCards(){
+ document.querySelectorAll('#pg-out details.pg-card').forEach(d=>{
+  d.addEventListener('toggle',async()=>{
+   if(!d.open)return;
+   const body=d.querySelector('.pg-body');
+   if(body.dataset.done)return;
+   body.dataset.done='1';
+   const[spotName,region]=d.dataset.spot.split('|');
+   body.innerHTML='<div style="font-size:12.5px;color:#888;padding:8px 0">📷 사진·정보 불러오는 중…</div>';
+   const spot=SPOTS.find(s=>s.s===spotName&&s.r===region)||SPOTS.find(s=>s.s===spotName);
+   const info=await wikiInfo(spotName,region);
+   let h='';
+   if(info&&info.img)h+='<img src="'+info.img+'" loading="lazy" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin-bottom:10px" alt="'+esc(spotName)+'">';
+   h+='<div style="font-size:13px;color:#444;line-height:1.7;margin-bottom:10px">'+(info?esc(info.extract):spot?spot.d:'')+'</div>';
+   if(info&&info.title&&info.extract)h+='<div style="font-size:11.5px;color:#999;margin-bottom:10px">출처: '+esc(info.title)+' ('+(info.url?'<a href="'+info.url+'" target="_blank" rel="noopener" style="color:#0f766e">위키백과</a>':'위키백과')+')</div>';
+   h+='<div style="display:flex;flex-wrap:wrap;gap:6px">'
+    +(spot?'<a href="https://www.google.com/maps/search/?api=1&query='+spot.lat+','+spot.lon+'" target="_blank" rel="noopener" style="font-size:12px;background:#e8f5e9;color:#166534;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:600">🗺️ Google 지도</a>':'')
+    +(spot?'<a href="https://map.naver.com/v5/search/'+encodeURIComponent(spot.s+' '+spot.r)+'" target="_blank" rel="noopener" style="font-size:12px;background:#e8f5e9;color:#166534;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:600">네이버 지도</a>':'')
+    +(spot?'<a href="/familytrip/tools/trip-planner.html" style="font-size:12px;background:#f0fdfa;color:#0f766e;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:600">🗺️ '+esc(spot.r)+' 여행 코스 생성 →</a>':'')
+    +(spot?'<a href="/familytrip/live/tourist-live.html" style="font-size:12px;background:#fef3c7;color:#92400e;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:600">📹 주변 실시간 CCTV →</a>':'')
+    +(info&&info.url?'<a href="'+info.url+'" target="_blank" rel="noopener" style="font-size:12px;background:#f1f5f9;color:#334155;padding:5px 12px;border-radius:14px;text-decoration:none;font-weight:600">📖 위키백과 상세 →</a>':'')
+    +'</div>';
+   body.innerHTML=h;
+  });
+ });
+}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 // 지도 초기화
 map=L.map('pg-map').setView([36.5,127.8],7);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',maxZoom:19}).addTo(map);
