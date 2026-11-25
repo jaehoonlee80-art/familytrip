@@ -53,7 +53,7 @@ img{max-width:100%;border-radius:10px}
     <a href="/familytrip/tripfinder.html">내 여행 찾아줌</a>
   </nav>
 </header>
-<main><div class="meta">내 여행 찾아줌 · 2026-11-25</div><h1>MBTI로 찾는 나의 여행지 — 여행 성향으로 맞춤 여행지와 코스 추천</h1><p>MBTI를 직접 묻지 않습니다. 대신 <strong>여행에서의 나의 성향 4가지</strong>를 고르면 — 에너지(함께 vs 혼자), 계획(계획파 vs 즉흥파), 스타일(경험 중시 vs 효율 중시), 관심(자극·소비 vs 의미·탐구) — 규칙 엔진이 50여 개 여행지를 스코어링해 <strong>3안</strong>을 추천하고, 마음에 드는 장소를 고르면 <strong>AI가 인원 구성에 맞춘 일차별 여행코스</strong>를 짜줍니다.</p>
+<main><div class="meta">내 여행 찾아줌 · 2026-11-25</div><h1>MBTI로 찾는 나의 여행지 — 여행 성향으로 맞춤 여행지와 코스 추천</h1><p>MBTI를 직접 묻지 않습니다. 대신 <strong>16개 MBTI 유형 칩을 보여드리고</strong> — ISTJ부터 ENTJ까지 — 본인에게 맞는 유형을 고르면 됩니다(모르면 아무거나 선택해도 여행 성향으로 자동 해석됩니다). 그 성향과 동행·예산·기간 조건을 반영해 <strong>규칙 엔진이 50여 개 여행지를 스코어링</strong>하고 <strong>3안</strong>을 추천합니다. 마음에 드는 장소를 고르면 <strong>AI가 인원 구성에 맞춘 일차별 여행코스</strong>를 짜줍니다.</p>
 <blockquote>
 <p>⚠️ 추천은 일반적인 정보 기준입니다. 실제 항공권·숙소 가격과 운영 여부는 방문 전 확인하세요.</p>
 </blockquote>
@@ -106,21 +106,28 @@ img{max-width:100%;border-radius:10px}
 
 <script>
 // ── 조건 정의 ──────────────────────────────────────────────
-// MBTI 성향 축 — 직접 MBTI를 묻지 않고 여행 성향으로 선택
-const MBTI_DIMS=[
- {key:'energy',q:'에너지 — 여행에서 나는',opts:[
-  ['social','함께·사교형','친구·가족과 함께 떠나는 게 좋아요'],
-  ['solo','혼자·충전형','나만의 리듬으로 충전하는 여행을 좋아요']]},
- {key:'plan',q:'계획 — 여행 준비는',opts:[
-  ['planner','계획·동선 중시','동선·시간표·예약까지 꼼꼼히 짜고 싶어요'],
-  ['spont','즉흥·여유 중시','대충 정하고 현지에서 흘러가고 싶어요']]},
- {key:'style',q:'스타일 — 여행에서 중요하게 보는 것',opts:[
-  ['exp','경험·분위기','현지 분위기·먹거리·사진 같은 경험 자체가 중요해요'],
-  ['eff','효율·알짜','정해진 시간에 최대한 많이 보고 싶어요']]},
- {key:'interest',q:'관심 — 여행의 의미는',opts:[
-  ['sense','자극·소비','맛·쇼핑·핫플·야경 같은 자극적인 경험'],
-  ['deep','의미·탐구','역사·자연·문화처럼 의미 있는 발견']]}
+// MBTI 16유형 — 직접 MBTI를 묻지 않고 유형 칩을 보여줌. 선택 시 해당 유형의 성향 축이 자동 적용됨.
+// 축 매핑: E/I→energy(social/solo), J/P→plan(planner/spont), F/T→style(exp/eff), S/N→interest(sense/deep)
+const MBTI_TYPES=[
+ {c:'ISTJ',n:'꼼꼼한 검사관',d:'현실적·책임감·계획적',dims:{energy:'solo',plan:'planner',style:'eff',interest:'sense'}},
+ {c:'ISFJ',n:'헌신적인 보호자',d:'따뜻·책임감·전통',dims:{energy:'solo',plan:'planner',style:'exp',interest:'sense'}},
+ {c:'INFJ',n:'통찰력 있는 옹호자',d:'이상적·직관·타인 배려',dims:{energy:'solo',plan:'planner',style:'exp',interest:'deep'}},
+ {c:'INTJ',n:'전략가',d:'독립적·직관·분석',dims:{energy:'solo',plan:'planner',style:'eff',interest:'deep'}},
+ {c:'ISTP',n:'만능 재주꾼',d:'논리적·실용·호기심',dims:{energy:'solo',plan:'spont',style:'eff',interest:'sense'}},
+ {c:'ISFP',n:'호기심 많은 예술가',d:'자유·감각·즉흥',dims:{energy:'solo',plan:'spont',style:'exp',interest:'sense'}},
+ {c:'INFP',n:'열정적인 중재자',d:'이상적·감성·창의',dims:{energy:'solo',plan:'spont',style:'exp',interest:'deep'}},
+ {c:'INTP',n:'논리적인 사색가',d:'분석·독창·탐구',dims:{energy:'solo',plan:'spont',style:'eff',interest:'deep'}},
+ {c:'ESTP',n:'모험을 추구하는 사업가',d:'활동적·즉흥·실전',dims:{energy:'social',plan:'spont',style:'eff',interest:'sense'}},
+ {c:'ESFP',n:'자유로운 연예인',d:'사교·즉흥·감각',dims:{energy:'social',plan:'spont',style:'exp',interest:'sense'}},
+ {c:'ENFP',n:'재기발랄한 활동가',d:'열정·직관·사교',dims:{energy:'social',plan:'spont',style:'exp',interest:'deep'}},
+ {c:'ENTP',n:'논쟁을 즐기는 변론가',d:'아이디어·직관·도전',dims:{energy:'social',plan:'spont',style:'eff',interest:'deep'}},
+ {c:'ESTJ',n:'엄격한 관리자',d:'현실·책임·리더십',dims:{energy:'social',plan:'planner',style:'eff',interest:'sense'}},
+ {c:'ESFJ',n:'사교적인 외교관',d:'배려·전통·조화',dims:{energy:'social',plan:'planner',style:'exp',interest:'sense'}},
+ {c:'ENFJ',n:'정의로운 선도자',d:'이상·직관·타인',dims:{energy:'social',plan:'planner',style:'exp',interest:'deep'}},
+ {c:'ENTJ',n:'대담한 통솔자',d:'전략·직관·결단',dims:{energy:'social',plan:'planner',style:'eff',interest:'deep'}}
 ];
+const MBTI_DIM_NAMES={energy:'에너지',plan:'계획',style:'스타일',interest:'관심'};
+const MBTI_LB={social:'함께·사교형',solo:'혼자·충전형',planner:'계획·동선형',spont:'즉흥·여유형',exp:'경험·분위기형',eff:'효율·알짜형',sense:'자극·소비형',deep:'의미·탐구형'};
 // 성향 → 여행지 태그 부스트 매핑
 const MBTI_BOOST={
  social:['friends','reunion','fam','fam_kids','couple'],
@@ -157,8 +164,6 @@ const GROUPS=[
 const COND={};GROUPS.forEach(g=>g.items.forEach(([id,n])=>COND[id]=n));
 const GW={companion:3,type:2,style:2,season:2,move:1,stay:1,act:2,vibe:1};
 const GROUP_OF={};GROUPS.forEach(g=>g.items.forEach(([id])=>GROUP_OF[id]=g.id));
-// MBTI 성향 선택값 → 라벨
-const MBTI_LB={social:'함께·사교형',solo:'혼자·충전형',planner:'계획·동선형',spont:'즉흥·여유형',exp:'경험·분위기형',eff:'효율·알짜형',sense:'자극·소비형',deep:'의미·탐구형'};
 
 // ── 여행지 DB ──────────────────────────────────────────────
 // n:이름 c:국가 k:국내여부 t:조건태그 b:예산등급(1가성비~3고가) h:ICN비행시간 s:최적시기 d:한줄소개
@@ -227,27 +232,24 @@ const MONTH_SEASON=['winter','winter','spring','spring','spring','summer','summe
 // ── UI 생성 ────────────────────────────────────────────────
 const sel=new Set();
 const mbti={}; // {energy:'social', plan:'planner', style:'exp', interest:'sense'}
-// MBTI 성향 UI — 축별 단일 선택
-MBTI_DIMS.forEach(dim=>{
- const box=document.getElementById('g-mbti');
- const w=document.createElement('div');
- w.style.cssText='margin-bottom:14px';
- w.innerHTML='<div style="font-size:13px;font-weight:800;color:#334155;margin-bottom:6px">'+dim.q+'</div>'
-  +'<div style="display:flex;flex-wrap:wrap;gap:8px">'+dim.opts.map(([id,n,desc])=>
-   '<button class="mbti-chip" data-dim="'+dim.key+'" data-id="'+id+'" title="'+desc+'" style="font-size:13px;padding:8px 14px;border-radius:20px;border:1px solid #d1d5db;background:#fff;cursor:pointer;color:#374151">'+n+'</button>').join('')+'</div>';
- box.appendChild(w);
-});
+// MBTI 16유형 칩 UI — 선택하면 4개 성향 축이 한 번에 설정됨
+const box=document.getElementById('g-mbti');
+box.innerHTML='<div style="font-size:13px;font-weight:800;color:#334155;margin-bottom:6px">내 MBTI 유형을 골라보세요 (모르면 아무거나 선택해도 됩니다 — 여행 성향으로 자동 해석됩니다)</div>'
+ +'<div style="display:flex;flex-wrap:wrap;gap:8px">'+MBTI_TYPES.map(t=>
+  '<button class="mbti-chip" data-code="'+t.c+'" title="'+t.d+'" style="font-size:12.5px;padding:8px 12px;border-radius:16px;border:1px solid #d1d5db;background:#fff;cursor:pointer;color:#374151"><b>'+t.c+'</b> '+t.n+'</button>').join('')+'</div>';
 document.querySelectorAll('.mbti-chip').forEach(b=>b.addEventListener('click',()=>{
- const dim=b.dataset.dim,id=b.dataset.id;
- document.querySelectorAll('.mbti-chip[data-dim="'+dim+'"]').forEach(x=>{
+ const t=MBTI_TYPES.find(x=>x.c===b.dataset.code);
+ if(!t)return;
+ document.querySelectorAll('.mbti-chip').forEach(x=>{
   x.style.background='#fff';x.style.color='#374151';x.style.borderColor='#d1d5db';
  });
  b.style.background='#7c3aed';b.style.color='#fff';b.style.borderColor='#7c3aed';
- mbti[dim]=id;updateMbtiLabel();
+ Object.assign(mbti,t.dims);
+ updateMbtiLabel();
 }));
 function updateMbtiLabel(){
  const parts=Object.keys(mbti).map(k=>MBTI_LB[mbti[k]]);
- document.getElementById('mbti-label').textContent=parts.length===4?'🧬 나의 여행 성향: '+parts.join(' · '):'';
+ document.getElementById('mbti-label').textContent=parts.length===4?'🧬 '+parts.join(' · '):'';
 }
 // 일반 조건 칩 UI
 GROUPS.forEach(g=>{
