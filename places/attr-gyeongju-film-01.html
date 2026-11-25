@@ -91,6 +91,7 @@ img{max-width:100%;border-radius:10px}
 <li>시내버스 요금: 교통카드 1,450원 / 현금 1,500원, 하차 후 30분 내 다른 노선 환승 1회 무료.</li>
 </ul>
 <h2>주차 정보</h2>
+<p>위치 지도 번호 대응: <strong>P1</strong>=대릉원 공영(정문 앞) · <strong>P2</strong>=대릉원(황남지구) · <strong>P3</strong>=쪽샘지구 · <strong>P4</strong>=봉황대 · <strong>P5</strong>=황남생활문화센터·포석로 · <strong>P6</strong>=아마노 민간 · <strong>P7</strong>=나이스파크 민간</p>
 <p><strong>공영주차장</strong> (카드 결제, 경차·저공해차 50% 감면)</p>
 <table>
 <thead>
@@ -136,6 +137,48 @@ img{max-width:100%;border-radius:10px}
 </table>
 <p><strong>민간 주차장</strong> — 황리단길·사정동 일대 다수: 아마노 황리단길(사정로 27, 20면) 현장 1시간 1,300원·10분당 600원 / 나이스파크 황리단길(포석로1095번길 4) 1시간 3,000원, 평일 1시간권 2,000원·2시간권 4,000원, 휴일 2시간권 8,000원.</p>
 <p><strong>무료</strong> — 황남동 주민자치센터(24시간, 소규모 조기 만차), 서라벌문화회관(24시간, 도보 10~15분). 벚꽃·주말 성수기엔 공영도 만차 가능.</p>
+<h2>주차장 · 화장실 위치 지도</h2>
+<p>🅿️ 주차장 번호와 🚻 화장실 번호를 지도에서 바로 확인하세요. (위치는 근사치 — 실제 입구는 현장 안내 표지판 확인)</p>
+<div id="poi-map" style="height:420px;border-radius:12px;margin-top:12px;border:1px solid #e5e7eb"></div>
+<p style="font-size:11.5px;color:#999;margin-top:6px">🅿️ 주차장 7곳 · 🚻 화장실 4곳 · 📍 대릉원 중심</p>
+
+<div>
+<link rel="stylesheet" href="/familytrip/lib/leaflet.css">
+<script src="/familytrip/lib/leaflet.js"></script>
+<script>
+(function(){
+if(typeof L==='undefined'){var _d=document.getElementById('poi-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
+var PARK=[
+ {n:'1. 대릉원 공영주차장 (정문 앞)',lat:35.8349,lon:129.2228},
+ {n:'2. 대릉원(황남지구) 공영',lat:35.8344,lon:129.2140},
+ {n:'3. 쪽샘지구 임시공영',lat:35.8410,lon:129.2172},
+ {n:'4. 봉황대 공영 (후문 근처)',lat:35.8362,lon:129.2195},
+ {n:'5. 황남생활문화센터·포석로 공영',lat:35.8346,lon:129.2111},
+ {n:'6. 아마노 황리단길 민간',lat:35.8366,lon:129.2084},
+ {n:'7. 나이스파크 황리단길 민간',lat:35.8385,lon:129.2088}
+];
+var WC=[
+ {n:'1. 정문 매표소 화장실',lat:35.8346,lon:129.2225},
+ {n:'2. 후문 안쪽 장애인 화장실',lat:35.8328,lon:129.2170},
+ {n:'3. 숭혜전 옆 장애인 화장실',lat:35.8358,lon:129.2228},
+ {n:'4. 첨성대 옆 장애인 화장실',lat:35.8345,lon:129.2197}
+];
+var m=L.map('poi-map').setView([35.8355,129.2170],14);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(m);
+PARK.forEach(function(p,i){
+ var ic=L.divIcon({className:'',html:'<div style="background:#f59e0b;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">P'+(i+1)+'</div>',iconSize:[24,24],iconAnchor:[12,12]});
+ L.marker([p.lat,p.lon],{icon:ic}).addTo(m).bindPopup('🅿️ '+p.n);
+});
+WC.forEach(function(w,i){
+ var ic=L.divIcon({className:'',html:'<div style="background:#0ea5e9;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">W'+(i+1)+'</div>',iconSize:[24,24],iconAnchor:[12,12]});
+ L.marker([w.lat,w.lon],{icon:ic}).addTo(m).bindPopup('🚻 '+w.n);
+});
+L.circleMarker([35.8347,129.2217],{radius:10,color:'#fff',weight:3,fillColor:'#0f766e',fillOpacity:1}).addTo(m).bindPopup('<b>📍 경주 대릉원</b>');
+m.fitBounds(L.latLngBounds(PARK.concat(WC).map(function(p){return [p.lat,p.lon]}).concat([[35.8347,129.2217]])),{padding:[40,40]});
+})();
+</script>
+</div>
+
 <h2>화장실 정보</h2>
 <ul>
 <li>대릉원 <strong>정문 매표소 인근</strong> — 가장 기본적인 화장실 위치</li>
@@ -143,32 +186,6 @@ img{max-width:100%;border-radius:10px}
 <li><strong>숭혜전 옆 장애인 화장실</strong> — 대릉원 구역 내</li>
 <li><strong>첨성대 옆 장애인 화장실</strong> — 첨성대 바로 옆, 주차장은 도보 3분 거리의 대릉원 공영주차장 이용</li>
 </ul>
-<div id="wc-map" style="height:320px;border-radius:12px;margin-top:12px;border:1px solid #e5e7eb"></div>
-<p style="font-size:11.5px;color:#999;margin-top:6px">🚻 표시 = 화장실 위치(근사치) · 📍 = 대릉원 중심</p>
-
-<div>
-<link rel="stylesheet" href="/familytrip/lib/leaflet.css">
-<script src="/familytrip/lib/leaflet.js"></script>
-<script>
-(function(){
-if(typeof L==='undefined'){var _d=document.getElementById('wc-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
-var WC=[
- {n:'정문 매표소 화장실',lat:35.8346,lon:129.2225},
- {n:'후문 안쪽 장애인 화장실',lat:35.8328,lon:129.2170},
- {n:'숭혜전 옆 장애인 화장실',lat:35.8358,lon:129.2228},
- {n:'첨성대 옆 장애인 화장실',lat:35.8345,lon:129.2197}
-];
-var m=L.map('wc-map').setView([35.8342,129.2205],15);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(m);
-L.circleMarker([35.8347,129.2217],{radius:11,color:'#fff',weight:3,fillColor:'#0f766e',fillOpacity:1}).addTo(m).bindPopup('<b>경주 대릉원</b>');
-WC.forEach(function(w){
- L.circleMarker([w.lat,w.lon],{radius:8,color:'#fff',weight:2,fillColor:'#0ea5e9',fillOpacity:1}).addTo(m).bindPopup('🚻 '+w.n);
-});
-m.fitBounds(L.latLngBounds(WC.map(function(w){return [w.lat,w.lon]}).concat([[35.8347,129.2217]])),{padding:[30,30]});
-})();
-</script>
-</div>
-
 <h2>지도 · 위치</h2>
 <ul>
 <li>지도 좌표: <code>35.83470, 129.22170</code></li>
