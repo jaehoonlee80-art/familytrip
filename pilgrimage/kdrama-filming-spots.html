@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>K드라마·영화 촬영지 순례 지도 — 드라마별로 모아서 1일 코스 자동 생성</title>
-<meta name="description" content="눈물의 여왕·도깨비·사랑의 불시착·호텔 델루나·이태원 클라쓰·오징어 게임 등 인기 K-드라마·영화의 실제 촬영지를 지도와 카드로 모았습니다. 각 장소를 클릭하면 대표 이미지·여행 코스·CCTV·위키백과 상세가 담긴 개별 페이지로 이동합니다.">
+<meta name="description" content="눈물의 여왕·도깨비·사랑의 불시착·호텔 델루나·이태원 클라쓰·오징어 게임 등 인기 K-드라마·영화의 실제 촬영지 30곳을 한 페이지에 모았습니다. 클릭 없이 대표 이미지·촬영 정보·추천 코스·방문 링크·위키백과 상세·실시간 CCTV까지 모두 확인하세요.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/pilgrimage/kdrama-filming-spots.html">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -52,7 +52,7 @@ img{max-width:100%;border-radius:10px}
     <a href="/familytrip/korea.html">한국 여행</a>
   </nav>
 </header>
-<main><div class="meta">K-콘텐츠 순례 · 2026-11-25</div><h1>K드라마·영화 촬영지 순례 지도 — 드라마별로 모아서 1일 코스 자동 생성</h1><p>인기 드라마·영화의 <strong>실제 촬영지</strong>를 지도와 카드로 모았습니다. 작품·지역·검색으로 필터링하고, 장소 카드를 클릭하면 <strong>대표 이미지·방문 정보·추천 코스·실시간 CCTV·위키백과 상세</strong>가 담긴 개별 페이지로 이동합니다.</p>
+<main><div class="meta">K-콘텐츠 순례 · 2026-11-25</div><h1>K드라마·영화 촬영지 순례 지도 — 드라마별로 모아서 1일 코스 자동 생성</h1><p>인기 드라마·영화의 <strong>실제 촬영지 30곳</strong>을 한 페이지에 모았습니다. <strong>클릭할 필요 없이</strong> 각 장소의 대표 사진·촬영 정보·같은 지역 추천 코스·방문 링크·위키백과 상세·주변 촬영지가 전부 아래에 펼쳐져 있습니다. 위 지도와 필터로 원하는 작품·지역만 골라보세요.</p>
 <blockquote>
 <p>💡 촬영지는 팬들이 확인한 공개 정보 기준이며, 일부는 세트·CG 합성 장면일 수 있습니다. 방문 전 각 장소의 운영 여부를 확인하세요.</p>
 </blockquote>
@@ -66,50 +66,117 @@ img{max-width:100%;border-radius:10px}
 </div>
 
 <div id="pg-map" style="height:420px;border-radius:12px;margin-bottom:16px;border:1px solid #e5e7eb"></div>
+<p style="font-size:12.5px;color:#888;margin:-8px 0 14px">👇 지도의 핀을 누르거나 아래 장소 블록의 '지도에서 보기'를 누르면 해당 지점으로 이동합니다. 모든 정보는 이 페이지 안에 이미 표시되어 있습니다.</p>
 
 <div id="pg-out"></div>
 
 <p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous"></p>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
 <script src="spots.js"></script>
+<script src="spots-wiki.js"></script>
 <script>
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function hav(a,b,c,d){const R=6371000,x=(c-a)*Math.PI/180,y=(d-b)*Math.PI/180,h=Math.sin(x/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+const REGION_TIPS={
+'경주':'경주 시내는 대릉원·불국사·첨성대가 도보·버스 10분 내 밀집 — 렌터카 없이도 반나절 코스 가능. 양동마을은 시내에서 차로 20분.',
+'강릉':'경포·주문진·강문해변·해동용궁사가 동해안 라인을 따라 30분 간격 — 렌터카 추천. 경포대는 일몰 무렵이 포토스팟.',
+'제주':'협재·함덕(서쪽)과 성산·섭지코지(동쪽)가 반대편이라 하루에 다 보기 어렵습니다 — 동부/서부를 나눠 계획하세요. 렌터카 필수.',
+'서울':'지하철+도보로 대부분 커버됩니다. 성수동·을지로·홍대는 저녁 시간대가 살아있고, 남산타워는 야경 추천.',
+'여주':'남이섬은 여주 IC에서 버스 30분 or 택시 15분. 세종대왕릉은 남이섬에서 차로 10분 거리.',
+'통영':'동피랑은 통영 시내 중심 — 버스로 이동 가능. 대포항·정거장 전망대와 묶으면 반나절 코스.',
+'포항':'영일대해수욕장은 포항 시내에서 차로 10분. 형제해수욕장·호미곶 등 해안 라인 드라이브 추천.',
+'전주':'한옥마을은 시내 중심 — 전주 한옥체험관·풍남문·객사와 묶으면 반나절. 전주비빔밥 필수.',
+'안동':'하회마을은 안동 시내에서 차로 30분(버스 1시간). 도산서원·안동하회탈춤공연과 묶으면 당일치기 적합.'
+};
+function courseFor(idx){
+ const spot=SPOTS[idx];
+ const pool=SPOTS.map((s,i)=>({s,i})).filter(x=>x.s.r===spot.r&&x.i!==idx);
+ const out=[];let cur={lat:spot.lat,lon:spot.lon};
+ while(pool.length){
+  let bi=0,bd=Infinity;
+  pool.forEach((p,j)=>{const d=hav(cur.lat,cur.lon,p.s.lat,p.s.lon);if(d<bd){bd=d;bi=j}});
+  const p=pool.splice(bi,1)[0];out.push({i:p.i,s:p.s,dist:bd});cur={lat:p.s.lat,lon:p.s.lon};
+ }
+ return out;
+}
+function nearFor(idx){
+ const spot=SPOTS[idx];
+ return SPOTS.map((s,i)=>({s,i})).filter(x=>x.i!==idx&&hav(spot.lat,spot.lon,x.s.lat,x.s.lon)<30000).slice(0,8);
+}
 const REGIONS=[...new Set(SPOTS.map(s=>s.r))];
 const FRANCHISES=[...new Set(SPOTS.map(s=>s.t))];
 const fr=document.getElementById('pg-fr'),rg=document.getElementById('pg-rg');
 fr.innerHTML='<option value="">전체 작품</option>'+FRANCHISES.map(f=>'<option>'+f+'</option>').join('');
 rg.innerHTML='<option value="">전체 지역</option>'+REGIONS.map(r=>'<option>'+r+'</option>').join('');
 let map,markers=[];
+function spotBlock(s,idx){
+ const col=FCOLORS[s.t]||'#0f766e';
+ const w=(typeof WIKI!=='undefined'&&WIKI[String(idx)])||null;
+ const course=courseFor(idx),near=nearFor(idx);
+ const courseHtml=course.length
+  ?'<div style="margin-top:10px"><div style="font-size:12px;font-weight:800;color:#0f766e;margin-bottom:6px">🗺️ '+s.r+' 촬영지 추천 코스 — 이 장소에서 가까운 순</div>'
+   +'<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">'
+   +'<span style="font-size:12px;background:#0f766e;color:#fff;padding:4px 10px;border-radius:14px;font-weight:700">★ '+esc(s.s)+'</span>'
+   +course.map(c=>'<span style="font-size:11.5px;background:#f0fdfa;border:1px solid #99f6e4;color:#0f766e;padding:4px 10px;border-radius:14px"><a href="#spot-'+c.i+'" style="color:#0f766e;font-weight:700;text-decoration:none">'+esc(c.s.s)+'</a> <span style="color:#888">'+(c.dist<1000?Math.round(c.dist)+'m':(c.dist/1000).toFixed(1)+'km')+'</span></span>').join('')
+   +'</div></div>':'';
+ const nearHtml=near.length
+  ?'<div style="margin-top:10px"><div style="font-size:12px;font-weight:800;color:#334155;margin-bottom:6px">📍 주변 촬영지 — 30km 이내</div>'
+   +'<div style="display:flex;flex-wrap:wrap;gap:6px">'
+   +near.map(x=>'<a href="#spot-'+x.i+'" style="font-size:11.5px;background:#f8fafc;border:1px solid #e2e8f0;color:#334155;padding:4px 10px;border-radius:14px;text-decoration:none"><b style="color:#0f766e">'+esc(x.s.s)+'</b> · '+x.s.t+'</a>').join('')
+   +'</div></div>':'';
+ return '<div class="spot-block" id="spot-'+idx+'" data-t="'+s.t+'" data-r="'+s.r+'" data-q="'+(s.s+' '+s.d+' '+s.t).toLowerCase()+'" style="background:#fff;border:1px solid #eee;border-radius:14px;padding:18px 20px;margin-bottom:14px;scroll-margin-top:80px">'
+  +'<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px">'
+  +'<span style="font-size:11px;background:#f1f5f9;color:#64748b;padding:3px 9px;border-radius:10px;font-weight:700">#'+(idx+1)+'</span>'
+  +'<span style="font-size:17px;font-weight:800;color:#111">'+esc(s.s)+'</span>'
+  +'<span style="font-size:11px;background:'+col+'22;color:'+col+';padding:3px 10px;border-radius:10px;font-weight:700">'+s.t+'</span>'
+  +'<span style="font-size:11px;background:#f0fdfa;color:#0f766e;padding:3px 10px;border-radius:10px;font-weight:700">'+s.r+'</span>'
+  +'<span style="font-size:11px;background:#f8fafc;color:#64748b;padding:3px 10px;border-radius:10px">'+s.tag+'</span>'
+  +'<button onclick="goSpot('+idx+')" style="margin-left:auto;font-size:11.5px;background:#0f766e;color:#fff;border:none;padding:5px 12px;border-radius:14px;cursor:pointer;font-weight:700">🗺️ 지도에서 보기</button>'
+  +'</div>'
+  +'<div style="font-size:13.5px;color:#444;line-height:1.8;margin-bottom:12px">'+esc(s.d)+'</div>'
+  +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:12px">'
+  +(w&&w.img?'<img src="'+w.img+'" loading="lazy" alt="'+esc(s.s)+'" style="width:100%;max-height:260px;object-fit:cover;border-radius:10px;display:block">':'<div style="min-height:160px;border-radius:10px;background:linear-gradient(135deg,#134e4a,#0f766e);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700">'+esc(s.s)+'</div>')
+  +'<div>'+(w?'<div style="font-size:13px;font-weight:800;color:#0f766e;margin-bottom:6px">📖 '+esc(w.title)+'</div><div style="font-size:12.5px;color:#444;line-height:1.75">'+esc(w.extract)+'</div>'+(w.url?'<div style="font-size:11px;color:#999;margin-top:6px">출처: <a href="'+w.url+'" target="_blank" rel="noopener" style="color:#0f766e">'+esc(w.title)+' — 위키백과</a></div>':''):'<div style="font-size:12.5px;color:#888">위키백과 정보를 불러오지 못했습니다.</div>')+'</div>'
+  +'</div>'
+  +courseHtml+nearHtml
+  +'<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">'
+  +'<a href="https://www.google.com/maps/search/?api=1&query='+s.lat+','+s.lon+'" target="_blank" rel="noopener" style="font-size:11.5px;padding:6px 12px;border-radius:14px;text-decoration:none;font-weight:600;background:#e8f5e9;color:#166534">🗺️ Google 지도</a>'
+  +'<a href="https://map.naver.com/v5/search/'+encodeURIComponent(s.s+' '+s.r)+'" target="_blank" rel="noopener" style="font-size:11.5px;padding:6px 12px;border-radius:14px;text-decoration:none;font-weight:600;background:#dbeafe;color:#1e40af">네이버 지도</a>'
+  +'<a href="/familytrip/tools/trip-planner.html" style="font-size:11.5px;padding:6px 12px;border-radius:14px;text-decoration:none;font-weight:600;background:#f0fdfa;color:#0f766e">🗓️ '+s.r+' 여행 코스 생성</a>'
+  +'<a href="/familytrip/live/tourist-live.html" style="font-size:11.5px;padding:6px 12px;border-radius:14px;text-decoration:none;font-weight:600;background:#fef3c7;color:#92400e">📹 주변 실시간 CCTV</a>'
+  +(w&&w.url?'<a href="'+w.url+'" target="_blank" rel="noopener" style="font-size:11.5px;padding:6px 12px;border-radius:14px;text-decoration:none;font-weight:600;background:#f1f5f9;color:#334155">📖 위키백과 상세</a>':'')
+  +'</div></div>';
+}
 function filtered(){
  const f=fr.value,r=rg.value,q=(document.getElementById('pg-q').value||'').toLowerCase();
- return SPOTS.filter(s=>(!f||s.t===f)&&(!r||s.r===r)&&(!q||(s.s+s.d+s.t).toLowerCase().includes(q)));
+ return SPOTS.map((s,i)=>({s,i})).filter(x=>(!f||x.s.t===f)&&(!r||x.s.r===r)&&(!q||x.s.s.toLowerCase().includes(q)||x.s.d.toLowerCase().includes(q)||x.s.t.toLowerCase().includes(q)));
+}
+let markerByIdx={};
+function goSpot(idx){
+ const s=SPOTS[idx];
+ if(map){map.flyTo([s.lat,s.lon],15,{duration:.8});markerByIdx[idx]&&markerByIdx[idx].openPopup()}
+ document.getElementById('spot-'+idx).scrollIntoView({behavior:'smooth',block:'start'});
 }
 function render(){
  const list=filtered();
- document.getElementById('pg-stats').innerHTML='📍 <b>'+list.length+'</b>개 촬영지 · '+REGIONS.length+'개 지역 · '+FRANCHISES.length+'개 작품';
- if(markers.length)markers.forEach(m=>map.removeLayer(m));markers=[];
- list.forEach(s=>{
-  const col=FCOLORS[s.t]||'#0f766e';
-  const idx=SPOTS.indexOf(s);
-  const mk=L.circleMarker([s.lat,s.lon],{radius:9,color:'#fff',weight:2,fillColor:col,fillOpacity:.95}).addTo(map);
-  mk.bindPopup('<b><a href="spot.html?s='+idx+'" style="color:inherit">'+s.s+'</a></b><br><span style="color:#888;font-size:12px">'+s.t+' · '+s.r+'</span><br><span style="font-size:12px">'+s.d+'</span>');
-  markers.push(mk);
+ document.getElementById('pg-stats').innerHTML='📍 <b>'+list.length+'</b>개 촬영지 · '+REGIONS.length+'개 지역 · '+FRANCHISES.length+'개 작품 — 모든 정보가 이 페이지에 표시됩니다';
+ if(markers.length)markers.forEach(m=>map.removeLayer(m));markers=[];markerByIdx={};
+ list.forEach(x=>{
+  const col=FCOLORS[x.s.t]||'#0f766e';
+  const mk=L.circleMarker([x.s.lat,x.s.lon],{radius:9,color:'#fff',weight:2,fillColor:col,fillOpacity:.95}).addTo(map);
+  mk.bindPopup('<b><a href="#spot-'+x.i+'" style="color:inherit">'+esc(x.s.s)+'</a></b><br><span style="color:#888;font-size:12px">'+x.s.t+' · '+x.s.r+'</span><br><span style="font-size:12px">'+esc(x.s.d)+'</span>');
+  markers.push(mk);markerByIdx[x.i]=mk;
  });
- if(list.length){map.fitBounds(L.latLngBounds(list.map(s=>[s.lat,s.lon])),{padding:[30,30]})}
- const byRegion={};list.forEach(s=>{(byRegion[s.r]=byRegion[s.r]||[]).push(s)});
+ if(list.length)map.fitBounds(L.latLngBounds(list.map(x=>[x.s.lat,x.s.lon])),{padding:[30,30]});
+ const byRegion={};list.forEach(x=>{(byRegion[x.s.r]=byRegion[x.s.r]||[]).push(x)});
  let html='';
  Object.keys(byRegion).sort().forEach(rg2=>{
   const arr=byRegion[rg2];
-  html+='<div style="margin-bottom:20px"><div style="font-size:16px;font-weight:800;color:#0f766e;margin-bottom:10px">📍 '+rg2+' <span style="font-size:12px;color:#888;font-weight:400">'+arr.length+'곳</span></div>'
-   +'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">';
-  arr.forEach(s=>{
-   const col=FCOLORS[s.t]||'#0f766e';
-   const idx=SPOTS.indexOf(s);
-   html+='<a href="spot.html?s='+idx+'" style="display:block;background:#fff;border:1px solid #eee;border-radius:12px;padding:14px 16px;text-decoration:none;color:inherit;transition:box-shadow .15s,border-color .15s">'
-    +'<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:6px"><div style="font-size:14.5px;font-weight:700;padding-right:8px">'+s.s+'</div><span style="font-size:10.5px;background:'+col+'22;color:'+col+';padding:3px 8px;border-radius:10px;font-weight:700;white-space:nowrap;flex-shrink:0">'+s.t+'</span></div>'
-    +'<div style="font-size:12.5px;color:#555;line-height:1.6;margin-bottom:8px">'+s.d+'</div>'
-    +'<div style="font-size:11.5px;color:#0f766e;font-weight:700">상세 페이지 → 사진·코스·CCTV·위키백과</div></a>';
-  });
-  html+='</div></div>';
+  const tip=REGION_TIPS[rg2];
+  html+='<div style="margin-bottom:24px"><div style="font-size:17px;font-weight:800;color:#0f766e;margin-bottom:4px">📍 '+rg2+' <span style="font-size:12px;color:#888;font-weight:400">'+arr.length+'곳</span></div>'
+   +(tip?'<div style="font-size:12.5px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin-bottom:12px">💡 '+tip+'</div>':'')
+   +arr.map(x=>spotBlock(x.s,x.i)).join('')
+   +'</div>';
  });
  document.getElementById('pg-out').innerHTML=html||'<div style="color:#888;padding:20px;text-align:center">조건에 맞는 촬영지가 없습니다.</div>';
 }
@@ -123,7 +190,7 @@ render();
 <p><strong>Q. 촬영지가 실제 그 작품의 촬영지인가요?</strong>
 A. 팬들과 현지 방문객들이 확인한 공개 촬영지 기준입니다. 일부 장면은 세트나 CG 합성일 수 있으니 "○○ 촬영지로 알려진" 정도로 이해하세요.</p>
 <p><strong>Q. 드라마 순서대로 코스를 짤 수 있나요?</strong>
-A. 각 촬영지 상세 페이지의 '추천 코스'에서 같은 지역의 다른 촬영지를 순서대로 볼 수 있습니다. <a href="/familytrip/tools/trip-planner.html">여행 코스 생성기</a>에서 지역을 검색하면 더 상세한 일차별 코스도 만들 수 있습니다.</p>
+A. 각 장소 블록의 '추천 코스'에 같은 지역 촬영지가 가까운 순으로 자동 정렬되어 있습니다. <a href="/familytrip/tools/trip-planner.html">여행 코스 생성기</a>에서 지역을 검색하면 더 상세한 일차별 코스도 만들 수 있습니다.</p>
 <p><strong>Q. 새로운 촬영지를 추가할 수 있나요?</strong>
 A. 네 — 작품·지역·좌표·설명만 알려주시면 데이터에 추가해 드립니다.</p>
 <hr />
