@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>항공권 최저가 알림 — 목표가 도달 시 이메일로 알려드립니다</title>
+<meta name="description" content="여행지·출발 월·목표가를 설정하면 6시간마다 항공권 운임을 확인해 목표 가격 이하로 떨어지면 이메일로 알려주는 무료 최저가 알림 서비스. Going.com 방식을 무료로 제공합니다.">
+<link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/tools/price-alert.html">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
+a{color:#2563eb;text-decoration:none}
+header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+header .logo{font-weight:800;font-size:20px;color:#0f766e}
+nav a{margin-left:18px;font-size:14px;color:#555}
+main{max-width:760px;margin:0 auto;padding:40px 20px}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
+h1{font-size:32px;line-height:1.3;margin-bottom:16px}
+h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
+h3{font-size:17px;margin:24px 0 8px}
+p{margin-bottom:14px}
+ul,ol{margin:0 0 14px 22px}
+img{max-width:100%;border-radius:10px}
+.meta{color:#888;font-size:13px;margin-bottom:24px}
+.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
+.cta h3{color:#fff;margin-top:0}
+.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+.card .body{padding:14px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{font-size:13px;color:#777;margin:0}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
+.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
+.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
+.live-meta{font-size:13px;color:#777;margin-bottom:20px}
+.live-meta li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/familytrip/">온 가족 여행 연구소</a>
+  <nav>
+    <a href="/familytrip/guides.html">여행 가이드</a>
+    <a href="/familytrip/live.html">실시간 카메라</a>
+    <a href="/familytrip/cities.html">세계 도시 100</a>
+    <a href="/familytrip/places.html">가볼만한 곳</a>
+    <a href="/familytrip/korea.html">한국 여행</a>
+  </nav>
+</header>
+<main><div class="meta">여행 도구 · 2026-11-25</div><h1>항공권 최저가 알림 — 목표가 도달 시 이메일로 알려드립니다</h1><p>여행지와 출발 월, <strong>목표 가격</strong>만 설정하면 6시간마다 항공권 운임을 자동으로 확인합니다. 목표가 이하의 운임이 발견되면 <strong>이메일로 바로 알려드립니다</strong> — Going.com의 "가격 추적" 기능을 무료로 제공합니다.</p>
+<div class="calc-box" id="pa" style="background:#fff;border:1px solid #eee;border-radius:14px;padding:22px;margin:18px 0">
+<style>
+#pa label{display:block;font-size:12px;font-weight:700;color:#4b5563;margin-bottom:5px}
+#pa input,#pa select{width:100%;padding:11px 12px;border:1.5px solid #e5e0d5;border-radius:10px;font-size:14px;background:#fff;box-sizing:border-box;margin-bottom:12px}
+#pa .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+#pa .pa-btn{width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;font-size:16px;font-weight:800;cursor:pointer;margin-top:4px}
+#pa .pa-btn:disabled{opacity:.5;cursor:wait}
+#pa .msg{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:13.5px;display:none}
+#pa .msg.ok{display:block;background:#f0fdf4;border:1px solid #86efac;color:#166534}
+#pa .msg.err{display:block;background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+#pa .hint{font-size:11.5px;color:#999;margin-top:10px;line-height:1.6}
+#pa table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+#pa th,#pa td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left}
+#pa th{background:#f0fdfa;color:#0f766e;font-size:12px}
+#pa .del{color:#dc2626;font-size:12px;text-decoration:none}
+</style>
+<div class="grid">
+<div><label>이메일 (알림 받을 주소)</label><input type="email" id="pa-email" placeholder="example@mail.com" autocomplete="email"></div>
+<div><label>여행지 (도시명 또는 공항코드)</label><input type="text" id="pa-place" placeholder="도쿄, 파리, BKK…" list="pa-places"><datalist id="pa-places"></datalist></div>
+<div><label>출발 월</label><input type="month" id="pa-dep"></div>
+<div><label>귀국 월 (선택)</label><input type="month" id="pa-ret"></div>
+<div><label>목표가 (편도·왕복 중 최저가 기준, 원)</label><input type="number" id="pa-price" placeholder="예: 500000" min="50000" step="10000"></div>
+<div><label>인원</label><div style="display:flex;gap:6px"><input type="number" id="pa-ad" value="2" min="1" max="9" style="width:48%"><input type="number" id="pa-kd" value="0" min="0" max="9" style="width:48%" title="어린이"></div></div>
+</div>
+<button class="pa-btn" id="pa-submit">🔔 이 가격보다 싸지면 알려줘</button>
+<div class="hint">💡 가격은 최근 실제 검색된 운임 기준(Aviasales 데이터)입니다. 왕복 기준 최저가가 목표 이하가 되면 알림이 발송됩니다. 이메일당 최대 5개 알림까지 등록 가능합니다.</div>
+<div class="msg" id="pa-msg"></div>
+</div>
+
+<h2>📋 내 알림 목록</h2>
+<p style="font-size:13px;color:#888">알림을 등록한 이메일을 입력하면 현재 등록된 알림을 확인하고 해지할 수 있습니다.</p>
+<div style="display:flex;gap:10px;max-width:480px">
+<input type="email" id="pa-list-email" placeholder="등록한 이메일" style="flex:1;padding:11px 12px;border:1.5px solid #e5e0d5;border-radius:10px;font-size:14px">
+<button id="pa-list-btn" style="padding:11px 20px;border:0;border-radius:10px;background:#0f766e;color:#fff;font-weight:700;cursor:pointer">조회</button>
+</div>
+<div id="pa-list"></div>
+
+<h2>❓ 자주 묻는 질문</h2>
+
+<p><strong>Q. 얼마나 자주 확인하나요?</strong>
+A. 6시간마다 자동으로 항공권 운임을 확인합니다. 운임 데이터 자체가 하루 단위 캐시라 이보다 잦아도 의미가 크지 않습니다.</p>
+<p><strong>Q. 알림은 몇 번 오나요?</strong>
+A. 목표가 이하 운임이 처음 발견되면 1회 발송되고 자동으로 종료됩니다. 여러 날짜의 운임이 목표 이하이면 표로 함께 보여드립니다.</p>
+<p><strong>Q. 가격은 정확한 예약가인가요?</strong>
+A. 아닙니다. Aviasales에서 실제 검색된 최근 운임 데이터 기준이라 실시간 예약가와 다를 수 있습니다. 알림 메일의 링크에서 실제 예약 페이지로 이동해 최종 가격을 확인하세요.</p>
+<p><strong>Q. 해지는 어떻게 하나요?</strong>
+A. 알림 메일 하단의 '알림 해지' 링크를 클릭하거나, 위 '내 알림 목록'에서 이메일로 조회 후 해지할 수 있습니다.</p>
+<script>
+const W='https://jeju-cctv-proxy.jaehoonlee80.workers.dev';
+const em=document.getElementById('pa-email'),pl=document.getElementById('pa-place'),
+ dep=document.getElementById('pa-dep'),ret=document.getElementById('pa-ret'),
+ pr=document.getElementById('pa-price'),ad=document.getElementById('pa-ad'),kd=document.getElementById('pa-kd'),
+ msg=document.getElementById('pa-msg');
+function show(t,ok){msg.style.display='block';msg.className='msg '+(ok?'ok':'err');msg.innerHTML=t}
+// URL 파라미터 프리필: ?place=도쿄&dep=2026-12&ret=2027-01&price=500000&adults=2&kids=1
+(function(){
+ const q=new URLSearchParams(location.search);
+ const m={place:'pa-place',dep:'pa-dep',ret:'pa-ret',price:'pa-price',adults:'pa-ad',kids:'pa-kd',email:'pa-email'};
+ Object.entries(m).forEach(([k,id])=>{const v=q.get(k);if(v!==null)document.getElementById(id).value=v});
+ // datalist에 인기 목적지 채우기
+ const pops=['도쿄','오사카','교토','후쿠오카','오키나와','제주','방콕','다낭','호이안','푸켓','싱가포르','쿠알라룸푸르','호치민','하와이','괌','사이판','파리','런던','로마','바르셀로나','프라하','방콕'];
+ const dl=document.getElementById('pa-places');
+ pops.forEach(p=>{const o=document.createElement('option');o.value=p;dl.appendChild(o)});
+})();
+document.getElementById('pa-submit').onclick=async()=>{
+ const btn=document.getElementById('pa-submit');
+ if(!em.value||!pl.value||!dep.value||!pr.value){show('⚠️ 이메일·여행지·출발 월·목표가를 모두 입력하세요',false);return}
+ btn.disabled=true;btn.textContent='등록 중…';
+ try{
+  const r=await fetch(W+'/alert',{method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({email:em.value,place:pl.value,depMonth:dep.value,retMonth:ret.value||null,
+    maxPrice:+pr.value,adults:+ad.value,kids:+kd.value})});
+  const j=await r.json();
+  if(j.ok){show('✅ 알림이 등록되었습니다!<br><b>'+esc(j.dest)+'</b> '+j.depMonth+' 출발 · 목표 ₩'+Number(j.maxPrice).toLocaleString('ko-KR')+' 이하 → '+esc(em.value)+'로 알림이 발송됩니다.',true);pl.value='';pr.value=''}
+  else show('⚠️ '+(j.error||'등록 실패'),false);
+ }catch(e){show('⚠️ 네트워크 오류 — 잠시 후 다시 시도하세요',false)}
+ btn.disabled=false;btn.textContent='🔔 이 가격보다 싸지면 알려줘';
+};
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+document.getElementById('pa-list-btn').onclick=async()=>{
+ const e=document.getElementById('pa-list-email').value.trim();
+ if(!e)return;
+ const out=document.getElementById('pa-list');
+ out.innerHTML='<p style="color:#888;font-size:13px">조회 중…</p>';
+ try{
+  const r=await fetch(W+'/alert/list?email='+encodeURIComponent(e));
+  const j=await r.json();
+  if(!j.alerts||!j.alerts.length){out.innerHTML='<p style="color:#888;font-size:13px">등록된 알림이 없습니다.</p>';return}
+  out.innerHTML='<table><tr><th>여행지</th><th>출발 월</th><th>목표가</th><th>상태</th><th></th></tr>'+
+   j.alerts.map(a=>'<tr><td>'+esc(a.destName)+'</td><td>'+a.depMonth+'</td><td>₩'+Number(a.maxPrice).toLocaleString('ko-KR')+'</td><td>'+(a.status==='sent'?'✅ 발송됨':'🔔 감시 중')+'</td><td><a class="del" href="'+a.del+'" onclick="return confirm(\'이 알림을 해지할까요?\')">해지</a></td></tr>').join('')+'</table>';
+ }catch(e){out.innerHTML='<p style="color:#dc2626;font-size:13px">조회 실패</p>'}
+};
+</script></main>
+<footer>
+  온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
+  이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.
+</footer>
+<script src="/familytrip/live/lightbox.js"></script>
+<script src="/familytrip/live/weather.js"></script>
+</body>
+</html>
