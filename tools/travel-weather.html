@@ -80,7 +80,7 @@ img{max-width:100%;border-radius:10px}
 <tr>
 <td>후쿠오카</td>
 <td>현지 날씨·도보 여행</td>
-<td><a href="/familytrip/guides/후쿠오카-가족여행-가이드.html">후쿠오카 가이드</a></td>
+<td><a href="/familytrip/cities/fukuoka.html">후쿠오카 도시 가이드</a></td>
 </tr>
 <tr>
 <td>도쿄</td>
@@ -111,6 +111,8 @@ const WMO={0:'맑음',1:'대체로 맑음',2:'구름 조금',3:'흐림',45:'안�
 const CAMS={jeju:'제주 CCTV',okinawa:'오키나와 카메라',fukuoka:'후쿠오카 가이드',tokyo:'여행 도구',osaka:'여행 도구',sapporo:'여행 도구'};
 const CAMURL={jeju:'https://jaehoonlee80-art.github.io/familytrip/live/jeju-cctv.html',
 okinawa:'https://jaehoonlee80-art.github.io/familytrip/live/okinawa-live.html',
+fukuoka:'/familytrip/cities/fukuoka.html',tokyo:'/familytrip/cities/tokyo.html',
+osaka:'/familytrip/cities/osaka.html',sapporo:'/familytrip/cities/sapporo.html',
 others:'https://jaehoonlee80-art.github.io/familytrip/tools.html'};
 function icon(code){return code>=95?'⛈️':code>=80?'🌧️':code>=71?'🌨️':code>=61?'🌧️':code>=51?'🌦️':code<=1?'☀️':'⛅';}
 document.getElementById('wxGrid').innerHTML=CITIES.map(c=>
