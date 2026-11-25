@@ -146,10 +146,12 @@ img{max-width:100%;border-radius:10px}
 <div id="wc-map" style="height:320px;border-radius:12px;margin-top:12px;border:1px solid #e5e7eb"></div>
 <p style="font-size:11.5px;color:#999;margin-top:6px">🚻 표시 = 화장실 위치(근사치) · 📍 = 대릉원 중심</p>
 
-<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous"></p>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<div>
+<link rel="stylesheet" href="/familytrip/lib/leaflet.css">
+<script src="/familytrip/lib/leaflet.js"></script>
 <script>
 (function(){
+if(typeof L==='undefined'){var _d=document.getElementById('wc-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var WC=[
  {n:'정문 매표소 화장실',lat:35.8346,lon:129.2225},
  {n:'후문 안쪽 장애인 화장실',lat:35.8328,lon:129.2170},
@@ -158,13 +160,14 @@ var WC=[
 ];
 var m=L.map('wc-map').setView([35.8342,129.2205],15);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',maxZoom:19}).addTo(m);
-L.marker([35.8347,129.2217],{title:'경주 대릉원'}).addTo(m).bindPopup('<b>경주 대릉원</b>');
+L.circleMarker([35.8347,129.2217],{radius:11,color:'#fff',weight:3,fillColor:'#0f766e',fillOpacity:1}).addTo(m).bindPopup('<b>경주 대릉원</b>');
 WC.forEach(function(w){
  L.circleMarker([w.lat,w.lon],{radius:8,color:'#fff',weight:2,fillColor:'#0ea5e9',fillOpacity:1}).addTo(m).bindPopup('🚻 '+w.n);
 });
 m.fitBounds(L.latLngBounds(WC.map(function(w){return [w.lat,w.lon]}).concat([[35.8347,129.2217]])),{padding:[30,30]});
 })();
 </script>
+</div>
 
 <h2>지도 · 위치</h2>
 <ul>
@@ -176,6 +179,7 @@ m.fitBounds(L.latLngBounds(WC.map(function(w){return [w.lat,w.lon]}).concat([[35
 <script src="/familytrip/pilgrimage/spots.js"></script>
 <script>
 (function(){
+if(typeof L==='undefined'||typeof SPOTS==='undefined'){var _d2=document.getElementById('main-map');if(_d2)_d2.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var GYEONGJU=SPOTS.filter(function(s){return s.r==='경주'});
 var m=L.map('main-map').setView([35.8347,129.2217],13);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',maxZoom:19}).addTo(m);
