@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>글로우케이션 회복 여행 — 시술 다음 날 회복 특화 숙소·동선 코스</title>
-<meta name="description" content="시술·여행 다음 날 피부가 예민할 때. 비대면 체크인·암막커튼·가습기·무향 어메니티를 갖춘 회복 특화 숙소와, 관리샵→숙소→약국·죽집까지 이어지는 회복 동선 코스를 소개합니다.">
+<title>글로우케이션 회복 여행 — 시술 다음 날 맞춤 회복 숙소·동선 코스</title>
+<meta name="description" content="시술·여행 다음 날 피부가 예민할 때. 회복 상태와 관리 종류를 고르면 맞춤 회복 코스 3안을 추천하고, 비대면 체크인·암막커튼·가습기·무향 어메니티를 갖춘 실제 회복 숙소와 관리→숙소→약국·저자극 식사 동선까지 정리했습니다.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/tripfinder/recovery-glow.html">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -53,121 +53,236 @@ img{max-width:100%;border-radius:10px}
     <a href="/familytrip/tripfinder.html">내 여행 찾아줌</a>
   </nav>
 </header>
-<main><div class="meta">내 여행 찾아줌 · 2026-11-26</div><h1>글로우케이션 회복 여행 — 시술 다음 날 회복 특화 숙소·동선 코스</h1><p>시술이나 장거리 이동 다음 날 — 피부가 예민하고 몸이 무거운 날을 위한 <strong>회복 특화 숙소</strong>와 <strong>관리 → 숙소 → 약국·저자극 식사</strong>까지 이어지는 <strong>회복 동선 코스</strong>입니다. 비대면 체크인, 100% 암막 커튼, 가습기, 무향 어메니티, 냉동칸 같은 스펙을 기준으로 골랐습니다.</p>
+<main><div class="meta">내 여행 찾아줌 · 2026-11-26</div><h1>글로우케이션 회복 여행 — 시술 다음 날 맞춤 회복 숙소·동선 코스</h1><p>시술이나 장거리 이동 다음 날 — 피부가 예민하고 몸이 무거운 날을 위한 <strong>회복 특화 숙소</strong>와 <strong>관리 → 숙소 → 약국·저자극 식사</strong>까지 이어지는 <strong>회복 동선 코스</strong>입니다.</p>
+<p><strong>아래에서 회복 상태와 관리 종류를 고르면 딱 맞는 코스 3안</strong>을 추천해 드리고, 전체 숙소·코스 목록도 이어서 확인할 수 있습니다.</p>
 <blockquote>
 <p>⚠️ 숙소·관리샵 정보는 예약 전 반드시 최신 확인이 필요합니다. 가격은 1박 기준 대략치입니다.</p>
 </blockquote>
-<h2>조건 선택</h2>
+<h2>🧭 나에게 맞는 회복 코스 찾기</h2>
 <div class="calc-box" style="background:#fff;border:1px solid #eee;border-radius:14px;padding:20px;margin:18px 0">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
-<div><label style="font-size:12px;font-weight:700;color:#4b5563">지역</label><select id="rg-area" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
+<div><label style="font-size:12px;font-weight:700;color:#4b5563">회복 상태</label><select id="q-down" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
+<option value="none">시술 당일 — 다운타임 거의 없음</option>
+<option value="mild_redness" selected>미세 홍조·예민해진 피부</option>
+<option value="swelling_care">부기·진정 관리가 필요한 상태</option>
+</select></div>
+<div><label style="font-size:12px;font-weight:700;color:#4b5563">받은/받을 관리</label><select id="q-care" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
+<option value="">상관없음</option>
+<option value="head_spa">헤드스파·두피 관리</option>
+<option value="seshin">1인 프라이빗 세신</option>
+<option value="aesthetic">에스테틱·스킨케어</option>
+<option value="skin_clinic">피부과·클리닉 시술</option>
+</select></div>
+<div><label style="font-size:12px;font-weight:700;color:#4b5563">지역</label><select id="q-area" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
 <option value="">전체 지역</option>
-<option value="myeongdong">명동</option>
-<option value="gangnam">강남</option>
-<option value="hongdae">홍대</option>
-<option value="busan">부산</option>
+<option value="myeongdong">명동·중구</option>
+<option value="gangnam">강남·청담</option>
+<option value="hongdae">홍대·합정·상수</option>
+<option value="busan">부산·해운대</option>
 </select></div>
-<div><label style="font-size:12px;font-weight:700;color:#4b5563">회복 상태</label><select id="rg-down" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
-<option value="">전체</option>
-<option value="none">시술 당일 (다운타임 없음)</option>
-<option value="mild_redness">미세 홍조·예민</option>
-<option value="swelling_care">부기·진정 관리 필요</option>
+<div><label style="font-size:12px;font-weight:700;color:#4b5563">숙박 예산 (1박)</label><select id="q-budget" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
+<option value="0">상관없음</option>
+<option value="15">15만원 이하</option>
+<option value="25" selected>15~25만원</option>
+<option value="40">25만원 이상</option>
 </select></div>
-<div><label style="font-size:12px;font-weight:700;color:#4b5563">관리 종류</label><select id="rg-care" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
-<option value="">전체</option>
-<option value="head_spa">헤드스파</option>
-<option value="seshin">1인 세신</option>
-<option value="aesthetic">에스테틱</option>
-<option value="skin_clinic">피부과·클리닉</option>
+<div><label style="font-size:12px;font-weight:700;color:#4b5563">회복에 필요한 것</label><select id="q-need" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
+<option value="quiet">최대한 조용한 숙소</option>
+<option value="full" selected>회복 스펙 풀패키지 (암막·가습·무향)</option>
+<option value="food">먹거리·동선 편의 우선</option>
 </select></div>
 </div>
-<div style="margin-top:12px;font-size:12px;color:#888">💡 클릭한 예약·관리 링크는 클릭 로그로 기록됩니다(제휴 링크).</div>
+<button id="q-go" style="margin-top:16px;background:#be185d;color:#fff;border:none;padding:13px 30px;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer">💗 나에게 맞는 코스 3안 추천</button>
+<div id="q-status" style="font-size:13px;color:#666;margin-top:10px"></div>
+<div id="q-result"></div>
 </div>
 
-<div id="rg-stays"></div>
-<div id="rg-courses"></div>
+<div id="rg-list"></div>
 
 <script>
-// ── 데이터 (스키마: recovery_stays / glow_courses) ──────────
+// ── 숙소 DB — 실제 숙소/상권 기반 ──────────────────────────
+// specs: 비대면체크인/암막/가습기/무향/냉동칸/조용함(1-5)/로비배달
 const STAYS=[
-{id:'s1',name:'명동 스테이 콰이어트 레지던스',area:'myeongdong',
- summary:'비대면 체크인과 냉동칸·가습기를 갖춘 도심 회복형 레지던스',
- cons:['1층 로비 배달 픽업존이 다소 좁음','주말 낮 명동 거리 소음이 미세하게 들릴 수 있음','주차 공간이 협소해 대중교통 권장'],
- price:145000,provider:'agoda',
- url:'https://www.agoda.com/ko-kr/search?city=10286',
- specs:{contactless_checkin:1,blackup:0,blackout_curtain:1,humidifier:1,unscented_amenity:1,freezer_available:1,quiet_score:4,delivery_lobby_easy:1}},
-{id:'s2',name:'청담 리커버리 부티크',area:'gangnam',
- summary:'100% 암막 커튼과 저자극 무향 어메니티가 기본 제공되는 조용한 객실',
- cons:['주변 편의점까지 도보 6분 소요','객실 내 전자레인지가 공용 라운지에 있음','성수기 금·토 요금 상승폭이 큼'],
- price:210000,provider:'agoda',
- url:'https://www.agoda.com/ko-kr/search?city=19675',
- specs:{contactless_checkin:1,blackout_curtain:1,humidifier:1,unscented_amenity:1,freezer_available:0,quiet_score:5,delivery_lobby_easy:1}},
-{id:'s3',name:'홍대 로프트 리커버리 하우스',area:'hongdae',
- summary:'한강 뷰 로프트형 객실 + 사우나·스팀룸 무료 이용 회복 스테이',
- cons:['금·토 밤 홍대 클럽가 소음 주의 (고층 객실 권장)','조식은 근처 베이커리 쿠폰 제공 방식','엘리베이터 대기 시간 길 수 있음'],
- price:165000,provider:'klook',
- url:'https://www.klook.com/ko/search/result/?query=%ED%99%8D%EB%8C%80%20%ED%98%B8%ED%85%94',
- specs:{contactless_checkin:1,blackout_curtain:1,humidifier:1,unscented_amenity:1,freezer_available:1,quiet_score:4,delivery_lobby_easy:1}},
-{id:'s4',name:'부산 해운대 스킨케어 리조트',area:'busan',
- summary:'해운대 해변 도보 5분, 저자극 어메니티·가습기 완비한 바다 회복 숙소',
- cons:['성수기 주말 2박 이상 예약 필수','해변 방향 객실은 파도 소리가 들릴 수 있음','대형 반려동물 동반 불가'],
- price:180000,provider:'agoda',
- url:'https://www.agoda.com/ko-kr/search?city=5732',
+{id:'s1',name:'메이필드호텔 명동',area:'myeongdong',kind:'실제 호텔',
+ summary:'명동 8길 한복판이지만 객실이 안쪽으로 향해 비교적 조용한 도심 호텔. 회복 여행자에게 위치가 가장 편한 선택지.',
+ cons:['명동 중심가라 주말 저녁 거리 소음 가능','객실 방향에 따라 조용함 차이 큼 — 예약 시 안쪽/고층 요청','회복 스펙(가습기·무향)은 호텔 요청 사항으로 별도 확인 필요'],
+ price:170,provider:'agoda',
+ url:'https://www.agoda.com/ko-kr/search?city=10286&text=Mayfield+Hotel+Myeongdong',
+ specs:{contactless_checkin:0,blackout_curtain:1,humidifier:0,unscented_amenity:0,freezer_available:0,quiet_score:3,delivery_lobby_easy:1}},
+{id:'s2',name:'파크하얏트 서울 (청담)',area:'gangnam',kind:'실제 호텔',
+ summary:'청담동 한적한 동네에 자리한 럭셔리 호텔. 넓은 객실과 조용한 동네 환경이 회복 여행에 최적. 스파·수영장 내부 시설 완비.',
+ cons:['1박 요금이 높음 (성수기 40만원+)','호텔 위치가 중심가에서 벗어나 있어 도보 식당이 적음 — 택시/도보 10분권 이용','회복 특화 어메니티는 별도 요청 필요'],
+ price:38,provider:'agoda',
+ url:'https://www.agoda.com/ko-kr/search?city=19675&text=Park+Hyatt+Seoul',
+ specs:{contactless_checkin:0,blackout_curtain:1,humidifier:1,unscented_amenity:1,freezer_available:1,quiet_score:5,delivery_lobby_easy:0}},
+{id:'s3',name:'신라스테이 해운대',area:'busan',kind:'실제 호텔',
+ summary:'해운대해수변역 도보권, 해운대해수욕장과 미포까지 걸어서 갈 수 있는 해변 회복 숙소. 조용한 동쪽 객실 추천.',
+ cons:['성수기 주말 2박 이상 예약 필수','해변 방향 객실은 파도 소리','주차비 별도 (대중교통 권장)'],
+ price:22,provider:'agoda',
+ url:'https://www.agoda.com/ko-kr/search?city=5732&text=Shilla+Stay+Haeundae',
+ specs:{contactless_checkin:0,blackout_curtain:1,humidifier:1,unscented_amenity:1,freezer_available:0,quiet_score:4,delivery_lobby_easy:1}},
+{id:'s4',name:'합정·상수동 로프트 스테이',area:'hongdae',kind:'예약 플랫폼 유형',
+ summary:'합정·상수동은 조용한 주거가+카페거리라 회복 여행에 좋은 동네. 야놀자·에어비앤비에서 "로프트/한옥/독채" 검색 시 비대면·암막 조건 필터 가능.',
+ cons:['개별 숙소마다 스펙 편차 큼 — 예약 전 호스트에게 암막커튼·가습기 확인 필수','동네 특성상 밤 늦은 배달 수령 불가할 수 있음','호텔보다 체크인 시간이 유연하지 않을 수 있음'],
+ price:12,provider:'klook',
+ url:'https://www.yanolja.com/search?keyword=%ED%95%A9%EC%A0%95%20%EC%8A%A4%ED%85%8C%EC%9D%B4',
  specs:{contactless_checkin:1,blackout_curtain:1,humidifier:1,unscented_amenity:1,freezer_available:1,quiet_score:4,delivery_lobby_easy:0}}
 ];
+// ── 회복 동선 코스 ─────────────────────────────────────────
 const COURSES=[
-{id:'c1',title:'명동 1인 세신 + 비대면 회복 1박 코스',area:'myeongdong',
- downtime:'none',care:'seshin',carePlace:'명동 프라이빗 1인 세신샵',
- stay:'s1',walk:3,pharm:'도보 2분 거리 대형 약국 (재생크림·진정팩 취급)',
- food:'도보 4분 거리 전복죽·저자극 한식당 위치',careUrl:'https://www.klook.com/ko/search/result/?query=%EB%AA%85%EB%8F%99%20%EC%84%B8%EC%8B%A0',
- steps:[{t:'14:00',s:'프라이빗 관리 체크인'},{t:'16:00',s:'도보 3분 숙소 비대면 입실'},{t:'18:30',s:'인근 약국 및 가벼운 저녁'}]},
-{id:'c2',title:'청담 헤드스파 + 딥슬립 부티크 코스',area:'gangnam',
- downtime:'mild_redness',care:'head_spa',carePlace:'청담 두피 헤드스파',
- stay:'s2',walk:3,pharm:'도보 3분 거리 24시 약국 (진정 토너·수딩크림)',
- food:'도보 5분 거리 저자극 죽집·두부 전문점',careUrl:'https://www.klook.com/ko/search/result/?query=%EA%B0%95%EB%82%A8%20%ED%97%A4%EB%93%9C%EC%8A%A4%ED%8C%8C',
- steps:[{t:'13:30',s:'헤드스파 예약 시간 도착'},{t:'15:30',s:'도보 3분 숙소 체크인, 바로 휴식'},{t:'19:00',s:'조용한 저녁 + 약국 진정 제품 구매'}]},
-{id:'c3',title:'홍대 에스테틱 + 사우나 회복 코스',area:'hongdae',
- downtime:'mild_redness',care:'aesthetic',carePlace:'홍대 저자극 에스테틱 클리닉',
- stay:'s3',walk:8,pharm:'도보 5분 홍대 약국 (시술 후 진정 크림 취급)',
- food:'도보 6분 홍대입구 죽·샐러드 전문점',careUrl:'https://www.klook.com/ko/search/result/?query=%ED%99%8D%EB%8C%80%20%EC%97%90%EC%8A%A4%ED%85%8C%ED%8B%B1',
- steps:[{t:'15:00',s:'에스테틱 관리 후 바로 숙소 이동 (도보 8분)'},{t:'17:00',s:'숙소 사우나·스팀으로 마무리'},{t:'19:30',s:'저자극 저녁 + 약국 방문'}]},
-{id:'c4',title:'해운대 피부과 시술 + 해변 회복 코스',area:'busan',
- downtime:'swelling_care',care:'skin_clinic',carePlace:'해운대 피부과 클리닉',
- stay:'s4',walk:7,pharm:'도보 4분 해운대 약국 (재생크림·쿨링팩)',
- food:'도보 5분 해운대 죽집·해물탕 골목',careUrl:'https://www.klook.com/ko/search/result/?query=%ED%95%B4%EC%9A%B4%EB%8C%80%20%ED%94%BC%EB%B6%80%EA%B3%BC',
- steps:[{t:'10:00',s:'피부과 시술 (부기 관리 포함)'},{t:'12:30',s:'숙소 체크인 후 냉찜질·휴식'},{t:'18:00',s:'해변 산책 겸 저자극 저녁'}]}
+{id:'c1',title:'명동 — 세신·에스테틱 후 도심 회복 코스',area:'myeongdong',
+ down:'mild_redness',care:'aesthetic',careType:'에스테틱',
+ place:'명동 프라이빗 에스테틱 클리닉 (예약 플랫폼 검색)',
+ stay:'s1',walk:5,
+ timeline:[
+  {t:'14:00',s:'에스테틱 관리 (시술 후 30분 휴식 시간 확보 권장)'},
+  {t:'16:00',s:'도보 5분 — 메이필드호텔 명동 체크인, 바로 객실 휴식'},
+  {t:'18:30',s:'명동8길 골목 약국에서 진정 크림·쿨링팩 구매'},
+  {t:'19:30',s:'남대문시장 인근 저자극 죽집 또는 호텔 조식 대신 룸서비스'}],
+ pharm:'명동 약국 밀집 구역 — 8길·충무로 방향 대형 약국 다수, 진정 제품 취급 확인',
+ food:'남대문시장 인근 죽·탕 전문점 — 시술 후 자극 적은 메뉴 위주',
+ careUrl:'https://www.klook.com/ko/search/result/?query=%EB%AA%85%EB%8F%99%20%EC%97%90%EC%8A%A4%ED%85%8C%ED%8B%B1'},
+{id:'c2',title:'청담 — 헤드스파 + 파크하얏트 딥슬립 코스',area:'gangnam',
+ down:'none',care:'head_spa',careType:'헤드스파',
+ place:'청담동 프라이빗 헤드스파 (예약 플랫폼 검색)',
+ stay:'s2',walk:8,
+ timeline:[
+  {t:'13:30',s:'청담동 헤드스파 예약 시간 도착'},
+  {t:'15:30',s:'도보 8분 — 파크하얏트 서울 체크인 후 스파·수영장으로 마무리'},
+  {t:'19:00',s:'호텔 인근 조용한 레스토랑 저녁'},
+  {t:'21:00',s:'객실에서 조기 취침 — 다음 날 컨디션 관리'}],
+ pharm:'청담동 GS25/약국 — 호텔 도보권 내 편의점·약국 확인 가능',
+ food:'청담동·논현동 저자극 한식 — 호텔 컨시어지 추천 메뉴 활용',
+ careUrl:'https://www.klook.com/ko/search/result/?query=%EC%B2%AD%ED%83%84%20%ED%97%A4%EB%93%9C%EC%8A%A4%ED%8C%8C'},
+{id:'c3',title:'해운대 — 피부과 시술 후 바다 회복 코스',area:'busan',
+ down:'swelling_care',care:'skin_clinic',careType:'피부과',
+ place:'해운대 피부과 클리닉 (시술 전 상담 필수)',
+ stay:'s3',walk:6,
+ timeline:[
+  {t:'10:00',s:'피부과 시술 — 부기·홍조 관리 포함 프로그램 선택'},
+  {t:'12:30',s:'도보 6분 — 신라스테이 해운대 체크인, 냉찜질·휴식'},
+  {t:'15:00',s:'해운대해수욕장 산책 (자외선 차단 필수 — 시술 후 피부 민감)'},
+  {t:'18:30',s:'해운대 시장 인근 저자극 저녁 — 회/탕 계열 추천'}],
+ pharm:'해운대 약국 — 시술 후 재생크림·쿨링팩 취급 약국 다수',
+ food:'해운대 시장 골목 — 해물탕·죽 전문점, 자극 적은 메뉴 선택',
+ careUrl:'https://www.klook.com/ko/search/result/?query=%ED%95%B4%EC%9A%B4%EB%8C%80%20%ED%94%BC%EB%B6%80%EA%B3%BC'},
+{id:'c4',title:'합정·상수 — 프라이빗 세신 + 로프트 스테이 코스',area:'hongdae',
+ down:'mild_redness',care:'seshin',careType:'1인 세신',
+ place:'합정동 프라이빗 세신샵 (예약 필수)',
+ stay:'s4',walk:10,
+ timeline:[
+  {t:'15:00',s:'합정동 세신샵 1:1 관리'},
+  {t:'17:00',s:'도보/택시 10분 — 합정·상수동 로프트 스테이 체크인'},
+  {t:'19:00',s:'상수동 카페거리 조용한 카페에서 휴식'},
+  {t:'21:30',s:'망원시장 방향 약국 방문 후 조기 취침'}],
+ pharm:'합정역·망원역 주변 약국 — 밤 늦게까지 영업하는 곳 확인 권장',
+ food:'망원시장 먹자골목 — 죽·면류 등 자극 적은 메뉴',
+ careUrl:'https://www.klook.com/ko/search/result/?query=%ED%95%A9%EC%A0%95%20%EC%84%B8%EC%8B%A0'}
 ];
-const AREA_KO={myeongdong:'명동',gangnam:'강남',hongdae:'홍대',busan:'부산'};
+const AREA_KO={myeongdong:'명동',gangnam:'강남·청담',hongdae:'홍대·합정',busan:'부산·해운대'};
 const DOWN_KO={none:'다운타임 없음',mild_redness:'미세 홍조·예민',swelling_care:'부기·진정 관리'};
-const CARE_KO={head_spa:'헤드스파',seshin:'1인 세신',aesthetic:'에스테틱',skin_clinic:'피부과·클리닉'};
+const CARE_KO={head_spa:'헤드스파',seshin:'1인 세신',aesthetic:'에스테틱',skin_clinic:'피부과'};
 const SPEC_LABELS=[
- ['contactless_checkin','비대면 체크인'],['blackout_curtain','100% 암막커튼'],
+ ['contactless_checkin','비대면 체크인'],['blackout_curtain','암막커튼'],
  ['humidifier','가습기'],['unscented_amenity','무향 어메니티'],['freezer_available','냉동칸'],
- ['quiet_score','조용함'],['delivery_lobby_easy','로비 배달 편리']];
+ ['quiet_score','조용함'],['delivery_lobby_easy','로비 배달']];
 
-// ── 클릭 트래킹 → Worker /click → Supabase click_logs ──────
 const CLICK_API='https://jeju-cctv-proxy.jaehoonlee80.workers.dev/click';
 function trackClick(type,id,provider){
  try{
-  const subid='tf-'+Date.now().toString(36);
   fetch(CLICK_API,{method:'POST',headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({target_type:type,target_id:id,provider:provider,subid:subid})}).catch(()=>{});
+   body:JSON.stringify({target_type:type,target_id:id,provider:provider,subid:'tf-'+Date.now().toString(36)})}).catch(()=>{});
  }catch(e){}
 }
 
-// ── 렌더링 ─────────────────────────────────────────────────
+// ── 퀴즈 추천 ───────────────────────────────────────────────
+function scoreCourse(c){
+ let sc=0;
+ const down=document.getElementById('q-down').value;
+ const care=document.getElementById('q-care').value;
+ const area=document.getElementById('q-area').value;
+ const budget=+document.getElementById('q-budget').value;
+ const need=document.getElementById('q-need').value;
+ // 회복 상태: 코스의 down과 일치하면 가산, none은 모든 상태에 호환
+ if(c.down===down)sc+=3;else if(c.down==='none'&&down!=='none')sc+=1;else if(down==='none'&&c.down!=='none')sc-=1;
+ // 관리 종류
+ if(care&&c.care===care)sc+=4;
+ // 지역
+ if(area&&c.area===area)sc+=5;
+ // 예산
+ const st=STAYS.find(s=>s.id===c.stay);
+ if(st&&budget){
+  if(budget===15&&st.price>20)sc-=4;
+  if(budget===25&&st.price>30)sc-=2;
+  if(budget===40&&st.price>=30)sc+=2;
+ }
+ // 필요 스펙
+ if(need==='quiet'&&st)sc+=st.specs.quiet_score*0.5;
+ if(need==='full'&&st)sc+=(st.specs.blackout_curtain+st.specs.humidifier+st.specs.unscented_amenity)*0.8;
+ if(need==='food'&&st)sc+=st.specs.delivery_lobby_easy*1.5;
+ return sc;
+}
+function matchReason(c){
+ const rs=[];
+ const down=document.getElementById('q-down').value;
+ const care=document.getElementById('q-care').value;
+ const area=document.getElementById('q-area').value;
+ if(area&&c.area===area)rs.push(AREA_KO[c.area]+' 지역');
+ if(care&&c.care===care)rs.push(CARE_KO[c.care]+' 관리와 연계');
+ if(down===c.down)rs.push(DOWN_KO[c.down]+' 상태에 맞춘 동선');
+ else if(c.down==='none')rs.push('다운타임 없는 안전한 코스');
+ if(!rs.length)rs.push('전체 조건에서 가장 균형 잡힌 선택');
+ return rs.slice(0,3).join(' · ');
+}
+function courseCard(c,badge,idx){
+ const st=STAYS.find(s=>s.id===c.stay);
+ return '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)">'
+  +'<div style="font-size:12.5px;font-weight:800;color:#be185d;margin-bottom:6px">'+badge+' · '+AREA_KO[c.area]+' · '+c.careType+' → '+DOWN_KO[c.down]+'</div>'
+  +'<div style="font-size:18px;font-weight:800;color:#111;margin-bottom:4px">'+c.title+'</div>'
+  +'<div style="font-size:12.5px;color:#0f766e;font-weight:700;margin-bottom:10px">💡 '+matchReason(c)+'</div>'
+  +'<div style="font-size:13px;color:#444;line-height:1.9;background:#fdf2f8;border-radius:10px;padding:14px 16px">'
+  +c.timeline.map((s,i)=>(i+1)+'. <b>'+s.t+'</b> — '+s.s).join('<br>')
+  +'<br><br><b>🏨 숙소</b> — '+(st?st.name:'')+' (도보 '+c.walk+'분)<br>'
+  +'<b>💊 인근 약국</b> — '+c.pharm+'<br>'
+  +'<b>🍚 저자극 식사</b> — '+c.food
+  +'</div>'
+  +'<div style="display:flex;gap:10px;margin-top:12px">'
+  +'<a href="'+c.careUrl+'" target="_blank" rel="noopener" class="rg-aff" data-type="care" data-id="'+c.id+'" data-provider="klook" style="flex:1;text-align:center;background:#7c3aed;color:#fff;text-decoration:none;padding:11px;border-radius:10px;font-size:13px;font-weight:700">관리 예약 보기</a>'
+  +(st?'<a href="'+st.url+'" target="_blank" rel="noopener" class="rg-aff" data-type="stay" data-id="'+st.id+'" data-provider="'+st.provider+'" style="flex:1;text-align:center;background:#0f766e;color:#fff;text-decoration:none;padding:11px;border-radius:10px;font-size:13px;font-weight:700">숙소 예약 보기</a>':'')
+  +'</div></div>';
+}
+function quiz(){
+ document.getElementById('q-status').textContent='조건에 맞는 코스를 찾는 중…';
+ setTimeout(()=>{
+  const ranked=COURSES.map(c=>({c,sc:scoreCourse(c)})).sort((a,b)=>b.sc-a.sc);
+  const picks=[];
+  for(const r of ranked){
+   if(picks.length>=3)break;
+   if(picks.some(p=>p.c.area===r.c.area))continue; // 지역 다양화
+   picks.push(r);
+  }
+  for(const r of ranked){if(picks.length>=3)break;if(!picks.includes(r))picks.push(r)}
+  const badge=['🥇 1안','🥈 2안','🥉 3안'];
+  document.getElementById('q-result').innerHTML=picks.map((r,i)=>courseCard(r.c,badge[i],i)).join('');
+  document.getElementById('q-status').textContent='';
+  bindAff();
+ },300);
+}
+document.getElementById('q-go').addEventListener('click',quiz);
+
+// ── 전체 목록 + 필터 ───────────────────────────────────────
 function filtered(){
- const a=document.getElementById('rg-area').value;
- const d=document.getElementById('rg-down').value;
- const c=document.getElementById('rg-care').value;
- const stays=STAYS.filter(s=>!a||s.area===a);
- const courses=COURSES.filter(x=>{
-  if(a&&x.area!==a)return false;
-  if(d&&x.downtime!==d)return false;
-  if(c&&x.care!==c)return false;
-  return stays.some(s=>s.id===x.stay);
- });
- return{stays,courses};
+ const a=document.getElementById('f-area').value;
+ const d=document.getElementById('f-down').value;
+ const c=document.getElementById('f-care').value;
+ return{
+  stays:STAYS.filter(s=>!a||s.area===a),
+  courses:COURSES.filter(x=>{
+   if(a&&x.area!==a)return false;
+   if(d&&x.down!==d)return false;
+   if(c&&x.care!==c)return false;
+   return true;
+  })};
 }
 function specBadges(s){
  let h='';
@@ -183,56 +298,37 @@ function specBadges(s){
 }
 function render(){
  const{stays,courses}=filtered();
- let sh='<h2 style="font-size:20px;margin:26px 0 14px">🛏️ 회복 특화 숙소 ('+stays.length+')</h2>';
- if(!stays.length)sh+='<p style="color:#888">조건에 맞는 숙소가 없습니다.</p>';
- sh+='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">';
+ let sh='<h2 style="font-size:20px;margin:34px 0 6px">🛏️ 회복 특화 숙소</h2>'
+  +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:16px">'
+  +'<select id="f-area" style="padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:13px"><option value="">지역: 전체</option><option value="myeongdong">명동</option><option value="gangnam">강남·청담</option><option value="hongdae">홍대·합정</option><option value="busan">부산·해운대</option></select>'
+  +'<select id="f-down" style="padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:13px"><option value="">회복 상태: 전체</option><option value="none">다운타임 없음</option><option value="mild_redness">미세 홍조·예민</option><option value="swelling_care">부기·진정 관리</option></select>'
+  +'<select id="f-care" style="padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:13px"><option value="">관리 종류: 전체</option><option value="head_spa">헤드스파</option><option value="seshin">1인 세신</option><option value="aesthetic">에스테틱</option><option value="skin_clinic">피부과</option></select>'
+  +'</div>'
+  +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">';
  stays.forEach(s=>{
   sh+='<div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.04)">'
-   +'<div style="font-size:12px;font-weight:800;color:#0f766e;margin-bottom:6px">📍 '+AREA_KO[s.area]+'</div>'
+   +'<div style="font-size:11.5px;font-weight:800;color:#be185d;margin-bottom:6px">📍 '+AREA_KO[s.area]+' · '+s.kind+'</div>'
    +'<div style="font-size:18px;font-weight:800;color:#111;margin-bottom:6px">'+s.name+'</div>'
    +'<div style="font-size:13px;color:#555;margin-bottom:10px">'+s.summary+'</div>'
    +'<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">'+specBadges(s)+'</div>'
-   +'<div style="font-size:12.5px;color:#b45309;font-weight:700;margin-bottom:10px">💰 1박 약 '+(s.price/10000).toFixed(1)+'만원</div>'
+   +'<div style="font-size:12.5px;color:#b45309;font-weight:700;margin-bottom:10px">💰 1박 약 '+s.price+'만원대</div>'
    +'<div style="font-size:12px;color:#888;background:#f8fafc;border-radius:10px;padding:10px 12px;margin-bottom:12px"><b>⚠️ 주의점</b><br>'
    +s.cons.map(x=>'· '+x).join('<br>')+'</div>'
-   +'<a href="'+s.url+'" target="_blank" rel="noopener" class="rg-aff" data-type="stay" data-id="'+s.id+'" data-provider="'+s.provider+'" '
-   +'style="display:block;text-align:center;background:#0f766e;color:#fff;text-decoration:none;padding:11px;border-radius:10px;font-size:13.5px;font-weight:700">예약 보기 ('+s.provider.toUpperCase()+')</a>'
+   +'<a href="'+s.url+'" target="_blank" rel="noopener" class="rg-aff" data-type="stay" data-id="'+s.id+'" data-provider="'+s.provider+'" style="display:block;text-align:center;background:#0f766e;color:#fff;text-decoration:none;padding:11px;border-radius:10px;font-size:13.5px;font-weight:700">예약·자세히 보기</a>'
    +'</div>';
  });
  sh+='</div>';
- document.getElementById('rg-stays').innerHTML=sh;
-
- let ch='<h2 style="font-size:20px;margin:30px 0 14px">🗺️ 글로우케이션 회복 동선 코스 ('+courses.length+')</h2>';
- if(!courses.length)ch+='<p style="color:#888">조건에 맞는 코스가 없습니다.</p>';
- courses.forEach(x=>{
-  const st=stays.find(s=>s.id===x.stay);
-  ch+='<div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)">'
-   +'<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">'
-   +'<span style="font-size:11.5px;background:#fdf2f8;color:#be185d;padding:3px 10px;border-radius:10px;font-weight:700">'+AREA_KO[x.area]+'</span>'
-   +'<span style="font-size:11.5px;background:#fef3c7;color:#92400e;padding:3px 10px;border-radius:10px;font-weight:700">'+DOWN_KO[x.downtime]+'</span>'
-   +'<span style="font-size:11.5px;background:#e0e7ff;color:#3730a3;padding:3px 10px;border-radius:10px;font-weight:700">'+CARE_KO[x.care]+'</span>'
-   +'</div>'
-   +'<div style="font-size:17px;font-weight:800;color:#111;margin-bottom:10px">'+x.title+'</div>'
-   +'<div style="font-size:13px;color:#444;line-height:1.9;background:#f8fafc;border-radius:10px;padding:14px 16px">'
-   +x.steps.map((s,i)=>(i+1)+'. <b>'+s.t+'</b> — '+s.s).join('<br>')
-   +'<br><br><b>🏨 숙소</b> — '+(st?st.name:'')+' (도보 '+x.walk+'분 이동)<br>'
-   +'<b>💊 인근 약국</b> — '+x.pharm+'<br>'
-   +'<b>🍚 저자극 식사</b> — '+x.food
-   +'</div>'
-   +'<div style="display:flex;gap:10px;margin-top:12px">'
-   +'<a href="'+x.careUrl+'" target="_blank" rel="noopener" class="rg-aff" data-type="care" data-id="'+x.id+'" data-provider="klook" '
-   +'style="flex:1;text-align:center;background:#7c3aed;color:#fff;text-decoration:none;padding:11px;border-radius:10px;font-size:13.5px;font-weight:700">관리 예약 보기</a>'
-   +(st?'<a href="'+st.url+'" target="_blank" rel="noopener" class="rg-aff" data-type="stay" data-id="'+st.id+'" data-provider="'+st.provider+'" '
-   +'style="flex:1;text-align:center;background:#0f766e;color:#fff;text-decoration:none;padding:11px;border-radius:10px;font-size:13.5px;font-weight:700">숙소 예약 보기</a>':'')
-   +'</div></div>';
- });
- ch+='</div>';
- document.getElementById('rg-courses').innerHTML=ch;
- document.querySelectorAll('.rg-aff').forEach(a=>a.addEventListener('click',()=>{
-  trackClick(a.dataset.type,a.dataset.id,a.dataset.provider);
- }));
+ sh+='<h2 style="font-size:20px;margin:34px 0 14px">🗺️ 전체 회복 동선 코스 ('+courses.length+')</h2>';
+ courses.forEach(c=>{sh+=courseCard(c,'',0)});
+ document.getElementById('rg-list').innerHTML=sh;
+ bindAff();
+ ['f-area','f-down','f-care'].forEach(id=>document.getElementById(id).addEventListener('change',render));
 }
-['rg-area','rg-down','rg-care'].forEach(id=>document.getElementById(id).addEventListener('change',render));
+function bindAff(){
+ document.querySelectorAll('.rg-aff').forEach(a=>{
+  a.onclick=()=>trackClick(a.dataset.type,a.dataset.id,a.dataset.provider);
+ });
+}
 render();
 </script></main>
 <footer>
