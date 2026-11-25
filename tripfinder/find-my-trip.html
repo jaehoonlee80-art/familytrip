@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>MBTI로 찾는 나의 여행지 — 여행 성향으로 맞춤 여행지와 코스 추천</title>
-<meta name="description" content="MBTI를 묻지 않고 여행 성향 4가지 축(에너지·계획·스타일·관심)과 동행·예산·기간 조건을 고르면 나에게 맞는 여행지 3안을 추천하고, 장소를 고르면 AI가 일차별 여행코스까지 짜줍니다.">
+<title>내 여행 찾아줌 — 조건을 고르면 AI가 여행지 3안과 코스를 추천</title>
+<meta name="description" content="여행 타입·스타일·계절·이동·숙소·활동·분위기 조건을 고르면 나에게 맞는 여행지 3안을 추천하고, 장소를 고르면 AI가 일차별 여행코스까지 짜줍니다.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/tripfinder/find-my-trip.html">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -53,50 +53,39 @@ img{max-width:100%;border-radius:10px}
     <a href="/familytrip/tripfinder.html">내 여행 찾아줌</a>
   </nav>
 </header>
-<main><div class="meta">내 여행 찾아줌 · 2026-11-25</div><h1>MBTI로 찾는 나의 여행지 — 여행 성향으로 맞춤 여행지와 코스 추천</h1><p>MBTI를 직접 묻지 않습니다. 대신 <strong>16개 MBTI 유형 칩을 보여드리고</strong> — ISTJ부터 ENTJ까지 — 본인에게 맞는 유형을 고르면 됩니다(모르면 아무거나 선택해도 여행 성향으로 자동 해석됩니다). 그 성향과 동행·예산·기간 조건을 반영해 <strong>규칙 엔진이 50여 개 여행지를 스코어링</strong>하고 <strong>3안</strong>을 추천합니다. 마음에 드는 장소를 고르면 <strong>AI가 인원 구성에 맞춘 일차별 여행코스</strong>를 짜줍니다.</p>
+<main><div class="meta">내 여행 찾아줌 · 2026-11-25</div><h1>내 여행 찾아줌 — 조건을 고르면 AI가 여행지 3안과 코스를 추천</h1><p>여행 조건을 골라주세요 — <strong>여행 타입·스타일·계절·이동 수단·숙소·활동·분위기</strong>까지 30가지 이상. <strong>규칙 엔진이 50여 개 여행지를 스코어링</strong>해 <strong>3안</strong>을 추천하고, 마음에 드는 장소를 고르면 <strong>AI가 일차별 여행코스</strong>를 짜줍니다.</p>
 <blockquote>
 <p>⚠️ 추천은 일반적인 정보 기준입니다. 실제 항공권·숙소 가격과 운영 여부는 방문 전 확인하세요.</p>
 </blockquote>
-<h2>0. 나의 여행 성향 (4가지 중 각각 1개씩)</h2>
-<div id="g-mbti" class="tf-group"></div>
-<div id="mbti-label" style="font-size:13px;color:#0f766e;font-weight:700;margin-top:8px;min-height:18px"></div>
-
-<h2>1. 함께 여행하는 사람</h2>
-<div id="g-companion" class="tf-group"></div>
-
-<h2>2. 원하는 여행 타입</h2>
+<h2>1. 원하는 여행 타입</h2>
 <div id="g-type" class="tf-group"></div>
 
-<h2>3. 여행 스타일</h2>
+<h2>2. 여행 스타일</h2>
 <div id="g-style" class="tf-group"></div>
 
-<h2>4. 계절 · 날씨</h2>
+<h2>3. 계절 · 날씨</h2>
 <div id="g-season" class="tf-group"></div>
 
-<h2>5. 이동 수단</h2>
+<h2>4. 이동 수단</h2>
 <div id="g-move" class="tf-group"></div>
 
-<h2>6. 숙소 스타일</h2>
+<h2>5. 숙소 스타일</h2>
 <div id="g-stay" class="tf-group"></div>
 
-<h2>7. 하고 싶은 활동</h2>
+<h2>6. 하고 싶은 활동</h2>
 <div id="g-act" class="tf-group"></div>
 
-<h2>8. 원하는 분위기</h2>
+<h2>7. 원하는 분위기</h2>
 <div id="g-vibe" class="tf-group"></div>
 
-<h2>9. 여행 조건 입력</h2>
+<h2>8. 여행 조건 입력</h2>
 <div class="calc-box" style="background:#fff;border:1px solid #eee;border-radius:14px;padding:20px;margin:18px 0">
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px">
-<div><label style="font-size:12px;font-weight:700;color:#4b5563">성인 남성</label><input id="p-am" type="number" min="0" max="10" value="1" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box"></div>
-<div><label style="font-size:12px;font-weight:700;color:#4b5563">성인 여성</label><input id="p-af" type="number" min="0" max="10" value="1" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box"></div>
-<div><label style="font-size:12px;font-weight:700;color:#4b5563">소아 (초등 이하)</label><input id="p-kid" type="number" min="0" max="10" value="0" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box"></div>
-<div><label style="font-size:12px;font-weight:700;color:#4b5563">영유아 (미취학)</label><input id="p-baby" type="number" min="0" max="5" value="0" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box"></div>
 <div><label style="font-size:12px;font-weight:700;color:#4b5563">여행 기간 (일)</label><input id="p-days" type="number" min="1" max="30" value="4" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box"></div>
-<div><label style="font-size:12px;font-weight:700;color:#4b5563">총 예산 (만원)</label><input id="p-budget" type="number" min="50" max="3000" step="50" value="200" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box"></div>
+<div><label style="font-size:12px;font-weight:700;color:#4b5563">1인 예산 (만원)</label><input id="p-budget" type="number" min="30" max="2000" step="10" value="100" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box"></div>
 <div><label style="font-size:12px;font-weight:700;color:#4b5563">출발 월</label><select id="p-month" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px"></select></div>
 </div>
-<div style="margin-top:12px;font-size:12px;color:#888">💡 조건 칩은 여러 개 골라도 됩니다. 예산은 항공·숙소·식비 포함 <b>전체 인원 기준</b>입니다. 추천 후 각 장소 카드의 <b>"이 장소로 코스 짜기"</b>를 누르면 일차별 일정이 나옵니다.</div>
+<div style="margin-top:12px;font-size:12px;color:#888">💡 조건 칩은 여러 개 골라도 됩니다. 예산은 항공·숙소·식비 포함 <b>1인 기준</b>입니다. 추천 후 각 장소 카드의 <b>"이 장소로 코스 짜기"</b>를 누르면 일차별 일정이 나옵니다.</div>
 </div>
 
 <p><button id="tf-go" style="background:#0f766e;color:#fff;border:none;padding:14px 32px;border-radius:12px;font-size:16px;font-weight:800;cursor:pointer">✨ 나에게 맞는 여행 3안 추천받기</button></p>
@@ -106,44 +95,7 @@ img{max-width:100%;border-radius:10px}
 
 <script>
 // ── 조건 정의 ──────────────────────────────────────────────
-// MBTI 16유형 — 직접 MBTI를 묻지 않고 유형 칩을 보여줌. 선택 시 해당 유형의 성향 축이 자동 적용됨.
-// 축 매핑: E/I→energy(social/solo), J/P→plan(planner/spont), F/T→style(exp/eff), S/N→interest(sense/deep)
-const MBTI_TYPES=[
- {c:'ISTJ',n:'꼼꼼한 검사관',d:'현실적·책임감·계획적',dims:{energy:'solo',plan:'planner',style:'eff',interest:'sense'}},
- {c:'ISFJ',n:'헌신적인 보호자',d:'따뜻·책임감·전통',dims:{energy:'solo',plan:'planner',style:'exp',interest:'sense'}},
- {c:'INFJ',n:'통찰력 있는 옹호자',d:'이상적·직관·타인 배려',dims:{energy:'solo',plan:'planner',style:'exp',interest:'deep'}},
- {c:'INTJ',n:'전략가',d:'독립적·직관·분석',dims:{energy:'solo',plan:'planner',style:'eff',interest:'deep'}},
- {c:'ISTP',n:'만능 재주꾼',d:'논리적·실용·호기심',dims:{energy:'solo',plan:'spont',style:'eff',interest:'sense'}},
- {c:'ISFP',n:'호기심 많은 예술가',d:'자유·감각·즉흥',dims:{energy:'solo',plan:'spont',style:'exp',interest:'sense'}},
- {c:'INFP',n:'열정적인 중재자',d:'이상적·감성·창의',dims:{energy:'solo',plan:'spont',style:'exp',interest:'deep'}},
- {c:'INTP',n:'논리적인 사색가',d:'분석·독창·탐구',dims:{energy:'solo',plan:'spont',style:'eff',interest:'deep'}},
- {c:'ESTP',n:'모험을 추구하는 사업가',d:'활동적·즉흥·실전',dims:{energy:'social',plan:'spont',style:'eff',interest:'sense'}},
- {c:'ESFP',n:'자유로운 연예인',d:'사교·즉흥·감각',dims:{energy:'social',plan:'spont',style:'exp',interest:'sense'}},
- {c:'ENFP',n:'재기발랄한 활동가',d:'열정·직관·사교',dims:{energy:'social',plan:'spont',style:'exp',interest:'deep'}},
- {c:'ENTP',n:'논쟁을 즐기는 변론가',d:'아이디어·직관·도전',dims:{energy:'social',plan:'spont',style:'eff',interest:'deep'}},
- {c:'ESTJ',n:'엄격한 관리자',d:'현실·책임·리더십',dims:{energy:'social',plan:'planner',style:'eff',interest:'sense'}},
- {c:'ESFJ',n:'사교적인 외교관',d:'배려·전통·조화',dims:{energy:'social',plan:'planner',style:'exp',interest:'sense'}},
- {c:'ENFJ',n:'정의로운 선도자',d:'이상·직관·타인',dims:{energy:'social',plan:'planner',style:'exp',interest:'deep'}},
- {c:'ENTJ',n:'대담한 통솔자',d:'전략·직관·결단',dims:{energy:'social',plan:'planner',style:'eff',interest:'deep'}}
-];
-const MBTI_DIM_NAMES={energy:'에너지',plan:'계획',style:'스타일',interest:'관심'};
-const MBTI_LB={social:'함께·사교형',solo:'혼자·충전형',planner:'계획·동선형',spont:'즉흥·여유형',exp:'경험·분위기형',eff:'효율·알짜형',sense:'자극·소비형',deep:'의미·탐구형'};
-// 성향 → 여행지 태그 부스트 매핑
-const MBTI_BOOST={
- social:['friends','reunion','fam','fam_kids','couple'],
- solo:['solo','quiet'],
- planner:['museum','culture','photo','hot'],
- spont:['local','quiet','nature','relax'],
- exp:['food','shop','market','night','cafe','beach','photo'],
- eff:['easy','hot','packed','transit'],
- sense:['food','shop','market','night','beach','park'],
- deep:['culture','museum','trek','nature','local']
-};
 const GROUPS=[
- {id:'companion',title:'함께 여행하는 사람',items:[
-  ['couple','연인·부부'],['fam_kids','아이 있는 가족'],['fam','성인 가족'],
-  ['friends','친구·지인'],['reunion','동창·모임'],['senior','부모님·어르신 동반'],
-  ['solo','혼자 여행'],['pet','반려동물 동반']]},
  {id:'type',title:'원하는 여행 타입',items:[
   ['relax','휴양·리조트'],['nature','자연·힐링'],['culture','문화·역사'],
   ['food','미식·시장'],['shop','쇼핑·도시'],['active','액티비티·스포츠'],['photo','사진·인증샷']]},
@@ -162,7 +114,7 @@ const GROUPS=[
   ['quiet','한적한 곳'],['hot','핫플·유명 관광지'],['local','로컬·숨은 곳'],['snow','눈·겨울 풍경']]}
 ];
 const COND={};GROUPS.forEach(g=>g.items.forEach(([id,n])=>COND[id]=n));
-const GW={companion:3,type:2,style:2,season:2,move:1,stay:1,act:2,vibe:1};
+const GW={type:2,style:2,season:2,move:1,stay:1,act:2,vibe:1};
 const GROUP_OF={};GROUPS.forEach(g=>g.items.forEach(([id])=>GROUP_OF[id]=g.id));
 
 // ── 여행지 DB ──────────────────────────────────────────────
@@ -180,10 +132,10 @@ const DESTS=[
 {n:'통영',c:'한국',k:1,t:['beach','photo','culture','car','summer','autumn','quiet','local'],b:1,h:1,s:'4~6,9~11',d:'동피랑 벽화마을·대포항 미륵도'},
 {n:'포항',c:'한국',k:1,t:['beach','food','nature','car','summer','autumn','quiet','local'],b:1,h:1,s:'5~10',d:'영일대 해수욕장·호미곶·송도'},
 {n:'속초·설악산',c:'한국',k:1,t:['trek','nature','winter','snow','car','pension','autumn','summer'],b:2,h:1,s:'5~10,12~2',d:'설악산 케이블카와 동해안'},
-{n:'남이섬·여주',c:'한국',k:1,t:['nature','relax','photo','car','pension','spring','autumn','fam_kids'],b:1,h:0,s:'3~5,9~11',d:'메타세쿼이아 길과 자전거 나들이'},
+{n:'남이섬·여주',c:'한국',k:1,t:['nature','relax','photo','car','pension','spring','autumn'],b:1,h:0,s:'3~5,9~11',d:'메타세쿼이아 길과 자전거 나들이'},
 {n:'안동 하회마을',c:'한국',k:1,t:['culture','local','photo','car','transit','autumn','quiet'],b:1,h:1,s:'4~6,9~11',d:'유네스코 물돌이 마을과 하회탈춤'},
 {n:'목포',c:'한국',k:1,t:['food','beach','local','car','transit','autumn','winter','quiet'],b:1,h:1,s:'3~5,9~11',d:'유달산 등대·근대역사문화공간·낙지'},
-{n:'인천 송도',c:'한국',k:1,t:['photo','beach','culture','transit','train','fam_kids','summer'],b:1,h:0,s:'3~11',d:'트리플스트리트·센트럴파크·국제업무지구'},
+{n:'인천 송도',c:'한국',k:1,t:['photo','beach','culture','transit','train','summer'],b:1,h:0,s:'3~11',d:'트리플스트리트·센트럴파크·국제업무지구'},
 {n:'대구',c:'한국',k:1,t:['food','culture','hot','transit','train','night'],b:1,h:1,s:'3~11',d:'앞치마삼겹살·수성유원지·근대골목'},
 {n:'강릉',c:'한국',k:1,t:['beach','culture','food','car','transit','train','hot','summer','autumn'],b:1,h:1,s:'3~11',d:'커피거리·경포대·난타공연'},
 {n:'가평·춘천',c:'한국',k:1,t:['nature','relax','car','pension','spring','autumn','summer','quiet','local'],b:1,h:0,s:'3~11',d:'남이섬·레일바이크·닭갈비와 강'},
@@ -195,18 +147,18 @@ const DESTS=[
 {n:'교토',c:'일본',k:0,t:['culture','photo','trek','quiet','local','spring','autumn','flight','train'],b:2,h:2.5,s:'3~4,10~11',d:'기온·후시미인아리·단풍의 고도'},
 {n:'후쿠오카',c:'일본',k:0,t:['food','beach','easy','flight','hot','relax'],b:1,h:1.8,s:'3~5,10~11',d:'라멘·해변·가성비 도시'},
 {n:'삿포로',c:'일본',k:0,t:['winter','snow','food','trek','flight','hot'],b:2,h:3,s:'12~2,7~8',d:'눈축제·라멘·오타루 운하'},
-{n:'오키나와',c:'일본',k:0,t:['beach','relax','nature','flight','hotel','summer','fam_kids','photo'],b:2,h:3,s:'4~10',d:'에메랄드 바다와 미야코 섬'},
+{n:'오키나와',c:'일본',k:0,t:['beach','relax','nature','flight','hotel','summer','photo'],b:2,h:3,s:'4~10',d:'에메랄드 바다와 미야코 섬'},
 {n:'타이베이',c:'대만',k:0,t:['food','shop','night','culture','easy','flight','hot','photo'],b:1,h:2.5,s:'10~4',d:'야시장·스카이라인·사원과 차'},
 {n:'홍콩',c:'중국',k:0,t:['shop','food','night','photo','hot','flight','packed'],b:2,h:3,s:'10~3',d:'빅토리아하버·미드레벨스·디저트'},
 // 동남아
 {n:'방콕',c:'태국',k:0,t:['food','culture','shop','night','hot','flight','easy','packed','photo'],b:1,h:5.5,s:'11~2',d:'사원·야시장·맛집 천국'},
 {n:'치앙마이',c:'태국',k:0,t:['culture','nature','trek','relax','budget','quiet','local','flight','pension'],b:1,h:5.5,s:'11~2',d:'코끼리 보호소·사원·캠핑 리버사이드'},
-{n:'다낭',c:'베트남',k:0,t:['beach','food','relax','budget','flight','hotel','fam_kids'],b:1,h:4.5,s:'2~5,9~11',d:'미케비치·바나힐·분짜'},
+{n:'다낭',c:'베트남',k:0,t:['beach','food','relax','budget','flight','hotel'],b:1,h:4.5,s:'2~5,9~11',d:'미케비치·바나힐·분짜'},
 {n:'호치민',c:'베트남',k:0,t:['food','culture','shop','night','hot','flight','easy'],b:1,h:4.5,s:'12~4',d:'전쟁박물관·벤탄시장·분짜'},
 {n:'하노이',c:'베트남',k:0,t:['culture','food','trek','nature','quiet','local','flight'],b:1,h:4.5,s:'9~11,3~4',d:'하롱베이 근교·구시가지·분짜'},
-{n:'푸꾸옥',c:'베트남',k:0,t:['beach','relax','hotel','flight','fam_kids','photo'],b:1,h:5,s:'1~5,10~12',d:'사파리 케이블카·켄그랑 섬·빈펄 리조트'},
+{n:'푸꾸옥',c:'베트남',k:0,t:['beach','relax','hotel','flight','photo'],b:1,h:5,s:'1~5,10~12',d:'사파리 케이블카·켄그랑 섬·빈펄 리조트'},
 {n:'발리 우붓',c:'인도네시아',k:0,t:['nature','relax','trek','culture','hotel','pension','quiet','flight'],b:1,h:7,s:'4~10',d:'테라스 논·사원·요가 리조트'},
-{n:'세부',c:'필리핀',k:0,t:['beach','hotel','fam_kids','flight','relax','active'],b:1,h:4.5,s:'1~5,8~12',d:'맑은 바다·카눈산·돌고래 쇼'},
+{n:'세부',c:'필리핀',k:0,t:['beach','hotel','flight','relax','active'],b:1,h:4.5,s:'1~5,8~12',d:'맑은 바다·카눈산·돌고래 쇼'},
 {n:'보라카이',c:'필리핀',k:0,t:['beach','photo','relax','hot','flight','hotel','summer'],b:2,h:4.5,s:'11~5',d:'화이트비치·석양의 섬'},
 {n:'코타키나발루',c:'말레이시아',k:0,t:['nature','trek','beach','culture','flight','hot','quiet'],b:1,h:5,s:'3~10',d:'키나발루산·오랑우탄 보호구역'},
 // 서구권/기타
@@ -220,38 +172,17 @@ const DESTS=[
 {n:'산토리니',c:'그리스',k:0,t:['photo','beach','relax','flight','luxury','summer'],b:3,h:14,s:'5~10',d:'푸른 돔과 석양의 절경'},
 {n:'인터라켄',c:'스위스',k:0,t:['trek','nature','photo','winter','snow','relax','flight','quiet'],b:3,h:13,s:'6~9,12~3',d:'융프라우 철도·알프스 호수'},
 {n:'뉴욕',c:'미국',k:0,t:['culture','shop','food','night','photo','hot','packed','flight','luxury'],b:3,h:13,s:'4~6,9~11',d:'타임스퀘어·센트럴파크·브로드웨이'},
-{n:'하와이 오아후',c:'미국',k:0,t:['beach','relax','nature','active','flight','hotel','fam_kids','summer'],b:3,h:8,s:'4~10',d:'와이키키·다이아몬드헤드·폴리네시아'},
+{n:'하와이 오아후',c:'미국',k:0,t:['beach','relax','nature','active','flight','hotel','summer'],b:3,h:8,s:'4~10',d:'와이키키·다이아몬드헤드·폴리네시아'},
 {n:'두바이',c:'UAE',k:0,t:['luxury','photo','beach','hot','flight','hotel','winter','relax'],b:3,h:11,s:'11~3',d:'부르즈 칼리파·사막 사파리·쇼핑'},
 {n:'이스탄불',c:'튀르키예',k:0,t:['culture','food','photo','hot','flight','budget','winter','summer'],b:1,h:12,s:'4~6,9~11',d:'아야소피아·그랜드바자르·보스포러스'},
-{n:'괌',c:'미국',k:0,t:['beach','hotel','fam_kids','flight','relax','active','winter'],b:2,h:4.5,s:'12~5',d:'투몬 베이·피티해변·리조트'},
-{n:'사이판',c:'미국',k:0,t:['beach','hotel','fam_kids','flight','relax','active'],b:2,h:4,s:'12~5',d:'마이크로비치·러슈안 람사원·스노클링'}
+{n:'괌',c:'미국',k:0,t:['beach','hotel','flight','relax','active','winter'],b:2,h:4.5,s:'12~5',d:'투몬 베이·피티해변·리조트'},
+{n:'사이판',c:'미국',k:0,t:['beach','hotel','flight','relax','active'],b:2,h:4,s:'12~5',d:'마이크로비치·러슈안 람사원·스노클링'}
 ];
 const BUDGET_EST={1:[60,110],2:[100,180],3:[160,300]};
 const MONTH_SEASON=['winter','winter','spring','spring','spring','summer','summer','summer','autumn','autumn','autumn','winter'];
 
 // ── UI 생성 ────────────────────────────────────────────────
 const sel=new Set();
-const mbti={}; // {energy:'social', plan:'planner', style:'exp', interest:'sense'}
-// MBTI 16유형 칩 UI — 선택하면 4개 성향 축이 한 번에 설정됨
-const box=document.getElementById('g-mbti');
-box.innerHTML='<div style="font-size:13px;font-weight:800;color:#334155;margin-bottom:6px">내 MBTI 유형을 골라보세요 (모르면 아무거나 선택해도 됩니다 — 여행 성향으로 자동 해석됩니다)</div>'
- +'<div style="display:flex;flex-wrap:wrap;gap:8px">'+MBTI_TYPES.map(t=>
-  '<button class="mbti-chip" data-code="'+t.c+'" title="'+t.d+'" style="font-size:12.5px;padding:8px 12px;border-radius:16px;border:1px solid #d1d5db;background:#fff;cursor:pointer;color:#374151"><b>'+t.c+'</b> '+t.n+'</button>').join('')+'</div>';
-document.querySelectorAll('.mbti-chip').forEach(b=>b.addEventListener('click',()=>{
- const t=MBTI_TYPES.find(x=>x.c===b.dataset.code);
- if(!t)return;
- document.querySelectorAll('.mbti-chip').forEach(x=>{
-  x.style.background='#fff';x.style.color='#374151';x.style.borderColor='#d1d5db';
- });
- b.style.background='#7c3aed';b.style.color='#fff';b.style.borderColor='#7c3aed';
- Object.assign(mbti,t.dims);
- updateMbtiLabel();
-}));
-function updateMbtiLabel(){
- const parts=Object.keys(mbti).map(k=>MBTI_LB[mbti[k]]);
- document.getElementById('mbti-label').textContent=parts.length===4?'🧬 '+parts.join(' · '):'';
-}
-// 일반 조건 칩 UI
 GROUPS.forEach(g=>{
  const box=document.getElementById('g-'+g.id);
  box.innerHTML='<div style="display:flex;flex-wrap:wrap;gap:8px">'+g.items.map(([id,n])=>
@@ -266,15 +197,7 @@ const pm=document.getElementById('p-month');
 for(let m=1;m<=12;m++)pm.innerHTML+='<option value="'+m+'"'+(m===new Date().getMonth()+1?' selected':'')+'>'+m+'월</option>';
 
 function num(id){return Math.max(0,parseInt(document.getElementById(id).value)||0)}
-function travelers(){return num('p-am')+num('p-af')+num('p-kid')+num('p-baby')}
-function partyDesc(){
- const p=[];
- if(num('p-am'))p.push('성인 남 '+num('p-am')+'명');
- if(num('p-af'))p.push('성인 여 '+num('p-af')+'명');
- if(num('p-kid'))p.push('소아 '+num('p-kid')+'명');
- if(num('p-baby'))p.push('영유아 '+num('p-baby')+'명');
- return p.join(', ')||'미입력';
-}
+function budgetPer(){return +document.getElementById('p-budget').value||100}
 
 // ── 스코어링 ────────────────────────────────────────────────
 function score(d){
@@ -283,17 +206,7 @@ function score(d){
   const w=GW[GROUP_OF[id]]||1;
   if(d.t.includes(id)){sc+=w;why.push(COND[id])}
  });
- // MBTI 성향 부스트
- Object.keys(mbti).forEach(dim=>{
-  (MBTI_BOOST[mbti[dim]]||[]).forEach(tag=>{if(d.t.includes(tag)){sc+=1.5;why.push('성향:'+MBTI_LB[mbti[dim]])}});
- });
- const baby=num('p-baby'),kid=num('p-kid'),senior=(sel.has('senior'));
- if(baby>0){if(d.t.includes('active'))sc-=4;if(d.t.includes('packed'))sc-=3;if(d.t.includes('park'))sc+=3;if(d.t.includes('relax'))sc+=2}
- if(kid>0){if(d.t.includes('active'))sc-=2;if(d.t.includes('park'))sc+=2;if(d.t.includes('beach'))sc+=1}
- if(senior){if(d.t.includes('active'))sc-=2;if(d.t.includes('relax'))sc+=2;if(d.t.includes('culture'))sc+=1}
- if(sel.has('pet')&&!d.t.includes('pet'))sc-=2;
- if(sel.has('pet')&&d.t.includes('pet'))sc+=3;
- const perBudget=(+document.getElementById('p-budget').value||200)/(travelers()||1);
+ const perBudget=budgetPer();
  if(perBudget<60&&d.b===3)sc-=3;else if(perBudget<80&&d.b===3)sc-=1;
  if(perBudget>200&&d.b===1)sc-=1;
  if(sel.has('budget')&&d.b===1)sc+=2;if(sel.has('budget')&&d.b===3)sc-=2;
@@ -306,18 +219,16 @@ function score(d){
  if(sel.has('train')&&d.k&&(d.n.includes('경주')||d.n.includes('전주')||d.n.includes('부산')||d.n.includes('강릉')))sc+=2;
  if(sel.has('car')&&d.k)sc+=1;if(sel.has('transit')&&d.n==='서울')sc+=2;
  if(sel.has('transit')&&!d.k)sc-=1;
- sel.forEach(id=>{if(GROUP_OF[id]==='companion'&&d.t.includes(id))sc+=3});
  return {sc,why:[...new Set(why)]};
 }
 function estCost(d){
- const pax=travelers()||1,days=num('p-days')||4;
+ const days=num('p-days')||4;
  const [lo,hi]=BUDGET_EST[d.b];
  const per=Math.round((lo+(hi-lo)*0.5)/5*days/10)*10;
- const total=Math.round(per*pax/10)*10;
- return {per,total,days,pax};
+ return {per,total:per,days};
 }
 function render(){
- const pax=travelers()||1,days=num('p-days')||4;
+ const days=num('p-days')||4;
  const ranked=DESTS.map(d=>({d,...score(d)})).sort((a,b)=>b.sc-a.sc);
  const picks=[];
  for(const r of ranked){
@@ -343,9 +254,9 @@ function render(){
    +r.why.slice(0,6).map(w=>'<span style="font-size:11px;background:#f0fdfa;color:#0f766e;padding:3px 9px;border-radius:10px;font-weight:700">'+w+'</span>').join('')
    +'</div>'
    +'<div style="font-size:12.5px;color:#444;line-height:1.9;background:#f8fafc;border-radius:10px;padding:12px 14px">'
-   +'<b>💰 예상 비용</b> — 1인 약 '+c.per+'만원 × '+c.pax+'명 ≈ <b>'+c.total+'만원</b> (항공·숙소·식비 포함 대략치)<br>'
+   +'<b>💰 예상 비용</b> — 1인 약 <b>'+c.per+'만원</b> ('+days+'일 · 항공·숙소·식비 포함 대략치)<br>'
    +'<b>📅 추천 기간</b> — '+days+'일 · 최적 시기 '+seasonTxt+(d.h?' · ICN에서 비행 약 '+d.h+'시간':'')+'<br>'
-   +'<b>🧭 이동</b> — '+(d.k?(d.n.includes('울릉')?'비행기+페리':'국내선/렌터카/기차'):(sel.has('flight')?'항공':'항공'))+' · <b>🏨 숙소</b> — '+(sel.has('hotel')?'호텔·리조트':sel.has('pension')?'펜션·게하':sel.has('camp')?'캠핑':sel.has('guesthouse')?'호스텔·게스트하우스':'상황에 맞게 선택')
+   +'<b>🧭 이동</b> — '+(d.k?(d.n.includes('울릉')?'비행기+페리':'국내선/렌터카/기차'):'항공')+' · <b>🏨 숙소</b> — '+(sel.has('hotel')?'호텔·리조트':sel.has('pension')?'펜션·게하':sel.has('camp')?'캠핑':sel.has('guesthouse')?'호스텔·게스트하우스':'상황에 맞게 선택')
    +'</div>'
    +'<button class="course-btn" data-idx="'+i+'" style="margin-top:12px;width:100%;background:#7c3aed;color:#fff;border:none;padding:11px;border-radius:10px;font-size:13.5px;font-weight:700;cursor:pointer">🗓️ 이 장소로 '+days+'일 코스 짜기</button>'
    +'<div class="ai-box" id="ai-'+i+'" style="margin-top:10px;font-size:13px;color:#334155;line-height:1.8;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 14px;display:none"></div>'
@@ -354,26 +265,23 @@ function render(){
  });
  html+='</div>';
  document.getElementById('tf-result').innerHTML=html;
- // 코스 버튼 바인딩
  document.querySelectorAll('.course-btn').forEach(b=>b.addEventListener('click',()=>makeCourse(+b.dataset.idx,picks[+b.dataset.idx])));
  return picks;
 }
 function buildPrompt(picks){
  const selList=[...sel].map(id=>COND[id]).join(', ')||'조건 없음';
- const mbtiList=Object.keys(mbti).map(k=>MBTI_LB[mbti[k]]).join('·')||'미선택';
- const pax=travelers()||1,days=num('p-days')||4,bud=document.getElementById('p-budget').value;
- let p='여행 조건: 성향=['+mbtiList+'], 동행/스타일=['+selList+'], 인원='+pax+'명('+partyDesc()+'), 기간='+days+'일, 총예산='+bud+'만원, 출발='+pm.value+'월.\n추천 후보 3곳:\n';
+ const days=num('p-days')||4,bud=budgetPer();
+ let p='여행 조건: 타입/스타일=['+selList+'], 기간='+days+'일, 1인 예산='+bud+'만원, 출발='+pm.value+'월.\n추천 후보 3곳:\n';
  picks.forEach((r,i)=>{const d=r.d;p+='['+(i+1)+'안] '+d.n+' ('+d.c+(d.k?'·국내':'·해외')+') — '+d.d+'\n'});
- p+='위 3곳 각각에 대해 순서대로 "===여행지명===" 다음 줄부터 3~4문장으로: 1) 이 조합에 왜 맞는지, 2) 추천 코스·먹거리·동선 팁, 3) 주의할 점이나 시즌 팁. 각 안을 ===이름=== 으로 구분해서 출력하세요.';
+ p+='위 3곳 각각에 대해 순서대로 "===여행지명===" 다음 줄부터 3~4문장으로: 1) 이 조건에 왜 맞는지, 2) 추천 코스·먹거리·동선 팁, 3) 주의할 점이나 시즌 팁. 각 안을 ===이름=== 으로 구분해서 출력하세요.';
  return p;
 }
 function coursePrompt(d){
  const selList=[...sel].map(id=>COND[id]).join(', ')||'없음';
- const mbtiList=Object.keys(mbti).map(k=>MBTI_LB[mbti[k]]).join('·')||'미선택';
  const days=num('p-days')||4;
  return '여행지: '+d.n+' ('+d.c+(d.k?'·국내':'·해외')+') — '+d.d+'.\n'
-  +'여행자: '+partyDesc()+', 기간: '+days+'일, 출발 월: '+pm.value+'월, 총예산: '+document.getElementById('p-budget').value+'만원.\n'
-  +'선택한 조건: '+selList+'. 여행 성향: '+mbtiList+'.\n'
+  +'기간: '+days+'일, 출발 월: '+pm.value+'월, 1인 예산: '+budgetPer()+'만원.\n'
+  +'선택한 조건: '+selList+'.\n'
   +'위 조건에 맞춰 '+d.n+'의 '+days+'일 여행코스를 일차별로 짜주세요. 형식: "1일차: ..." 형태로 각 일차당 3~5문장(아침/오후/저녁 동선 + 먹거리 + 이동팁). 마지막에 "💡 팁" 한 줄. 마크다운 없이 평문으로 출력하세요.';
 }
 async function aiCall(prompt){
@@ -418,7 +326,6 @@ async function makeCourse(idx,pick){
  btn.disabled=false;btn.style.opacity='1';
 }
 document.getElementById('tf-go').addEventListener('click',()=>{
- if(travelers()===0){document.getElementById('tf-status').textContent='인원을 1명 이상 입력해주세요.';return}
  document.getElementById('tf-status').textContent='조건을 분석해 여행지를 추천하는 중…';
  const picks=render();
  polish(picks).finally(()=>{document.getElementById('tf-status').textContent='';});
