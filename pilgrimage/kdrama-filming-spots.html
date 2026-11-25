@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>K드라마·영화 촬영지 순례 지도 — 드라마별로 모아서 1일 코스 자동 생성</title>
+<meta name="description" content="눈물의 여왕·도깨비·사랑의 불시착·호텔 델루나·이태원 클라쓰·오징어 게임 등 인기 K-드라마·영화의 실제 촬영지를 지도와 카드로 모았습니다. 드라마를 고르면 같은 도시의 촬영지가 자동으로 1일 순례 코스로 정리됩니다.">
+<link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/pilgrimage/kdrama-filming-spots.html">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
+a{color:#2563eb;text-decoration:none}
+header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+header .logo{font-weight:800;font-size:20px;color:#0f766e}
+nav a{margin-left:18px;font-size:14px;color:#555}
+main{max-width:760px;margin:0 auto;padding:40px 20px}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
+h1{font-size:32px;line-height:1.3;margin-bottom:16px}
+h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
+h3{font-size:17px;margin:24px 0 8px}
+p{margin-bottom:14px}
+ul,ol{margin:0 0 14px 22px}
+img{max-width:100%;border-radius:10px}
+.meta{color:#888;font-size:13px;margin-bottom:24px}
+.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
+.cta h3{color:#fff;margin-top:0}
+.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+.card .body{padding:14px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{font-size:13px;color:#777;margin:0}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
+.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
+.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
+.live-meta{font-size:13px;color:#777;margin-bottom:20px}
+.live-meta li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/familytrip/">온 가족 여행 연구소</a>
+  <nav>
+    <a href="/familytrip/guides.html">여행 가이드</a>
+    <a href="/familytrip/live.html">실시간 카메라</a>
+    <a href="/familytrip/cities.html">세계 도시 100</a>
+    <a href="/familytrip/places.html">가볼만한 곳</a>
+    <a href="/familytrip/korea.html">한국 여행</a>
+  </nav>
+</header>
+<main><div class="meta">K-콘텐츠 순례 · 2026-11-25</div><h1>K드라마·영화 촬영지 순례 지도 — 드라마별로 모아서 1일 코스 자동 생성</h1><p>인기 드라마·영화의 <strong>실제 촬영지</strong>를 지도와 카드로 모았습니다. 보고 싶은 작품을 고르면 촬영지가 나옵니다. 같은 도시의 촬영지는 <strong>1일 순례 코스로 자동 정렬</strong>됩니다.</p>
+<blockquote>
+<p>💡 촬영지는 팬들이 확인한 공개 정보 기준이며, 일부는 세트·CG 합성 장면일 수 있습니다. 방문 전 각 장소의 운영 여부를 확인하세요.</p>
+</blockquote>
+<div class="calc-box" style="background:#fff;border:1px solid #eee;border-radius:14px;padding:20px;margin:18px 0">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px">
+<div><label style="font-size:12px;font-weight:700;color:#4b5563">작품/드라마</label><select id="pg-fr" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px"></select></div>
+<div><label style="font-size:12px;font-weight:700;color:#4b5563">지역</label><select id="pg-rg" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px"></select></div>
+<div><label style="font-size:12px;font-weight:700;color:#4b5563">검색</label><input id="pg-q" placeholder="장소·설명 검색" style="width:100%;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box"></div>
+</div>
+<div id="pg-stats" style="font-size:12.5px;color:#666"></div>
+</div>
+
+<div id="pg-map" style="height:420px;border-radius:12px;margin-bottom:16px;border:1px solid #e5e7eb"></div>
+
+<div id="pg-out"></div>
+
+<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous"></p>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<script>
+const SPOTS=[
+// ── 도깨비 (Guardian) ──
+{t:'도깨비',s:'경주 대릉원',r:'경주',lat:35.8347,lon:129.2217,d:'김신(김고은)과 도깨비의 인연이 시작되는 신라 왕릉 지구. 도깨비 첫 장면 촬영지로 유명.',tag:'사극'},
+{t:'도깨비',s:'불국사',r:'경주',lat:35.7905,lon:129.3314,d:'토함산 중턱의 사찰. 도깨비에서 김신이 중이 되기 전 머무는 사찰로 등장.',tag:'사극'},
+{t:'도깨비',s:'첨성대',r:'경주',lat:35.8344,lon:129.2196,d:'신라의 대표 별 관측대. 도깨비 오프닝의 경주 야경 장면.',tag:'사극'},
+{t:'도깨비',s:'해동 용궁사',r:'강릉',lat:37.8731,lon:128.9257,d:'바다 위에 지어진 듯한 사찰. 도깨비에서 김신의 전생과 관련된 장면.',tag:'사극'},
+// ── 사랑의 불시착 (Crash Landing) ──
+{t:'사랑의 불시착',s:'경포대·경포해변',r:'강릉',lat:37.7957,lon:128.8819,d:'윤세리와 리정혁의 첫 만남과 해변 장면의 배경.',tag:'현대극'},
+{t:'사랑의 불시착',s:'주문진',r:'강릉',lat:37.9020,lon:128.6495,d:'강릉 북부 해안 — 드라마 속 북한 접경 마을 컨셉의 실제 촬영지로 알려짐.',tag:'현대극'},
+{t:'사랑의 불시착',s:'성산일출봉',r:'제주',lat:33.4581,lon:126.9421,d:'제주 편 장면 — 성산포 일대 해안이 배경으로 사용.',tag:'현대극'},
+// ── 눈물의 여왕 (Queen of Tears) ──
+{t:'눈물의 여왕',s:'함덕해수변',r:'제주',lat:33.5435,lon:126.6692,d:'홍해인과 백이진의 제주 에피소드 핵심 배경 — 함덕 해수욕장 일대.',tag:'현대극'},
+{t:'눈물의 여왕',s:'섭지코지',r:'제주',lat:33.4434,lon:126.9400,d:'드라마 후반부 해안 절경 장면의 대표 촬영지.',tag:'현대극'},
+// ── 호텔 델루나 ──
+{t:'호텔 델루나',s:'남이섬',r:'여주',lat:37.2985,lon:127.5980,d:'호텔 델루나의 대표적인 자연 배경 — 남이섬 전역이 드라마의 영감으로 알려짐.',tag:'현대극'},
+{t:'호텔 델루나',s:'제주 협재해변',r:'제주',lat:33.5246,lon:126.5318,d:'드라마 속 해변 장면 일부 — 협재 일대.',tag:'현대극'},
+// ── 이태원 클라쓰 ──
+{t:'이태원 클라쓰',s:'이태원',r:'서울',lat:37.5343,lon:126.9946,d:'박새로이의 모태 — 이태원 거리 전체가 드라마 무대. 이태원역 일대 골목 필수.',tag:'현대극'},
+{t:'이태원 클라쓰',s:'남산타워',r:'서울',lat:37.5512,lon:126.9882,d:'드라마 오프닝·클라이맥스의 서울 야경 배경.',tag:'현대극'},
+// ── 오징어 게임 (Squid Game) ──
+{t:'오징어 게임',s:'성수동 카페거리',r:'서울',lat:37.5448,lon:127.0557,d:'성수동 카페·거리 — 드라마 속 성수동 장면의 실제 배경. 멜라니 카페 등 실제 카페 다수.',tag:'현대극'},
+{t:'오징어 게임',s:'남산타워',r:'서울',lat:37.5512,lon:126.9882,d:'기훈의 회사·서울 야경 장면 배경.',tag:'현대극'},
+// ── 응답하라 시리즈 ──
+{t:'응답하라 시리즈',s:'성수동',r:'서울',lat:37.5448,lon:127.0557,d:'응답하라 1988·1997·2017 등 시리즈의 서울 배경 — 성수동 골목.',tag:'시리즈'},
+{t:'응답하라 시리즈',s:'홍대입구역 일대',r:'서울',lat:37.5563,lon:126.9236,d:'홍대 클럽·거리 — 청춘극의 상징적 배경.',tag:'시리즈'},
+{t:'응답하라 시리즈',s:'연남동',r:'서울',lat:37.5557,lon:126.9250,d:'연남동 카페·골목 — 1997·2017 등 배경.',tag:'시리즈'},
+{t:'응답하라 시리즈',s:'을지로',r:'서울',lat:37.5663,lon:126.9914,d:'을지로 골목·포장마차 — 1997·2017 배경.',tag:'시리즈'},
+// ── 시그널 ──
+{t:'시그널',s:'광화문광장',r:'서울',lat:37.5720,lon:126.9769,d:'박해영의 과거·현재가 교차하는 서울 중심부 장면.',tag:'현대극'},
+{t:'시그널',s:'남산타워',r:'서울',lat:37.5512,lon:126.9882,d:'드라마 속 서울 야경·중계 장면 배경.',tag:'현대극'},
+// ── 기생충 ──
+{t:'기생충',s:'반포한강공원',r:'서울',lat:37.5106,lon:126.9956,d:'기택 가족의 피아노 연주 장면 등 한강공원 일대가 배경.',tag:'영화'},
+// ── 청계천 배경 영화·드라마 ──
+{t:'청계천 영화들',s:'청계천',r:'서울',lat:37.5692,lon:127.0019,d:'아저씨·타짜·내부자들·범죄도시 등 청계천을 배경으로 한 작품 다수 — 을지로3가~종로 구간 산책.',tag:'영화'},
+// ── 우리들의 블루스 ──
+{t:'우리들의 블루스',s:'통영 동피랑 벽화마을',r:'통영',lat:34.8502,lon:128.4340,d:'드라마 속 통영 마을의 실제 배경 — 동피랑 골목·바다 절경.',tag:'현대극'},
+// ── 서울의 봄 (Hometown Cha-Cha-Cha) ──
+{t:'서울의 봄',s:'포항 영일대해수욕장',r:'포항',lat:36.0358,lon:129.3820,d:'드라마 속 해변·시장 장면의 실제 배경 — 포항 시내와 영일대 일대.',tag:'현대극'},
+// ── 슬기로운 의사생활 ──
+{t:'슬기로운 의사생활',s:'강릉 강문해변',r:'강릉',lat:37.7645,lon:128.8760,d:'슬기로운 의사생활의 강릉 편 핵심 배경 — 강문해변과 주문진 일대.',tag:'현대극'},
+// ── 사극·시대극 단골 촬영지 ──
+{t:'사극 단골',s:'전주 한옥마을',r:'전주',lat:35.8145,lon:127.1530,d:'조선시대 배경 사극·영화의 최다 촬영지 — 경기도 아닌 전라도 대표 한옥 거리.',tag:'사극'},
+{t:'사극 단골',s:'안동 하회마을',r:'안동',lat:36.5430,lon:128.5090,d:'유교 마을 — 사극·시대극의 단골 촬영지. 하회별신굿 탈춤 원형지.',tag:'사극'},
+{t:'사극 단골',s:'경주 양동마을',r:'경주',lat:35.9760,lon:129.1608,d:'조선 후기 양동 씨 가옥 — 사극·시대극 촬영 명소.',tag:'사극'},
+{t:'사극 단골',s:'여주 세종대왕릉',r:'여주',lat:37.2777,lon:127.6040,d:'조선 왕릉 — 사극·사극 영화의 역사 배경지.',tag:'사극'}
+];
+const REGIONS=[...new Set(SPOTS.map(s=>s.r))];
+const FRANCHISES=[...new Set(SPOTS.map(s=>s.t))];
+// 필터 채우기
+const fr=document.getElementById('pg-fr'),rg=document.getElementById('pg-rg');
+fr.innerHTML='<option value="">전체 작품</option>'+FRANCHISES.map(f=>'<option>'+f+'</option>').join('');
+rg.innerHTML='<option value="">전체 지역</option>'+REGIONS.map(r=>'<option>'+r+'</option>').join('');
+const FCOLORS={'도깨비':'#8b5cf6','사랑의 불시착':'#ec4899','눈물의 여왕':'#f59e0b','호텔 델루나':'#6366f1','이태원 클라쓰':'#f97316','오징어 게임':'#22c55e','응답하라 시리즈':'#06b6d4','시그널':'#ef4444','기생충':'#eab308','청계천 영화들':'#78716c','우리들의 블루스':'#3b82f6','서울의 봄':'#14b8a6','슬기로운 의사생활':'#a855f7','사극 단골':'#78716c'};
+let map,markers=[];
+function hav(a,b,c,d){const R=6371000,x=(c-a)*Math.PI/180,y=(d-b)*Math.PI/180,h=Math.sin(x/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+function filtered(){
+ const f=fr.value,r=rg.value,q=(document.getElementById('pg-q').value||'').toLowerCase();
+ return SPOTS.filter(s=>(!f||s.t===f)&&(!r||s.r===r)&&(!q||(s.s+s.d+s.t).toLowerCase().includes(q)));
+}
+function render(){
+ const list=filtered();
+ document.getElementById('pg-stats').innerHTML='📍 <b>'+list.length+'</b>개 촬영지 · '+REGIONS.length+'개 지역 · '+FRANCHISES.length+'개 작품';
+ // 지도 마커
+ if(markers.length)markers.forEach(m=>map.removeLayer(m));markers=[];
+ list.forEach(s=>{
+  const col=FCOLORS[s.t]||'#0f766e';
+  const mk=L.circleMarker([s.lat,s.lon],{radius:9,color:'#fff',weight:2,fillColor:col,fillOpacity:.95}).addTo(map);
+  mk.bindPopup('<b>'+s.s+'</b><br><span style="color:#888;font-size:12px">'+s.t+' · '+s.r+'</span><br><span style="font-size:12px">'+s.d+'</span>');
+  markers.push(mk);
+ });
+ if(list.length){map.fitBounds(L.latLngBounds(list.map(s=>[s.lat,s.lon])),{padding:[30,30]})}
+ // 카드 출력 — 지역별 그룹
+ const byRegion={};list.forEach(s=>{(byRegion[s.r]=byRegion[s.r]||[]).push(s)});
+ let html='';
+ Object.keys(byRegion).sort().forEach(rg2=>{
+  const arr=byRegion[rg2];
+  html+='<div style="margin-bottom:20px"><div style="font-size:16px;font-weight:800;color:#0f766e;margin-bottom:10px">📍 '+rg2+' <span style="font-size:12px;color:#888;font-weight:400">'+arr.length+'곳</span></div>'
+   +'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px">';
+  arr.forEach(s=>{
+   const col=FCOLORS[s.t]||'#0f766e';
+   html+='<div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:14px 16px">'
+    +'<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:6px"><div style="font-size:14.5px;font-weight:700">'+s.s+'</div><span style="font-size:10.5px;background:'+col+'22;color:'+col+';padding:3px 8px;border-radius:10px;font-weight:700;white-space:nowrap">'+s.t+'</span></div>'
+    +'<div style="font-size:12.5px;color:#555;line-height:1.6;margin-bottom:8px">'+s.d+'</div>'
+    +'<a href="https://www.google.com/maps/search/?api=1&query='+s.lat+','+s.lon+'" target="_blank" rel="noopener" style="font-size:12px;color:#0f766e;font-weight:700;text-decoration:none">🗺️ 지도에서 보기 →</a></div>';
+  });
+  html+='</div></div>';
+ });
+ document.getElementById('pg-out').innerHTML=html||'<div style="color:#888;padding:20px;text-align:center">조건에 맞는 촬영지가 없습니다.</div>';
+}
+// 지도 초기화
+map=L.map('pg-map').setView([36.5,127.8],7);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',maxZoom:19}).addTo(map);
+[fr,rg,document.getElementById('pg-q')].forEach(el=>el.addEventListener('input',render));
+render();
+</script>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 촬영지가 실제 그 작품의 촬영지인가요?</strong>
+A. 팬들과 현지 방문객들이 확인한 공개 촬영지 기준입니다. 일부 장면은 세트나 CG 합성일 수 있으니 "○○ 촬영지로 알려진" 정도로 이해하세요.</p>
+<p><strong>Q. 드라마 순서대로 코스를 짤 수 있나요?</strong>
+A. 같은 도시의 촬영지를 모아 <a href="/familytrip/tools/trip-planner.html">여행 코스 생성기</a>에서 "경주"·"강릉"·"제주" 등을 검색하면 일차별 코스로 만들 수 있습니다.</p>
+<p><strong>Q. 새로운 촬영지를 추가할 수 있나요?</strong>
+A. 네 — 작품·지역·좌표·설명만 알려주시면 데이터에 추가해 드립니다.</p>
+<hr />
+<p><em>다음: <a href="/familytrip/guides.html">한국 여행 가이드</a>, <a href="/familytrip/tools/trip-planner.html">여행 코스 생성기</a>, <a href="/familytrip/live/tourist-live.html">실시간 CCTV</a>로 현장 상황 확인.</em></p></main>
+<footer>
+  온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
+  이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.
+</footer>
+<script src="/familytrip/live/lightbox.js"></script>
+<script src="/familytrip/live/weather.js"></script>
+</body>
+</html>
