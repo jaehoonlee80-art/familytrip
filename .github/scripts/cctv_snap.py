@@ -55,13 +55,13 @@ def snap(cam, base_t, list_t, path_t):
     except Exception as e:
         return cid, f'err:{type(e).__name__}'
 
-def snap_ffmpeg(cam):
+def snap_ffmpeg(cam, jw_sess=None):
     """임의 HLS URL → ffmpeg로 1프레임 추출."""
     cid = cam['id']
     try:
         url = cam.get('url')
         if cam.get('kind') == 'jejusi-wave':
-            url = jejusi_hls_url(cam['cam'])
+            url = jejusi_hls_url(cam['cam'], jw_sess)
             if not url:
                 return cid, 'no-hlsurl'
         if cam.get('kind') == 'jeju-danger':
@@ -112,8 +112,8 @@ def snap_ts_segment(cam, pl_url):
             return cid, 'ok'
     return cid, 'ffmpeg-fail'
 
-def jejusi_hls_url(cam):
-    """제주시 realcctvHls: CSRF 토큰 + 세션 쿠키로 hlsUrl 발급."""
+def jejusi_session():
+    """제주시 realcctvHls 세션 1개 — CSRF 토큰+쿠키를 19대가 공유."""
     cj = http.cookiejar.CookieJar()
     op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
     op.addheaders = [('User-Agent', 'Mozilla/5.0')]
@@ -121,11 +121,18 @@ def jejusi_hls_url(cam):
     h = op.open(page, timeout=20).read().decode('utf-8', 'replace')
     m = re.search(r'_csrf" content="([^"]+)', h)
     if not m:
+        return None, None
+    return op, (page, m.group(1))
+
+def jejusi_hls_url(cam, sess):
+    """공유 세션으로 hlsUrl 발급 (병렬 호출 시 WAF 차단 → 순차 처리)."""
+    op, (page, csrf) = sess
+    if not op:
         return None
     req = urllib.request.Request(
         'https://www.jejusi.go.kr/bangjae/realcctvHls/getHlsCctvUrlAjax.ajax',
         data=('point_id=' + str(cam)).encode(), method='POST',
-        headers={'X-CSRF-TOKEN': m.group(1),
+        headers={'X-CSRF-TOKEN': csrf,
                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                  'X-Requested-With': 'XMLHttpRequest',
                  'Referer': page})
@@ -156,12 +163,19 @@ def main():
     if os.path.exists(BEACH_JSON):
         jpg_jobs = json.load(open(BEACH_JSON, encoding='utf-8'))
     ff_jobs = []
+    jw_jobs = []
     if os.path.exists(KR_SRC_JSON):
-        ff_jobs = json.load(open(KR_SRC_JSON, encoding='utf-8'))
+        for cam in json.load(open(KR_SRC_JSON, encoding='utf-8')):
+            (jw_jobs if cam.get('kind') == 'jejusi-wave' else ff_jobs).append(cam)
     with ThreadPoolExecutor(max_workers=8) as ex:
         results = list(ex.map(lambda j: snap(*j), jobs))
         results += list(ex.map(snap_jpg, jpg_jobs))
         results += list(ex.map(snap_ffmpeg, ff_jobs))
+    # jejusi-wave는 세션 공유 + 순차 (병렬 시 jejusi.go.kr WAF 차단)
+    if jw_jobs:
+        jw_sess = jejusi_session()
+        for cam in jw_jobs:
+            results.append(snap_ffmpeg(cam, jw_sess))
     ok = sum(1 for _, s in results if s == 'ok')
     print(f'snapshots: {ok}/{len(jobs)} ok')
     for cid, s in results:
