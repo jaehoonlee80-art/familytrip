@@ -180,6 +180,29 @@ const COURSES=[
  careUrl:'https://www.klook.com/ko/search/result/?query=%ED%95%A9%EC%A0%95%20%EC%84%B8%EC%8B%A0'}
 ];
 const AREA_KO={myeongdong:'명동',gangnam:'강남·청담',hongdae:'홍대·합정',busan:'부산·해운대'};
+// ── 지역별 교통·편의 정보 (실제 노선·주차장 기준) ──────────
+const AREA_TRANSIT={
+myeongdong:{
+ subway:'4호선 명동역(도보 3~5분) · 3호선 충무로역 · 5호선 광화문역·공항철도 서울역 도보권',
+ transit:'인천공항 → 공항철도 서울역 하차 후 도보 15분 또는 지하철 환승. 버스는 명동역·충무로역 정류장 다수.',
+ parking:'<b>P1 남산동 공영주차장</b> — 퇴계로20길 24, 5분 300원(1시간 약 3,600원), 명동역 도보 3분 · <b>P2 필동 공영주차장</b> — 필동로 55, 5분 200원(동쪽 방향) · <b>P3 명동대성당 지하주차장</b> — 약 200면, 백화점급 요금(1시간 6,000원~, 5만원↑ 구매 시 1시간 무료) · <b>P4 롯데백화점 본점 주차장</b> — 남대문로 81, 장시간 시 가장 저렴할 수 있음. ⚠️ 명동 중심가는 차량 진입 불가 — 남산동 공영이 차면 필동 공영으로.',
+ toilet:'명동역·충무로역 화장실 / 남산동 공영주차장 내 / 롯데·신세계·현대백화점 지하 화장실(영업시간 내) / 골목 공중화장실 다수'},
+gangnam:{
+ subway:'7호선 청담역 · 분당선 압구정로데오역 · 3호선 신사역 — 파크하얏트 서울까지 도보 10~15분',
+ transit:'인천공항 → AREX 직통열차 청담역 하차 후 도보, 또는 6002 공항버스 청담·압구정 하차. 강남역(2·신분당·수인분당)에서 버스·택시 환승.',
+ parking:'호텔 주차장(투숙객 할인·유료) / 압구정로데오 상권 주차장 다수(30분 단위 유료) / 청담동·신사동 공영주차장 소규모 — 성수기엔 호텔 주차 예약 권장',
+ toilet:'청담역·압구정로데오역·신사역 화장실 / 호텔 로비·리조트 내 / 청담동 카페·식당 화장실'},
+hongdae:{
+ subway:'6호선 합정역 · 경의중앙선 합정역 · 공항철도 홍대입구역 · 2호선 홍대입구역 — 스테이 동네에 따라 도보 5~10분',
+ transit:'인천공항 → 공항철도 홍대입구역 직통 / 6002 공항버스 홍대입구 하차. 홍대입구역(2호선)에서 연트럴파크 방면 도보.',
+ parking:'<b>P1 연남동 공영주차장</b> — 연남로 84, 5분 300원(1시간 약 3,600원), 24시간 운영, 가장 저렴 · <b>P2 동교1 노상공영주차장</b> — 홍대입구역 남쪽, 5분 500원(1시간 6,000원) · <b>P3 서교동 노상공영주차장</b> — 5분 400원, 12~23시 운영. ⚠️ 주말 만차 빈발 — 평일 방문 또는 앱 주차권(모두의주차장 6시간권 약 9,900원, 기계식 B4) 활용. 공휴일 일부 노상 무료.',
+ toilet:'홍대입구역·합정역 화장실 / 마포구 공중화장실(연트럴파크·홍대 중앙공원 인근) / 카페·식당 이용 화장실'},
+busan:{
+ subway:'2호선 해운대역(신라스테이 도보권) · 2호선 중동역·벡스코역 환승',
+ transit:'김해공항 → 경전철 환승 또는 공항버스 해운대 하차 / 부산역·서면에서 지하철 2호선 해운대 방면. 블루라인파크(해변열차) 미포정거장 도보권.',
+ parking:'<b>P1 미포공영주차장</b> — 중동 1778-2, 97면, 10분 300원(2시간 약 3,600원), 블루라인파크 미포정거장 도보 5~6분 · <b>P2 해운대광장 공영주차장</b> — 10분 500원, 해변 중앙권 가까움 · <b>P3 송림공원 공영주차장</b> — 해변 앞, 개장기간 임시주차장(1일 최대 약 15,000원) · <b>P4 문탠로드관광공영주차장</b> — 10분 300원. ⚠️ 성수기 해수욕장 주차는 혼잡 — 미포·문탠로드 쪽이 상대적으로 여유.',
+ toilet:'해운대역 화장실 / 해운대해수욕장 개장기간 해변 화장실 / 해운대 시장 내 / 호텔 내 화장실'}
+};
 const DOWN_KO={none:'다운타임 없음',mild_redness:'미세 홍조·예민',swelling_care:'부기·진정 관리'};
 const CARE_KO={head_spa:'헤드스파',seshin:'1인 세신',aesthetic:'에스테틱',skin_clinic:'피부과'};
 const SPEC_LABELS=[
@@ -316,6 +339,21 @@ function render(){
    +s.cons.map(x=>'· '+x).join('<br>')+'</div>'
    +'<a href="'+s.url+'" target="_blank" rel="noopener" class="rg-aff" data-type="stay" data-id="'+s.id+'" data-provider="'+s.provider+'" style="display:block;text-align:center;background:#0f766e;color:#fff;text-decoration:none;padding:11px;border-radius:10px;font-size:13.5px;font-weight:700">예약·자세히 보기</a>'
    +'</div>';
+ });
+ sh+='</div>';
+ // ── 지역별 교통·주차·화장실 ──
+ sh+='<h2 style="font-size:20px;margin:34px 0 14px">🚉 지역별 교통 · 주차 · 화장실</h2>'
+  +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px">';
+ Object.keys(AREA_TRANSIT).forEach(k=>{
+  const t=AREA_TRANSIT[k];
+  sh+='<div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:18px 20px">'
+   +'<div style="font-size:15px;font-weight:800;color:#111;margin-bottom:10px">📍 '+AREA_KO[k]+'</div>'
+   +'<div style="font-size:12.5px;color:#444;line-height:1.85">'
+   +'<b>🚇 지하철</b> — '+t.subway+'<br>'
+   +'<b>🚌 이동</b> — '+t.transit+'<br>'
+   +'<b>🅿️ 주차</b> — '+t.parking+'<br>'
+   +'<b>🚻 화장실</b> — '+t.toilet
+   +'</div></div>';
  });
  sh+='</div>';
  sh+='<h2 style="font-size:20px;margin:34px 0 14px">🗺️ 전체 회복 동선 코스 ('+courses.length+')</h2>';
