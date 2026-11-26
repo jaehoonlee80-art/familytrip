@@ -180,7 +180,7 @@ function mount(card){
   case 'webrtc': startWebrtc(card,c,bd); break;
   case 'snap': bd.innerHTML='<img loading="lazy" src="'+KF_IMG(c.code)+'" alt="'+esc(c.short)+'">'; snapRefresh(bd.querySelector('img'),()=>KF_IMG(c.code),20000); break;
   case 'kbs': bd.innerHTML='<div class="ph">불러오는 중…</div>'; startKbs(card,c,bd); break;
-  case 'snapjob': bd.innerHTML='<img loading="lazy" src="'+SNAP+c.snap+'" alt="'+esc(c.short)+'"><div class="ph" style="position:absolute;left:8px;top:8px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:2px 7px;border-radius:6px">5분 스냅샷</div>'; snapRefresh(bd.querySelector('img'),()=>SNAP+c.snap+'?t='+Date.now(),60000); break;
+  case 'snapjob': bd.innerHTML='<img loading="lazy" src="'+SNAP+c.snap+'" alt="'+esc(c.short)+'"><div class="ph" style="position:absolute;left:8px;top:8px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:2px 7px;border-radius:6px">5분 스냅샷</div>';{const im=bd.querySelector('img');im.onerror=()=>{if(im.dataset.dead)return;im.dataset.dead=1;bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">스냅샷 준비 중 — 공식 페이지에서 보기 ↗</a></div>';};} snapRefresh(bd.querySelector('img'),()=>SNAP+c.snap+'?t='+Date.now(),60000); break;
   default: bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">공식 페이지에서 실시간 화면 보기 ↗</a></div>';
  }
 }

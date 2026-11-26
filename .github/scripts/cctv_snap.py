@@ -126,9 +126,9 @@ def jejusi_session():
 
 def jejusi_hls_url(cam, sess):
     """공유 세션으로 hlsUrl 발급 (병렬 호출 시 WAF 차단 → 순차 처리)."""
-    op, (page, csrf) = sess
-    if not op:
+    if not sess or not sess[0]:
         return None
+    op, (page, csrf) = sess
     req = urllib.request.Request(
         'https://www.jejusi.go.kr/bangjae/realcctvHls/getHlsCctvUrlAjax.ajax',
         data=('point_id=' + str(cam)).encode(), method='POST',
