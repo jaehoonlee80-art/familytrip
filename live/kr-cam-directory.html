@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>한국 실시간 카메라 디렉토리 — 산·바다·제주 공공 CCTV 190곳 지도</title>
+<meta name="description" content="국립공원·연안포털·지자체·KBS 재난포털 등 공공기관 실시간 카메라 190곳을 지도와 카테고리 탭으로 탐색. 산·해안·하천·제주 현장 화면.">
+<link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/kr-cam-directory.html">
+<link rel="stylesheet" href="/familytrip/lib/leaflet.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js" crossorigin="anonymous">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#f6f4ef;color:#2b2b2b;line-height:1.6}
+a{color:#2563eb;text-decoration:none}
+header{background:#fff;border-bottom:1px solid #eee;padding:14px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:900}
+header .logo{font-weight:800;font-size:19px;color:#0f766e}
+nav a{margin-left:16px;font-size:13px;color:#555}
+main{max-width:1280px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:26px;margin-bottom:6px}
+.sub{color:#777;font-size:14px;margin-bottom:16px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tabs button{border:1px solid #ddd;background:#fff;border-radius:20px;padding:7px 16px;font-size:13px;cursor:pointer;color:#444}
+.tabs button.on{background:#0f766e;color:#fff;border-color:#0f766e}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+#map{height:560px;border-radius:14px;border:1px solid #e5e0d8;z-index:1}
+.count{font-size:12px;color:#999;margin:6px 2px}
+.grid{display:flex;flex-direction:column;gap:12px;max-height:560px;overflow-y:auto;padding-right:4px}
+.cam{background:#fff;border:1px solid #e8e4da;border-radius:12px;overflow:hidden;scroll-margin-top:80px}
+.cam.flash{outline:3px solid #0f766e}
+.cam .hd{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #f0ece2}
+.cam .nm{font-weight:700;font-size:14px}
+.cam .meta{font-size:11px;color:#999}
+.cam .bd{position:relative;background:#000}
+.cam .bd video,.cam .bd img{display:block;width:100%;height:180px;object-fit:cover}
+.cam .bd .ph{display:flex;align-items:center;justify-content:center;height:180px;color:#888;font-size:13px;background:#1c1c1c}
+.cam .ft{padding:8px 12px;font-size:12px;color:#666;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cam .ft a{font-size:12px;white-space:nowrap}
+.tag{display:inline-block;font-size:10px;background:#eef2ff;color:#4338ca;border-radius:8px;padding:1px 7px;margin-right:4px}
+.src-note{font-size:11px;color:#aaa}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:#666;margin-top:8px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:26px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/familytrip/">온 가족 여행 연구소</a>
+  <nav>
+    <a href="/familytrip/live.html">실시간 카메라</a>
+    <a href="/familytrip/korea.html">한국 여행</a>
+    <a href="/familytrip/guides.html">여행 가이드</a>
+    <a href="/familytrip/places.html">가볼만한 곳</a>
+  </nav>
+</header>
+<main>
+<h1>📷 한국 실시간 카메라 디렉토리</h1>
+<p class="sub">국립공원공단 · 해양수산부 연안포털 · 포항시 · 제주시/서귀포시 · KBS 재난포털 등 공공기관 카메라 <strong id="total">190</strong>곳. 탭을 선택하면 지도의 위치와 목록이 함께 필터됩니다.</p>
+<div class="tabs" id="tabs"></div>
+<div class="layout">
+  <div>
+    <div id="map"></div>
+    <div class="legend">
+      <span><i class="dot" style="background:#0f766e"></i>제주</span>
+      <span><i class="dot" style="background:#7c3aed"></i>산·등산</span>
+      <span><i class="dot" style="background:#0284c7"></i>해안·바다</span>
+      <span><i class="dot" style="background:#65a30d"></i>하천</span>
+      <span><i class="dot" style="background:#dc2626"></i>도시·기타</span>
+    </div>
+    <p class="count" id="mapcount"></p>
+  </div>
+  <div>
+    <p class="count" id="gridcount"></p>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+</main>
+<footer>출처: 각 운영기관 공식 페이지 · 화면 제공 여부는 기관 사정에 따라 변동될 수 있습니다.</footer>
+<script src="/familytrip/lib/leaflet.js"></script>
+<script src="/familytrip/lib/lightbox.js" defer></script>
+<script>
+const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev';
+const KF='https://coast.mof.go.kr/serviceGateway.jsp?'+encodeURIComponent('http://10.176.62.134:9001/tilemapApi.do?url=');
+const KF_IMG=u=>KF+encodeURIComponent('http://220.95.232.18:8080/img/'+u+'_0.jpg');
+const SNAP='cams/';
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const TABS=[
+ {id:'all',label:'전체',test:()=>true},
+ {id:'jeju',label:'제주',test:c=>c.region_id==='jeju'||['jejusi-wave','jeju-danger','seogwipo','hallasan'].includes(c.src)},
+ {id:'mountain',label:'산·등산',test:c=>c.cats.some(x=>['mountain','national-park','hiking'].includes(x))},
+ {id:'coast',label:'해안·바다',test:c=>c.cats.some(x=>['coast','beach'].includes(x))},
+ {id:'river',label:'하천·강',test:c=>c.cats.includes('river')},
+ {id:'city',label:'도시·기타',test:c=>!['jeju','mountain','coast','river'].some(t=>TABS.find(x=>x.id===t).test(c))||c.cats.includes('city')},
+];
+let CAMS=[],MAP,MARKERS={},KBS={};
+const CAT_COLOR={jeju:'#0f766e',mountain:'#7c3aed',coast:'#0284c7',river:'#65a30d',city:'#dc2626'};
+function camColor(c){
+ if(c.region_id==='jeju'||['jejusi-wave','jeju-danger','seogwipo','hallasan'].includes(c.src))return CAT_COLOR.jeju;
+ if(c.cats.some(x=>['mountain','national-park','hiking'].includes(x)))return CAT_COLOR.mountain;
+ if(c.cats.some(x=>['coast','beach'].includes(x)))return CAT_COLOR.coast;
+ if(c.cats.includes('river'))return CAT_COLOR.river;
+ return CAT_COLOR.city;
+}
+function tabsHTML(){
+ document.getElementById('tabs').innerHTML=TABS.map(t=>'<button data-t="'+t.id+'" class="'+(t.id==='all'?'on':'')+'">'+t.label+'</button>').join('');
+ document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  render(b.dataset.t);
+ });
+}
+function inTab(c,tid){return TABS.find(t=>t.id===tid).test(c);}
+function render(tid){
+ const list=CAMS.filter(c=>inTab(c,tid));
+ document.getElementById('gridcount').textContent=list.length+'개 카메라';
+ document.getElementById('grid').innerHTML=list.map(cardHTML).join('');
+ document.getElementById('mapcount').textContent='표시 중 '+list.length+'개';
+ // markers
+ Object.values(MARKERS).forEach(m=>MAP.removeLayer(m));MARKERS={};
+ list.forEach(c=>{
+  const col=camColor(c);
+  const m=L.circleMarker([c.lat,c.lon],{radius:7,color:'#fff',weight:1.5,fillColor:col,fillOpacity:.9}).addTo(MAP);
+  m.bindPopup('<b>'+esc(c.short)+'</b><br>'+esc(c.region)+'<br><a href="#cam-'+c.id+'" onclick="document.getElementById(\'cam-'+c.id+'\').scrollIntoView({behavior:\'smooth\'});return false;">카드 보기</a>');
+  MARKERS[c.id]=m;
+ });
+ if(list.length&&tid!=='all'){const g=L.latLngBounds(list.map(c=>[c.lat,c.lon]));MAP.fitBounds(g.pad(0.15));}
+ bindLazy();
+}
+function cardHTML(c){
+ const tags=c.cats.slice(0,3).map(t=>'<span class="tag">'+esc(t)+'</span>').join('');
+ return '<div class="cam" id="cam-'+c.id+'" data-embed="'+c.embed+'" data-id="'+c.id+'">'
+ +'<div class="hd"><div><div class="nm">'+esc(c.short)+'</div><div class="meta">'+esc(c.region)+(c.approx?' · 위치 추정':'')+'</div></div><div>'+tags+'</div></div>'
+ +'<div class="bd" data-bd></div>'
+ +'<div class="ft"><span class="src-note">'+esc(c.source)+'</span><a href="'+c.official+'" target="_blank" rel="noopener">공식 화면 ↗</a></div></div>';
+}
+// ── lazy embed ──
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){mount(e.target);io.unobserve(e.target);}}),{rootMargin:'400px'});
+function bindLazy(){document.querySelectorAll('#grid .cam').forEach(el=>{if(!el._io)io.observe(el);});}
+function mount(card){
+ const c=CAMS.find(x=>x.id===card.dataset.id);if(!c)return;
+ const bd=card.querySelector('[data-bd]');
+ switch(c.embed){
+  case 'hls': bd.innerHTML='<video muted playsinline autoplay></video>'; playHls(bd.querySelector('video'),c.hls); break;
+  case 'proxy': bd.innerHTML='<video muted playsinline autoplay></video><div class="ph" style="position:absolute;inset:0;display:none">연결 중…</div>'; startProxy(card,c,bd.querySelector('video')); break;
+  case 'webrtc': startWebrtc(card,c,bd); break;
+  case 'snap': bd.innerHTML='<img loading="lazy" src="'+KF_IMG(c.code)+'" alt="'+esc(c.short)+'">'; snapRefresh(bd.querySelector('img'),()=>KF_IMG(c.code),20000); break;
+  case 'kbs': bd.innerHTML='<div class="ph">불러오는 중…</div>'; startKbs(card,c,bd); break;
+  case 'snapjob': bd.innerHTML='<img loading="lazy" src="'+SNAP+c.snap+'" alt="'+esc(c.short)+'"><div class="ph" style="position:absolute;left:8px;top:8px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:2px 7px;border-radius:6px">5분 스냅샷</div>'; snapRefresh(bd.querySelector('img'),()=>SNAP+c.snap+'?t='+Date.now(),60000); break;
+  default: bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">공식 페이지에서 실시간 화면 보기 ↗</a></div>';
+ }
+}
+function snapRefresh(img,urlFn,ms){
+ if(!img)return;
+ img.onerror=()=>{img.style.opacity=.35;};
+ setInterval(()=>{const u=urlFn();const t=new Image();t.onload=()=>{img.src=u;};t.src=u;},ms);
+}
+function playHls(video,url){
+ if(video.canPlayType('application/vnd.apple.mpegurl')){video.src=url;return;}
+ if(window.Hls&&Hls.isSupported()){const h=new Hls({maxBufferLength:8});h.loadSource(url);h.attachMedia(video);return;}
+ video.parentElement.insertAdjacentHTML('beforeend','<div class="ph">이 브라우저는 HLS를 지원하지 않습니다</div>');
+}
+async function startProxy(card,c,video){
+ try{
+  const r=await fetch(PROXY+'/jejusi?cam='+c.cam);
+  const j=await r.json();
+  if(!j.url)throw 0;
+  const purl=PROXY+'/?url='+encodeURIComponent(j.url);
+  playHls(video,purl);
+  // uid 수명 대비 50분 후 재발급
+  setTimeout(()=>startProxy(card,c,video),50*60*1000);
+ }catch(e){video.parentElement.querySelector('.ph').style.display='flex';}
+}
+async function startKbs(card,c,bd){
+ try{
+  if(!Object.keys(KBS).length){
+   const r=await fetch('kbs-cams.json');KBS={};(await r.json()).forEach(k=>KBS[k.id]=k);
+  }
+  const k=KBS[c.sid];
+  if(k&&k.img){bd.innerHTML='<img src="'+k.img+'" alt="'+esc(c.short)+'">';snapRefresh(bd.querySelector('img'),()=>KBS[c.sid]?KBS[c.sid].img:k.img,90000);}
+  else bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">공식 페이지에서 보기 ↗</a></div>';
+ }catch(e){bd.innerHTML='<div class="ph">KBS 목록 로드 실패</div>';}
+}
+function startWebrtc(card,c,bd){
+ bd.innerHTML='<video id="wv-'+c.id+'" autoplay muted playsinline style="width:100%;height:180px;object-fit:cover;background:#000"></video><div class="ph" style="position:absolute;inset:0">연결 중…</div>';
+ const done=()=>{const ph=bd.querySelector('.ph');if(ph)ph.remove();};
+ if(!window.UnrealWebRTCPlayer){
+  const s1=document.createElement('script');s1.src='https://live.knps.or.kr/play/rtc/webrtcadapter.js';
+  s1.onload=()=>{const s2=document.createElement('script');s2.src='https://live.knps.or.kr/play/rtc/unrealwebrtcplayer_knps.js';s2.onload=()=>initWrtc(c,bd,done);document.head.appendChild(s2);};
+  document.head.appendChild(s1);
+ }else initWrtc(c,bd,done);
+}
+function initWrtc(c,bd,done){
+ try{
+  const p=new UnrealWebRTCPlayer('wv-'+c.id,c.alias,'','live.knps.or.kr','448',true,true,'tcp');
+  p.Play();
+  setTimeout(done,8000);
+ }catch(e){bd.querySelector('.ph').textContent='연결 실패';}
+}
+// ── boot ──
+fetch('kr-cams.json').then(r=>r.json()).then(cams=>{
+ CAMS=cams;
+ document.getElementById('total').textContent=cams.length;
+ MAP=L.map('map',{scrollWheelZoom:true}).setView([36.4,127.9],7);
+ L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
+  attribution:'© OpenStreetMap · © CARTO',maxZoom:19}).addTo(MAP);
+ tabsHTML();render('all');
+});
+</script>
+</body>
+</html>

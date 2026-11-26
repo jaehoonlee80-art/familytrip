@@ -1,7 +1,7 @@
 """공공 CCTV HLS → JPEG 스냅샷 수집 (GitHub Actions용).
 live/cams.json(옹진군) + live/port-cams.json(인천항) 처리.
 site/live/cams/{id}.jpg 를 갱신한다."""
-import json, os, re, subprocess, tempfile, urllib.request
+import json, os, re, subprocess, tempfile, urllib.request, http.cookiejar
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -15,6 +15,8 @@ UA = {'User-Agent': 'familytrip-cctv-snap/1.0'}
 # 해변 카메라: http JPEG 직접 다운로드 (ffmpeg 불필요)
 BEACH_JSON = os.path.join(ROOT, 'live', 'beach-cams.json')
 BEACH_URL = 'http://220.95.232.18/camera/{code}_{cam}.jpg'
+# 전국 카메라 디렉토리 스냅샷 소스 (서귀포·제주danger·제주wave)
+KR_SRC_JSON = os.path.join(ROOT, 'live', 'kr-snap-sources.json')
 
 def fetch(url, timeout=15):
     req = urllib.request.Request(url, headers=UA)
@@ -53,6 +55,83 @@ def snap(cam, base_t, list_t, path_t):
     except Exception as e:
         return cid, f'err:{type(e).__name__}'
 
+def snap_ffmpeg(cam):
+    """임의 HLS URL → ffmpeg로 1프레임 추출."""
+    cid = cam['id']
+    try:
+        url = cam.get('url')
+        if cam.get('kind') == 'jejusi-wave':
+            url = jejusi_hls_url(cam['cam'])
+            if not url:
+                return cid, 'no-hlsurl'
+        if cam.get('kind') == 'jeju-danger':
+            return snap_ts_segment(cam, url)
+        out = os.path.join(OUT_DIR, f'{cid}.jpg')
+        r = subprocess.run(
+            ['ffmpeg', '-y', '-loglevel', 'error',
+             '-i', url, '-frames:v', '1', '-q:v', '4', '-update', '1',
+             '-rw_timeout', '20000000', out],
+            capture_output=True, timeout=90)
+        return cid, 'ok' if r.returncode == 0 and os.path.exists(out) else 'ffmpeg-fail'
+    except Exception as e:
+        return cid, f'err:{type(e).__name__}'
+
+def snap_ts_segment(cam, pl_url):
+    """세그먼트에 확장자가 없는 HLS(제주danger) — 마지막 .ts를 직접 받아 프레임 추출."""
+    cid = cam['id']
+    pl = fetch(pl_url, timeout=20).decode('utf-8', 'replace')
+    segs = [l.strip() for l in pl.splitlines() if l.strip() and not l.startswith('#')]
+    if not segs:
+        return cid, 'few-segs'
+    base = pl_url.rsplit('/', 1)[0] + '/'
+    host = 'http://59.8.86.94:8080'
+    # 라이브 엣지 세그먼트는 회전이 빨라 뒤쪽부터 순서대로 시도
+    for seg in reversed(segs[-3:]):
+        if seg.startswith('http'):
+            seg_url = seg
+        elif seg.startswith('/'):
+            seg_url = host + seg
+        else:
+            seg_url = base + seg
+        try:
+            ts = fetch(seg_url, timeout=30)
+        except Exception:
+            continue
+        if len(ts) < 10000:
+            continue
+        ts_path = os.path.join(tempfile.gettempdir(), f'cam_{cid}.ts')
+        with open(ts_path, 'wb') as f:
+            f.write(ts)
+        out = os.path.join(OUT_DIR, f'{cid}.jpg')
+        r = subprocess.run(
+            ['ffmpeg', '-y', '-loglevel', 'error', '-i', ts_path,
+             '-frames:v', '1', '-q:v', '4', '-update', '1', out],
+            capture_output=True, timeout=60)
+        os.remove(ts_path)
+        if r.returncode == 0 and os.path.exists(out):
+            return cid, 'ok'
+    return cid, 'ffmpeg-fail'
+
+def jejusi_hls_url(cam):
+    """제주시 realcctvHls: CSRF 토큰 + 세션 쿠키로 hlsUrl 발급."""
+    cj = http.cookiejar.CookieJar()
+    op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+    op.addheaders = [('User-Agent', 'Mozilla/5.0')]
+    page = 'https://www.jejusi.go.kr/bangjae/realcctvHls/waveHlsCctv.do'
+    h = op.open(page, timeout=20).read().decode('utf-8', 'replace')
+    m = re.search(r'_csrf" content="([^"]+)', h)
+    if not m:
+        return None
+    req = urllib.request.Request(
+        'https://www.jejusi.go.kr/bangjae/realcctvHls/getHlsCctvUrlAjax.ajax',
+        data=('point_id=' + str(cam)).encode(), method='POST',
+        headers={'X-CSRF-TOKEN': m.group(1),
+                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                 'X-Requested-With': 'XMLHttpRequest',
+                 'Referer': page})
+    j = json.loads(op.open(req, timeout=20).read().decode('utf-8'))
+    return j.get('hlsUrl')
+
 def snap_jpg(cam):
     cid = cam['id']
     try:
@@ -76,9 +155,13 @@ def main():
     jpg_jobs = []
     if os.path.exists(BEACH_JSON):
         jpg_jobs = json.load(open(BEACH_JSON, encoding='utf-8'))
+    ff_jobs = []
+    if os.path.exists(KR_SRC_JSON):
+        ff_jobs = json.load(open(KR_SRC_JSON, encoding='utf-8'))
     with ThreadPoolExecutor(max_workers=8) as ex:
         results = list(ex.map(lambda j: snap(*j), jobs))
         results += list(ex.map(snap_jpg, jpg_jobs))
+        results += list(ex.map(snap_ffmpeg, ff_jobs))
     ok = sum(1 for _, s in results if s == 'ok')
     print(f'snapshots: {ok}/{len(jobs)} ok')
     for cid, s in results:

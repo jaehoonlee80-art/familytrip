@@ -13,11 +13,11 @@ def main():
     d = json.loads(urllib.request.urlopen(req, timeout=20).read().decode('utf-8'))
     cams = []
     for c in d.get('cctvList', []):
-        if c.get('available') != 'Y' or not c.get('url'):
+        if c.get('available') != 'Y' or not c.get('imgUrl'):
             continue
         cams.append({'id': c['cctvId'], 'name': c.get('name', ''),
                      'region': c.get('subtitleMainText') or c.get('adressFull', ''),
-                     'api': c['url']})
+                     'img': c['imgUrl'], 'api': c.get('url') or ''})
     cams.sort(key=lambda c: c['id'])
     json.dump(cams, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'kbs cams: {len(cams)}')
