@@ -76,7 +76,7 @@ img{max-width:100%;border-radius:10px}
 <option value="me">중동</option>
 </select></div>
 </div>
-<div style="font-size:12px;font-weight:800;color:#334155;margin-bottom:8px">👥 인원별 MBTI·성별 선택 <span style="font-weight:400;color:#888">(영어 유형만 표시 · 성별·MBTI 모두 선택 안 해도 됩니다)</span></div>
+<div style="font-size:12px;font-weight:800;color:#334155;margin-bottom:8px">👥 인원별 MBTI·성별 선택 <span style="font-weight:400;color:#888">(영어 유형만 표시 · 성별·연령대·MBTI 모두 선택 안 해도 됩니다)</span></div>
 <div id="mbti-slots" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px"></div>
 <div style="margin-top:12px;font-size:12px;color:#888">💡 인원 수를 바꾸면 MBTI 선택 칸이 자동으로 늘어납니다. 추천 후 각 장소 카드의 <b>"이 장소로 코스 짜기"</b>를 누르면 일차별 일정이 나옵니다.</div>
 </div>
@@ -191,12 +191,13 @@ const SEASON_KO={spring:'봄',summer:'여름',autumn:'가을',winter:'겨울'};
 // ── UI: MBTI 슬롯 (인원 수만큼) ─────────────────────────────
 const slotsBox=document.getElementById('mbti-slots');
 const paxInput=document.getElementById('p-pax');
-let mbtiSel=[]; // [{code:null, gender:null}]
+let mbtiSel=[]; // [{code:null, gender:null, age:null}]
 const GENDERS=[['','성별 선택 안 함'],['m','남성'],['f','여성'],['o','기타']];
+const AGES=[['','연령대'],['10','10대'],['20','20대'],['30','30대'],['40','40대'],['50','50대'],['60','60대'],['70','70대'],['80','80대'],['90','90대']];
 function renderSlots(){
  const n=Math.min(8,Math.max(1,+paxInput.value||1));
  paxInput.value=n;
- while(mbtiSel.length<n)mbtiSel.push({code:null,gender:null});
+ while(mbtiSel.length<n)mbtiSel.push({code:null,gender:null,age:null});
  mbtiSel.length=n;
  slotsBox.innerHTML='';
  mbtiSel.forEach((v,i)=>{
@@ -206,13 +207,17 @@ function renderSlots(){
    +'<select class="mbti-sel" data-i="'+i+'" style="flex:1;padding:9px;border:1px solid #d1d5db;border-radius:8px;font-size:13.5px">'
    +'<option value="">MBTI</option>'+MBTI_TYPES.map(t=>'<option value="'+t.c+'"'+(v.code===t.c?' selected':'')+'>'+t.c+'</option>').join('')
    +'</select>'
-   +'<select class="gen-sel" data-i="'+i+'" style="width:84px;padding:9px;border:1px solid #d1d5db;border-radius:8px;font-size:13.5px">'
+   +'<select class="gen-sel" data-i="'+i+'" style="width:76px;padding:9px;border:1px solid #d1d5db;border-radius:8px;font-size:13.5px">'
    +GENDERS.map(([id,nm])=>'<option value="'+id+'"'+(v.gender===id?' selected':'')+'>'+nm+'</option>').join('')
+   +'</select>'
+   +'<select class="age-sel" data-i="'+i+'" style="width:76px;padding:9px;border:1px solid #d1d5db;border-radius:8px;font-size:13.5px">'
+   +AGES.map(([id,nm])=>'<option value="'+id+'"'+(v.age===id?' selected':'')+'>'+nm+'</option>').join('')
    +'</select></div>';
   slotsBox.appendChild(w);
  });
  slotsBox.querySelectorAll('.mbti-sel').forEach(s=>s.addEventListener('change',()=>{mbtiSel[+s.dataset.i].code=s.value||null}));
  slotsBox.querySelectorAll('.gen-sel').forEach(s=>s.addEventListener('change',()=>{mbtiSel[+s.dataset.i].gender=s.value||null}));
+ slotsBox.querySelectorAll('.age-sel').forEach(s=>s.addEventListener('change',()=>{mbtiSel[+s.dataset.i].age=s.value||null}));
 }
 paxInput.addEventListener('input',renderSlots);
 renderSlots();
@@ -304,14 +309,16 @@ function mbtiSummary(){
  return codes.length?codes.join(', '):'미선택';
 }
 function partySummary(){
- const g={m:0,f:0,o:0};
- mbtiSel.forEach(p=>{if(p.gender&&g[p.gender]!==undefined)g[p.gender]++});
+ const g={m:0,f:0,o:0},ages={};
+ mbtiSel.forEach(p=>{if(p.gender&&g[p.gender]!==undefined)g[p.gender]++;if(p.age)ages[p.age]=(ages[p.age]||0)+1});
  const parts=[];
  if(g.m)parts.push('남성 '+g.m+'명');
  if(g.f)parts.push('여성 '+g.f+'명');
  if(g.o)parts.push('기타 '+g.o+'명');
  const rest=pax()-g.m-g.f-g.o;
  if(rest>0)parts.push('미지정 '+rest+'명');
+ const ap=Object.keys(ages).sort().map(a=>a+'대 '+ages[a]+'명');
+ if(ap.length)parts.push('연령: '+ap.join(', '));
  return parts.join(', ')||pax()+'명';
 }
 function buildPrompt(picks){
@@ -364,7 +371,7 @@ async function makeCourse(idx,pick){
  btn.disabled=true;btn.style.opacity='.6';
  try{
   const text=await aiCall(coursePrompt(d));
-  box.textContent=text.slice(0,3000);
+  box.textContent=text.slice(0,6000);
  }catch(e){
   box.textContent='코스를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.';
  }
