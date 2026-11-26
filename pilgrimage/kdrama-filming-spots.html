@@ -142,7 +142,7 @@ function render(){
  document.getElementById('pg-out').innerHTML=html||'<div style="color:#888;padding:20px;text-align:center">조건에 맞는 촬영지가 없습니다.</div>';
 }
 map=L.map('pg-map').setView([36.5,127.8],7);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);
+L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(map);
 [fr,rg,document.getElementById('pg-q')].forEach(el=>el.addEventListener('input',render));
 render();
 </script>

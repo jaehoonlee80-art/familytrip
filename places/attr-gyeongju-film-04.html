@@ -73,6 +73,7 @@ img{max-width:100%;border-radius:10px}
 <p>경주 시내는 대릉원·불국사·첨성대가 도보·버스 10분 내 밀집 — 렌터카 없이도 반나절 코스 가능. 양동마을은 시내에서 차로 20분.</p>
 </blockquote>
 <h2>날씨</h2>
+<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map place-map-approx" data-lat="35.976" data-lon="129.1608" data-label="경주 양동마을"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
 <div class="wx" data-lat="35.976" data-lon="129.1608" data-label="경주 양동마을"></div>
 
 <h2>운영시간 · 입장료</h2>
@@ -107,7 +108,7 @@ img{max-width:100%;border-radius:10px}
 if(typeof L==='undefined'){var _d=document.getElementById('main-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var SPOTS_R=[{s:'경주 대릉원',t:'도깨비',lat:35.8347,lon:129.2217,d:'김신(김고은)과 도깨비의 인연이 시작되는 신라 왕릉 지구. 도깨비 첫 장면 촬영지로 유명.'},{s:'불국사',t:'도깨비',lat:35.7905,lon:129.3314,d:'토함산 중턱의 사찰. 도깨비에서 김신이 중이 되기 전 머무는 사찰로 등장.'},{s:'첨성대',t:'도깨비',lat:35.8344,lon:129.2196,d:'신라의 대표 별 관측대. 도깨비 오프닝의 경주 야경 장면.'},{s:'경주 양동마을',t:'사극 단골',lat:35.976,lon:129.1608,d:'조선 후기 양동 씨 가옥 — 사극·시대극 촬영 명소.'}];
 var m=L.map('main-map').setView([35.976,129.1608],13);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(m);
+L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
 SPOTS_R.forEach(function(s){
  var isMain=(s.s==="경주 양동마을");
  L.circleMarker([s.lat,s.lon],{radius:isMain?11:8,color:'#fff',weight:2,fillColor:isMain?'#0f766e':'#8b5cf6',fillOpacity:.95}).addTo(m)

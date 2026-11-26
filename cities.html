@@ -76,7 +76,7 @@ function initCityMap(){
 if(typeof L==='undefined'){document.getElementById('citymap').innerHTML='<p style="padding:20px;color:#888">지도를 불러오는 중 라이브러리를 확인 중입니다. 아래 목록에서 도시를 선택하세요.</p>';return;}
 try{
 const map=L.map('citymap').setView([20,0],2);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap © CARTO'}).addTo(map);
 const bounds=[];
 // 대륙 지역 라벨
 [['유럽',52,15],['아시아',35,105],['아메리카',15,-90],['오세아니아·아프리카·중동',-20,130]].forEach(r=>{

@@ -73,6 +73,7 @@ img{max-width:100%;border-radius:10px}
 <p>경포·주문진·강문해변·해동용궁사가 동해안 라인을 따라 30분 간격 — 렌터카 추천. 경포대는 일몰 무렵이 포토스팟.</p>
 </blockquote>
 <h2>날씨</h2>
+<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map place-map-approx" data-lat="37.7645" data-lon="128.876" data-label="강릉 강문해변"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
 <div class="wx" data-lat="37.7645" data-lon="128.876" data-label="강릉 강문해변"></div>
 
 <h2>운영시간 · 입장료</h2>
@@ -107,7 +108,7 @@ img{max-width:100%;border-radius:10px}
 if(typeof L==='undefined'){var _d=document.getElementById('main-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var SPOTS_R=[{s:'해동 용궁사',t:'도깨비',lat:37.8731,lon:128.9257,d:'바다 위에 지어진 듯한 사찰. 도깨비에서 김신의 전생과 관련된 장면.'},{s:'경포대·경포해변',t:'사랑의 불시착',lat:37.7957,lon:128.8819,d:'윤세리와 리정혁의 첫 만남과 해변 장면의 배경.'},{s:'주문진',t:'사랑의 불시착',lat:37.902,lon:128.6495,d:'강릉 북부 해안 — 드라마 속 북한 접경 마을 컨셉의 실제 촬영지로 알려짐.'},{s:'강릉 강문해변',t:'슬기로운 의사생활',lat:37.7645,lon:128.876,d:'슬기로운 의사생활의 강릉 편 핵심 배경 — 강문해변과 주문진 일대.'}];
 var m=L.map('main-map').setView([37.7645,128.876],13);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(m);
+L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
 SPOTS_R.forEach(function(s){
  var isMain=(s.s==="강릉 강문해변");
  L.circleMarker([s.lat,s.lon],{radius:isMain?11:8,color:'#fff',weight:2,fillColor:isMain?'#0f766e':'#8b5cf6',fillOpacity:.95}).addTo(m)

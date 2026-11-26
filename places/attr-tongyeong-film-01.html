@@ -61,6 +61,7 @@ img{max-width:100%;border-radius:10px}
 </div>
 
 <h2>날씨</h2>
+<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map place-map-approx" data-lat="34.8502" data-lon="128.434" data-label="통영 동피랑 벽화마을"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
 <div class="wx" data-lat="34.8502" data-lon="128.434" data-label="통영 동피랑 벽화마을"></div>
 
 <h2>운영시간 · 입장료</h2>
@@ -95,7 +96,7 @@ img{max-width:100%;border-radius:10px}
 if(typeof L==='undefined'){var _d=document.getElementById('main-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var SPOTS_R=[{s:'통영 동피랑 벽화마을',t:'우리들의 블루스',lat:34.8502,lon:128.434,d:'드라마 속 통영 마을의 실제 배경 — 동피랑 골목·바다 절경.'}];
 var m=L.map('main-map').setView([34.8502,128.434],13);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(m);
+L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
 SPOTS_R.forEach(function(s){
  var isMain=(s.s==="통영 동피랑 벽화마을");
  L.circleMarker([s.lat,s.lon],{radius:isMain?11:8,color:'#fff',weight:2,fillColor:isMain?'#0f766e':'#8b5cf6',fillOpacity:.95}).addTo(m)

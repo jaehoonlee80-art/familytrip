@@ -138,7 +138,7 @@ document.getElementById('ft-month-clear').addEventListener('click',function(e){e
 ftSetMonth(0);
 // 지도
 var map=L.map('ftmap').setView([36.4,127.9],7);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap © CARTO'}).addTo(map);
 var col={'서울':'#dc2626','부산':'#2563eb','인천':'#0891b2','대구':'#7c3aed','대전':'#db2777','울산':'#ea580c','경기':'#059669','강원':'#0d9488','충북':'#65a30d','충남':'#ca8a04','전북':'#dc2626','전남':'#16a34a','경북':'#9333ea','경남':'#ea580c','제주':'#0284c7','기타':'#6b7280'};
 var grp=L.layerGroup().addTo(map);
 var pts=0;

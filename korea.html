@@ -60,7 +60,7 @@ var BEACH=[{"id":"beach-0-0","code":0,"cam":0,"name":"고래불 해변","beach":
 function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;");}
 try{
 var map=L.map("krmap").setView([36.4,127.9],7);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(map);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap © CARTO"}).addTo(map);
 var grp=L.layerGroup().addTo(map);
 BEACH.forEach(function(c){
  var m=L.marker([c.lat,c.lon],{icon:L.divIcon({className:"",html:"<div style='background:#2563eb;color:#fff;font-size:11px;padding:2px 6px;border-radius:8px;white-space:nowrap'>🏖️ "+esc(c.beach)+"</div>",iconSize:null,iconAnchor:[20,10]})}).addTo(grp);
