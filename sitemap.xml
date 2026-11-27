@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jaehoonlee80-art.github.io/familytrip/guides/europe-family-guide.html</loc></url>
-  <url><loc>https://jaehoonlee80-art.github.io/familytrip/guides/first-japan-family-guide.html</loc></url>
-  <url><loc>https://jaehoonlee80-art.github.io/familytrip/guides/jeju-family-guide.html</loc></url>
-  <url><loc>https://jaehoonlee80-art.github.io/familytrip/guides/southeast-asia-family-guide.html</loc></url>
-  <url><loc>https://jaehoonlee80-art.github.io/familytrip/guides/travel-match.html</loc></url>
+  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder/europe-family-guide.html</loc></url>
+  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder/find-my-trip.html</loc></url>
+  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder/first-japan-family-guide.html</loc></url>
+  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder/jeju-family-guide.html</loc></url>
+  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder/recovery-glow.html</loc></url>
+  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder/southeast-asia-family-guide.html</loc></url>
+  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder/travel-match.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/itineraries/jeju-3days.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/itineraries/kyoto-osaka-4days.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/itineraries/tokyo-3days.html</loc></url>
@@ -5673,10 +5675,8 @@
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/korea/spot-ulsan-3.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/korea/transport.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/pilgrimage/kdrama-filming-spots.html</loc></url>
-  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder/find-my-trip.html</loc></url>
-  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder/recovery-glow.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/</loc></url>
-  <url><loc>https://jaehoonlee80-art.github.io/familytrip/guides.html</loc></url>
+  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/itineraries.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/checklists.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/live.html</loc></url>
@@ -5685,5 +5685,4 @@
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/places.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/korea.html</loc></url>
   <url><loc>https://jaehoonlee80-art.github.io/familytrip/pilgrimage.html</loc></url>
-  <url><loc>https://jaehoonlee80-art.github.io/familytrip/tripfinder.html</loc></url>
 </urlset>
