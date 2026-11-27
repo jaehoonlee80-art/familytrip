@@ -196,9 +196,17 @@ function mount(card){
   case 'webrtc': startWebrtc(c,bd); break;
   case 'snap': bd.innerHTML='<img loading="lazy" src="'+KF_IMG(c.code)+'" alt="'+esc(c.short)+'">'; snapRefresh(bd.querySelector('img'),()=>KF_IMG(c.code),20000); break;
   case 'kbs': bd.innerHTML='<div class="ph">불러오는 중…</div>'; startKbs(c,bd); break;
-  case 'snapjob': bd.innerHTML='<img loading="lazy" src="'+SNAP+c.snap+'" alt="'+esc(c.short)+'"><div class="lm-snap">5분 스냅샷</div>';{const im=bd.querySelector('img');im.onerror=()=>{if(im.dataset.dead)return;im.dataset.dead=1;bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">스냅샷 준비 중 — 공식 페이지에서 보기 ↗</a></div>';};} snapRefresh(bd.querySelector('img'),()=>SNAP+c.snap+'?t='+Date.now(),60000); break;
+  case 'snapjob':
+   bd.innerHTML=snapjobHTML(c);
+   const _im=bd.querySelector('img');
+   _im.onerror=()=>{if(_im.dataset.dead)return;_im.dataset.dead=1;bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">스냅샷 준비 중 — 공식 페이지에서 보기 ↗</a></div>';};
+   snapRefresh(_im,()=>SNAP+c.snap+'?t='+Date.now(),60000);
+   break;
   default: bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">공식 페이지에서 실시간 화면 보기 ↗</a></div>';
  }
+}
+function snapjobHTML(c){
+ return '<img loading="lazy" src="'+SNAP+c.snap+'" alt="'+esc(c.short)+'"><div class="lm-snap">스냅샷</div>';
 }
 function snapRefresh(img,urlFn,ms){
  if(!img)return;
@@ -221,14 +229,27 @@ async function startProxy(c,video){
  }catch(e){const ph=video.parentElement.querySelector('.ph');if(ph)ph.style.display='flex';}
 }
 async function startKbs(c,bd){
+ const kbsImgFallback=()=>{
+  const k=KBS[c.sid];
+  if(k&&k.img){bd.innerHTML='<img src="'+k.img+'" alt="'+esc(c.short)+'">';snapRefresh(bd.querySelector('img'),()=>KBS[c.sid]?KBS[c.sid].img:k.img,90000);bd.querySelector('img').onerror=()=>{bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">공식 페이지에서 보기 ↗</a></div>';};}
+  else bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">공식 페이지에서 보기 ↗</a></div>';
+ };
  try{
   if(!Object.keys(KBS).length){
    const r=await fetch('kbs-cams.json');KBS={};(await r.json()).forEach(k=>KBS[k.id]=k);
   }
   const k=KBS[c.sid];
-  if(k&&k.img){bd.innerHTML='<img src="'+k.img+'" alt="'+esc(c.short)+'">';snapRefresh(bd.querySelector('img'),()=>KBS[c.sid]?KBS[c.sid].img:k.img,90000);}
-  else bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">공식 페이지에서 보기 ↗</a></div>';
- }catch(e){bd.innerHTML='<div class="ph">KBS 목록 로드 실패</div>';}
+  if(!k||!k.api){kbsImgFallback();return;}
+  // 라이브 HLS 시도 — api URL을 프록시로 조회하면 m3u8 URL이 텍스트로 반환됨
+  bd.innerHTML='<video muted playsinline autoplay></video><div class="ph" style="position:absolute;inset:0">연결 중…</div>';
+  const v=bd.querySelector('video');
+  const pr=await fetch(PROXY+'/?url='+encodeURIComponent(k.api));
+  const pl=(await pr.text()||'').trim();
+  if(!pl.includes('.m3u8')){kbsImgFallback();return;}
+  playHls(v,PROXY+'/?url='+encodeURIComponent(pl));
+  let ok=false;const chk=()=>{if(v.videoWidth>0)ok=true;};v.addEventListener('playing',chk,{once:true});
+  setTimeout(()=>{if(!ok&&v.isConnected)kbsImgFallback();},12000);
+ }catch(e){kbsImgFallback();}
 }
 // KNPS 플레이어는 연결 실패 시 alert()를 500ms마다 무한 반복 → alert 무력화
 window.alert=()=>{};
