@@ -22,39 +22,7 @@
 <link rel="icon" href="/familytrip/assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/familytrip/assets/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/familytrip/assets/apple-touch-icon.png">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
-a{color:#2563eb;text-decoration:none}
-header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
-header .logo{font-weight:800;font-size:20px;color:#0f766e}
-nav a{margin-left:18px;font-size:14px;color:#555}
-main{max-width:760px;margin:0 auto;padding:40px 20px}
-footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
-h1{font-size:32px;line-height:1.3;margin-bottom:16px}
-h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
-h3{font-size:17px;margin:24px 0 8px}
-p{margin-bottom:14px}
-ul,ol{margin:0 0 14px 22px}
-img{max-width:100%;border-radius:10px}
-.meta{color:#888;font-size:13px;margin-bottom:24px}
-.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
-.cta h3{color:#fff;margin-top:0}
-.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
-.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
-.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
-.card .body{padding:14px}
-.card h3{margin:0 0 6px;font-size:16px}
-.card p{font-size:13px;color:#777;margin:0}
-.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
-.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
-.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
-.live-meta{font-size:13px;color:#777;margin-bottom:20px}
-.live-meta li{margin-bottom:4px}
-</style>
+<link rel="stylesheet" href="/familytrip/assets/site.css">
 </head>
 <body>
 <header>
@@ -71,7 +39,7 @@ img{max-width:100%;border-radius:10px}
 <main><div class="meta">한국 여행 · 2026-11-23</div><h1>전국 해변 실시간 카메라 — 해양수산부 연안포털 라이브</h1><p>전국 <strong>해수욕장·해변 39곳</strong>의 실시간 CCTV를 한곳에서 볼 수 있습니다. 해양수산부 연안포털이 운영하는 공식 연안침식 모니터링 카메라로, 파도·바람·인파 상황을 방문 전에 미리 확인하기 좋습니다. 이미지는 5분마다 자동으로 갱신됩니다. 마음에 드는 카메라는 ☆ 버튼으로 저장해 두고 <a href="../korea/saved.html">저장한 카메라</a> 페이지에서 한눈에 모아볼 수 있습니다.</p>
 <h2>🗺️ 지도에서 해변 찾기</h2>
 <div id="beachmap" style="height:420px;border-radius:12px;margin:16px 0"></div>
-<p style="font-size:13px;color:#888">지도의 핀을 누르면 해당 해변의 실시간 화면과 상세 페이지로 이동합니다. 오른쪽 위 + 버튼으로 확대하세요.</p>
+<p style="font-size:13px;color:#595959">지도의 핀을 누르면 해당 해변의 실시간 화면과 상세 페이지로 이동합니다. 오른쪽 위 + 버튼으로 확대하세요.</p>
 
 <h2>🔍 지역별 해변 카메라</h2>
 <p>
@@ -81,7 +49,7 @@ img{max-width:100%;border-radius:10px}
 <input id="bq" type="search" placeholder="해변 이름 검색 (예: 경포, 해운대, 중문)" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin-top:8px">
 </p>
 <div id="beach-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px"></div>
-<p style="color:#888;font-size:13px">※ 화면은 해양수산부 연안포털 공식 카메라의 5분 단위 저장 이미지입니다. 실시간 영상은 각 해변 상세 페이지의 공식 링크에서 확인하세요.</p>
+<p style="color:#595959;font-size:13px">※ 화면은 해양수산부 연안포털 공식 카메라의 5분 단위 저장 이미지입니다. 실시간 영상은 각 해변 상세 페이지의 공식 링크에서 확인하세요.</p>
 
 <p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous"></p>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
@@ -147,7 +115,7 @@ function initMap(){
    const q=document.getElementById('bq').value.trim();
    MARKS.forEach((m,i)=>{const c=CAMS[i];m.setOpacity(!q||(c.name+c.region).includes(q)?1:0.15);});
   });
- }catch(e){document.getElementById('beachmap').innerHTML='<p style="padding:20px;color:#888">지도를 표시하지 못했습니다. 아래 목록을 이용하세요.</p>';}
+ }catch(e){document.getElementById('beachmap').innerHTML='<p style="padding:20px;color:#595959">지도를 표시하지 못했습니다. 아래 목록을 이용하세요.</p>';}
 }
 loadCams();
 </script>
@@ -165,7 +133,7 @@ loadCams();
 <li><a href="../live/tourist-live.html">실시간 관광명소 100곳</a> — 광화문·경복궁 등 명소 근처 카메라</li>
 <li><a href="../live/cctv-map.html">전국 카메라 지도</a> — 전체 카메라 위치 지도</li>
 </ul>
-<div class="page-foot" style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:12.5px;color:#767676">최종 업데이트: 2026-11-23 · 정보 출처: 각 페이지에 명시된 공식 채널·공공기관·관광공사 공개 자료</div></main>
+<div class="page-foot" style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:12.5px;color:#767676">최종 업데이트: 2026-11-23 · 정보 출처: 각 페이지에 명시된 공식 채널·공공기관·관광공사 공개 자료</div><div class="rel-box" style="margin-top:36px;padding-top:16px;border-top:1px solid #eee"><h2 style="font-size:17px">관련 콘텐츠</h2><ul><li style="margin:4px 0"><a href="/familytrip/korea/airports.html">한국 공항 가이드 — 전국 공항별 시내 이동 방법·비용 비교</a></li><li style="margin:4px 0"><a href="/familytrip/korea/area-busan.html">부산 여행지 — 시군구별 관광지 23곳</a></li><li style="margin:4px 0"><a href="/familytrip/korea/area-chungbuk.html">충북 여행지 — 시군구별 관광지 24곳</a></li></ul></div></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>
   이 페이지는 제휴 링크를 포함할 수 있으며, 예약 시 수수료가 발생할 수 있습니다.<br>

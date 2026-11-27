@@ -22,39 +22,7 @@
 <link rel="icon" href="/familytrip/assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/familytrip/assets/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/familytrip/assets/apple-touch-icon.png">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
-a{color:#2563eb;text-decoration:none}
-header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
-header .logo{font-weight:800;font-size:20px;color:#0f766e}
-nav a{margin-left:18px;font-size:14px;color:#555}
-main{max-width:760px;margin:0 auto;padding:40px 20px}
-footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
-h1{font-size:32px;line-height:1.3;margin-bottom:16px}
-h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
-h3{font-size:17px;margin:24px 0 8px}
-p{margin-bottom:14px}
-ul,ol{margin:0 0 14px 22px}
-img{max-width:100%;border-radius:10px}
-.meta{color:#888;font-size:13px;margin-bottom:24px}
-.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
-.cta h3{color:#fff;margin-top:0}
-.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
-.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
-.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
-.card .body{padding:14px}
-.card h3{margin:0 0 6px;font-size:16px}
-.card p{font-size:13px;color:#777;margin:0}
-.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
-.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
-.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
-.live-meta{font-size:13px;color:#777;margin-bottom:20px}
-.live-meta li{margin-bottom:4px}
-</style>
+<link rel="stylesheet" href="/familytrip/assets/site.css">
 </head>
 <body>
 <header>
@@ -82,7 +50,7 @@ img{max-width:100%;border-radius:10px}
 </div>
 
 <div id="pg-map" style="height:420px;border-radius:12px;margin-bottom:16px;border:1px solid #e5e7eb"></div>
-<p style="font-size:12.5px;color:#888;margin:-8px 0 14px">👇 지도의 핀이나 아래 장소 카드를 누르면 해당 장소의 상세 페이지로 이동합니다. 상세 페이지 안에는 모든 정보가 이미 표시되어 있습니다.</p>
+<p style="font-size:12.5px;color:#595959;margin:-8px 0 14px">👇 지도의 핀이나 아래 장소 카드를 누르면 해당 장소의 상세 페이지로 이동합니다. 상세 페이지 안에는 모든 정보가 이미 표시되어 있습니다.</p>
 
 <div id="pg-out"></div>
 
@@ -140,7 +108,7 @@ function render(){
   const col=FCOLORS[x.s.t]||'#0f766e';
   const mk=L.circleMarker([x.s.lat,x.s.lon],{radius:9,color:'#fff',weight:2,fillColor:col,fillOpacity:.95}).addTo(map);
   const slug=SLUG[x.i],href=slug?'/familytrip/places/'+slug+'.html':null;
-  mk.bindPopup('<b>'+(href?'<a href="'+href+'" style="color:inherit">':'')+esc(x.s.s)+(href?'</a>':'')+'</b><br><span style="color:#888;font-size:12px">'+x.s.t+' · '+x.s.r+'</span><br><span style="font-size:12px">'+esc(x.s.d)+'</span>'+(href?'<br><span style="font-size:11px;color:#0f766e">상세 페이지 →</span>':''));
+  mk.bindPopup('<b>'+(href?'<a href="'+href+'" style="color:inherit">':'')+esc(x.s.s)+(href?'</a>':'')+'</b><br><span style="color:#595959;font-size:12px">'+x.s.t+' · '+x.s.r+'</span><br><span style="font-size:12px">'+esc(x.s.d)+'</span>'+(href?'<br><span style="font-size:11px;color:#0f766e">상세 페이지 →</span>':''));
   markers.push(mk);
  });
  if(list.length)map.fitBounds(L.latLngBounds(list.map(x=>[x.s.lat,x.s.lon])),{padding:[30,30]});
@@ -149,12 +117,12 @@ function render(){
  Object.keys(byRegion).sort().forEach(rg2=>{
   const arr=byRegion[rg2];
   const tip=REGION_TIPS[rg2];
-  html+='<div style="margin-bottom:24px"><div style="font-size:17px;font-weight:800;color:#0f766e;margin-bottom:4px">📍 '+rg2+' <span style="font-size:12px;color:#888;font-weight:400">'+arr.length+'곳</span></div>'
+  html+='<div style="margin-bottom:24px"><div style="font-size:17px;font-weight:800;color:#0f766e;margin-bottom:4px">📍 '+rg2+' <span style="font-size:12px;color:#595959;font-weight:400">'+arr.length+'곳</span></div>'
    +(tip?'<div style="font-size:12.5px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin-bottom:12px">💡 '+tip+'</div>':'')
    +arr.map(x=>spotCard(x.s,x.i)).join('')
    +'</div>';
  });
- document.getElementById('pg-out').innerHTML=html||'<div style="color:#888;padding:20px;text-align:center">조건에 맞는 촬영지가 없습니다.</div>';
+ document.getElementById('pg-out').innerHTML=html||'<div style="color:#595959;padding:20px;text-align:center">조건에 맞는 촬영지가 없습니다.</div>';
 }
 map=L.map('pg-map').setView([36.5,127.8],7);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(map);

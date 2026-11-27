@@ -22,39 +22,7 @@
 <link rel="icon" href="/familytrip/assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/familytrip/assets/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/familytrip/assets/apple-touch-icon.png">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#faf8f5;color:#2b2b2b;line-height:1.75}
-a{color:#2563eb;text-decoration:none}
-header{background:#fff;border-bottom:1px solid #eee;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
-header .logo{font-weight:800;font-size:20px;color:#0f766e}
-nav a{margin-left:18px;font-size:14px;color:#555}
-main{max-width:760px;margin:0 auto;padding:40px 20px}
-footer{background:#1f2937;color:#9ca3af;text-align:center;padding:30px;font-size:13px}
-h1{font-size:32px;line-height:1.3;margin-bottom:16px}
-h2{font-size:22px;margin:36px 0 12px;color:#0f766e}
-h3{font-size:17px;margin:24px 0 8px}
-p{margin-bottom:14px}
-ul,ol{margin:0 0 14px 22px}
-img{max-width:100%;border-radius:10px}
-.meta{color:#888;font-size:13px;margin-bottom:24px}
-.cta{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:12px;padding:20px;margin:28px 0}
-.cta h3{color:#fff;margin-top:0}
-.cta a{display:inline-block;background:#fff;color:#0f766e;font-weight:700;padding:10px 20px;border-radius:8px;margin-top:8px}
-.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.cta-grid a{background:rgba(255,255,255,.15);padding:10px;border-radius:8px;color:#fff;font-size:14px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0}
-.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
-.card .body{padding:14px}
-.card h3{margin:0 0 6px;font-size:16px}
-.card p{font-size:13px;color:#777;margin:0}
-.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px}
-.live-embed{position:relative;padding-top:56.25%;margin:18px 0 8px;border-radius:12px;overflow:hidden;background:#000}
-.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.live-embed.portrait{padding-top:177.78%;max-width:360px;margin-left:auto;margin-right:auto}
-.live-meta{font-size:13px;color:#777;margin-bottom:20px}
-.live-meta li{margin-bottom:4px}
-</style>
+<link rel="stylesheet" href="/familytrip/assets/site.css">
 </head>
 <body>
 <header>
@@ -79,7 +47,7 @@ header .logo{font-weight:800;font-size:19px;color:#0f766e}
 nav a{margin-left:16px;font-size:13px;color:#555}
 main{max-width:1400px;margin:0 auto;padding:16px}
 h1{font-size:22px;margin-bottom:4px}
-.sub{color:#777;font-size:13px;margin-bottom:10px}
+.sub{color:#595959;font-size:13px;margin-bottom:10px}
 .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
 .tabs button{border:1px solid #ddd;background:#fff;border-radius:18px;padding:6px 14px;font-size:12.5px;cursor:pointer;color:#444}
@@ -102,7 +70,7 @@ h1{font-size:22px;margin-bottom:4px}
 .lm-bd video,.lm-bd img{display:block;width:100%;max-height:68vh;object-fit:contain;background:#000}
 .lm-bd .ph{color:#aaa;font-size:13px;padding:40px;text-align:center}
 .lm-bd .ph a{color:#7dd3fc}
-.lm-ft{padding:8px 14px;color:#888;font-size:11.5px;background:#1c1c1c;display:flex;justify-content:space-between;gap:8px}
+.lm-ft{padding:8px 14px;color:#595959;font-size:11.5px;background:#1c1c1c;display:flex;justify-content:space-between;gap:8px}
 .lm-snap{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.6);color:#fff;font-size:10.5px;padding:3px 8px;border-radius:6px;z-index:2}
 @media(max-width:700px){#map{height:calc(100vh - 240px)}}
 footer{background:#1f2937;color:#9ca3af;text-align:center;padding:20px;font-size:12.5px}
@@ -124,9 +92,10 @@ footer{background:#1f2937;color:#9ca3af;text-align:center;padding:20px;font-size
   <span><i class="dot" style="background:#dc2626"></i>도시·기타</span>
   <span class="count" id="mapcount"></span>
 </div>
-</main>
+<p class="sub" style="margin-top:10px"><a href="../live.html">← 카메라 메뉴 목록으로 보기</a></p>
+<div class="rel-box" style="margin-top:36px;padding-top:16px;border-top:1px solid #eee"><h2 style="font-size:17px">관련 콘텐츠</h2><ul><li style="margin:4px 0"><a href="/familytrip/live/airport-port-cctv.html">공항·항만 실시간 CCTV — 인천공항·인천항 라이브</a></li><li style="margin:4px 0"><a href="/familytrip/live/cctv-map.html">전국 CCTV 지도 — 한국 공공 카메라 800+ 실시간 위치 검색</a></li><li style="margin:4px 0"><a href="/familytrip/live/daegu-cctv.html">대구 실시간 CCTV — 전역 186개 라이브</a></li></ul></div></main>
 
-<div id="lmodal"><div class="lm-card">
+<div id="lmodal" role="dialog" aria-modal="true" aria-label="카메라 실시간 화면"><div class="lm-card">
   <div class="lm-hd"><span class="nm" id="lm-name"></span><span class="meta" id="lm-meta"></span><span class="sp"></span>
     <a id="lm-official" href="#" target="_blank" rel="noopener">공식 페이지 ↗</a>
     <button class="lm-x" id="lm-x">✕</button></div>
@@ -188,11 +157,14 @@ function showCam(id){
  const bd=document.getElementById('lm-bd');
  bd.innerHTML='<div class="ph">불러오는 중…</div>';
  document.getElementById('lmodal').classList.add('open');
+ window._lmPrev=document.activeElement;
+ document.getElementById('lm-x').focus();
  const card={dataset:{id:c.id},querySelector:sel=>bd.querySelector(sel)};
  mount(card);
 }
 function closeModal(){
  document.getElementById('lmodal').classList.remove('open');
+ if(window._lmPrev&&window._lmPrev.focus){try{window._lmPrev.focus();}catch(_){}}window._lmPrev=null;
  try{if(window._wrpc){window._wrpc.Stop&&window._wrpc.Stop();window._wrpc.Terminate&&window._wrpc.Terminate();window._wrpc=null;}}catch(_){}
  document.querySelectorAll('#lm-bd video').forEach(v=>{try{v.pause();}catch(_){} try{if(v._hls){v._hls.destroy();v._hls=null;}}catch(_){} try{v.removeAttribute('src');v.load();}catch(_){}});
  document.getElementById('lm-bd').innerHTML='';
@@ -245,7 +217,7 @@ async function startProxy(c,video){
 async function startKbs(c,bd){
  const kbsImgFallback=()=>{
   const k=KBS[c.sid];
-  if(k&&k.img){bd.innerHTML='<img src="'+k.img+'" alt="'+esc(c.short)+'">';snapRefresh(bd.querySelector('img'),()=>KBS[c.sid]?KBS[c.sid].img:k.img,90000);bd.querySelector('img').onerror=()=>{bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">공식 페이지에서 보기 ↗</a></div>';};}
+  if(k&&k.img){bd.innerHTML='<img loading="lazy" decoding="async" src="'+k.img+'" alt="'+esc(c.short)+'">';snapRefresh(bd.querySelector('img'),()=>KBS[c.sid]?KBS[c.sid].img:k.img,90000);bd.querySelector('img').onerror=()=>{bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">공식 페이지에서 보기 ↗</a></div>';};}
   else bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">공식 페이지에서 보기 ↗</a></div>';
  };
  try{
