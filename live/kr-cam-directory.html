@@ -6,7 +6,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>한국 실시간 카메라 디렉토리 — 산·바다·제주 공공 CCTV 190곳 지도</title>
-<meta name="description" content="국립공원·연안포털·지자체·KBS 재난포털 등 공공기관 실시간 카메라 190곳을 지도와 카테고리 탭으로 탐색. 산·해안·하천·제주 현장 화면.">
+<meta name="description" content="국립공원·연안포털·지자체·KBS 재난포털 등 공공기관 실시간 카메라 190곳을 지도와 카테고리 탭으로 탐색. 마커를 클릭하면 바로 실시간 화면이 열립니다.">
 <link rel="canonical" href="https://jaehoonlee80-art.github.io/familytrip/live/kr-cam-directory.html">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -60,59 +60,65 @@ img{max-width:100%;border-radius:10px}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#f6f4ef;color:#2b2b2b;line-height:1.6}
 a{color:#2563eb;text-decoration:none}
-header{background:#fff;border-bottom:1px solid #eee;padding:14px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:900}
+header{background:#fff;border-bottom:1px solid #eee;padding:12px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:900}
 header .logo{font-weight:800;font-size:19px;color:#0f766e}
 nav a{margin-left:16px;font-size:13px;color:#555}
-main{max-width:1280px;margin:0 auto;padding:24px 16px 60px}
-h1{font-size:26px;margin-bottom:6px}
-.sub{color:#777;font-size:14px;margin-bottom:16px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-.tabs button{border:1px solid #ddd;background:#fff;border-radius:20px;padding:7px 16px;font-size:13px;cursor:pointer;color:#444}
+main{max-width:1400px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin-bottom:4px}
+.sub{color:#777;font-size:13px;margin-bottom:10px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:1px solid #ddd;background:#fff;border-radius:18px;padding:6px 14px;font-size:12.5px;cursor:pointer;color:#444}
 .tabs button.on{background:#0f766e;color:#fff;border-color:#0f766e}
-.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:900px){.layout{grid-template-columns:1fr}}
-#map{height:560px;border-radius:14px;border:1px solid #e5e0d8;z-index:1}
-.count{font-size:12px;color:#999;margin:6px 2px}
-.grid{display:flex;flex-direction:column;gap:12px;max-height:560px;overflow-y:auto;padding-right:4px}
-.cam{background:#fff;border:1px solid #e8e4da;border-radius:12px;overflow:hidden;scroll-margin-top:80px}
-.cam.flash{outline:3px solid #0f766e}
-.cam .hd{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #f0ece2}
-.cam .nm{font-weight:700;font-size:14px}
-.cam .meta{font-size:11px;color:#999}
-.cam .bd{position:relative;background:#000}
-.cam .bd video,.cam .bd img{display:block;width:100%;height:180px;object-fit:cover}
-.cam .bd .ph{display:flex;align-items:center;justify-content:center;height:180px;color:#888;font-size:13px;background:#1c1c1c}
-.cam .ft{padding:8px 12px;font-size:12px;color:#666;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.cam .ft a{font-size:12px;white-space:nowrap}
-.tag{display:inline-block;font-size:10px;background:#eef2ff;color:#4338ca;border-radius:8px;padding:1px 7px;margin-right:4px}
-.src-note{font-size:11px;color:#aaa}
-.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:#666;margin-top:8px}
+#map{height:calc(100vh - 210px);min-height:480px;border-radius:14px;border:1px solid #e5e0d8;z-index:1}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#666;margin-top:8px;align-items:center}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
-footer{background:#1f2937;color:#9ca3af;text-align:center;padding:26px;font-size:13px}
+.count{font-size:12px;color:#999;margin-left:auto}
+/* 카메라 뷰어 모달 */
+#lmodal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:2000;align-items:center;justify-content:center;padding:18px}
+#lmodal.open{display:flex}
+.lm-card{background:#111;border-radius:14px;overflow:hidden;width:min(960px,100%);max-height:92vh;display:flex;flex-direction:column}
+.lm-hd{display:flex;align-items:center;gap:10px;padding:10px 14px;color:#fff;background:#1c1c1c}
+.lm-hd .nm{font-weight:700;font-size:15px}
+.lm-hd .meta{font-size:11.5px;color:#999}
+.lm-hd .sp{flex:1}
+.lm-hd a{color:#7dd3fc;font-size:12px;white-space:nowrap}
+.lm-x{background:none;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1;padding:0 4px}
+.lm-bd{position:relative;background:#000;flex:1;min-height:280px;display:flex;align-items:center;justify-content:center}
+.lm-bd video,.lm-bd img{display:block;width:100%;max-height:68vh;object-fit:contain;background:#000}
+.lm-bd .ph{color:#aaa;font-size:13px;padding:40px;text-align:center}
+.lm-bd .ph a{color:#7dd3fc}
+.lm-ft{padding:8px 14px;color:#888;font-size:11.5px;background:#1c1c1c;display:flex;justify-content:space-between;gap:8px}
+.lm-snap{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.6);color:#fff;font-size:10.5px;padding:3px 8px;border-radius:6px;z-index:2}
+@media(max-width:700px){#map{height:calc(100vh - 240px)}}
+footer{background:#1f2937;color:#9ca3af;text-align:center;padding:20px;font-size:12.5px}
 </style>
-<style>main{max-width:1300px!important;padding:24px 16px 40px!important}</style>
 <script src="/familytrip/lib/leaflet.js"></script>
 
+<main>
 <h1>📷 한국 실시간 카메라 디렉토리</h1>
-<p class="sub">국립공원공단 · 해양수산부 연안포털 · 포항시 · 제주시/서귀포시 · KBS 재난포털 등 공공기관 카메라 <strong id="total">190</strong>곳. 탭을 선택하면 지도의 위치와 목록이 함께 필터됩니다.</p>
-<div class="tabs" id="tabs"></div>
-<div class="layout">
-  <div>
-    <div id="map"></div>
-    <div class="legend">
-      <span><i class="dot" style="background:#0f766e"></i>제주</span>
-      <span><i class="dot" style="background:#7c3aed"></i>산·등산</span>
-      <span><i class="dot" style="background:#0284c7"></i>해안·바다</span>
-      <span><i class="dot" style="background:#65a30d"></i>하천</span>
-      <span><i class="dot" style="background:#dc2626"></i>도시·기타</span>
-    </div>
-    <p class="count" id="mapcount"></p>
-  </div>
-  <div>
-    <p class="count" id="gridcount"></p>
-    <div class="grid" id="grid"></div>
-  </div>
+<p class="sub">공공기관 카메라 <strong id="total">190</strong>곳 — 마커를 클릭하면 바로 실시간 화면이 열립니다.</p>
+<div class="bar">
+  <div class="tabs" id="tabs"></div>
 </div>
+<div id="map"></div>
+<div class="legend">
+  <span><i class="dot" style="background:#0f766e"></i>제주</span>
+  <span><i class="dot" style="background:#7c3aed"></i>산·등산</span>
+  <span><i class="dot" style="background:#0284c7"></i>해안·바다</span>
+  <span><i class="dot" style="background:#65a30d"></i>하천</span>
+  <span><i class="dot" style="background:#dc2626"></i>도시·기타</span>
+  <span class="count" id="mapcount"></span>
+</div>
+</main>
+
+<div id="lmodal"><div class="lm-card">
+  <div class="lm-hd"><span class="nm" id="lm-name"></span><span class="meta" id="lm-meta"></span><span class="sp"></span>
+    <a id="lm-official" href="#" target="_blank" rel="noopener">공식 페이지 ↗</a>
+    <button class="lm-x" id="lm-x">✕</button></div>
+  <div class="lm-bd" id="lm-bd"></div>
+  <div class="lm-ft"><span id="lm-src"></span><span id="lm-note"></span></div>
+</div></div>
 
 <script>
 const PROXY='https://jeju-cctv-proxy.jaehoonlee80.workers.dev';
@@ -147,78 +153,87 @@ function tabsHTML(){
 function inTab(c,tid){return TABS.find(t=>t.id===tid).test(c);}
 function render(tid){
  const list=CAMS.filter(c=>inTab(c,tid));
- document.getElementById('gridcount').textContent=list.length+'개 카메라';
- document.getElementById('grid').innerHTML=list.map(cardHTML).join('');
  document.getElementById('mapcount').textContent='표시 중 '+list.length+'개';
- // markers
  Object.values(MARKERS).forEach(m=>MAP.removeLayer(m));MARKERS={};
  list.forEach(c=>{
-  const col=camColor(c);
-  const m=L.circleMarker([c.lat,c.lon],{radius:7,color:'#fff',weight:1.5,fillColor:col,fillOpacity:.9}).addTo(MAP);
-  m.bindPopup('<b>'+esc(c.short)+'</b><br>'+esc(c.region)+'<br><a href="#cam-'+c.id+'" onclick="document.getElementById(\'cam-'+c.id+'\').scrollIntoView({behavior:\'smooth\'});return false;">카드 보기</a>');
+  const m=L.circleMarker([c.lat,c.lon],{radius:8,color:'#fff',weight:1.5,fillColor:camColor(c),fillOpacity:.92}).addTo(MAP);
+  m.bindPopup('<div style="min-width:150px"><b>'+esc(c.short)+'</b><br><span style="color:#666;font-size:11px">'+esc(c.region)+(c.approx?' · 위치 추정':'')+'</span><br><a href="javascript:void(0)" onclick="showCam(\''+c.id+'\');return false;" style="color:#0284c7;font-weight:700">▶ 실시간 보기</a></div>',{closeButton:false});
+  m.on('click',()=>showCam(c.id));
   MARKERS[c.id]=m;
  });
  if(list.length&&tid!=='all'){const g=L.latLngBounds(list.map(c=>[c.lat,c.lon]));MAP.fitBounds(g.pad(0.15));}
- bindLazy();
 }
-function cardHTML(c){
- const tags=c.cats.slice(0,3).map(t=>'<span class="tag">'+esc(t)+'</span>').join('');
- return '<div class="cam" id="cam-'+c.id+'" data-embed="'+c.embed+'" data-id="'+c.id+'">'
- +'<div class="hd"><div><div class="nm">'+esc(c.short)+'</div><div class="meta">'+esc(c.region)+(c.approx?' · 위치 추정':'')+'</div></div><div>'+tags+'</div></div>'
- +'<div class="bd" data-bd></div>'
- +'<div class="ft"><span class="src-note">'+esc(c.source)+'</span><a href="'+c.official+'" target="_blank" rel="noopener">공식 화면 ↗</a></div></div>';
+// ── 카메라 뷰어 ──
+function showCam(id){
+ const c=CAMS.find(x=>x.id===id);if(!c)return;
+ document.getElementById('lm-name').textContent=c.short;
+ document.getElementById('lm-meta').textContent=c.region+(c.approx?' · 위치 추정':'');
+ document.getElementById('lm-official').href=c.official;
+ document.getElementById('lm-src').textContent=c.source||'';
+ document.getElementById('lm-note').textContent='';
+ const bd=document.getElementById('lm-bd');
+ bd.innerHTML='<div class="ph">불러오는 중…</div>';
+ document.getElementById('lmodal').classList.add('open');
+ const card={dataset:{id:c.id},querySelector:sel=>bd.querySelector(sel)};
+ mount(card);
 }
-// ── lazy embed ──
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){mount(e.target);io.unobserve(e.target);}}),{rootMargin:'400px'});
-function bindLazy(){document.querySelectorAll('#grid .cam').forEach(el=>{if(!el._io)io.observe(el);});}
+function closeModal(){
+ document.getElementById('lmodal').classList.remove('open');
+ try{if(window._wrpc){window._wrpc.Stop&&window._wrpc.Stop();window._wrpc.Terminate&&window._wrpc.Terminate();window._wrpc=null;}}catch(_){}
+ document.querySelectorAll('#lm-bd video').forEach(v=>{try{v.pause();}catch(_){} try{if(v._hls){v._hls.destroy();v._hls=null;}}catch(_){} try{v.removeAttribute('src');v.load();}catch(_){}});
+ document.getElementById('lm-bd').innerHTML='';
+}
+document.getElementById('lm-x').onclick=closeModal;
+document.getElementById('lmodal').onclick=e=>{if(e.target.id==='lmodal')closeModal();};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+// ── embed ──
 function mount(card){
  const c=CAMS.find(x=>x.id===card.dataset.id);if(!c)return;
- const bd=card.querySelector('[data-bd]');
+ const bd=document.getElementById('lm-bd');
  switch(c.embed){
   case 'hls': bd.innerHTML='<video muted playsinline autoplay></video>'; playHls(bd.querySelector('video'),c.hls); break;
-  case 'proxy': bd.innerHTML='<video muted playsinline autoplay></video><div class="ph" style="position:absolute;inset:0;display:none">연결 중…</div>'; startProxy(card,c,bd.querySelector('video')); break;
-  case 'webrtc': startWebrtc(card,c,bd); break;
+  case 'proxy': bd.innerHTML='<video muted playsinline autoplay></video><div class="ph" style="position:absolute;inset:0;display:none">연결 중…</div>'; startProxy(c,bd.querySelector('video')); break;
+  case 'webrtc': startWebrtc(c,bd); break;
   case 'snap': bd.innerHTML='<img loading="lazy" src="'+KF_IMG(c.code)+'" alt="'+esc(c.short)+'">'; snapRefresh(bd.querySelector('img'),()=>KF_IMG(c.code),20000); break;
-  case 'kbs': bd.innerHTML='<div class="ph">불러오는 중…</div>'; startKbs(card,c,bd); break;
-  case 'snapjob': bd.innerHTML='<img loading="lazy" src="'+SNAP+c.snap+'" alt="'+esc(c.short)+'"><div class="ph" style="position:absolute;left:8px;top:8px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:2px 7px;border-radius:6px">5분 스냅샷</div>';{const im=bd.querySelector('img');im.onerror=()=>{if(im.dataset.dead)return;im.dataset.dead=1;bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">스냅샷 준비 중 — 공식 페이지에서 보기 ↗</a></div>';};} snapRefresh(bd.querySelector('img'),()=>SNAP+c.snap+'?t='+Date.now(),60000); break;
-  default: bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">공식 페이지에서 실시간 화면 보기 ↗</a></div>';
+  case 'kbs': bd.innerHTML='<div class="ph">불러오는 중…</div>'; startKbs(c,bd); break;
+  case 'snapjob': bd.innerHTML='<img loading="lazy" src="'+SNAP+c.snap+'" alt="'+esc(c.short)+'"><div class="lm-snap">5분 스냅샷</div>';{const im=bd.querySelector('img');im.onerror=()=>{if(im.dataset.dead)return;im.dataset.dead=1;bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">스냅샷 준비 중 — 공식 페이지에서 보기 ↗</a></div>';};} snapRefresh(bd.querySelector('img'),()=>SNAP+c.snap+'?t='+Date.now(),60000); break;
+  default: bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">공식 페이지에서 실시간 화면 보기 ↗</a></div>';
  }
 }
 function snapRefresh(img,urlFn,ms){
  if(!img)return;
  img.onerror=()=>{img.style.opacity=.35;};
- setInterval(()=>{const u=urlFn();const t=new Image();t.onload=()=>{img.src=u;};t.src=u;},ms);
+ setInterval(()=>{if(!img.isConnected)return;const u=urlFn();const t=new Image();t.onload=()=>{if(img.isConnected)img.src=u;};t.src=u;},ms);
 }
 function playHls(video,url){
  if(video.canPlayType('application/vnd.apple.mpegurl')){video.src=url;return;}
- if(window.Hls&&Hls.isSupported()){const h=new Hls({maxBufferLength:8});h.loadSource(url);h.attachMedia(video);return;}
+ if(window.Hls&&Hls.isSupported()){const h=new Hls({maxBufferLength:8});h.loadSource(url);h.attachMedia(video);video._hls=h;return;}
  video.parentElement.insertAdjacentHTML('beforeend','<div class="ph">이 브라우저는 HLS를 지원하지 않습니다</div>');
 }
-async function startProxy(card,c,video){
+async function startProxy(c,video){
  try{
   const r=await fetch(PROXY+'/jejusi?cam='+c.cam);
   const j=await r.json();
   if(!j.url)throw 0;
   const purl=PROXY+'/?url='+encodeURIComponent(j.url);
   playHls(video,purl);
-  // uid 수명 대비 50분 후 재발급
-  setTimeout(()=>startProxy(card,c,video),50*60*1000);
- }catch(e){video.parentElement.querySelector('.ph').style.display='flex';}
+  setTimeout(()=>{if(video.isConnected)startProxy(c,video);},50*60*1000);
+ }catch(e){const ph=video.parentElement.querySelector('.ph');if(ph)ph.style.display='flex';}
 }
-async function startKbs(card,c,bd){
+async function startKbs(c,bd){
  try{
   if(!Object.keys(KBS).length){
    const r=await fetch('kbs-cams.json');KBS={};(await r.json()).forEach(k=>KBS[k.id]=k);
   }
   const k=KBS[c.sid];
   if(k&&k.img){bd.innerHTML='<img src="'+k.img+'" alt="'+esc(c.short)+'">';snapRefresh(bd.querySelector('img'),()=>KBS[c.sid]?KBS[c.sid].img:k.img,90000);}
-  else bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">공식 페이지에서 보기 ↗</a></div>';
+  else bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">공식 페이지에서 보기 ↗</a></div>';
  }catch(e){bd.innerHTML='<div class="ph">KBS 목록 로드 실패</div>';}
 }
 // KNPS 플레이어는 연결 실패 시 alert()를 500ms마다 무한 반복 → alert 무력화
 window.alert=()=>{};
-function startWebrtc(card,c,bd){
- bd.innerHTML='<video id="wv-'+c.id+'" autoplay muted playsinline style="width:100%;height:180px;object-fit:cover;background:#000"></video><div class="ph" style="position:absolute;inset:0">연결 중…</div>';
+function startWebrtc(c,bd){
+ bd.innerHTML='<video id="wv-'+c.id+'" autoplay muted playsinline style="width:100%;max-height:68vh;object-fit:contain;background:#000"></video><div class="ph" style="position:absolute;inset:0">연결 중…</div>';
  const done=()=>{const ph=bd.querySelector('.ph');if(ph)ph.remove();};
  if(!window.UnrealWebRTCPlayer){
   const s1=document.createElement('script');s1.src='https://live.knps.or.kr/play/rtc/webrtcadapter.js';
@@ -239,10 +254,9 @@ function initWrtc(c,bd,done){
    check();
    if(ok){done();return;}
    try{p.Stop&&p.Stop();p.Terminate&&p.Terminate();}catch(_){}
-   // 피어 연결 실패/카메라 오프라인 → 공식 페이지 링크로 폴백
-   bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">실시간 연결 실패 — 공식 페이지에서 보기 ↗</a></div>';
+   bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener">실시간 연결 실패 — 공식 페이지에서 보기 ↗</a></div>';
   },15000);
- }catch(e){bd.querySelector('.ph').textContent='연결 실패';}
+ }catch(e){const ph=bd.querySelector('.ph');if(ph)ph.textContent='연결 실패';}
 }
 // ── boot ──
 fetch('kr-cams.json').then(r=>r.json()).then(cams=>{
