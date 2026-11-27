@@ -36,13 +36,13 @@
   </nav>
 </header>
 <main><div class="hero-live" style="position:relative;border-radius:14px;overflow:hidden;margin-bottom:18px;background:#000">
-<div style="position:relative;padding-top:56.25%;background:#000"><video id="heroVideo" muted playsinline preload="none" poster="/familytrip/assets/hero-live.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+<div style="position:relative;padding-top:56.25%;background:#000"><video id="heroVideo0" muted playsinline preload="none" poster="/familytrip/assets/hero-live.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s"></video><video id="heroVideo1" muted playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s"></video><div id="heroYt" style="position:absolute;inset:0;opacity:0;transition:opacity .6s;background:#000"></div>
 <button id="heroPlay" type="button" aria-label="실시간 영상 재생" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(225,29,72,.92);color:#fff;border:0;border-radius:50%;width:72px;height:72px;font-size:26px;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.45)">▶</button>
 <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 40%,rgba(0,0,0,.72));"></div>
 <div style="position:absolute;left:0;right:0;bottom:0;padding:22px 24px;color:#fff">
 <span style="display:inline-block;background:#e11d48;color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.5px;margin-bottom:8px">● LIVE</span>
 <h1 style="margin:0 0 6px;font-size:26px">아이와 함께 가도 후회 없는 여행, 직접 다녀온 가족여행 가이드</h1>
-<p style="margin:0;font-size:14px;opacity:.9">울산교통관리센터 공식 CCTV 실시간 송출 — 전국 800+ 공공 카메라를 한곳에서</p>
+<p style="margin:0;font-size:14px;opacity:.9">서울·제주·울산 공공 CCTV 실시간 송출 — 30초마다 교대</p>
 </div></div></div>
 <div class="wx" data-lat="37.5665" data-lon="126.9780" data-label="서울"></div>
 <p><a href="/familytrip/live/korea-cctv.html">전국 CCTV 허브 →</a> · <a href="/familytrip/live/tourist-live.html">실시간 관광명소 53곳 →</a> · <a href="/familytrip/cities.html">세계 도시 100곳 →</a></p>
@@ -69,24 +69,46 @@ q.addEventListener('input',function(){{var t=q.value.trim().toLowerCase();
 </div><div class="card-grid"><div class="card"><img src="/familytrip/assets/cards/tripfinder.webp" alt="내 여행 찾아줌 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">내 여행 찾아줌</span><h3 style="margin-top:8px"><a href="/familytrip/tripfinder/recovery-glow.html">글로우케이션 회복 여행 — 시술 다음 날 맞춤 회복 숙소·동선 코스</a></h3><p>시술·여행 다음 날 피부가 예민할 때. 회복 상태와 관리 종류를 고르면 맞춤 회복 코스 3안을 추천하고, 비대면 체크인·암막커튼·가습기·무향 어메니티를 갖춘 실제 회복 숙소와 관리→숙소→약국·저자극 식사 동선까지 정리했습니다.</p></div></div><div class="card"><img src="/familytrip/assets/cards/live.webp" alt="실시간 카메라 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">실시간 카메라</span><h3 style="margin-top:8px"><a href="/familytrip/live/kr-cam-directory.html">한국 실시간 카메라 디렉토리 — 산·바다·제주 공공 CCTV 190곳 지도</a></h3><p>국립공원·연안포털·지자체·KBS 재난포털 등 공공기관 실시간 카메라 190곳을 지도와 카테고리 탭으로 탐색. 마커를 클릭하면 바로 실시간 화면이 열립니다.</p></div></div><div class="card"><img src="/familytrip/assets/cards/tripfinder.webp" alt="내 여행 찾아줌 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">내 여행 찾아줌</span><h3 style="margin-top:8px"><a href="/familytrip/tripfinder/europe-family-guide.html">유럽 가족여행 완벽 가이드 — 도시 선택, 경비, 아이 동반 팁</a></h3><p>유럽이 처음인 가족을 위한 여행 가이드 — 파리·런던·로마·바르셀로나·프라하 도시별 특징, 교통 패스, 경비 감 잡기, 아이 동반 시설까지 정리했습니다.</p></div></div><div class="card"><img src="/familytrip/assets/cards/tripfinder.webp" alt="내 여행 찾아줌 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">내 여행 찾아줌</span><h3 style="margin-top:8px"><a href="/familytrip/tripfinder/find-my-trip.html">내 여행 찾아줌 — MBTI와 조건으로 여행지 3안 추천</a></h3><p>여행 인원만큼 MBTI 유형을 고르고 출발 월·지역·예산을 정하면 나에게 맞는 여행지 3안을 추천합니다. 장소를 고르면 AI가 일차별 여행코스까지 짜줍니다.</p></div></div><div class="card"><img src="/familytrip/assets/cards/tripfinder.webp" alt="내 여행 찾아줌 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">내 여행 찾아줌</span><h3 style="margin-top:8px"><a href="/familytrip/tripfinder/first-japan-family-guide.html">처음 가는 일본 가족여행 완벽 가이드 — 도시 선택부터 짐싸기까지</a></h3><p>일본이 처음인 가족을 위한 여행 가이드 — 도쿄·오사카·후쿠오카·오키나와 도시별 특징, 교통 패스, 아이 동반 팁, 환전·eSIM까지 한 번에 정리했습니다.</p></div></div><div class="card"><img src="/familytrip/assets/cards/tripfinder.webp" alt="내 여행 찾아줌 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">내 여행 찾아줌</span><h3 style="margin-top:8px"><a href="/familytrip/tripfinder/jeju-family-guide.html">제주도 가족여행 완벽 가이드 — 동부/서부 동선, 아이 동반 시설, 물가와 교통</a></h3><p>제주도를 아이와 함께 여행하는 가족을 위한 가이드 — 동부/서부 동선, 아이 동반 시설, 물가와 교통, 실시간 CCTV로 현장 확인까지 정리했습니다.</p></div></div><div class="card"><img src="/familytrip/assets/cards/tripfinder.webp" alt="내 여행 찾아줌 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">내 여행 찾아줌</span><h3 style="margin-top:8px"><a href="/familytrip/tripfinder/southeast-asia-family-guide.html">동남아 가족여행 완벽 가이드 — 방콕·다낭·푸켓·싱가포르 비교와 준비</a></h3><p>동남아가 처음인 가족을 위한 여행 가이드 — 방콕·다낭·푸켓·싱가포르·쿠알라룸푸르 도시별 특징, 경비, 아이 동반 팁, eSIM·백신까지 정리했습니다.</p></div></div><div class="card"><img src="/familytrip/assets/cards/tripfinder.webp" alt="내 여행 찾아줌 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">내 여행 찾아줌</span><h3 style="margin-top:8px"><a href="/familytrip/tripfinder/travel-match.html">MBTI로 찾는 나의 여행지 — 성향 테스트 후 딱 맞는 도시 3곳 추천</a></h3><p>MBTI 8문항 테스트로 나의 여행 성향을 파악하고, 성향에 맞는 여행지 3곳을 추천합니다. 각 도시별 가볼만한 곳·액티비티·경비·베스트 시즌을 비교표로 확인하세요.</p></div></div><div class="card"><img src="/familytrip/assets/cards/itineraries.webp" alt="코스별 일정 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">코스별 일정</span><h3 style="margin-top:8px"><a href="/familytrip/itineraries/jeju-3days.html">제주 3일 가족여행 코스 — 동부·서부 동선과 실시간 현장 확인</a></h3><p>제주도를 처음 가는 가족을 위한 3일 코스 — 성산·서귀포 동부와 애월·협재 서부를 렌터카로 연결하는 동선, 실시간 CCTV로 현장 확인까지.</p></div></div><div class="card"><img src="/familytrip/assets/cards/itineraries.webp" alt="코스별 일정 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">코스별 일정</span><h3 style="margin-top:8px"><a href="/familytrip/itineraries/kyoto-osaka-4days.html">교토·오사카 4일 가족여행 코스 — 먹거리 수도와 고도 문화</a></h3><p>오사카(먹거리)와 교토(전통 문화)를 4일간 여행하는 가족 코스 — 난바·우메다·기온·아라시야마까지 일차별 동선과 시간표를 정리했습니다.</p></div></div><div class="card"><img src="/familytrip/assets/cards/itineraries.webp" alt="코스별 일정 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">코스별 일정</span><h3 style="margin-top:8px"><a href="/familytrip/itineraries/tokyo-3days.html">도쿄 3일 가족여행 코스 — 첫 일본 여행에 딱 맞는 동선</a></h3><p>도쿄를 처음 가는 가족을 위한 3일 코스 — 아사쿠사·시부야·하라주쿠·메이지신궁·디즈니 리조트까지 일차별 동선과 시간표를 정리했습니다.</p></div></div><div class="card"><img src="/familytrip/assets/cards/checklists.webp" alt="준비물 대표 이미지" loading="lazy" decoding="async" width="640" height="360" style="width:100%;height:auto;display:block"><div class="body"><span class="badge">준비물</span><h3 style="margin-top:8px"><a href="/familytrip/checklists/kids-packing-list.html">아이 동반 여행 짐싸기 — 연령별 필수템과 분리 포장 팁</a></h3><p>아이와 함께 여행할 때 꼭 챙겨야 할 짐을 연령별(영유아·미취학·초등)로 정리하고, 기내 반입 vs 위탁 수하물 분리 포장 방법까지 안내합니다.</p></div></div></div>
 <script>
 (function(){
- const v=document.getElementById('heroVideo'),btn=document.getElementById('heroPlay');if(!v)return;
- let started=false,hlsLoading=false;
+ const vids=[0,1].map(i=>document.getElementById('heroVideo'+i)),yt=document.getElementById('heroYt'),btn=document.getElementById('heroPlay');
+ if(!vids[0]||!yt)return;
+ const SRC=['/familytrip/live/seoul-cams.json','/familytrip/live/ulsan-cams.json'];
+ const YT='https://www.youtube-nocookie.com/embed/5F5VClDw4jE?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3';
+ const NLAYERS=3; // 0=서울,1=울산,2=제주(YouTube)
+ let started=false,hlsLoading=false,cur=0;
+ const SWITCH_MS=30000;
  function loadHls(cb){if(window.Hls){cb();return}
-  if(hlsLoading)return;hlsLoading=true;
+  if(hlsLoading){const t=setInterval(()=>{if(window.Hls){clearInterval(t);cb();}},200);return}hlsLoading=true;
   const s=document.createElement('script');
   s.src='https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js';
   s.integrity='sha384-R2JqybiEexSXz60H6Zz28MdsqWWnMQlP+NDb7nIhDHWxx6sM7Otw7OWCq9EBCPsz';
   s.crossOrigin='anonymous';s.onload=cb;s.onerror=()=>{btn&&(btn.style.display='none')};
   document.head.appendChild(s);}
+ function attach(v,url){
+  if(v.canPlayType('application/vnd.apple.mpegurl')){v.src=url;return;}
+  if(window.Hls&&Hls.isSupported()){const h=new Hls({maxBufferLength:6});h.loadSource(url);h.attachMedia(v);v._hls=h;hlsInst.push(h);}
+ }
+ function show(i){
+  vids.forEach((v,j)=>{v.style.opacity=(j===i)?'1':'0';
+   if(j===i){v.play().catch(()=>{});}
+   else{try{v.pause();}catch(_){}}});
+  yt.style.opacity=(i===2)?'1':'0';
+  if(i===2){if(!yt.dataset.loaded){yt.innerHTML='<iframe src="'+YT+'" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="autoplay;encrypted-media" allowfullscreen></iframe>';yt.dataset.loaded='1';}}
+  else{yt.innerHTML='';yt.dataset.loaded='';}
+  cur=i;
+ }
  function start(){if(started)return;started=true;if(btn)btn.style.display='none';
-  fetch('/familytrip/live/ulsan-cams.json').then(r=>r.json()).then(cams=>{
-   if(!cams.length)return;const url=cams[0].url;
-   loadHls(()=>{if(v.canPlayType('application/vnd.apple.mpegurl')){v.src=url;}
-    else if(window.Hls&&Hls.isSupported()){const h=new Hls({maxBufferLength:8});h.loadSource(url);h.attachMedia(v);}});
-   v.play().catch(()=>{});
-  }).catch(()=>{});}
+  loadHls(()=>{
+   Promise.all(SRC.map(u=>fetch(u).then(r=>r.json()).catch(()=>[]))).then(lists=>{
+    lists.forEach((cams,i)=>{const v=vids[i];if(!v||!cams.length)return;
+     v.addEventListener('loadeddata',()=>{v.dataset.ready='1';},{once:true});
+     attach(v,cams[0].url);if(i===0)v.play().catch(()=>{});});
+    show(0);
+    setInterval(()=>{for(let k=1;k<NLAYERS;k++){const nxt=(cur+k)%NLAYERS;
+     if(nxt===2||vids[nxt].dataset.ready==='1'){show(nxt);break;}}},SWITCH_MS);
+   });
+  });}
  if(btn)btn.addEventListener('click',start);
- if('IntersectionObserver' in window){const io=new IntersectionObserver(en=>{if(en[0].isIntersecting){setTimeout(start,1000);io.disconnect();}},{threshold:.3});io.observe(v);}else{setTimeout(start,2500);}
+ if('IntersectionObserver' in window){const io=new IntersectionObserver(en=>{if(en[0].isIntersecting){setTimeout(start,1000);io.disconnect();}},{threshold:.3});io.observe(vids[0]);}else{setTimeout(start,2500);}
 })();
 </script>
 </main>
