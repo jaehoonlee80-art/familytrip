@@ -109,7 +109,7 @@ img{max-width:100%;border-radius:10px}
 if(typeof L==='undefined'){var _d=document.getElementById('main-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var SPOTS_R=[{s:'성산일출봉',t:'사랑의 불시착',lat:33.4581,lon:126.9421,d:'제주 편 장면 — 성산포 일대 해안이 배경으로 사용.'},{s:'함덕해수변',t:'눈물의 여왕',lat:33.5435,lon:126.6692,d:'홍해인과 백이진의 제주 에피소드 핵심 배경 — 함덕 해수욕장 일대.'},{s:'섭지코지',t:'눈물의 여왕',lat:33.4434,lon:126.94,d:'드라마 후반부 해안 절경 장면의 대표 촬영지.'},{s:'제주 협재해변',t:'호텔 델루나',lat:33.5246,lon:126.5318,d:'드라마 속 해변 장면 일부 — 협재 일대.'}];
 var m=L.map('main-map').setView([33.4434,126.94],13);
-L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
 SPOTS_R.forEach(function(s){
  var isMain=(s.s==="섭지코지");
  L.circleMarker([s.lat,s.lon],{radius:isMain?11:8,color:'#fff',weight:2,fillColor:isMain?'#0f766e':'#8b5cf6',fillOpacity:.95}).addTo(m)

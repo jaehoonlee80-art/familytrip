@@ -96,7 +96,7 @@ function render(){
 function drawMap(list){
  const el=document.getElementById('rmap');
  if(!window.L){el.innerHTML='<p style="padding:16px;color:#888">지도를 불러오는 중…</p>';return;}
- if(!map){map=L.map('rmap').setView([36.3,127.9],7);L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap © CARTO'}).addTo(map);}
+ if(!map){map=L.map('rmap').setView([36.3,127.9],7);L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Tiles © Esri — Source: Esri, DeLorme, NAVTEQ, USGS, NPS'}).addTo(map);}
  marks.forEach(m=>map.removeLayer(m));marks=[];
  const show=list.slice(0,500);
  show.forEach(r=>{const m=L.circleMarker([r.lat,r.lon],{radius:4,color:'#dc2626',weight:1,fillColor:'#dc2626',fillOpacity:.5}).addTo(map);

@@ -126,7 +126,7 @@ var REGIONS=[
  [37.5665,126.9780,'전국 CCTV 지도','cctv-map.html','카메라 800+ · 위치 검색']
 ];
 var map=L.map('cctv-region-map').setView([36.4,127.9],7);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap © CARTO'}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Tiles © Esri — Source: Esri, DeLorme, NAVTEQ, USGS, NPS'}).addTo(map);
 REGIONS.forEach(function(r){
  L.marker(r.slice(0,2),{title:r[2]}).addTo(map).bindPopup(
   '<b>'+r[2]+'</b><br>'+r[4]+'<br><a href="'+r[3]+'">해당 지역 페이지 →</a>');

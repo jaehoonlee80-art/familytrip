@@ -107,7 +107,7 @@ img{max-width:100%;border-radius:10px}
 if(typeof L==='undefined'){var _d=document.getElementById('main-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var SPOTS_R=[{s:'남이섬',t:'호텔 델루나',lat:37.2985,lon:127.598,d:'호텔 델루나의 대표적인 자연 배경 — 남이섬 전역이 드라마의 영감으로 알려짐.'},{s:'여주 세종대왕릉',t:'사극 단골',lat:37.2777,lon:127.604,d:'조선 왕릉 — 사극·사극 영화의 역사 배경지.'}];
 var m=L.map('main-map').setView([37.2985,127.598],13);
-L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
 SPOTS_R.forEach(function(s){
  var isMain=(s.s==="남이섬");
  L.circleMarker([s.lat,s.lon],{radius:isMain?11:8,color:'#fff',weight:2,fillColor:isMain?'#0f766e':'#8b5cf6',fillOpacity:.95}).addTo(m)

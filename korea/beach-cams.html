@@ -123,7 +123,7 @@ setInterval(()=>{document.querySelectorAll('.bcam-img').forEach(i=>{if(i.dataset
 function initMap(){
  try{
   MAP=L.map('beachmap').setView([36.4,127.9],6);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap © CARTO'}).addTo(MAP);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Tiles © Esri — Source: Esri, DeLorme, NAVTEQ, USGS, NPS'}).addTo(MAP);
   MARKS=CAMS.map(c=>{
    const m=L.marker([c.lat,c.lon]).addTo(MAP);
    m.bindPopup('<b>'+c.name+'</b><br>'+c.region+'<br><a href="'+BP+'korea/cam-'+c.code+'-'+c.cam+'.html">상세·실시간 →</a>');

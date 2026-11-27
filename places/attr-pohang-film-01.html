@@ -98,7 +98,7 @@ img{max-width:100%;border-radius:10px}
 if(typeof L==='undefined'){var _d=document.getElementById('main-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var SPOTS_R=[{s:'포항 영일대해수욕장',t:'서울의 봄',lat:36.0358,lon:129.382,d:'드라마 속 해변·시장 장면의 실제 배경 — 포항 시내와 영일대 일대.'}];
 var m=L.map('main-map').setView([36.0358,129.382],13);
-L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
 SPOTS_R.forEach(function(s){
  var isMain=(s.s==="포항 영일대해수욕장");
  L.circleMarker([s.lat,s.lon],{radius:isMain?11:8,color:'#fff',weight:2,fillColor:isMain?'#0f766e':'#8b5cf6',fillOpacity:.95}).addTo(m)

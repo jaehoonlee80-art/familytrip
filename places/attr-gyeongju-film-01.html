@@ -136,7 +136,7 @@ var WC=[
  {n:'4. 첨성대 옆 장애인 화장실',lat:35.8345,lon:129.2197}
 ];
 var m=L.map('poi-map').setView([35.8355,129.2170],14);
-L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
 PARK.forEach(function(p,i){
  var ic=L.divIcon({className:'',html:'<div style="background:#f59e0b;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">P'+(i+1)+'</div>',iconSize:[24,24],iconAnchor:[12,12]});
  L.marker([p.lat,p.lon],{icon:ic}).addTo(m).bindPopup('🅿️ '+p.n);
@@ -171,7 +171,7 @@ m.fitBounds(L.latLngBounds(PARK.concat(WC).map(function(p){return [p.lat,p.lon]}
 if(typeof L==='undefined'||typeof SPOTS==='undefined'){var _d2=document.getElementById('main-map');if(_d2)_d2.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var GYEONGJU=SPOTS.filter(function(s){return s.r==='경주'});
 var m=L.map('main-map').setView([35.8347,129.2217],13);
-L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
 GYEONGJU.forEach(function(s){
  var isMain=(s.s==='경주 대릉원');
  L.circleMarker([s.lat,s.lon],{radius:isMain?11:8,color:'#fff',weight:2,fillColor:isMain?'#0f766e':'#8b5cf6',fillOpacity:.95}).addTo(m)

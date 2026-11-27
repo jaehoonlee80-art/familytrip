@@ -112,7 +112,7 @@ img{max-width:100%;border-radius:10px}
 if(typeof L==='undefined'){var _d=document.getElementById('main-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
 var SPOTS_R=[{s:'이태원',t:'이태원 클라쓰',lat:37.5343,lon:126.9946,d:'박새로이의 모태 — 이태원 거리 전체가 드라마 무대. 이태원역 일대 골목 필수.'},{s:'남산타워',t:'이태원 클라쓰',lat:37.5512,lon:126.9882,d:'드라마 오프닝·클라이맥스의 서울 야경 배경.'},{s:'성수동 카페거리',t:'오징어 게임',lat:37.5448,lon:127.0557,d:'성수동 카페·거리 — 드라마 속 성수동 장면의 실제 배경. 멜라니 카페 등 실제 카페 다수.'},{s:'성수동',t:'응답하라 시리즈',lat:37.5448,lon:127.0557,d:'응답하라 1988·1997·2017 등 시리즈의 서울 배경 — 성수동 골목.'},{s:'홍대입구역 일대',t:'응답하라 시리즈',lat:37.5563,lon:126.9236,d:'홍대 클럽·거리 — 청춘극의 상징적 배경.'},{s:'연남동',t:'응답하라 시리즈',lat:37.5557,lon:126.925,d:'연남동 카페·골목 — 1997·2017 등 배경.'},{s:'을지로',t:'응답하라 시리즈',lat:37.5663,lon:126.9914,d:'을지로 골목·포장마차 — 1997·2017 배경.'},{s:'광화문광장',t:'시그널',lat:37.572,lon:126.9769,d:'박해영의 과거·현재가 교차하는 서울 중심부 장면.'},{s:'반포한강공원',t:'기생충',lat:37.5106,lon:126.9956,d:'기택 가족의 피아노 연주 장면 등 한강공원 일대가 배경.'},{s:'청계천',t:'청계천 영화들',lat:37.5692,lon:127.0019,d:'아저씨·타짜·내부자들·범죄도시 등 청계천을 배경으로 한 작품 다수 — 을지로3가~종로 구간 산책.'}];
 var m=L.map('main-map').setView([37.5512,126.9882],13);
-L.tileLayer('https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
 SPOTS_R.forEach(function(s){
  var isMain=(s.s==="남산타워");
  L.circleMarker([s.lat,s.lon],{radius:isMain?11:8,color:'#fff',weight:2,fillColor:isMain?'#0f766e':'#8b5cf6',fillOpacity:.95}).addTo(m)

@@ -228,7 +228,16 @@ function initWrtc(c,bd,done){
  try{
   const p=new UnrealWebRTCPlayer('wv-'+c.id,c.alias,'','live.knps.or.kr','448',true,true,'tcp');
   p.Play();
-  setTimeout(done,8000);
+  const vid=document.getElementById('wv-'+c.id);
+  let ok=false;
+  const check=()=>{if(vid&&vid.videoWidth>0)ok=true;};
+  vid&&vid.addEventListener('playing',check,{once:true});
+  setTimeout(()=>{
+   check();
+   if(ok){done();return;}
+   // 피어 연결 실패/카메라 오프라인 → 공식 페이지 링크로 폴백
+   bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">실시간 연결 실패 — 공식 페이지에서 보기 ↗</a></div>';
+  },15000);
  }catch(e){bd.querySelector('.ph').textContent='연결 실패';}
 }
 // ── boot ──
@@ -236,8 +245,8 @@ fetch('kr-cams.json').then(r=>r.json()).then(cams=>{
  CAMS=cams;
  document.getElementById('total').textContent=cams.length;
  MAP=L.map('map',{scrollWheelZoom:true}).setView([36.4,127.9],7);
- L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
-  attribution:'© OpenStreetMap · © CARTO',maxZoom:19}).addTo(MAP);
+ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{
+  attribution:'Tiles © Esri — Source: Esri, DeLorme, NAVTEQ, USGS, NPS',maxZoom:19}).addTo(MAP);
  tabsHTML();render('all');
 });
 </script></main>
