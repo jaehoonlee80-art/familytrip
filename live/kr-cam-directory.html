@@ -69,7 +69,7 @@ img{max-width:100%;border-radius:10px}
   </nav>
 </header>
 <main><div class="meta">실시간 카메라 · 2026-11-26</div><h1>한국 실시간 카메라 디렉토리 — 산·바다·제주 공공 CCTV 190곳 지도</h1><p><link rel="stylesheet" href="/familytrip/lib/leaflet.css"></p>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js" integrity="sha384-R2JqybiEexSXz60H6Zz28MdsqWWnMQlP+NDb7nIhDHWxx6sM7Otw7OWCq9EBCPsz" crossorigin="anonymous"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:#f6f4ef;color:#2b2b2b;line-height:1.6}
@@ -271,8 +271,8 @@ function startWebrtc(c,bd){
  bd.innerHTML='<video id="wv-'+c.id+'" autoplay muted playsinline style="width:100%;max-height:68vh;object-fit:contain;background:#000"></video><div class="ph" style="position:absolute;inset:0">연결 중…</div>';
  const done=()=>{const ph=bd.querySelector('.ph');if(ph)ph.remove();};
  if(!window.UnrealWebRTCPlayer){
-  const s1=document.createElement('script');s1.src='https://live.knps.or.kr/play/rtc/webrtcadapter.js';
-  s1.onload=()=>{const s2=document.createElement('script');s2.src='https://live.knps.or.kr/play/rtc/unrealwebrtcplayer_knps.js';s2.onload=()=>initWrtc(c,bd,done);document.head.appendChild(s2);};
+  const s1=document.createElement('script');s1.src='https://live.knps.or.kr/play/rtc/webrtcadapter.js';s1.integrity='sha384-9zbLKDICscbLUT+S08F9f2fSb7iQa+0gYVYBmU7ADOjiaY18tchrDp0HiQAyGRNY';s1.crossOrigin='anonymous';
+  s1.onload=()=>{const s2=document.createElement('script');s2.src='https://live.knps.or.kr/play/rtc/unrealwebrtcplayer_knps.js';s2.integrity='sha384-f/dC7Wu/GVO6DUhJfxBxGwZf7AQSR48Apgydlwxs2Iui6hUCrwjw3wjcQya2wmvl';s2.crossOrigin='anonymous';s2.onload=()=>initWrtc(c,bd,done);document.head.appendChild(s2);};
   document.head.appendChild(s1);
  }else initWrtc(c,bd,done);
 }
