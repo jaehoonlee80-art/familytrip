@@ -2,6 +2,7 @@
 live/cams.json(옹진군) + live/port-cams.json(인천항) 처리.
 site/live/cams/{id}.jpg 를 갱신한다."""
 import json, os, re, subprocess, tempfile, urllib.request, http.cookiejar
+NOWIN = getattr(subprocess, 'CREATE_NO_WINDOW', 0)
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -49,7 +50,7 @@ def snap(cam, base_t, list_t, path_t):
         r = subprocess.run(
             ['ffmpeg', '-y', '-loglevel', 'error', '-ss', '5', '-i', ts_path,
              '-frames:v', '1', '-q:v', '4', '-update', '1', out],
-            capture_output=True, timeout=60)
+            capture_output=True, timeout=60, creationflags=NOWIN)
         os.remove(ts_path)
         return cid, 'ok' if r.returncode == 0 and os.path.exists(out) else 'ffmpeg-fail'
     except Exception as e:
@@ -71,7 +72,7 @@ def snap_ffmpeg(cam, jw_sess=None):
             ['ffmpeg', '-y', '-loglevel', 'error',
              '-i', url, '-frames:v', '1', '-q:v', '4', '-update', '1',
              '-rw_timeout', '20000000', out],
-            capture_output=True, timeout=90)
+            capture_output=True, timeout=90, creationflags=NOWIN)
         return cid, 'ok' if r.returncode == 0 and os.path.exists(out) else 'ffmpeg-fail'
     except Exception as e:
         return cid, f'err:{type(e).__name__}'
@@ -106,7 +107,7 @@ def snap_ts_segment(cam, pl_url):
         r = subprocess.run(
             ['ffmpeg', '-y', '-loglevel', 'error', '-i', ts_path,
              '-frames:v', '1', '-q:v', '4', '-update', '1', out],
-            capture_output=True, timeout=60)
+            capture_output=True, timeout=60, creationflags=NOWIN)
         os.remove(ts_path)
         if r.returncode == 0 and os.path.exists(out):
             return cid, 'ok'
