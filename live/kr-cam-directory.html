@@ -70,10 +70,18 @@ h1{font-size:22px;margin-bottom:4px}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
 .tabs button{border:1px solid #ddd;background:#fff;border-radius:18px;padding:6px 14px;font-size:12.5px;cursor:pointer;color:#444}
 .tabs button.on{background:#0f766e;color:#fff;border-color:#0f766e}
-#map{height:calc(100vh - 210px);min-height:480px;border-radius:14px;border:1px solid #e5e0d8;z-index:1}
+#map{height:calc(100vh - 260px);min-height:420px;border-radius:14px;border:1px solid #e5e0d8;z-index:1}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#666;margin-top:8px;align-items:center}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
 .count{font-size:12px;color:#999;margin-left:auto}
+.camgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:14px}
+.camcard{background:#fff;border:1px solid #e8e4da;border-radius:10px;padding:11px 13px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:4px}
+.camcard:hover{border-color:#0f766e;box-shadow:0 4px 14px rgba(15,118,110,.12);transform:translateY(-1px)}
+.camcard .nm{font-weight:700;font-size:13.5px}
+.camcard .meta{font-size:11px;color:#999}
+.camcard .ft{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#888}
+.camcard .go{color:#0284c7;font-weight:700;font-size:11.5px}
+.tag{display:inline-block;font-size:10px;background:#eef2ff;color:#4338ca;border-radius:8px;padding:1px 7px;margin-right:4px}
 /* 카메라 뷰어 모달 */
 #lmodal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:2000;align-items:center;justify-content:center;padding:18px}
 #lmodal.open{display:flex}
@@ -110,6 +118,8 @@ footer{background:#1f2937;color:#9ca3af;text-align:center;padding:20px;font-size
   <span><i class="dot" style="background:#dc2626"></i>도시·기타</span>
   <span class="count" id="mapcount"></span>
 </div>
+<p class="count" id="gridcount" style="margin:12px 2px 0"></p>
+<div class="camgrid" id="grid"></div>
 </main>
 
 <div id="lmodal"><div class="lm-card">
@@ -151,9 +161,18 @@ function tabsHTML(){
  });
 }
 function inTab(c,tid){return TABS.find(t=>t.id===tid).test(c);}
+function cardHTML(c){
+ const tags=c.cats.slice(0,3).map(t=>'<span class="tag">'+esc(t)+'</span>').join('');
+ return '<div class="camcard" onclick="showCam(\''+c.id+'\')">'
+ +'<div class="nm">'+esc(c.short)+'</div>'
+ +'<div class="meta">'+esc(c.region)+(c.approx?' · 위치 추정':'')+' '+tags+'</div>'
+ +'<div class="ft"><span>'+esc(c.source||'')+'</span><span class="go">▶ 실시간</span></div></div>';
+}
 function render(tid){
  const list=CAMS.filter(c=>inTab(c,tid));
  document.getElementById('mapcount').textContent='표시 중 '+list.length+'개';
+ document.getElementById('gridcount').textContent=list.length+'개 카메라';
+ document.getElementById('grid').innerHTML=list.map(cardHTML).join('');
  Object.values(MARKERS).forEach(m=>MAP.removeLayer(m));MARKERS={};
  list.forEach(c=>{
   const m=L.circleMarker([c.lat,c.lon],{radius:8,color:'#fff',weight:1.5,fillColor:camColor(c),fillOpacity:.92}).addTo(MAP);
