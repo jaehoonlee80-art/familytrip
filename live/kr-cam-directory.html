@@ -215,6 +215,8 @@ async function startKbs(card,c,bd){
   else bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">공식 페이지에서 보기 ↗</a></div>';
  }catch(e){bd.innerHTML='<div class="ph">KBS 목록 로드 실패</div>';}
 }
+// KNPS 플레이어는 연결 실패 시 alert()를 500ms마다 무한 반복 → alert 무력화
+window.alert=()=>{};
 function startWebrtc(card,c,bd){
  bd.innerHTML='<video id="wv-'+c.id+'" autoplay muted playsinline style="width:100%;height:180px;object-fit:cover;background:#000"></video><div class="ph" style="position:absolute;inset:0">연결 중…</div>';
  const done=()=>{const ph=bd.querySelector('.ph');if(ph)ph.remove();};
@@ -227,6 +229,7 @@ function startWebrtc(card,c,bd){
 function initWrtc(c,bd,done){
  try{
   const p=new UnrealWebRTCPlayer('wv-'+c.id,c.alias,'','live.knps.or.kr','448',true,true,'tcp');
+  window._wrpc=p;
   p.Play();
   const vid=document.getElementById('wv-'+c.id);
   let ok=false;
@@ -235,6 +238,7 @@ function initWrtc(c,bd,done){
   setTimeout(()=>{
    check();
    if(ok){done();return;}
+   try{p.Stop&&p.Stop();p.Terminate&&p.Terminate();}catch(_){}
    // 피어 연결 실패/카메라 오프라인 → 공식 페이지 링크로 폴백
    bd.innerHTML='<div class="ph"><a href="'+c.official+'" target="_blank" rel="noopener" style="color:#7dd3fc">실시간 연결 실패 — 공식 페이지에서 보기 ↗</a></div>';
   },15000);
