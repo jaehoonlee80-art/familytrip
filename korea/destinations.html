@@ -112,7 +112,7 @@ function drawMap(list){
  marks.forEach(m=>map.removeLayer(m));marks=[];
  const show=list.slice(0,500);
  show.forEach(p=>{const m=L.circleMarker([p.lat,p.lon],{radius:5,color:'#0f766e',weight:1,fillOpacity:.6}).addTo(map);
-  m.bindPopup('<b>'+esc(p.n)+'</b><br>'+esc(p.s)+' '+esc(p.a));marks.push(m);});
+  m.on('click',()=>openDetail(SP.indexOf(p)));marks.push(m);});
  if(show.length===1)map.setView([show[0].lat,show[0].lon],12);
  else if(show.length>1){const b=L.latLngBounds(show.map(p=>[p.lat,p.lon]));if(b.isValid())map.fitBounds(b.pad(0.05));}
 }
