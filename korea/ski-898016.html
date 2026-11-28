@@ -56,12 +56,14 @@
 <li><strong>주의</strong>: 개장 초기 일부 슬로프만 운영, 정설 시간(보통 16:30~18:00) 리프트 이용 제한</li>
 </ul>
 <h2>가는 법</h2>
-<iframe src="https://maps.google.com/maps?q=37.6574482959,128.6743430431&z=14&output=embed" width="100%" height="360" style="border:0;border-radius:12px;display:block;margin:10px 0" loading="lazy" title="알펜시아리조트 스키장 위치 지도" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
-<p><a class="btn" href="https://www.google.com/maps/search/?api=1&query=37.6574482959,128.6743430431" target="_blank" rel="noopener">🗺️ Google 지도</a></p>
+<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous"></p>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<div id="smap" style="height:340px;border-radius:12px;margin:10px 0"></div>
+<script>var LL=[37.6574482959,128.6743430431];function init(){var m=L.map("smap").setView(LL,14);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(m);L.marker(LL).addTo(m).bindPopup("알펜시아리조트 스키장").openPopup();}var tries=0;function go(){if(window.L){init();}else if(tries++<75){setTimeout(go,200);}}go();</script>
 
 <p><a href="ski.html">← 전국 스키장 개장 현황</a> · <a href="regions.html">전국 지역별 여행지</a></p>
 <blockquote>
-<p>자료: 한국관광공사 TourAPI + 리조트 공식 홈페이지 · 개장일·요금·운영시간은 변동되므로 방문 전 공식 공지 확인 필수.</p>
+<p>자료: 한국관광공사 TourAPI + 리조트 공식 홈페이지 · 개장일·요금·운영시간은 리조트 공지에 따라 수시로 변경됩니다.</p>
 </blockquote>
 <div class="page-foot" style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:12.5px;color:#767676">최종 업데이트: 2026-11-24 · 정보 출처: 각 페이지에 명시된 공식 채널·공공기관·관광공사 공개 자료</div><div class="rel-box" style="margin-top:36px;padding-top:16px;border-top:1px solid #eee"><h2 style="font-size:17px">관련 콘텐츠</h2><ul><li style="margin:4px 0"><a href="/familytrip/korea/airports.html">한국 공항 가이드 — 전국 공항별 시내 이동 방법·비용 비교</a></li><li style="margin:4px 0"><a href="/familytrip/korea/area-busan.html">부산 여행지 — 시군구별 관광지 23곳</a></li><li style="margin:4px 0"><a href="/familytrip/korea/area-chungbuk.html">충북 여행지 — 시군구별 관광지 24곳</a></li></ul></div></main>
 <footer>

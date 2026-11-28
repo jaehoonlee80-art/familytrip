@@ -39,7 +39,7 @@
 <p>
 <input id="dq" type="search" placeholder="관광지 이름·주소 검색 (예: 경복궁, 해운대, 성산일출봉)" style="width:100%;padding:11px;border:1px solid #ddd;border-radius:8px;font-size:15px">
 <select id="dsido" style="padding:8px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin-top:8px"><option value="">전국</option></select>
-<span id="dcount" style="font-size:13px;color:#595959;margin-left:10px"></span>
+<span id="dcount" style="font-size:13px;color:#888;margin-left:10px"></span>
 </p>
 <div id="dmap" style="height:380px;border-radius:12px;margin:12px 0"></div>
 <div id="dgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px"></div>
@@ -70,9 +70,9 @@ function render(){
   '<div class="card" style="cursor:pointer" onclick="openDetail('+SP.indexOf(p)+')"><div class="body">'
   +(p.img?'<img src="'+esc(p.img)+'" loading="lazy" style="width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:8px" onerror="this.style.display=\'none\'">':'<div style="width:100%;height:140px;background:#eef2f1;border-radius:8px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;color:#999;font-size:13px">사진 없음</div>')
   +'<h3 style="font-size:15px;margin:0 0 4px">'+esc(p.n)+' <span class="badge">'+esc(p.catn||'관광지')+'</span></h3>'
-  +'<p style="font-size:12px;color:#595959;margin:2px 0">'+esc(p.s)+' · '+esc(p.a)+'</p>'
+  +'<p style="font-size:12px;color:#888;margin:2px 0">'+esc(p.s)+' · '+esc(p.a)+'</p>'
   +'<p style="font-size:12px;color:#0f766e;margin:6px 0 0">클릭하면 상세 정보 →</p>'
-  +'</div></div>').join('')+(list.length>300?'<p style="grid-column:1/-1;color:#595959;font-size:13px">검색 조건을 좁혀주세요 ('+list.length+'곳 중 300곳 표시).</p>':'');
+  +'</div></div>').join('')+(list.length>300?'<p style="grid-column:1/-1;color:#888;font-size:13px">검색 조건을 좁혀주세요 ('+list.length+'곳 중 300곳 표시).</p>':'');
  drawMap(list);
 }
 function sigOf(a){const t=(a||'').split(/\s+/);return t.length>1?t[1]:'';}
@@ -85,30 +85,27 @@ function openDetail(i){
  const nb=SP.filter(q=>q!==p&&q.s===p.s&&sigOf(q.a)===sigOf(p.a)).slice(0,8);
  document.getElementById('dlb-body').innerHTML=
   '<h2 style="margin:0 0 6px;font-size:21px">'+esc(p.n)+'</h2>'
-  +'<p style="font-size:13px;color:#595959;margin:0 0 12px">'+esc(p.catn||'관광지')+' · '+esc(p.s)+' '+esc(sigOf(p.a))+' <span class="badge">TourAPI #'+esc(String(p.id))+'</span></p>'
-  +(p.ov?'<div style="font-size:14px;line-height:1.85;margin-bottom:14px;max-height:300px;overflow-y:auto;padding-right:6px">'+esc(p.ov).replace(/\n/g,'<br>')+'</div>':'<p style="font-size:13px;color:#595959;margin-bottom:14px">등록된 소개글이 없습니다. 아래 기본 정보와 지도를 참고하세요.</p>')
+  +'<p style="font-size:13px;color:#888;margin:0 0 12px">'+esc(p.catn||'관광지')+' · '+esc(p.s)+' '+esc(sigOf(p.a))+' <span class="badge">TourAPI #'+esc(String(p.id))+'</span></p>'
+  +(p.ov?'<div style="font-size:14px;line-height:1.85;margin-bottom:14px;max-height:300px;overflow-y:auto;padding-right:6px">'+esc(p.ov).replace(/\n/g,'<br>')+'</div>':'')
   +'<table style="width:100%;font-size:13px;border-collapse:collapse;margin-bottom:14px">'
-  +'<tr><td style="padding:7px 8px;background:#f8faf9;border-radius:6px;width:90px;color:#666;vertical-align:top">주소</td><td style="padding:7px 8px">'+esc(p.a||'미등록')+'</td></tr>'
+  +(p.a?'<tr><td style="padding:7px 8px;background:#f8faf9;border-radius:6px;width:90px;color:#666;vertical-align:top">주소</td><td style="padding:7px 8px">'+esc(p.a)+'</td></tr>':'')
   +(p.tel?'<tr><td style="padding:7px 8px;background:#f8faf9;border-radius:6px;color:#666;vertical-align:top">전화</td><td style="padding:7px 8px">'+esc(p.tel)+'</td></tr>':'')
   +'<tr><td style="padding:7px 8px;background:#f8faf9;border-radius:6px;color:#666;vertical-align:top">좌표</td><td style="padding:7px 8px">'+p.lat.toFixed(5)+', '+p.lon.toFixed(5)+'</td></tr>'
   +(p.home?'<tr><td style="padding:7px 8px;background:#f8faf9;border-radius:6px;color:#666;vertical-align:top">홈페이지</td><td style="padding:7px 8px"><a href="'+esc(p.home)+'" target="_blank" rel="noopener">'+esc(p.home.replace(/^https?:\/\//,''))+' ↗</a></td></tr>':'')
   +'</table>'
   +'<p style="font-size:13px;margin-bottom:14px">'
   +'<a href="'+esc(p.page)+'" style="display:inline-block;background:#1d4ed8;color:#fff;padding:10px 18px;border-radius:8px;margin:0 8px 8px 0">상세 페이지 →</a>'
-  +'<a href="https://www.google.com/maps/search/?api=1&query='+p.lat+'%2C'+p.lon+'" target="_blank" rel="noopener" style="display:inline-block;background:#0f766e;color:#fff;padding:10px 18px;border-radius:8px;margin:0 8px 8px 0">Google 지도 ↗</a>'
-  +'<a href="https://map.naver.com/v5/search/'+encodeURIComponent(p.n)+'" target="_blank" rel="noopener" style="display:inline-block;background:#03c75a;color:#fff;padding:10px 18px;border-radius:8px;margin:0 8px 8px 0">네이버 지도 ↗</a>'
-  +'<a href="https://map.kakao.com/?q='+encodeURIComponent(p.a||p.n)+'" target="_blank" rel="noopener" style="display:inline-block;background:#fee500;color:#3c1e1e;padding:10px 18px;border-radius:8px;margin:0 8px 8px 0">카카오맵 ↗</a>'
   +'</p>'
   +(nb.length?'<div style="border-top:1px solid #eee;padding-top:12px"><p style="font-size:13px;font-weight:700;margin:0 0 8px">📍 '+esc(p.s)+' '+esc(sigOf(p.a))+' 주변 관광지</p><div style="display:flex;flex-wrap:wrap;gap:6px">'+nb.map(q=>'<a href="'+esc(q.page)+'" style="font-size:12px;background:#f0fdfa;border:1px solid #99f6e4;color:#0f766e;padding:5px 10px;border-radius:14px;text-decoration:none">'+esc(q.n)+'</a>').join('')+'</div></div>':'')
-  +'<p style="font-size:11px;color:#aaa;margin-top:14px">출처: 한국관광공사 TourAPI · 소개·주소·연락처는 공식 등록 정보이며 운영 정보는 변동될 수 있습니다.</p>';
+  +'<p style="font-size:11px;color:#aaa;margin-top:14px">출처: 한국관광공사 TourAPI · 소개·주소·연락처는 공식 등록 정보입니다.</p>';
  lb.style.display='flex';
 }
 function closeDetail(){document.getElementById('dlb').style.display='none';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDetail();});
 function drawMap(list){
  const el=document.getElementById('dmap');
- if(!window.L){el.innerHTML='<p style="padding:16px;color:#595959">지도를 불러오는 중…</p>';return;}
- if(!map){map=L.map('dmap').setView([36.3,127.9],7);L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Tiles © Esri — Source: Esri, DeLorme, NAVTEQ, USGS, NPS'}).addTo(map);}
+ if(!window.L){el.innerHTML='<p style="padding:16px;color:#888">지도를 불러오는 중…</p>';return;}
+ if(!map){map=L.map('dmap').setView([36.3,127.9],7);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);}
  marks.forEach(m=>map.removeLayer(m));marks=[];
  const show=list.slice(0,500);
  show.forEach(p=>{const m=L.circleMarker([p.lat,p.lon],{radius:5,color:'#0f766e',weight:1,fillOpacity:.6}).addTo(map);
@@ -123,7 +120,7 @@ render();
 <h2>데이터 안내</h2>
 <ul>
 <li>출처: 한국관광공사 TourAPI (공공데이터포털)</li>
-<li>각 항목의 주소·전화·홈페이지는 공식 등록 정보이며, 운영 시간·입장료는 변동될 수 있으니 방문 전 공식 채널에서 확인하세요</li>
+<li>각 항목의 주소·전화·홈페이지는 한국관광공사 TourAPI 공식 등록 정보입니다</li>
 <li>지도 핀은 등록 좌표 기준이며 실제 위치와 오차가 있을 수 있습니다</li>
 </ul>
 <h2>함께 보기</h2>

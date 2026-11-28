@@ -65,16 +65,18 @@
 후원/협찬 : 부산광역시, 해운대구, 부산예술대학교
 예매처 :  YES24 티켓 / 네이버 / 인터파크 티켓 / 놀이의발견 / 클립서비스 등</div>
 
-<h2>💡 방문 전 확인하세요</h2>
+<h2>💡 방문 안내</h2>
 <ul>
-<li>축제 기간·내용·요금은 <strong>매년 변경</strong>될 수 있습니다 — 방문 전 공식 안내·문의처로 최신 일정을 확인하세요.</li>
-<li>주차·교통·우천 취소 여부는 행사별로 다르니 공식 홈페이지에서 사전 확인이 필요합니다.</li>
+<li>축제 기간·내용·요금은 <strong>매년 변경</strong>됩니다 — 공식 홈페이지·문의처에 최신 일정이 있습니다.</li>
+<li>주차·교통·우천 취소 여부는 행사별로 다릅니다 — 공식 홈페이지에 안내가 있습니다.</li>
 <li>인기 축제는 당일 현장 대기가 길 수 있으니 사전 예약·온라인 예매를 권장합니다.</li>
 </ul>
 
 <h2>가는 법</h2>
-<iframe src="https://maps.google.com/maps?q=35.1710365257,129.1270845116&z=15&output=embed" width="100%" height="380" style="border:0;border-radius:12px;display:block;margin:10px 0" loading="lazy" title="부산국제매직페스티벌 위치 지도" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
-<p><a class="btn" href="https://www.google.com/maps/search/?api=1&query=35.1710365257,129.1270845116" target="_blank" rel="noopener">🗺️ Google 지도</a> <a class="btn" href="https://map.naver.com/v5/search/부산국제매직페스티벌" target="_blank" rel="noopener">네이버 지도</a> <a class="btn" href="https://map.kakao.com/link/map/부산국제매직페스티벌,35.1710365257,129.1270845116" target="_blank" rel="noopener">카카오맵</a></p>
+<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous"></p>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<div id="fmap" style="height:340px;border-radius:12px;margin:10px 0"></div>
+<script>var LL=[35.1710365257,129.1270845116];function init(){var m=L.map("fmap").setView(LL,15);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(m);L.marker(LL).addTo(m).bindPopup("부산국제매직페스티벌").openPopup();}var tries=0;function go(){if(window.L){init();}else if(tries++<75){setTimeout(go,200);}}go();</script>
 
 <p><a href="fest-region-busan.html">← 부산 축제 목록</a> · <a href="festivals.html">전국 축제 허브</a></p>
 <blockquote>

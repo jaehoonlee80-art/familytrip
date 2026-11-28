@@ -39,9 +39,6 @@
 <h2>🖼️ 사진</h2>
 <p><img loading="lazy" decoding="async" src="https://tong.visitkorea.or.kr/cms/resource/58/2845858_image2_1.jpg" alt="현짬뽕" style="width:100%;max-height:400px;object-fit:cover;border-radius:12px;margin:10px 0">
 <img loading="lazy" decoding="async" src="https://tong.visitkorea.or.kr/cms/resource/58/2845858_image3_1.jpg" alt="현짬뽕 추가 사진" style="width:100%;max-height:400px;object-fit:cover;border-radius:12px;margin:10px 0"></p>
-<h2>📖 소개</h2>
-<p style="color:#595959">등록된 소개글이 없습니다.</p>
-
 <h2>ℹ️ 기본 정보</h2>
 <table>
 <thead>
@@ -63,24 +60,16 @@
 <td>주소</td>
 <td>대구광역시 남구 대봉로 170 (이천동)</td>
 </tr>
-<tr>
-<td>전화</td>
-<td>미등록 — 방문 전 네이버/카카오맵에서 최신 영업시간 확인 권장</td>
-</tr>
-<tr>
-<td>좌표</td>
-<td>35.85387, 128.60290</td>
-</tr>
-<tr>
-<td>공식 홈페이지</td>
-<td>미등록</td>
-</tr>
 </tbody>
 </table>
 <h2>🗺️ 위치·가는 법</h2>
-<p><a href="https://www.google.com/maps/search/?api=1&query=35.8538719483%2C128.6029041326" target="_blank" rel="noopener" style="display:inline-block;background:#0f766e;color:#fff;padding:10px 18px;border-radius:8px;margin:6px 8px 6px 0">Google 지도 ↗</a><a href="https://map.naver.com/v5/search/현짬뽕" target="_blank" rel="noopener" style="display:inline-block;background:#03c75a;color:#fff;padding:10px 18px;border-radius:8px;margin:6px 8px 6px 0">네이버 지도 ↗</a></p>
+<div id="rmap" style="height:320px;border-radius:12px;margin:12px 0"></div>
+<script>
+function init(){if(!LL)return;var m=L.map('rmap').setView(LL,17);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(m);L.marker(LL).addTo(m).bindPopup("현짬뽕").openPopup();}var tries=0;function go(){if(window.L){init();}else if(tries++<75){setTimeout(go,200);}}
+var LL=[35.8538719483,128.6029041326];go();
+</script>
+
 <ul>
-<li>주소를 <a href="https://map.kakao.com/?q=대구광역시 남구 대봉로 170 (이천동)">카카오맵</a>에 붙여 넣으면 대중교통·도보 경로와 최신 영업시간을 확인할 수 있습니다</li>
 <li>대구 지역 이동은 <a href="transport.html">한국 교통 허브</a> 참고</li>
 </ul>
 <h2>📍 근처 다른 맛집</h2>
@@ -91,7 +80,7 @@
 <li><a href="restaurants.html">전국 맛집 지도·검색</a> · <a href="regions.html">지역별 여행지</a></li>
 <li><a href="markets.html">전통시장 1,439곳</a> — 시장 먹거리</li>
 </ul>
-<p style="font-size:12px;color:#999">출처: 한국관광공사 TourAPI (contentId 2845860) · 주소·연락처·소개는 공식 등록 정보이며 영업시간·메뉴는 변동될 수 있습니다.</p>
+<p style="font-size:12px;color:#999">출처: 한국관광공사 TourAPI (contentId 2845860)</p>
 <div class="page-foot" style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:12.5px;color:#767676">최종 업데이트: 2026-11-24 · 정보 출처: 각 페이지에 명시된 공식 채널·공공기관·관광공사 공개 자료</div><div class="rel-box" style="margin-top:36px;padding-top:16px;border-top:1px solid #eee"><h2 style="font-size:17px">관련 콘텐츠</h2><ul><li style="margin:4px 0"><a href="/familytrip/korea/airports.html">한국 공항 가이드 — 전국 공항별 시내 이동 방법·비용 비교</a></li><li style="margin:4px 0"><a href="/familytrip/korea/area-busan.html">부산 여행지 — 시군구별 관광지 23곳</a></li><li style="margin:4px 0"><a href="/familytrip/korea/area-chungbuk.html">충북 여행지 — 시군구별 관광지 24곳</a></li></ul></div></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>

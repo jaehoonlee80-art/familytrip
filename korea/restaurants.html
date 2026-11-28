@@ -43,7 +43,7 @@
 <input id="rq" type="search" placeholder="맛집 이름·주소 검색 (예: 을지로, 흑백요리사, 회센터)" style="width:100%;padding:11px;border:1px solid #ddd;border-radius:8px;font-size:15px">
 <select id="rsido" style="padding:8px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin-top:8px"><option value="">전국</option></select>
 <select id="rcat" style="padding:8px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin-top:8px"><option value="">전체 종류</option></select>
-<span id="rcount" style="font-size:13px;color:#595959;margin-left:10px"></span>
+<span id="rcount" style="font-size:13px;color:#888;margin-left:10px"></span>
 </p>
 <div id="rmap" style="height:360px;border-radius:12px;margin:12px 0"></div>
 <div id="rgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px"></div>
@@ -68,16 +68,16 @@ function render(){
   '<a class="card" href="rst-'+r.id+'.html" style="display:block"><div class="body">'
   +(r.img?'<img src="'+esc(r.img)+'" loading="lazy" style="width:100%;height:130px;object-fit:cover;border-radius:8px;margin-bottom:8px" onerror="this.style.display=\'none\'">':'')
   +'<h3 style="font-size:15px;margin:0 0 4px">'+esc(r.n)+' <span class="badge">'+esc(r.s)+'</span></h3>'
-  +'<p style="font-size:12px;color:#595959;margin:2px 0">'+esc(r.cat)+(r.tel?' · '+esc(r.tel):'')+'</p>'
+  +'<p style="font-size:12px;color:#888;margin:2px 0">'+esc(r.cat)+(r.tel?' · '+esc(r.tel):'')+'</p>'
   +'<p style="font-size:12px;color:#555;margin:4px 0">📍 '+esc(r.a)+'</p>'
   +'<p style="font-size:12px;color:#0f766e;margin:4px 0 0">클릭하면 상세 정보·사진·가는 법 →</p>'
-  +'</div></a>').join('')+(list.length>300?'<p style="grid-column:1/-1;color:#595959;font-size:13px">검색 조건을 좁혀주세요 ('+list.length+'곳 중 300곳 표시).</p>':'');
+  +'</div></a>').join('')+(list.length>300?'<p style="grid-column:1/-1;color:#888;font-size:13px">검색 조건을 좁혀주세요 ('+list.length+'곳 중 300곳 표시).</p>':'');
  drawMap(list);
 }
 function drawMap(list){
  const el=document.getElementById('rmap');
- if(!window.L){el.innerHTML='<p style="padding:16px;color:#595959">지도를 불러오는 중…</p>';return;}
- if(!map){map=L.map('rmap').setView([36.3,127.9],7);L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Tiles © Esri — Source: Esri, DeLorme, NAVTEQ, USGS, NPS'}).addTo(map);}
+ if(!window.L){el.innerHTML='<p style="padding:16px;color:#888">지도를 불러오는 중…</p>';return;}
+ if(!map){map=L.map('rmap').setView([36.3,127.9],7);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);}
  marks.forEach(m=>map.removeLayer(m));marks=[];
  const show=list.slice(0,500);
  show.forEach(r=>{const m=L.circleMarker([r.lat,r.lon],{radius:4,color:'#dc2626',weight:1,fillColor:'#dc2626',fillOpacity:.5}).addTo(map);
@@ -94,7 +94,7 @@ render();
 <ul>
 <li>출처: 한국관광공사 TourAPI 음식점(categoryId) 등록 정보</li>
 <li>이 목록은 <strong>관광공사에 등록된 음식점</strong> 기준입니다 — 모든 맛집이 아니라 공인 관광 음식점 위주입니다</li>
-<li>지역 축제·시장 먹거리는 <a href="markets.html">전통시장 페이지</a>에서 확인하세요</li>
+<li>지역 축제·시장 먹거리는 <a href="markets.html">전통시장 페이지</a>에서 볼 수 있습니다</li>
 </ul>
 <h2>함께 보기</h2>
 <ul>
