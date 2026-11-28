@@ -47,9 +47,20 @@
 <li>🗺️ <strong><a href="https://www.google.com/maps/search/?api=1&amp;query=키토%20역사%20지구%20Quito">Google 지도에서 보기</a></strong> — 길찾기·운영시간·혼잡도 확인</li>
 <li>🚇 <strong>키토 교통 정보</strong>: 마리스칼 수크레 공항에서 시내까지 택시 30분 또는 버스. 시내는 버스+택시+그랩.</li>
 </ul>
+<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map place-map-approx" data-lat="-0.1807" data-lon="-78.4678" data-label="키토 역사 지구"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
 <div class="wx" data-lat="-0.1807" data-lon="-78.4678" data-label="키토 역사 지구"></div>
 
-<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map" data-lat="-0.1807" data-lon="-78.4678" data-label="키토 역사 지구"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
+<div id="place-map" style="height:380px;border-radius:12px;border:1px solid #e5e7eb;margin:10px 0"></div>
+<p><link rel="stylesheet" href="/familytrip/lib/leaflet.css"></p>
+<script src="/familytrip/lib/leaflet.js"></script>
+<script>
+(function(){var el=document.getElementById('place-map');if(!el)return;
+if(typeof L==='undefined'){el.innerHTML='<div style="padding:40px;text-align:center;color:#595959;font-size:13px">지도를 불러오지 못했습니다.</div>';return}
+var m=L.map('place-map').setView([-0.1807,-78.4678],15);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.marker([-0.1807,-78.4678]).addTo(m).bindPopup('attr-quito-01.md').openPopup();
+})();
+</script>
 
 <blockquote>
 <p>📍 정확한 위치 좌표를 찾지 못해 도시 중심 좌표 기준 지도입니다. 위 Google 지도 링크에서 정확한 위치를 확인하세요.</p>
@@ -57,6 +68,15 @@
 <h2>운영시간 · 입장료</h2>
 <ul>
 <li>운영시간과 입장료는 계절·요일·공식 안내에 따라 달라집니다. 방문 전 Google 지도(장소 페이지 하단) 또는 공식 홈페이지에서 최신 정보를 확인하세요.</li>
+</ul>
+<h2>🅿️🚻 교통 · 주차 · 화장실</h2>
+<blockquote>
+<p>📍 카카오맵 장소 데이터 기준, 이 장소에서 직선거리로 가장 가까운 시설입니다. 도보 시간은 약 80m/분으로 환산한 추정치이며, 실제 경로·운영 여부는 방문 전 지도 앱에서 확인하세요.</p>
+</blockquote>
+<ul>
+<li>🚇 <strong>가장 가까운 역·정거장</strong>: Iñaquito (약 1.8km · 도보 약 23분)</li>
+<li>🅿️ <strong>주차장</strong>: 이름 미상 주차장 (약 57m · 도보 약 1분 — 유료/무료·운영시간은 현장 확인)</li>
+<li>🚻 <strong>화장실</strong>: 공중화장실 (약 318m · 도보 약 4분)</li>
 </ul>
 <h2>방문 전 체크</h2>
 <ul>

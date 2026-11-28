@@ -58,14 +58,34 @@
 <li>지도 좌표: <code>33.58612, 130.37636</code></li>
 <li>🚇 <strong>후쿠오카 교통 정보</strong>: 후쿠오카 공항에서 시내까지 지하철 5분(하카타역). 시내는 지하철 3노선+버스. 니시테츠 카드 필수.</li>
 </ul>
+<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map" data-lat="33.5861214" data-lon="130.3763612" data-label="오호리 공원"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
 <div class="wx" data-lat="33.5861214" data-lon="130.3763612" data-label="오호리 공원"></div>
 
-<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map" data-lat="33.5861214" data-lon="130.3763612" data-label="오호리 공원"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
+<div id="place-map" style="height:380px;border-radius:12px;border:1px solid #e5e7eb;margin:10px 0"></div>
+<p><link rel="stylesheet" href="/familytrip/lib/leaflet.css"></p>
+<script src="/familytrip/lib/leaflet.js"></script>
+<script>
+(function(){var el=document.getElementById('place-map');if(!el)return;
+if(typeof L==='undefined'){el.innerHTML='<div style="padding:40px;text-align:center;color:#595959;font-size:13px">지도를 불러오지 못했습니다.</div>';return}
+var m=L.map('place-map').setView([33.5861214,130.3763612],15);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.marker([33.5861214,130.3763612]).addTo(m).bindPopup('attr-fukuoka-05.md').openPopup();
+})();
+</script>
 
 <h2>운영시간 · 입장료</h2>
 <ul>
 <li>공식 홈페이지: <a href="https://www.ohorikouen.jp/">www.ohorikouen.jp/</a> — 운영시간·요금·예약 확인</li>
 <li>운영시간과 입장료는 계절·요일·공식 안내에 따라 달라집니다. 방문 전 Google 지도(장소 페이지 하단) 또는 공식 홈페이지에서 최신 정보를 확인하세요.</li>
+</ul>
+<h2>🅿️🚻 교통 · 주차 · 화장실</h2>
+<blockquote>
+<p>📍 카카오맵 장소 데이터 기준, 이 장소에서 직선거리로 가장 가까운 시설입니다. 도보 시간은 약 80m/분으로 환산한 추정치이며, 실제 경로·운영 여부는 방문 전 지도 앱에서 확인하세요.</p>
+</blockquote>
+<ul>
+<li>🚇 <strong>가장 가까운 역·정거장</strong>: 반경 3km 내 등록 역·정거장 없음 — 버스·택시·도보 이동이 중심입니다.</li>
+<li>🅿️ <strong>주차장</strong>: 반경 2.5km 내 등록 주차장 없음 — 구글/네이버 지도에서 "주차장" 검색 권장</li>
+<li>🚻 <strong>화장실</strong>: 반경 1.5km 내 등록 화장실 없음 — 시설 내 화장실 이용 또는 지도 앱에서 "화장실" 검색</li>
 </ul>
 <h2>방문 전 체크</h2>
 <ul>

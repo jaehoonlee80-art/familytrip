@@ -53,14 +53,31 @@
 <li>지도 좌표: <code>-34.91556, 138.59611</code></li>
 <li>🚇 <strong>애들레이드 교통 정보</strong>: 애들레이드 공항에서 시내까지 버스 168 30분 또는 택시 25분. 시내는 기차+버스+택시. Metrocard 필수.</li>
 </ul>
+<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map" data-lat="-34.915555555556" data-lon="138.59611111111" data-label="애들레이드 오벌"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
 <div class="wx" data-lat="-34.915555555556" data-lon="138.59611111111" data-label="애들레이드 오벌"></div>
 
-<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map" data-lat="-34.915555555556" data-lon="138.59611111111" data-label="애들레이드 오벌"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
+<div id="place-map" style="height:380px;border-radius:12px;border:1px solid #e5e7eb;margin:10px 0"></div>
+<p><link rel="stylesheet" href="/familytrip/lib/leaflet.css"></p>
+<script src="/familytrip/lib/leaflet.js"></script>
+<script>
+(function(){var el=document.getElementById('place-map');if(!el)return;
+if(typeof L==='undefined'){el.innerHTML='<div style="padding:40px;text-align:center;color:#595959;font-size:13px">지도를 불러오지 못했습니다.</div>';return}
+var m=L.map('place-map').setView([-34.915555555556,138.59611111111],15);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.marker([-34.915555555556,138.59611111111]).addTo(m).bindPopup('attr-adelaide-01.md').openPopup();
+})();
+</script>
 
 <h2>운영시간 · 입장료</h2>
 <ul>
 <li>공식 홈페이지: <a href="https://www.adelaideoval.com.au">www.adelaideoval.com.au</a> — 운영시간·요금·예약 확인</li>
 <li>운영시간과 입장료는 계절·요일·공식 안내에 따라 달라집니다. 방문 전 Google 지도(장소 페이지 하단) 또는 공식 홈페이지에서 최신 정보를 확인하세요.</li>
+</ul>
+<h2>🅿️🚻 교통 · 주차 · 화장실</h2>
+<ul>
+<li>🚇 <strong>교통</strong>: 이 도시는 대중교통(지하철·버스·트램·택시)이 잘 발달해 있습니다 — 숙소나 가까운 역에서 지도 앱으로 최적 경로를 확인하세요.</li>
+<li>🅿️ <strong>주차</strong>: 도심부는 주차 공간이 부족하고 비쌉니다 — 렌터카보다 대중교통·도보·자전거를 추천하며, 차량 이용 시 지도 앱에서 "주차장"을 검색하세요.</li>
+<li>🚻 <strong>화장실</strong>: 역·박물관·카페·식당 내 화장실을 이용할 수 있습니다 — 지도 앱에서 "화장실" 또는 "toilet"을 검색하면 가장 가까운 곳이 나옵니다.</li>
 </ul>
 <h2>방문 전 체크</h2>
 <ul>

@@ -55,14 +55,34 @@
 <li>지도 좌표: <code>49.27214, -123.13438</code></li>
 <li>🚇 <strong>밴쿠버 교통 정보</strong>: YVR 공항에서 시내까지 스카이트레인 26분. 시내는 스카이트레인+버스+페리. Compass 카드 필수.</li>
 </ul>
+<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map" data-lat="49.2721402" data-lon="-123.1343766" data-label="그랜빌 아일랜드"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
 <div class="wx" data-lat="49.2721402" data-lon="-123.1343766" data-label="그랜빌 아일랜드"></div>
 
-<link rel="stylesheet" href="/familytrip/lib/maplibre-gl.css"><link rel="stylesheet" href="/familytrip/lib/place-map.css"><div class="place-map" data-lat="49.2721402" data-lon="-123.1343766" data-label="그랜빌 아일랜드"></div><script src="/familytrip/lib/maplibre-gl.js"></script><script src="/familytrip/lib/place-map.js"></script>
+<div id="place-map" style="height:380px;border-radius:12px;border:1px solid #e5e7eb;margin:10px 0"></div>
+<p><link rel="stylesheet" href="/familytrip/lib/leaflet.css"></p>
+<script src="/familytrip/lib/leaflet.js"></script>
+<script>
+(function(){var el=document.getElementById('place-map');if(!el)return;
+if(typeof L==='undefined'){el.innerHTML='<div style="padding:40px;text-align:center;color:#595959;font-size:13px">지도를 불러오지 못했습니다.</div>';return}
+var m=L.map('place-map').setView([49.2721402,-123.1343766],15);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19}).addTo(m);
+L.marker([49.2721402,-123.1343766]).addTo(m).bindPopup('attr-vancouver-04.md').openPopup();
+})();
+</script>
 
 <h2>운영시간 · 입장료</h2>
 <ul>
 <li>공식 홈페이지: <a href="http://www.grand-island.com">www.grand-island.com</a> — 운영시간·요금·예약 확인</li>
 <li>운영시간과 입장료는 계절·요일·공식 안내에 따라 달라집니다. 방문 전 Google 지도(장소 페이지 하단) 또는 공식 홈페이지에서 최신 정보를 확인하세요.</li>
+</ul>
+<h2>🅿️🚻 교통 · 주차 · 화장실</h2>
+<blockquote>
+<p>📍 카카오맵 장소 데이터 기준, 이 장소에서 직선거리로 가장 가까운 시설입니다. 도보 시간은 약 80m/분으로 환산한 추정치이며, 실제 경로·운영 여부는 방문 전 지도 앱에서 확인하세요.</p>
+</blockquote>
+<ul>
+<li>🚇 <strong>가장 가까운 역·정거장</strong>: Yaletown–Roundhouse (약 943m · 도보 약 12분)</li>
+<li>🅿️ <strong>주차장</strong>: 이름 미상 주차장 (약 36m · 도보 약 1분 — 유료/무료·운영시간은 현장 확인)</li>
+<li>🚻 <strong>화장실</strong>: 공중화장실 (약 27m · 도보 약 1분)</li>
 </ul>
 <h2>방문 전 체크</h2>
 <ul>
