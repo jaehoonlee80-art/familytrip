@@ -94,7 +94,7 @@ function drawMap(list){
  marks.forEach(m=>map.removeLayer(m));marks=[];
  const show=list.filter(m=>m.lat!=null).slice(0,600);
  show.forEach(m=>{const mk=L.circleMarker([m.lat,m.lon],{radius:5,color:'#b45309',weight:1,fillColor:'#f59e0b',fillOpacity:.6}).addTo(map);
-  mk.bindPopup('<b>'+esc(m.n)+'</b><br>'+esc(m.s)+' '+esc(m.sig)+'<br><a href="mkt-'+m.id+'.html">상세 정보 →</a>');marks.push(mk);});
+  mk.on('click',()=>{location.href='mkt-'+m.id+'.html';});marks.push(mk);});
  if(show.length===1)map.setView([show[0].lat,show[0].lon],13);
  else if(show.length>1){const b=L.latLngBounds(show.map(m=>[m.lat,m.lon]));if(b.isValid())map.fitBounds(b.pad(0.05));}
  el.querySelectorAll('.leaflet-marker-icon').forEach(()=>{});

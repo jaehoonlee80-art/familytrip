@@ -81,7 +81,7 @@ function drawMap(list){
  marks.forEach(m=>map.removeLayer(m));marks=[];
  const show=list.slice(0,500);
  show.forEach(r=>{const m=L.circleMarker([r.lat,r.lon],{radius:4,color:'#dc2626',weight:1,fillColor:'#dc2626',fillOpacity:.5}).addTo(map);
-  m.bindPopup('<b>'+esc(r.n)+'</b><br>'+esc(r.cat)+' · '+esc(r.s)+'<br><a href="rst-'+r.id+'.html">상세 정보 →</a>');marks.push(m);});
+  m.on('click',()=>{location.href='rst-'+r.id+'.html';});marks.push(m);});
  if(show.length===1)map.setView([show[0].lat,show[0].lon],13);
  else if(show.length>1){const b=L.latLngBounds(show.map(r=>[r.lat,r.lon]));if(b.isValid())map.fitBounds(b.pad(0.05));}
 }

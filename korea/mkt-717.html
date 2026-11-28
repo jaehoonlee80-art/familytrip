@@ -96,9 +96,19 @@
 <li>데이터 기준일이 2015년이므로 점포수·편의시설은 변동되었을 수 있습니다</li>
 </ul>
 <h2>🗺️ 위치·가는 법</h2>
-<p><a href="https://map.kakao.com/link/to/영해종합시장,35.1422194,128.9843177" target="_blank" rel="noopener" style="display:inline-block;background:#fee500;color:#3c1e1e;padding:10px 18px;border-radius:8px;margin:6px 8px 6px 0;font-weight:600">카카오맵 길찾기 ↗</a><a href="https://www.google.com/maps/search/?api=1&query=35.1422194%2C128.9843177" target="_blank" rel="noopener" style="display:inline-block;background:#0f766e;color:#fff;padding:10px 18px;border-radius:8px;margin:6px 8px 6px 0">Google 지도 ↗</a></p>
+<div id="mmap" style="height:340px;border-radius:12px;margin:12px 0"></div>
+<script>
+function init(){if(!LL)return;var m=L.map('mmap').setView(LL,16);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(m);L.marker(LL).addTo(m).bindPopup("영해종합시장 — 부산광역시 사상구 학장동 570-2").openPopup();}var tries=0;function go(){if(window.L){init();}else if(tries++<75){setTimeout(go,200);}else{document.getElementById('mmap').innerHTML='<p style=&quot;padding:16px;color:#888&quot;>지도를 불러오지 못했습니다.</p>';}}
+var LL=[35.1422194,128.9843177];go();
+</script>
+
+<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous"></p>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+
 <ul>
-<li>주소를 <a href="https://map.kakao.com/?q=부산광역시 사상구 학장동 570-2">카카오맵</a>에 붙여 넣으면 대중교통·도보 경로와 주차 정보를 확인할 수 있습니다</li>
+<li><strong>🚇 대중교통</strong>: 주소(부산광역시 사상구 학장동 570-2)로 카카오맵·네이버지도 앱에서 "대중교통 길찾기"를 검색하면 가장 빠른 버스·지하철 경로가 나옵니다</li>
+<li><strong>🅿️ 주차</strong>: 시장에 주차장이 등록되어 있습니다 — 다만 주말·점심시간엔 혼잡하니 대중교통을 권장합니다</li>
+<li><strong>🚻 화장실</strong>: 시장 내 공중화장실이 있습니다</li>
 <li>대형 시장은 주차장이 혼잡하니 대중교통 이용을 추천합니다</li>
 </ul>
 <h2>📍 근처 다른 시장</h2>

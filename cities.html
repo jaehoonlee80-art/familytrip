@@ -80,7 +80,7 @@ CITIES.forEach(c=>{
  const col=COLORS[contOf(c)];
  const mk=L.circleMarker([c.lat,c.lon],{radius:8,color:'#fff',weight:2,fillColor:col,fillOpacity:.95}).addTo(map);
  mk.bindTooltip('<b>'+c.n+'</b> · '+c.co,{permanent:false,direction:'top',offset:[0,-8],className:'citytip'});
- mk.bindPopup('<b>'+c.n+'</b> '+c.en+'<br>'+c.co+' · 최적 '+c.best+'<br><a href="'+c.u+'">상세 가이드 →</a>');
+ mk.on('click',()=>{location.href=c.u;});
  markers.push(mk);bounds.push([c.lat,c.lon]);
 });
 // 줌 5 이상에서 도시 이름 상시 표시
