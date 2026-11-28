@@ -40,12 +40,14 @@
 <div style="position:relative;background:#000;border-radius:12px;overflow:hidden;margin:14px 0">
 <div style="position:relative;padding-top:56.25%">
 <span style="position:absolute;left:8px;top:8px;background:rgba(220,38,38,.9);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">● LIVE</span>
-<img id="wc-cam" src="https://imgproxy.windy.com/_/full/plain/current/1743807194/original.jpg?v=2&t=1795841093" alt="산호세 실시간 CCTV" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img id="wc-cam" src="https://imgproxy.windy.com/_/full/plain/current/1743807194/original.jpg?v=2&t=1795848891" alt="산호세 실시간 CCTV" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
 <span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">Oriental › North: Cartago</span>
 </div></div>
 <p style="font-size:12px;color:#888;margin-top:-8px">이 도시에 설치된 공공·민간 웹캠의 최신 장면입니다 (Windy Webcams · 수 분마다 자동 갱신). 실시간 영상 스트리밍은 카메라에 따라 제공되지 않을 수 있습니다.</p>
 <script>setInterval(function(){var i=document.getElementById('wc-cam');if(i)i.src='https://imgproxy.windy.com/_/full/plain/current/1743807194/original.jpg?v=2&t='+Date.now();},120000);</script>
 
+<p><img loading="lazy" decoding="async" alt="산호세(San Jose) — 코스타리카 대표 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/4-_Vue_San_Jose.jpg/1920px-4-_Vue_San_Jose.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
+<p><img loading="lazy" decoding="async" alt="산호세(San Jose) — 코스타리카 대표 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Cityscape_of_San_Jos%C3%A9%2C_Costa_Rica_%28253552473%29.jpg/1920px-Cityscape_of_San_Jos%C3%A9%2C_Costa_Rica_%28253552473%29.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <h2>산호세 여행 핵심 요약</h2>
 <table>
 <thead>
@@ -92,6 +94,25 @@
 <div class="wx" data-lat="9.9281" data-lon="-84.0907" data-label="산호세"></div>
 
 <p>위 날씨 위젯은 Open-Meteo 실시간 데이터로 현재 기온·강수·풍속과 향후 7일 예보, 전월 평균 기온을 보여줍니다. 출발 전 반드시 확인하세요.</p>
+<h2>산호세 지도 — 주요 명소 위치</h2>
+<div id="city-map" style="height:420px;border-radius:12px;border:1px solid #e5e7eb;margin:10px 0"></div>
+<p style="font-size:11.5px;color:#999;margin-top:-6px">📍 산호세 중심부와 주요 명소 1곳 — 마커를 누르면 명소 이름이 표시됩니다.</p>
+<p><link rel="stylesheet" href="/familytrip/lib/leaflet.css"></p>
+<script src="/familytrip/lib/leaflet.js"></script>
+<script>
+(function(){
+if(typeof L==='undefined'){var _d=document.getElementById('city-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
+var MK=[{"name": "국립극장", "lat": 48.13944444, "lon": 11.57944444}];
+var m=L.map('city-map').setView([9.9281,-84.0907],12);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(m);
+MK.forEach(function(s){
+ L.circleMarker([s.lat,s.lon],{radius:9,color:'#fff',weight:2,fillColor:'#0f766e',fillOpacity:.95}).addTo(m)
+  .bindPopup('<b>📍 '+s.name+'</b>');
+});
+if(MK.length>1)m.fitBounds(L.latLngBounds(MK.map(function(s){return [s.lat,s.lon]})),{padding:[40,40]});
+})();
+</script>
+
 <h2>산호세, 왜 꼭 가야 할까</h2>
 <p>산호세(San Jose)은(는) 코스타리카을(를) 대표하는 도시입니다. 산호세는 코스타리카 수도이자 "금연 국가·커피·화산"이 공존하는 중미의 관문입니다. 1949년 군대 해산 세계 유일 국가로, 커피+화산+슬로스 투어가 매력입니다.</p>
 <p>이 도시를 선택해야 하는 이유는 단순히 유명해서가 아닙니다. 12~4월(건기)의 기후 조건이 2~3일 체류에 최적화되어 있고, 시내, 오스피탈, 카레타 지역을 중심으로 4개의 대표 명소가 도보 또는 짧은 교통으로 연결됩니다. 특히 국립극장은(는) 1897년 개관. 코스타리카 문화 중심. 입장 20CRC. — 여행자들이 가장 먼저 찾는 볼거리입니다.</p>
@@ -118,6 +139,7 @@
 <h2>산호세 가족·아이 동반 여행 가이드</h2>
 <p>산호세은(는) 가족 여행객에게도 매력적인 도시입니다. 국립극장은(는) 아이와 함께해도 무리 없이 즐길 수 있는 볼거리이며, 가요 핀토 같은 음식은 아이도 좋아하는 경우가 많습니다.</p>
 <p>아이 동반 시에는 12~4월(건기) 시기에 맞춰 일정을 짜고, 이동 동선을 최소화하는 것이 중요합니다. 유모차나 아기띠가 있다면 미리 준비하고, 식당에서는 아이 메뉴나 알레르기 대응이 가능한지 확인하세요. 또한 CRC 화폐와 카드 사용이 가능한지 미리 확인해 두면 결제 과정이 훨씬 수월합니다.</p>
+<p><img loading="lazy" decoding="async" alt="산호세(San Jose) — 코스타리카 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/Downtown_San_Jos%C3%A9_City_%28Costa_Rica%29.jpg/1920px-Downtown_San_Jos%C3%A9_City_%28Costa_Rica%29.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <h2>환전·통신·결제 가이드</h2>
 <p>산호세에서 사용하는 통화는 CRC입니다. 환전은 공항보다 시내 은행이나 환전소가 유리하며, 카드 결제가 가능한 곳이 많지만 시장이나 소규모 가게는 현금만 받는 경우가 있습니다.</p>
 <p>통신은 현지 유심이나 eSIM을 추천합니다. 스페인어가 공용어이므로 기본적인 번역 앱(Google Translate 등)을 미리 설치해 두세요. 카드 결제는 Visa/Mastercard가 가장 널리 사용되며, 일부 가게는 해외 카드 수수료를 부과할 수 있습니다. 팁 문화가 있다면 서비스 요금과 별도로 10~20%를 준비하세요.</p>
@@ -160,6 +182,7 @@
 <p><strong>기타</strong>: CRC 화폐 현금, 국제운전면허증(렌터카시), 언어 번역 앱</p>
 </li>
 </ul>
+<p><img loading="lazy" decoding="async" alt="산호세(San Jose) — 코스타리카 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Iglesia_de_San_Jos%C3%A9%2C_Ponta_Delgada%2C_isla_de_San_Miguel%2C_Azores%2C_Portugal%2C_2020-07-30%2C_DD_55-57_HDR.jpg/1920px-Iglesia_de_San_Jos%C3%A9%2C_Ponta_Delgada%2C_isla_de_San_Miguel%2C_Azores%2C_Portugal%2C_2020-07-30%2C_DD_55-57_HDR.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <h2>산호세 숙소 선택 가이드</h2>
 <p>산호세의 숙소는 시내, 오스피탈 지역을 중심으로 선택하는 것이 좋습니다. 이 지역은 관광지와 교통이 잘 연결되어 있으며, 식당과 카페도 많아 편리합니다.</p>
 <p>예산에 따라 호텔, 게스트하우스, 에어비앤비 등 다양한 선택지가 있습니다. 12~4월(건기) 시기에는 성수기 요금이 적용되므로 최소 1~2개월 전 예약하는 것이 안전합니다. 특히 국립극장 근처에 숙소를 잡으면 이동 시간이 크게 줄어듭니다.</p>
@@ -212,18 +235,22 @@
 <p>국립극장은(는) 산호세을(를) 대표하는 명소입니다. 1897년 개관. 코스타리카 문화 중심. 입장 20CRC.</p>
 <p>국립극장의 특징은 1897년 개관. 코스타리카 문화 중심. 입장 20CRC. — 이 명소를 통해 산호세의 역사와 문화를 엿볼 수 있습니다. 방문 전에는 운영 시간과 입장료를 확인하고, 12~4월(건기) 시기에 맞춰 일정을 짜세요.</p>
 <p>방문 팁: 국립극장은(는) 12~4월(건기) 시기에 가장 쾌적합니다. 오전 방문을 권장하며, 후안 산타마리아 공항에서 시내까지 버스+택시 30분 교통 수단을 활용하면 편합니다.</p>
+<p>🚇🅿️🚻 교통·주차·화장실·가는 법: <a href="/familytrip/places/attr-san-jose-01.html">국립극장 상세 페이지</a></p>
 <h3>2. 코스타리카 공공시장</h3>
 <p>코스타리카 공공시장은(는) 산호세을(를) 대표하는 명소입니다. 현지 음식+기념품. 무료 입장.</p>
 <p>코스타리카 공공시장의 특징은 현지 음식+기념품. 무료 입장. — 이 명소를 통해 산호세의 역사와 문화를 엿볼 수 있습니다. 방문 전에는 운영 시간과 입장료를 확인하고, 12~4월(건기) 시기에 맞춰 일정을 짜세요.</p>
 <p>방문 팁: 코스타리카 공공시장은(는) 12~4월(건기) 시기에 가장 쾌적합니다. 오전 방문을 권장하며, 후안 산타마리아 공항에서 시내까지 버스+택시 30분 교통 수단을 활용하면 편합니다.</p>
+<p>🚇🅿️🚻 교통·주차·화장실·가는 법: <a href="/familytrip/places/attr-san-jose-02.html">코스타리카 공공시장 상세 페이지</a></p>
 <h3>3. 호세 피누니 대성당</h3>
 <p>호세 피누니 대성당은(는) 산호세을(를) 대표하는 명소입니다. 1897년 대성당+성 야고보 순례. 무료.</p>
 <p>호세 피누니 대성당의 특징은 1897년 대성당+성 야고보 순례. 무료. — 이 명소를 통해 산호세의 역사와 문화를 엿볼 수 있습니다. 방문 전에는 운영 시간과 입장료를 확인하고, 12~4월(건기) 시기에 맞춰 일정을 짜세요.</p>
 <p>방문 팁: 호세 피누니 대성당은(는) 12~4월(건기) 시기에 가장 쾌적합니다. 오전 방문을 권장하며, 후안 산타마리아 공항에서 시내까지 버스+택시 30분 교통 수단을 활용하면 편합니다.</p>
+<p>🚇🅿️🚻 교통·주차·화장실·가는 법: <a href="/familytrip/places/attr-san-jose-03.html">호세 피누니 대성당 상세 페이지</a></p>
 <h3>4. 화산 투어(당일치기)</h3>
 <p>화산 투어(당일치기)은(는) 산호세을(를) 대표하는 명소입니다. 아레날+포아스+이라수. 가이드 투어 필수.</p>
 <p>화산 투어(당일치기)의 특징은 아레날+포아스+이라수. 가이드 투어 필수. — 이 명소를 통해 산호세의 역사와 문화를 엿볼 수 있습니다. 방문 전에는 운영 시간과 입장료를 확인하고, 12~4월(건기) 시기에 맞춰 일정을 짜세요.</p>
 <p>방문 팁: 화산 투어(당일치기)은(는) 12~4월(건기) 시기에 가장 쾌적합니다. 오전 방문을 권장하며, 후안 산타마리아 공항에서 시내까지 버스+택시 30분 교통 수단을 활용하면 편합니다.</p>
+<p>🚇🅿️🚻 교통·주차·화장실·가는 법: <a href="/familytrip/places/attr-san-jose-04.html">화산 투어(당일치기) 상세 페이지</a></p>
 <h2>산호세 꼭 먹어야 할 음식 3가지</h2>
 <h3>1. 가요 핀토</h3>
 <p>가요 핀토은(는) 산호세의 대표 음식입니다. 코스타리카 국민 음식. 쌀+콩+채소. 레스토랑에서.</p>
@@ -241,6 +268,7 @@
 <p>후안 산타마리아 공항에서 시내까지 버스+택시 30분. 시내는 버스+트램+택시+우버.</p>
 <p>산호세에서의 이동은 시내, 오스피탈, 카레타 지역을 기준으로 계획하세요. 처음 방문한다면 공항에서 시내까지의 교통 수단을 미리 확인하고, 시내에서는 도보+대중교통 조합이 가장 효율적입니다. 택시는 편하지만 비용이 높으므로 장거리 이동 시에는 대중교통을 우선 고려하세요.</p>
 <p>교통 팁: 피크 시간(출퇴근)에는 대중교통이 혼잡합니다. 관광지는 오전~오후 초반이 한산하므로 이 시간대를 활용하세요. 교통카드가 있다면 미리 충전해 두면 개별 구매보다 저렴합니다.</p>
+<p><img loading="lazy" decoding="async" alt="산호세(San Jose) — 코스타리카 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/San_Jose_Costa_Rica_Skyline%2C_December_2023.png/1920px-San_Jose_Costa_Rica_Skyline%2C_December_2023.png?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <h2>여행 예산과 비용</h2>
 <p>1인 1일 식비 5,000~15,000CRC, 숙소 1박 30,000~80,000CRC, 화산 투어 50,000CRC. 박물관 합쳐 무료.</p>
 <p>예산 계획 시 CRC 환율을 미리 확인하세요. 카드 결제가 가능한 곳이 많지만, 시장이나 소규모 가게는 현금만 받는 경우가 있습니다. 팁 문화가 있는 나라는 서비스 요금과 별도로 10~20%를 준비하는 것이 일반적입니다.</p>
@@ -343,6 +371,7 @@
 <p><a href="/familytrip/tools/travel-qa.html">여행 질문 30가지</a></p>
 </li>
 </ul>
+<p><img loading="lazy" decoding="async" alt="산호세(San Jose) — 코스타리카 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/San_Jos%C3%A9_Province%2C_Costa_Rica_-_panoramio.jpg/1920px-San_Jos%C3%A9_Province%2C_Costa_Rica_-_panoramio.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <div class="page-foot" style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:12.5px;color:#767676">최종 업데이트: 2026-01-01 · 정보 출처: 각 페이지에 명시된 공식 채널·공공기관·관광공사 공개 자료</div><div class="rel-box" style="margin-top:36px;padding-top:16px;border-top:1px solid #eee"><h2 style="font-size:17px">관련 콘텐츠</h2><ul><li style="margin:4px 0"><a href="/familytrip/cities/abu-dhabi-courses.html">아부다비 여행 코스 총정리 — 1일~2주 추천 일정</a></li><li style="margin:4px 0"><a href="/familytrip/cities/abu-dhabi.html">아부다비 여행 완벽 가이드 — UAE 아부다비(Abu Dhabi)</a></li><li style="margin:4px 0"><a href="/familytrip/cities/addis-ababa-courses.html">아디스아바바 여행 코스 총정리 — 1일~2주 추천 일정</a></li></ul></div></main>
 <footer>
   온 가족 여행 연구소 — 가족과 함께하는 여행 정보<br>

@@ -40,12 +40,14 @@
 <div style="position:relative;background:#000;border-radius:12px;overflow:hidden;margin:14px 0">
 <div style="position:relative;padding-top:56.25%">
 <span style="position:absolute;left:8px;top:8px;background:rgba(220,38,38,.9);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">● LIVE</span>
-<img id="wc-cam" src="https://imgproxy.windy.com/_/full/plain/current/1301134779/original.jpg?v=2&t=1795841093" alt="브리즈번 실시간 CCTV" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img id="wc-cam" src="https://imgproxy.windy.com/_/full/plain/current/1301134779/original.jpg?v=2&t=1795848891" alt="브리즈번 실시간 CCTV" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
 <span style="position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px">Brisbane City › North-west: Woolloongabba</span>
 </div></div>
 <p style="font-size:12px;color:#888;margin-top:-8px">이 도시에 설치된 공공·민간 웹캠의 최신 장면입니다 (Windy Webcams · 수 분마다 자동 갱신). 실시간 영상 스트리밍은 카메라에 따라 제공되지 않을 수 있습니다.</p>
 <script>setInterval(function(){var i=document.getElementById('wc-cam');if(i)i.src='https://imgproxy.windy.com/_/full/plain/current/1301134779/original.jpg?v=2&t='+Date.now();},120000);</script>
 
+<p><img loading="lazy" decoding="async" alt="브리즈번(Brisbane) — 호주 대표 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Astral_Aviation_767-300ER_Parked_at_Brisbane_Airport_for_maintenance.jpg/1920px-Astral_Aviation_767-300ER_Parked_at_Brisbane_Airport_for_maintenance.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
+<p><img loading="lazy" decoding="async" alt="브리즈번(Brisbane) — 호주 대표 사진" src="https://upload.wikimedia.org/wikipedia/commons/9/97/Brisbane_Airport_domestic_terminal_Vabre.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail_unscaled" /></p>
 <h2>브리즈번 여행 핵심 요약</h2>
 <table>
 <thead>
@@ -92,6 +94,25 @@
 <div class="wx" data-lat="-27.4705" data-lon="153.026" data-label="브리즈번"></div>
 
 <p>위 날씨 위젯은 Open-Meteo 실시간 데이터로 현재 기온·강수·풍속과 향후 7일 예보, 전월 평균 기온을 보여줍니다. 출발 전 반드시 확인하세요.</p>
+<h2>브리즈번 지도 — 주요 명소 위치</h2>
+<div id="city-map" style="height:420px;border-radius:12px;border:1px solid #e5e7eb;margin:10px 0"></div>
+<p style="font-size:11.5px;color:#999;margin-top:-6px">📍 브리즈번 중심부와 주요 명소 2곳 — 마커를 누르면 명소 이름이 표시됩니다.</p>
+<p><link rel="stylesheet" href="/familytrip/lib/leaflet.css"></p>
+<script src="/familytrip/lib/leaflet.js"></script>
+<script>
+(function(){
+if(typeof L==='undefined'){var _d=document.getElementById('city-map');if(_d)_d.innerHTML='<div style="padding:40px;text-align:center;color:#888;font-size:13px">지도를 불러오지 못했습니다. 페이지를 새로고침(Ctrl+F5)해주세요.</div>';return}
+var MK=[{"name": "사우스뱅크 파크랜드", "lat": -27.4787, "lon": 153.023}, {"name": "스토리 브리지", "lat": -27.463752, "lon": 153.035699}];
+var m=L.map('city-map').setView([-27.4705,153.026],12);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(m);
+MK.forEach(function(s){
+ L.circleMarker([s.lat,s.lon],{radius:9,color:'#fff',weight:2,fillColor:'#0f766e',fillOpacity:.95}).addTo(m)
+  .bindPopup('<b>📍 '+s.name+'</b>');
+});
+if(MK.length>1)m.fitBounds(L.latLngBounds(MK.map(function(s){return [s.lat,s.lon]})),{padding:[40,40]});
+})();
+</script>
+
 <h2>브리즈번, 왜 꼭 가야 할까</h2>
 <p>브리즈번(Brisbane)은(는) 호주을(를) 대표하는 도시입니다. 브리즈번은 퀸즐랜드의 관문 도시이자 "서브트로피컬 기후·강변 도시·유니버설 스튜디오"가 공존하는 곳입니다. 연중 따뜻하고 맑은 날씨로 호주에서 가장 살기 좋은 도시 중 하나입니다.</p>
 <p>이 도시를 선택해야 하는 이유는 단순히 유명해서가 아닙니다. 9~11월, 3~5월의 기후 조건이 2~3일 체류에 최적화되어 있고, 시티 센터, 사우스뱅크, 포트사이드 지역을 중심으로 3개의 대표 명소가 도보 또는 짧은 교통으로 연결됩니다. 특히 사우스뱅크 파크랜드은(는) 시내 강변 공원. 야외 영화+공연. 무료. — 여행자들이 가장 먼저 찾는 볼거리입니다.</p>
@@ -102,6 +123,7 @@
 <p><strong>1. 시티 센터</strong> — 브리즈번의 대표 지역 중 하나입니다. 시티 센터 지역은 9~11월, 3~5월 시기에 가장 활기차며, 사우스뱅크 파크랜드 같은 명소와 펍 음식 같은 로컬 맛집이 모여 있습니다. 숙소를 정할 때 이 지역의 위치를 기준으로 삼으면 관광 동선이 크게 줄어듭니다.</p>
 <p><strong>2. 사우스뱅크</strong> — 브리즈번의 대표 지역 중 하나입니다. 사우스뱅크 지역은 9~11월, 3~5월 시기에 가장 활기차며, 스토리 브리지 같은 명소와 브리즈번 푸드 같은 로컬 맛집이 모여 있습니다. 숙소를 정할 때 이 지역의 위치를 기준으로 삼으면 관광 동선이 크게 줄어듭니다.</p>
 <p><strong>3. 포트사이드</strong> — 브리즈번의 대표 지역 중 하나입니다. 포트사이드 지역은 9~11월, 3~5월 시기에 가장 활기차며, 유니버설 스튜디오 퀸즐랜드(당일치기) 같은 명소와 브리즈번 푸드 같은 로컬 맛집이 모여 있습니다. 숙소를 정할 때 이 지역의 위치를 기준으로 삼으면 관광 동선이 크게 줄어듭니다.</p>
+<p><img loading="lazy" decoding="async" alt="브리즈번(Brisbane) — 호주 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Brisbane_Riverfire_2009_Bridge.jpg/1920px-Brisbane_Riverfire_2009_Bridge.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <h2>브리즈번 추천 여행 일정 (2~3일)</h2>
 <p>아래는 2~3일 체류 기준의 추천 동선입니다. 9~11월, 3~5월 시기에 맞춰 조정하세요.</p>
 <p><strong>1일차 — 도심 핵심</strong></p>
@@ -124,6 +146,7 @@
 <h2>건강·안전·비상 대처</h2>
 <p>브리즈번 여행 시 건강과 안전은 최우선입니다. 9~11월, 3~5월 시기의 기후에 맞춰 복장을 준비하고, 자외선이 강한 지역은 SPF50+ 선크림과 모자, 선글라스를 필수로 챙기세요.</p>
 <p>안전 측면에서는 관광지 중심은 비교적 안전하지만, 소매치기와 사기가 발생할 수 있습니다. 귀중품은 최소한으로 지니고, 혼자 다니지 마세요. 비상 상황에 대비해 현지 경찰서와 대사관 연락처를 미리 저장해 두세요.</p>
+<p><img loading="lazy" decoding="async" alt="브리즈번(Brisbane) — 호주 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Brisbane_aerial_view_05.jpg/1920px-Brisbane_aerial_view_05.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <h2>브리즈번 사진 촬영 포인트</h2>
 <p>브리즈번에서 가장 좋은 사진은 사우스뱅크 파크랜드의 일출 또는 일몰 시간대에 촬영됩니다. 스토리 브리지은(는) 저녁 야경이 아름다운 곳으로, 블루아워(일몰 후 30분)에 촬영하면 도시의 분위기를 가장 잘 담을 수 있습니다.</p>
 <p>인물 사진을 찍을 때는 현지인의 동의를 구하는 것이 예의입니다. 특히 종교 시설이나 전통 시장에서는 촬영이 제한될 수 있으므로 사전에 확인하세요. 자연 명소라면 사람 없는 아침 시간대가 가장 좋은 결과를 얻을 수 있습니다.</p>
@@ -141,6 +164,7 @@
 <h2>브리즈번 여행 에티켓과 문화</h2>
 <p>브리즈번은(는) 호주의 문화를 대표하는 도시입니다. 영어가 공용어이므로 기본적인 인사와 감사 표현을 익혀두면 현지인과의 교류가 훨씬 수월합니다.</p>
 <p>종교 시설이나 전통 시장에서는 복장과 태도에 주의하세요. 특히 9~11월, 3~5월 시기에는 종교 행사나 문화 축제가 많으므로 현지 문화를 존중하는 태도가 필요합니다. 팁 문화가 있다면 적절한 금액을 준비하고, 사진 촬영은 현지인의 동의를 구하는 것이 예의입니다.</p>
+<p><img loading="lazy" decoding="async" alt="브리즈번(Brisbane) — 호주 사진" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Central_Plaza_1%2C_Brisbane%2C_corner_of_Queen_and_Creek_Street%2C_Brisbane.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail_unscaled" /></p>
 <h2>브리즈번 여행 준비물 체크리스트</h2>
 <p>브리즈번 여행 전에 반드시 챙겨야 할 준비물입니다. 9~11월, 3~5월 시기의 기후에 맞춰 복장을 준비하고, AUD 환전과 카드 사용이 가능한지 확인하세요.</p>
 <ul>
@@ -192,6 +216,7 @@
 <p>이 도시의 가장 큰 매력은 사우스뱅크 파크랜드입니다. 시내 강변 공원. 야외 영화+공연. 무료. — 이 명소 하나만으로도 브리즈번 여행의 가치가 있습니다. 또한 펍 음식 같은 로컬 음식과 시티 센터 지역의 분위기는 다른 도시에서는 찾을 수 없는 경험입니다.</p>
 <p>브리즈번은(는) 2~3일 체류로도 충분히 즐길 수 있지만, 여유가 있다면 당일치기나 근교 여행까지 포함하면 더욱 풍성한 경험을 할 수 있습니다. 특히 9~11월, 3~5월 시기에는 기후가 쾌적하고 관광지가 한산해 최상의 여행 조건을 제공합니다.</p>
 <p>마지막으로 브리즈번은(는) AUD 화폐와 영어 언어를 사용하는 호주의 핵심 도시입니다. 이 도시에 대한 이해는 호주 전체 여행의 기초가 되며, 9~11월, 3~5월 시기에 방문하면 가장 완성도 높은 경험을 할 수 있습니다.</p>
+<p><img loading="lazy" decoding="async" alt="브리즈번(Brisbane) — 호주 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Ex-Qantas_717-200_VH-YQW_Parked_at_Brisbane_Airport_%28BNE%29_-_Removed_titles.jpg/1920px-Ex-Qantas_717-200_VH-YQW_Parked_at_Brisbane_Airport_%28BNE%29_-_Removed_titles.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <h2>브리즈번 출발 전 최종 체크리스트</h2>
 <p>브리즈번 여행을 떠나기 전 아래 항목을 반드시 확인하세요.</p>
 <ul>
@@ -212,14 +237,17 @@
 <p>사우스뱅크 파크랜드은(는) 브리즈번을(를) 대표하는 명소입니다. 시내 강변 공원. 야외 영화+공연. 무료.</p>
 <p>사우스뱅크 파크랜드의 특징은 시내 강변 공원. 야외 영화+공연. 무료. — 이 명소를 통해 브리즈번의 역사와 문화를 엿볼 수 있습니다. 방문 전에는 운영 시간과 입장료를 확인하고, 9~11월, 3~5월 시기에 맞춰 일정을 짜세요.</p>
 <p>방문 팁: 사우스뱅크 파크랜드은(는) 9~11월, 3~5월 시기에 가장 쾌적합니다. 오전 방문을 권장하며, 브리즈번 공항에서 시내까지 기차 20분 교통 수단을 활용하면 편합니다.</p>
+<p>🚇🅿️🚻 교통·주차·화장실·가는 법: <a href="/familytrip/places/attr-brisbane-01.html">사우스뱅크 파크랜드 상세 페이지</a></p>
 <h3>2. 스토리 브리지</h3>
 <p>스토리 브리지은(는) 브리즈번을(를) 대표하는 명소입니다. 브리즈번 아이콘 아치 다리. 야경+사이클 동선. 무료.</p>
 <p>스토리 브리지의 특징은 브리즈번 아이콘 아치 다리. 야경+사이클 동선. 무료. — 이 명소를 통해 브리즈번의 역사와 문화를 엿볼 수 있습니다. 방문 전에는 운영 시간과 입장료를 확인하고, 9~11월, 3~5월 시기에 맞춰 일정을 짜세요.</p>
 <p>방문 팁: 스토리 브리지은(는) 9~11월, 3~5월 시기에 가장 쾌적합니다. 오전 방문을 권장하며, 브리즈번 공항에서 시내까지 기차 20분 교통 수단을 활용하면 편합니다.</p>
+<p>🚇🅿️🚻 교통·주차·화장실·가는 법: <a href="/familytrip/places/attr-brisbane-02.html">스토리 브리지 상세 페이지</a></p>
 <h3>3. 유니버설 스튜디오 퀸즐랜드(당일치기)</h3>
 <p>유니버설 스튜디오 퀸즐랜드(당일치기)은(는) 브리즈번을(를) 대표하는 명소입니다. 1시간 드라이브. 해리포터+마블. 입장 110AUD.</p>
 <p>유니버설 스튜디오 퀸즐랜드(당일치기)의 특징은 1시간 드라이브. 해리포터+마블. 입장 110AUD. — 이 명소를 통해 브리즈번의 역사와 문화를 엿볼 수 있습니다. 방문 전에는 운영 시간과 입장료를 확인하고, 9~11월, 3~5월 시기에 맞춰 일정을 짜세요.</p>
 <p>방문 팁: 유니버설 스튜디오 퀸즐랜드(당일치기)은(는) 9~11월, 3~5월 시기에 가장 쾌적합니다. 오전 방문을 권장하며, 브리즈번 공항에서 시내까지 기차 20분 교통 수단을 활용하면 편합니다.</p>
+<p>🚇🅿️🚻 교통·주차·화장실·가는 법: <a href="/familytrip/places/attr-brisbane-03.html">유니버설 스튜디오 퀸즐랜드(당일치기) 상세 페이지</a></p>
 <h2>브리즈번 꼭 먹어야 할 음식 2가지</h2>
 <h3>1. 펍 음식</h3>
 <p>펍 음식은(는) 브리즈번의 대표 음식입니다. 호주 펍은 세계 최고. 스테이크+맥주.</p>
@@ -236,6 +264,7 @@
 <h2>여행 예산과 비용</h2>
 <p>1인 1일 식비 30~80AUD, 숙소 1박 140~300AUD, 교통 4.50AUD/회. 유니버설 합쳐 110AUD.</p>
 <p>예산 계획 시 AUD 환율을 미리 확인하세요. 카드 결제가 가능한 곳이 많지만, 시장이나 소규모 가게는 현금만 받는 경우가 있습니다. 팁 문화가 있는 나라는 서비스 요금과 별도로 10~20%를 준비하는 것이 일반적입니다.</p>
+<p><img loading="lazy" decoding="async" alt="브리즈번(Brisbane) — 호주 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Nauru_Airlines_Boeing_737-86N%28SF%29_Taxiing_at_Brisbane_Airport.jpg/1920px-Nauru_Airlines_Boeing_737-86N%28SF%29_Taxiing_at_Brisbane_Airport.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <h2>언제 가야 할까 — 브리즈번 최적 여행 시기</h2>
 <p>브리즈번의 최적 여행 시기는 9~11월, 3~5월입니다. 이 시기에는 기후가 쾌적하고 관광지가 한산해 여유롭게 즐길 수 있습니다. 성수기(여름·연휴)에는 숙소와 교통이 빠르게 마감되므로 최소 2~3개월 전에 예약하는 것이 안전합니다.</p>
 <p>계절별 팁: 봄·가을은 날씨가 가장 쾌적하고 인파도 적당합니다. 여름은 축제와 야외 활동이 풍부하지만 더위와 혼잡을 감수해야 합니다. 겨울은 스키·겨울 스포츠 목적지라면 최적이지만, 그렇지 않다면 실내 관광 중심으로 계획하세요.</p>
@@ -291,6 +320,7 @@
 <p><strong>예약</strong>: 인기 명소와 숙소는 성수기에 매진됩니다. 최소 1~2개월 전 온라인 예약을 권장합니다.</p>
 </li>
 </ul>
+<p><img loading="lazy" decoding="async" alt="브리즈번(Brisbane) — 호주 사진" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Skyway_access_to_International_Terminal_railway_station.jpg/1920px-Skyway_access_to_International_Terminal_railway_station.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" /></p>
 <h2>브리즈번 자주 묻는 질문</h2>
 <p><strong>Q. 브리즈번 교통카드는</strong></p>
 <p>A. go card가 표준입니다. 기차·버스·페리에서 사용.</p>
